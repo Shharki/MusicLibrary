@@ -113,9 +113,9 @@ Development & CI    Git, GitHub Actions (lint + tests), PyCharm
 - Project structure 
 
 #### Databáze
-![ER diagram]
-- [] Genre
-  - [] name (String)
+#![ER diagram]
+- [x] Genre
+  - [x] name (String)
 - [] Country
   - [] name (String)
 - [] Artist (Man = Singer, Composer)
