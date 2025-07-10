@@ -116,8 +116,8 @@ Development & CI    Git, GitHub Actions (lint + tests), PyCharm
 #![ER diagram]
 - [x] Genre
   - [x] name (String)
-- [] Country
-  - [] name (String)
+- [x] Country
+  - [x] name (String)
 - [] Artist (Man = Singer, Composer)
   - [] name (String)
   - [] surname (String)
