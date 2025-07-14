@@ -63,20 +63,16 @@ class Contributor(Model):
         return self.stage_name or f"{self.first_name} {self.last_name}"
 
 
-class Group(Model):
+class MusicGroup(Model):
     name = CharField(max_length=64, null=False, blank=False, unique=True)
-    description = TextField(null=True, blank=True)
-    date_of_establishment = DateField(null=True, blank=True, unique=True)
-    termination = DateField(null=True, blank=True, unique=True)
-    contributors = ManyToManyField(Contributor, related_name='groups')
-
-
-    class Meta:
-        ordering = ['name']
+    bio = TextField(null=True, blank=True)
+    founded = DateField(null=True, blank=True)
+    disbanded = DateField(null=True, blank=True)
 
     def __repr__(self):
-        return f"Group(name={self.name})"
+        return f"MusicGroup(name={self.name})"
 
     def __str__(self):
         return self.name
+
 
