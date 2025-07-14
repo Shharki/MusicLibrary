@@ -99,3 +99,15 @@ class MusicGroup(Model):
         return self.name
 
 
+class MusicGroupMembership(Model):
+    contributor = ForeignKey(Contributor, on_delete=CASCADE, related_name="memberships")
+    music_group = ForeignKey(MusicGroup, on_delete=CASCADE, related_name="members")
+    role = ManyToManyField(ContributorRole, blank=True)
+    from_date = DateField(null=True, blank=True)
+    to_date = DateField(null=True, blank=True)
+
+    def __str__(self):
+        return f"{self.contributor} in {self.music_group}"
+
+    def __repr__(self):
+        return f"MusicGroupMembership({self.__str__()})"
