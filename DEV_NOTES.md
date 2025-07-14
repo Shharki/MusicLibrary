@@ -12,6 +12,11 @@ Use this file to:
 Feel free to update, edit, and expand this file as the project evolves.
 -->
 
+14.07.2025
+#### TODO 
+- added 'Language' model
+- 
+
 #### DATABASE MODELS
 #![ER diagram]
 -[ ] Genre

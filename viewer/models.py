@@ -3,7 +3,7 @@ from django.db.models import Model, CharField, DateField, ForeignKey, TextField,
 
 
 class Genre(Model):
-    name = CharField(max_length=32, null=False, blank=False, unique=True)
+    name = CharField(max_length=64, null=False, blank=False, unique=True)
 
     class Meta:
         ordering = ['name']
@@ -27,6 +27,20 @@ class Country(Model):
 
     def __str__(self):
         return self.name
+
+
+class Language(Model):
+    name = CharField(max_length=64, unique=True)
+
+    class Meta:
+        ordering = ["name"]
+
+    def __str__(self):
+        return self.name
+
+    def __repr__(self):
+        return f"Language(name={self.name})"
+
 
 
 class Artist(Model):
