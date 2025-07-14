@@ -1,5 +1,5 @@
 from django.db.models import Model, CharField, DateField, ForeignKey, TextField, DateTimeField, SET_NULL, \
-    ManyToManyField
+    ManyToManyField, CASCADE
 
 
 class Genre(Model):
@@ -61,6 +61,19 @@ class Contributor(Model):
 
     def __str__(self):
         return self.stage_name or f"{self.first_name} {self.last_name}"
+
+
+class ContributorPreviousName(Model):
+    contributor = ForeignKey(Contributor, on_delete=CASCADE, related_name="previous_names")
+    first_name = CharField(max_length=64)
+    middle_name = CharField(max_length=64, null=True, blank=True)
+    last_name = CharField(max_length=64)
+
+    def __str__(self):
+        return f"{self.first_name} {self.middle_name or ''} {self.last_name}"
+
+    def __repr__(self):
+        return f"ContributorPreviousName({self.__str__()})"
 
 
 class MusicGroup(Model):

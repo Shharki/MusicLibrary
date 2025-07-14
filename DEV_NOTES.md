@@ -16,6 +16,9 @@ Feel free to update, edit, and expand this file as the project evolves.
 #### TODO 
 - added 'Language' model
 - changed 'Artist' into 'Contributor' model
+- changed 'Group' into 'MusicGroup' model
+- added 'ContributorPreviousName' model
+
 
 #### DATABASE MODELS
 #![ER diagram]
