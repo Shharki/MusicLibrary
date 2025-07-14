@@ -53,7 +53,7 @@ Development & CI    Git, GitHub Actions (lint + tests), PyCharm
     -[] albums, created by composer
     -[] biography
 -[] 7 artist - other 
-    -[] evaluation
+    -[] User rating
     -[] awards
     -[] pictures
 -[] 8 album 
@@ -106,32 +106,26 @@ Development & CI    Git, GitHub Actions (lint + tests), PyCharm
     -[] 15.4 country
     -[] 15.5 genre
 
-### Day 2
-- Further setting of the MusicLibrary skeleton 
-- Database creation 
-- sqlite3 -> added to .gitignore + connected to PyCharm 
-- Project structure 
-
 #### Databáze
 #![ER diagram]
 - [x] Genre
   - [x] name (String)
 - [x] Country
   - [x] name (String)
-- [] Artist (Man = Singer, Composer)
-  - [] name (String)
-  - [] surname (String)
-  - [] artistic_name (String)
-  - [] date_of_birth (Date)
-  - [] date_of_death (Date)
-  - [] country (FK -> Country)
-  - [] biography (String)
-- [] Group 
-  - [] name (String)
-  - [] description (String) 
-  - [] date_of_establish (Date)
-  - [] termination (Date)
-  - [] artists (n:m -> Artist)
+- [x] Artist (Man = Singer, Composer)
+  - [x] name (String)
+  - [x] surname (String)
+  - [x] artistic_name (String)
+  - [x] date_of_birth (Date)
+  - [x] date_of_death (Date)
+  - [x] country (FK -> Country)
+  - [x] biography (String)
+- [x] Group 
+  - [x] name (String)
+  - [x] description (String) 
+  - [x] date_of_establish (Date)
+  - [x] termination (Date)
+  - [x] artists (n:m -> Artist)
 - [] Song
   - [] title (String)
   - [] genres (n:m -> Genre)
@@ -142,13 +136,17 @@ Development & CI    Git, GitHub Actions (lint + tests), PyCharm
   - [] year (Integer -> year of issue)
   - [] description (String)
   - [] lyrics (String)
+  - [] language ()
 - [] Album 
   - [] title (String)
   - [] songs (n:m -> Song)
   - [] released_year (Integer -> year of issue)
   - [] description (String)
-  - [] front_cover (ImageField) 
-  - [] back_cover (ImageField) 
+  - [] front_cover (ImageField)
+  - [] length (Integer -> length in seconds)
+  - [] Artist ()
+  - [] Genre ()
+
   
 
 
