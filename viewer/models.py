@@ -76,6 +76,16 @@ class ContributorPreviousName(Model):
         return f"ContributorPreviousName({self.__str__()})"
 
 
+class ContributorRole(Model):
+    name = CharField(max_length=64, unique=True)
+
+    def __str__(self):
+        return self.name
+
+    def __repr__(self):
+        return f"ContributorRole(name={self.name})"
+
+
 class MusicGroup(Model):
     name = CharField(max_length=64, null=False, blank=False, unique=True)
     bio = TextField(null=True, blank=True)

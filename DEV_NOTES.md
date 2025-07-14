@@ -18,7 +18,7 @@ Feel free to update, edit, and expand this file as the project evolves.
 - changed 'Artist' into 'Contributor' model
 - changed 'Group' into 'MusicGroup' model
 - added 'ContributorPreviousName' model
-
+- added 'Contributorrole' model 
 
 #### DATABASE MODELS
 #![ER diagram]
