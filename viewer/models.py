@@ -42,27 +42,25 @@ class Language(Model):
         return f"Language(name={self.name})"
 
 
-
-class Artist(Model):
-    name = CharField(max_length=32, null=True, blank=True)
-    surname = CharField(max_length=32, null=True, blank=True)
-    artistic_name = CharField(max_length=32, null=True, blank=True)
+class Contributor(Model):
+    first_name = CharField(max_length=64, null=False, blank=False)
+    middle_name = CharField(max_length=64, null=True, blank=True)
+    last_name = CharField(max_length=64, null=False, blank=False)
+    stage_name = CharField(max_length=64, null=True, blank=True)
     date_of_birth = DateField(null=True, blank=True, unique=True)
     date_of_death = DateField(null=True, blank=True, unique=True)
-    country = ForeignKey(Country, null=True, blank=True, on_delete=SET_NULL, related_name='artists')
-    biography = TextField(null=True, blank=True)
-    created = DateTimeField(auto_now_add=True)
-    updated = DateTimeField(auto_now=True)
+    country = ForeignKey(Country, null=True, blank=True, on_delete=SET_NULL, related_name='contributors')
+    bio = TextField(null=True, blank=True)
 
 
     class Meta:
-        ordering = ['surname', 'name']
+        ordering = ['last_name', 'first_name']
 
     def __repr__(self):
-        return f"Artist(name={self.name}, surname={self.surname})"
+        return f"Contributor({self.__str__()})"
 
     def __str__(self):
-        return self.artistic_name or f"{self.name} {self.surname}"
+        return self.stage_name or f"{self.first_name} {self.last_name}"
 
 
 class Group(Model):
@@ -70,7 +68,7 @@ class Group(Model):
     description = TextField(null=True, blank=True)
     date_of_establishment = DateField(null=True, blank=True, unique=True)
     termination = DateField(null=True, blank=True, unique=True)
-    artists = ManyToManyField(Artist, related_name='groups')
+    contributors = ManyToManyField(Contributor, related_name='groups')
 
 
     class Meta:
