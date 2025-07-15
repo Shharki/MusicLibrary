@@ -1,5 +1,5 @@
 from django.db.models import Model, CharField, DateField, ForeignKey, TextField, DateTimeField, SET_NULL, \
-    ManyToManyField, CASCADE
+    ManyToManyField, CASCADE, PositiveIntegerField
 
 
 class Genre(Model):
@@ -111,3 +111,19 @@ class MusicGroupMembership(Model):
 
     def __repr__(self):
         return f"MusicGroupMembership({self.__str__()})"
+
+
+class Song(Model):
+    title = CharField(max_length=128)
+    genres = ManyToManyField(Genre, blank=True)
+    duration = PositiveIntegerField(help_text="Duration in seconds", null=True, blank=True)
+    released_year = PositiveIntegerField(null=True, blank=True)
+    summary = TextField(null=True, blank=True)
+    lyrics = TextField(null=True, blank=True)
+    language = ForeignKey(Language, on_delete=SET_NULL, null=True, blank=True, related_name="songs")
+
+    def __str__(self):
+        return self.title
+
+    def __repr__(self):
+        return f"Song(title={self.title})"
