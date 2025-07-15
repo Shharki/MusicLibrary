@@ -127,3 +127,16 @@ class Song(Model):
 
     def __repr__(self):
         return f"Song(title={self.title})"
+
+
+class SongPerformance(Model):
+    song = ForeignKey(Song, on_delete=CASCADE, related_name="performances")
+    contributor = ForeignKey(Contributor, on_delete=CASCADE, null=True, blank=True, related_name="song_performances")
+    music_group = ForeignKey(MusicGroup, on_delete=CASCADE, null=True, blank=True, related_name="song_performances")
+    role = ForeignKey(ContributorRole, on_delete=SET_NULL, null=True, blank=True)
+
+    def __str__(self):
+        return f"Performance of {self.song}"
+
+    def __repr__(self):
+        return f"SongPerformance(song={self.song})"
