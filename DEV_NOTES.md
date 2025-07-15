@@ -22,6 +22,7 @@ Feel free to update, edit, and expand this file as the project evolves.
 - added 'MusicGroupMembership' model 
 - added 'Song' model 
 - added 'SongPerformance' model 
+- added 'Album' model 
 
 
 #### DATABASE MODELS

@@ -1,5 +1,5 @@
 from django.db.models import Model, CharField, DateField, ForeignKey, TextField, DateTimeField, SET_NULL, \
-    ManyToManyField, CASCADE, PositiveIntegerField
+    ManyToManyField, CASCADE, PositiveIntegerField, ImageField
 
 
 class Genre(Model):
@@ -140,3 +140,21 @@ class SongPerformance(Model):
 
     def __repr__(self):
         return f"SongPerformance(song={self.song})"
+
+
+class Album(Model):
+    title = CharField(max_length=128)
+    songs = ManyToManyField(Song, blank=True, related_name="albums")
+    released_year = PositiveIntegerField(null=True, blank=True)
+    summary = TextField(null=True, blank=True)
+
+    class Meta:
+        ordering = ["title"]
+        verbose_name = "Album"
+        verbose_name_plural = "Albums"
+
+    def __str__(self):
+        return self.title
+
+    def __repr__(self):
+        return f"Album(title={self.title})"
