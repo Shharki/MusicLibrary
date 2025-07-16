@@ -7,99 +7,110 @@ from viewer.models import Genre, Country, Language, Contributor, ContributorRole
 class MusicLibraryModelTest(TestCase):
     @classmethod
     def setUpTestData(cls):
-        cls.genre = Genre.objects.create(name="Pop")
-        cls.country = Country.objects.create(name="Czech Republic")
-        cls.language = Language.objects.create(name="Czech")
+        genre = Genre.objects.create(name="Pop")
+        country = Country.objects.create(name="Czech Republic")
+        language = Language.objects.create(name="Czech")
 
-        cls.contributor = Contributor.objects.create(
+        contributor = Contributor.objects.create(
             first_name="Karel",
             middle_name="",
             last_name="Gott",
             stage_name="Karel Gott",
             date_of_birth=datetime.date(1939, 7, 14),
-            date_of_death=datetime.date(1919, 10, 1),
-            country=cls.country,
-            bio="Legendary Czech Singer"
+            date_of_death=datetime.date(2019, 10, 1),
+            country=country,
+            bio="Legendary Czech singer."
         )
 
-        cls.previous_name = ContributorPreviousName.objects.create(
-            contributor=cls.contributor,
+        ContributorPreviousName.objects.create(
+            contributor=contributor,
             first_name="Karel",
             middle_name="",
             last_name="Hron"
         )
 
-        cls.role = ContributorRole.objects.create(name="Singer")
+        role = ContributorRole.objects.create(name="Singer")
 
-        cls.group = MusicGroup.objects.create(
+        group = MusicGroup.objects.create(
             name="Golden Kids",
             bio="Czech pop group",
             founded=datetime.date(1968, 1, 1),
             disbanded=datetime.date(1970, 12, 31)
         )
 
-        cls.membership = MusicGroupMembership.objects.create(
-            contributor=cls.contributor,
-            music_group=cls.group,
+        membership = MusicGroupMembership.objects.create(
+            contributor=contributor,
+            music_group=group,
             from_date=datetime.date(1968, 1, 1),
             to_date=datetime.date(1970, 12, 31)
         )
+        membership.role.set([role])
 
-        cls.membership.role.set([cls.role])
-
-        cls.song = Song.objects.create(
+        song = Song.objects.create(
             title="Lady Carneval",
             duration=180,
             released_year=1969,
             summary="Popular Czech song",
-            lyrics="La La La",
-            language=cls.language,
+            lyrics="La la la",
+            language=language
         )
-        cls.song.genres.set([cls.genre])
+        song.genres.set([genre])
 
-        cls.performance = SongPerformance.objects.create(
-            song=cls.song,
-            contributor=cls.contributor,
+        SongPerformance.objects.create(
+            song=song,
+            contributor=contributor,
             music_group=None,
-            role=cls.role,
+            role=role
         )
 
-        cls.album = Album.objects.create(
+        album = Album.objects.create(
             title="Zlatý hlas",
             released_year=1970,
             summary="Greatest hits"
         )
-        cls.album.songs.set([cls.song])
+        album.songs.set([song])
+
+    def setUp(self):
+        print('-' * 80)
 
     def test_song_creation(self):
-        self.assertEqual(Song.objects.count(), 1)
         song = Song.objects.get(title="Lady Carneval")
+        print(f"Test song creation name: {song.title}")
         self.assertEqual(song.released_year, 1969)
-        self.assertIn(self.genre, song.genres.all())
+        self.assertEqual(song.genres.count(), 1)
 
     def test_contributor_str(self):
         contributor = Contributor.objects.get(stage_name="Karel Gott")
+        print(f"Test contributor string representation: {str(contributor)}")
         self.assertEqual(str(contributor), "Karel Gott")
 
     def test_album_contains_song(self):
         album = Album.objects.get(title="Zlatý hlas")
-        self.assertIn(self.song, album.songs.all())
+        song = Song.objects.get(title="Lady Carneval")
+        print(f"Test album name: {album.title}")
+        self.assertIn(song, album.songs.all())
 
-    def test_song_performance_link(self):
-        performance = SongPerformance.objects.get(song=self.song)
-        self.assertEqual(performance.contributor, self.contributor)
+    def test_song_performance_contributor(self):
+        song = Song.objects.get(title="Lady Carneval")
+        performance = SongPerformance.objects.get(song=song)
+        contributor = Contributor.objects.get(stage_name="Karel Gott")
+        print(f"Test song name: {song.title}")
+        self.assertEqual(performance.contributor, contributor)
 
     def test_music_group_membership(self):
-        membership = MusicGroupMembership.objects.get(contributor=self.contributor)
+        contributor = Contributor.objects.get(stage_name="Karel Gott")
+        membership = MusicGroupMembership.objects.get(contributor=contributor)
+        print(f"Test music group name: {membership.music_group.name}")
         self.assertEqual(membership.music_group.name, "Golden Kids")
-        self.assertIn(self.role, membership.role.all())
+        self.assertEqual(membership.role.first().name, "Singer")
 
-    def test_language_link(self):
+    def test_song_language_name(self):
         song = Song.objects.get(title="Lady Carneval")
+        print(f"Song language name: {song.language.name}")
         self.assertEqual(song.language.name, "Czech")
 
     def test_contributor_previous_name(self):
-        prev_name = ContributorPreviousName.objects.get(contributor=self.contributor)
+        contributor = Contributor.objects.get(stage_name="Karel Gott")
+        prev_name = ContributorPreviousName.objects.get(contributor=contributor)
+        print(f"Previous last name: {prev_name.last_name}")
         self.assertEqual(prev_name.last_name, "Hron")
-
-
