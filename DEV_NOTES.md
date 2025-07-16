@@ -12,8 +12,77 @@ Use this file to:
 Feel free to update, edit, and expand this file as the project evolves.
 -->
 
+15.07.2025
+Functionality
+
+- [ ] 1. Songs – listing
+    - [ ] Alphabetical list
+    - [ ] Filtering by: genre, country, language, year, album, performer, ratings
+- [ ] 2. Songs – song detail
+    - [ ] Title
+    - [ ] Genres (n:m -> Genre)
+    - [ ] Duration (in seconds)
+    - [ ] Release year
+    - [ ] Language
+    - [ ] Lyrics
+    - [ ] Summary / note
+    - [ ] Performers: individuals or groups (from SongPerformance)
+    - [ ] Performer roles (singer, composer, lyricist, etc.)
+- [ ] 3. Songs – other
+    - [ ] Album image (via Album relation)
+    - [ ] Rating (user-based)
+    - [ ] Audio sample / streaming link
+- [ ] 4. Contributors (Artists) – listing and detail
+    - [ ] Alphabetical list
+    - [ ] Contributor detail (singer, composer...)
+        - [ ] First name, last name, stage name
+        - [ ] Date of birth and death
+        - [ ] Country of origin
+        - [ ] Biography
+        - [ ] Previous names
+        - [ ] Songs performed (from SongPerformance)
+        - [ ] Groups they were members of (MusicGroupMembership)
+        - [ ] Picture 
+- [ ] 5. Music Groups – listing and detail
+    - [ ] Alphabetical list
+    - [ ] Group detail
+        - [ ] Name, description
+        - [ ] Founded / disbanded year
+        - [ ] Members, roles, active periods
+        - [ ] Songs they performed in
+- [ ] 6. Albums – listing and detail
+    - [ ] Alphabetical album list
+    - [ ] Album detail
+        - [ ] Title
+        - [ ] Release year
+        - [ ] Summary
+        - [ ] List of songs (with performers, durations, etc.)
+        - [ ] Total album duration (via get_duration())
+        - [ ] Genres, languages, performers (derived from songs)
+- [ ] 7. Countries – listing and detail
+    - [ ] Alphabetical list
+    - [ ] Detail (list of contributors from the given country)
+- [ ] 8. Genres – listing and detail
+    - [ ] Alphabetical list
+    - [ ] Detail (list of songs of the given genre)
+- [ ] 9. CRUD operations (via admin or views):
+    - [ ] Create
+        - [ ] Songs, Contributors, Albums, Countries, Genres
+    - [ ] Update
+        - [ ] Songs, Contributors, Albums, Countries, Genres
+    - [ ] Delete
+        - [ ] Songs, Contributors, Albums, Countries, Genres
+- [ ] 10. Authentication and Users
+    - [ ] Display of logged-in user
+    - [ ] Access restrictions by user type (regular vs. admin)
+    - [ ] Login / Logout / Password reset
+    - [ ] Registration, user profile
+- [ ] 11. Authorization
+    - [ ] Permissions for CRUD operations
+    - [ ] Protection of specific views (e.g. admin only)
+
 14.07.2025
-#### TODO 
+
 - added 'Language' model
 - changed 'Artist' into 'Contributor' model
 - changed 'Group' into 'MusicGroup' model
@@ -26,6 +95,63 @@ Feel free to update, edit, and expand this file as the project evolves.
 
 
 #### DATABASE MODELS
+**14.07.2025**
+
+Final database: 
+- [x] Genre  
+  - [x] name (String)
+- [x] Country  
+  - [x] name (String)
+- [x] Language  
+  - [x] name (String)
+- [x] Contributor  
+  - [x] first_name (String)  
+  - [x] middle_name (String)  
+  - [x] last_name (String)  
+  - [x] stage_name (String)  
+  - [x] date_of_birth (Date)  
+  - [x] date_of_death (Date)  
+  - [x] country (FK -> Country)  
+  - [x] bio (Text)
+- [x] ContributorPreviousName  
+  - [x] contributor (FK -> Contributor)  
+  - [x] first_name (String)  
+  - [x] middle_name (String)  
+  - [x] last_name (String)
+- [x] ContributorRole  
+  - [x] name (String)
+- [x] MusicGroup  
+  - [x] name (String)  
+  - [x] bio (Text)  
+  - [x] founded (Date)  
+  - [x] disbanded (Date)
+- [x] MusicGroupMembership  
+  - [x] contributor (FK -> Contributor)  
+  - [x] music_group (FK -> MusicGroup)  
+  - [x] role (n:m -> ContributorRole)  
+  - [x] from_date (Date)  
+  - [x] to_date (Date)
+- [x] Song  
+  - [x] title (String)  
+  - [x] genres (n:m -> Genre)  
+  - [x] duration (Integer, in seconds)  
+  - [x] released_year (Integer)  
+  - [x] summary (Text)  
+  - [x] lyrics (Text)  
+  - [x] language (FK -> Language)
+- [x] SongPerformance  
+  - [x] song (FK -> Song)  
+  - [x] contributor (FK -> Contributor)  
+  - [x] music_group (FK -> MusicGroup) 
+  - [x] role (FK -> ContributorRole)
+- [x] Album  
+  - [x] title (String)  
+  - [x] songs (n:m -> Song)  
+  - [x] released_year (Integer)  
+  - [x] summary (Text)
+
+
+Originally updated on the basic data
 #![ER diagram]
 -[ ] Genre
   -[ ] name (String)
@@ -150,9 +276,7 @@ and to prepare for future features such as data filtering based on these relatio
   - ... FK artist -> artist
   - ... FK role -> role
 
-
-chystaná úprava README
-#### DATABASE MODELS
+chystaná úprava README:
 #![ER diagram]
 -[x] Genre
   -[x] name (String)

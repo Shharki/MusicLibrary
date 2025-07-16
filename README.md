@@ -13,141 +13,125 @@ Authentication      Django auth + accounts
 Development & CI    Git, GitHub Actions (lint + tests), PyCharm
 
 ## PROJECT Functionality 
--[] 1 songs 
-    -[] list (alphabetical)  
--[] 2 songs - details 
-    -[] original name
-    -[] cz name
-    -[] genre
-    -[] country
-    -[] singer/group
-    -[] composer
-    -[] length
-    -[] year
-    -[] description
--[] 3 songs - other
-    -[] evaluation
-    -[] awards
-    -[] picture - album cover
-    -[] song_text
-    -[] streaming
-    -[] song sample
--[] 4 songs - filter 
-    -[] by genre
-    -[] by country 
-    -[] by year 
-    -[] by album 
-    -[] by artist
-    -[] by evaluation
-    -[] by awards
--[] 5 artist - list (alphabetical)
--[] 6 artist - details (singer/composer/group)
-    -[] name
-    -[] surname
-    -[] artist name
-    -[] country
-    -[] date of birth
-    -[] date of death
-    -[] songs, which are interpreted by singer/group 
-    -[] songs, personally composed by composer 
-    -[] albums, created by composer
-    -[] biography
--[] 7 artist - other 
-    -[] User rating
-    -[] awards
-    -[] pictures
--[] 8 album 
-    -[] 8.1 list (alphabetical)
-    -[] 8.2 details
-        -[] original name
-        -[] cz name
-        -[] genre
-        -[] country
-        -[] singer
-        -[] composer
-        -[] length
-        -[] year of establishment
-        -[] description
--[] 9 country
-    -[] 9.1 list (alphabetical)
-    -[] 9.2 details
--[] 10 genre
-    -[] 10.1 list (abecedně)
-    -[] 10.2 details
--[] 11 creating records (C)
-    -[] 11.1 song
-    -[] 11.2 artist
-    -[] 11.3 album
-    -[] 11.4 country
-    -[] 11.5 genre
--[] 12 updating records (U)
-    -[] 12.1 song
-    -[] 12.2 artist
-    -[] 12.3 album
-    -[] 12.4 country
-    -[] 12.5 genre
--[] 13 deleting records (D)
-    -[] 13.1 song
-    -[] 13.2 artis
-    -[] 13.3 album
-    -[] 13.4 country
-    -[] 13.5 genre
--[] 14 autenthication 
-    -[] 14.1 display the logged in user
-    -[] 14.2 user display limitation
-    -[] 14.3 superuser display limitation
-    -[] 14.4 login
-    -[] 14.5 logout-password change - reset
-    -[] 14.6 registration - profile
--[] 15 authorization
-    -[] 15.1 song
-    -[] 15.2 artis
-    -[] 15.3 album
-    -[] 15.4 country
-    -[] 15.5 genre
+- [ ] 1. Songs – listing
+    - [ ] Alphabetical list
+    - [ ] Filtering by: genre, country, language, year, album, performer, ratings
+- [ ] 2. Songs – song detail
+    - [ ] Title
+    - [ ] Genres (n:m -> Genre)
+    - [ ] Duration (in seconds)
+    - [ ] Release year
+    - [ ] Language
+    - [ ] Lyrics
+    - [ ] Summary / note
+    - [ ] Performers: individuals or groups (from SongPerformance)
+    - [ ] Performer roles (singer, composer, lyricist, etc.)
+- [ ] 3. Songs – other
+    - [ ] Album image (via Album relation)
+    - [ ] Rating (user-based)
+    - [ ] Audio sample / streaming link
+- [ ] 4. Contributors (Artists) – listing and detail
+    - [ ] Alphabetical list
+    - [ ] Contributor detail (singer, composer...)
+        - [ ] First name, last name, stage name
+        - [ ] Date of birth and death
+        - [ ] Country of origin
+        - [ ] Biography
+        - [ ] Previous names
+        - [ ] Songs performed (from SongPerformance)
+        - [ ] Groups they were members of (MusicGroupMembership)
+        - [ ] Picture 
+- [ ] 5. Music Groups – listing and detail
+    - [ ] Alphabetical list
+    - [ ] Group detail
+        - [ ] Name, description
+        - [ ] Founded / disbanded year
+        - [ ] Members, roles, active periods
+        - [ ] Songs they performed in
+- [ ] 6. Albums – listing and detail
+    - [ ] Alphabetical album list
+    - [ ] Album detail
+        - [ ] Title
+        - [ ] Release year
+        - [ ] Summary
+        - [ ] List of songs (with performers, durations, etc.)
+        - [ ] Total album duration (via get_duration())
+        - [ ] Genres, languages, performers (derived from songs)
+- [ ] 7. Countries – listing and detail
+    - [ ] Alphabetical list
+    - [ ] Detail (list of contributors from the given country)
+- [ ] 8. Genres – listing and detail
+    - [ ] Alphabetical list
+    - [ ] Detail (list of songs of the given genre)
+- [ ] 9. CRUD operations (via admin or views):
+    - [ ] Create
+        - [ ] Songs, Contributors, Albums, Countries, Genres
+    - [ ] Update
+        - [ ] Songs, Contributors, Albums, Countries, Genres
+    - [ ] Delete
+        - [ ] Songs, Contributors, Albums, Countries, Genres
+- [ ] 10. Authentication and Users
+    - [ ] Display of logged-in user
+    - [ ] Access restrictions by user type (regular vs. admin)
+    - [ ] Login / Logout / Password reset
+    - [ ] Registration, user profile
+- [ ] 11. Authorization
+    - [ ] Permissions for CRUD operations
+    - [ ] Protection of specific views (e.g. admin only)
 
 #### Databáze
-#![ER diagram]
-- [x] Genre
+![ER diagram](./files/ER_diagram_v1.png)
+- [x] Genre  
   - [x] name (String)
-- [x] Country
+- [x] Country  
   - [x] name (String)
-- [x] Artist (Man = Singer, Composer)
+- [x] Language  
   - [x] name (String)
-  - [x] surname (String)
-  - [x] artistic_name (String)
-  - [x] date_of_birth (Date)
-  - [x] date_of_death (Date)
-  - [x] country (FK -> Country)
-  - [x] biography (String)
-- [x] Group 
+- [x] Contributor  
+  - [x] first_name (String)  
+  - [x] middle_name (String)  
+  - [x] last_name (String)  
+  - [x] stage_name (String)  
+  - [x] date_of_birth (Date)  
+  - [x] date_of_death (Date)  
+  - [x] country (FK -> Country)  
+  - [x] bio (Text)
+- [x] ContributorPreviousName  
+  - [x] contributor (FK -> Contributor)  
+  - [x] first_name (String)  
+  - [x] middle_name (String)  
+  - [x] last_name (String)
+- [x] ContributorRole  
   - [x] name (String)
-  - [x] description (String) 
-  - [x] date_of_establish (Date)
-  - [x] termination (Date)
-  - [x] artists (n:m -> Artist)
-- [] Song
-  - [] title (String)
-  - [] genres (n:m -> Genre)
-  - [] performers (n:m -> Artist)
-  - [] groups (n:m -> Group)
-  - [] composers (n:m -> Artist)
-  - [] length (Integer -> length in seconds)
-  - [] year (Integer -> year of issue)
-  - [] description (String)
-  - [] lyrics (String)
-  - [] language ()
-- [] Album 
-  - [] title (String)
-  - [] songs (n:m -> Song)
-  - [] released_year (Integer -> year of issue)
-  - [] description (String)
-  - [] front_cover (ImageField)
-  - [] length (Integer -> length in seconds)
-  - [] Artist ()
-  - [] Genre ()
-
-  
+- [x] MusicGroup  
+  - [x] name (String)  
+  - [x] bio (Text)  
+  - [x] founded (Date)  
+  - [x] disbanded (Date)
+- [x] MusicGroupMembership  
+  - [x] contributor (FK -> Contributor)  
+  - [x] music_group (FK -> MusicGroup)  
+  - [x] role (n:m -> ContributorRole)  
+  - [x] from_date (Date)  
+  - [x] to_date (Date)
+- [x] Song  
+  - [x] title (String)  
+  - [x] genres (n:m -> Genre)  
+  - [x] duration (Integer, in seconds)  
+  - [x] released_year (Integer)  
+  - [x] summary (Text)  
+  - [x] lyrics (Text)  
+  - [x] language (FK -> Language)
+- [x] SongPerformance  
+  - [x] song (FK -> Song)  
+  - [x] contributor (FK -> Contributor)  
+  - [x] music_group (FK -> MusicGroup) 
+  - [x] role (FK -> ContributorRole)
+- [x] Album  
+  - [x] title (String)  
+  - [x] songs (n:m -> Song)  
+  - [x] released_year (Integer)  
+  - [x] summary (Text)  
 
 
 
