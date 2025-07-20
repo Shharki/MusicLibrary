@@ -44,7 +44,7 @@ class MusicLibraryModelTest(TestCase):
             from_date=datetime.date(1968, 1, 1),
             to_date=datetime.date(1970, 12, 31)
         )
-        membership.role.set([role])
+        membership.contributor_role.set([role])
 
         song = Song.objects.create(
             title="Lady Carneval",
@@ -60,7 +60,7 @@ class MusicLibraryModelTest(TestCase):
             song=song,
             contributor=contributor,
             music_group=None,
-            role=role
+            contributor_role=role
         )
 
         album = Album.objects.create(
@@ -102,7 +102,7 @@ class MusicLibraryModelTest(TestCase):
         membership = MusicGroupMembership.objects.get(contributor=contributor)
         print(f"Test music group name: {membership.music_group.name}")
         self.assertEqual(membership.music_group.name, "Golden Kids")
-        self.assertEqual(membership.role.first().name, "Singer")
+        self.assertEqual(membership.contributor_role.first().name, "Singer")
 
     def test_song_language_name(self):
         song = Song.objects.get(title="Lady Carneval")
