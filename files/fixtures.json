@@ -1,0 +1,268 @@
+[
+  {
+    "model": "viewer.genre",
+    "pk": 1,
+    "fields": {
+      "name": "nu metal"
+    }
+  },
+  {
+    "model": "viewer.genre",
+    "pk": 2,
+    "fields": {
+      "name": "rap rock"
+    }
+  },
+  {
+    "model": "viewer.genre",
+    "pk": 3,
+    "fields": {
+      "name": "alternative metal"
+    }
+  },
+  {
+    "model": "viewer.genre",
+    "pk": 4,
+    "fields": {
+      "name": "rock"
+    }
+  },
+  {
+    "model": "viewer.genre",
+    "pk": 5,
+    "fields": {
+      "name": "rap metal"
+    }
+  },
+  {
+    "model": "viewer.country",
+    "pk": 1,
+    "fields": {
+      "name": "United States of America"
+    }
+  },
+  {
+    "model": "viewer.language",
+    "pk": 1,
+    "fields": {
+      "name": "English"
+    }
+  },
+  {
+    "model": "viewer.contributor",
+    "pk": 1,
+    "fields": {
+      "first_name": "Chester",
+      "middle_name": "Charles",
+      "last_name": "Bennington",
+      "stage_name": null,
+      "date_of_birth": "1976-03-20",
+      "date_of_death": "2017-07-20",
+      "country": 1,
+      "bio": "Chester Charles Bennington (March 20, 1976 – July 20, 2017) was an American singer who was the lead vocalist of the rock band Linkin Park. He was also the lead vocalist of Grey Daze, Dead by Sunrise, and Stone Temple Pilots at various points in his career.\r\n\r\nBennington first gained prominence as a vocalist following the release of Linkin Park's debut album, Hybrid Theory (2000), which was a worldwide commercial success. The album was certified Diamond by the Recording Industry Association of America in 2005, making it the bestselling debut album of the decade, as well as one of the few albums ever to achieve that many sales. He continued as the band's lead vocalist for their next six studio albums, from Meteora (2003) to One More Light (2017), with each charting within the top three spots of the Billboard 200.\r\n\r\nBennington formed his own band, Dead by Sunrise, as a side project in 2005. The band's debut album, Out of Ashes, was released on October 13, 2009. He became the lead singer of Stone Temple Pilots in 2013 to release the extended play record High Rise on October 8, 2013, via their own record label, Play Pen, but left in 2015 to focus solely on Linkin Park. As an actor, he appeared in films such as Crank (2006), Crank: High Voltage (2009), and Saw 3D (2010).\r\n\r\nBennington struggled with depression and substance abuse for most of his life, starting in his childhood. On July 20, 2017, he was found dead at his home in Palos Verdes Estates, California. The coroner concluded that his death was a result of suicide by hanging. Hit Parader magazine placed Bennington at number 46 on their list of the \"Top 100 Metal Vocalists of All Time.\" Bennington has been ranked by several publications as one of the greatest rock vocalists of his generation. Writing for Billboard, Dan Weiss stated that Bennington \"turned nu-metal universal\"."
+    }
+  },
+  {
+    "model": "viewer.contributor",
+    "pk": 2,
+    "fields": {
+      "first_name": "Michael",
+      "middle_name": "Kenji",
+      "last_name": "Shinoda",
+      "stage_name": "Mike Shinoda",
+      "date_of_birth": "1977-02-11",
+      "date_of_death": null,
+      "country": 1,
+      "bio": "Michael Kenji Shinoda ( shin-OH-də; born February 11, 1977) is an American rapper, singer, songwriter, record producer, and graphic designer. He co-founded the rock band Linkin Park in 1996 and is the band's co-lead vocalist, as well as rhythm guitarist, keyboardist, primary songwriter and producer. Shinoda later created a hip-hop-driven side project, Fort Minor, in 2004. He has also served as a producer for tracks and albums by artists such as Lupe Fiasco, Styles of Beyond, and the X-Ecutioners.\r\n\r\nShinoda is also the co-founder of Machine Shop Records, a California-based record label. Outside of music, Shinoda is an artist and graphic designer. He has painted several pieces of artwork, some of which have been featured in the Japanese American National Museum. In 2018, Shinoda released his debut solo album Post Traumatic, which consists of 18 songs about his feelings following the death of Chester Bennington, his Linkin Park bandmate."
+    }
+  },
+  {
+    "model": "viewer.contributorrole",
+    "pk": 1,
+    "fields": {
+      "name": "bass guitar"
+    }
+  },
+  {
+    "model": "viewer.contributorrole",
+    "pk": 2,
+    "fields": {
+      "name": "drums"
+    }
+  },
+  {
+    "model": "viewer.contributorrole",
+    "pk": 3,
+    "fields": {
+      "name": "guitar"
+    }
+  },
+  {
+    "model": "viewer.contributorrole",
+    "pk": 4,
+    "fields": {
+      "name": "vocals"
+    }
+  },
+  {
+    "model": "viewer.contributorrole",
+    "pk": 5,
+    "fields": {
+      "name": "writer"
+    }
+  },
+  {
+    "model": "viewer.contributorrole",
+    "pk": 7,
+    "fields": {
+      "name": "vocalist"
+    }
+  },
+  {
+    "model": "viewer.contributorrole",
+    "pk": 8,
+    "fields": {
+      "name": "keyboard"
+    }
+  },
+  {
+    "model": "viewer.musicgrouprole",
+    "pk": 1,
+    "fields": {
+      "name": "main band"
+    }
+  },
+  {
+    "model": "viewer.musicgrouprole",
+    "pk": 2,
+    "fields": {
+      "name": "guest band"
+    }
+  },
+  {
+    "model": "viewer.musicgrouprole",
+    "pk": 3,
+    "fields": {
+      "name": "backing band"
+    }
+  },
+  {
+    "model": "viewer.musicgrouprole",
+    "pk": 4,
+    "fields": {
+      "name": "orchestra"
+    }
+  },
+  {
+    "model": "viewer.musicgroup",
+    "pk": 1,
+    "fields": {
+      "name": "Linkin Park",
+      "bio": "inkin Park is an American rock band formed in Agoura Hills, California, in 1996. The band's current lineup consists of vocalist/rhythm guitarist/keyboardist Mike Shinoda, lead guitarist Brad Delson, DJ/turntablist Joe Hahn, bassist Dave Farrell, vocalist Emily Armstrong, and drummer Colin Brittain. The lineup for the band's first seven studio albums included lead vocalist Chester Bennington and drummer Rob Bourdon; after Bennington's death in July 2017, the band endured a seven-year hiatus, during which, Bourdon chose to depart from the band. In September 2024, Linkin Park's reformation was announced along with the addition of Armstrong and Brittain.\r\n\r\nCategorized mainly as alternative rock and nu metal, Linkin Park's earlier music spanned a fusion of heavy metal and hip hop, with their later music featuring more electronica and pop elements. Linkin Park rose to international fame with their debut studio album, Hybrid Theory (2000), which became certified Diamond by the Recording Industry Association of America (RIAA). Released during the peak of the nu metal scene, the album's singles' heavy airplay on MTV led to the singles \"One Step Closer\", \"Crawling\", and \"In the End\" all charting highly on the US Mainstream Rock chart. The lattermost also crossed over to the number two spot on the nation's Billboard Hot 100. Their second album, Meteora (2003), continued the band's success. The band explored experimental sounds on their third album, Minutes to Midnight (2007). By the end of the decade, Linkin Park was among the most successful and popular rock acts.\r\n\r\nThe band continued to explore a wider variation of musical types on their fourth album, A Thousand Suns (2010), layering their music with more electronic sounds. The band's fifth album, Living Things (2012), combined musical elements from all of their previous records. Their sixth album, The Hunting Party (2014), returned to a heavier rock sound, while their seventh album, One More Light (2017), was a substantially more pop-oriented record. The band's eighth album, From Zero (2024), returned to more of their original sound while also incorporating musical elements from all of their previous records.\r\n\r\nLinkin Park is among both the best-selling bands of the 21st century and the world's best-selling music artists, having sold over 100 million records worldwide. They have won two Grammy Awards, six American Music Awards, four Billboard Music Awards, four MTV Video Music Awards, 10 MTV Europe Music Awards, and three World Music Awards. In 2003, MTV2 named Linkin Park the sixth-greatest band of the music video era and the third-best of the new millennium. Billboard ranked Linkin Park No. 19 on the Best Artists of the Decade list. In 2012, the band was voted as the greatest artist of the 2000s in a Bracket Madness poll on VH1. In 2014, the band was declared \"the Biggest Rock Band in the World Right Now\" by Kerrang!.",
+      "founded": "1996-01-01",
+      "disbanded": null
+    }
+  },
+  {
+    "model": "viewer.musicgroupmembership",
+    "pk": 1,
+    "fields": {
+      "contributor": 1,
+      "music_group": 1,
+      "from_date": "1999-01-01",
+      "to_date": "2017-07-20",
+      "contributor_role": [
+        7,
+        5
+      ]
+    }
+  },
+  {
+    "model": "viewer.musicgroupmembership",
+    "pk": 2,
+    "fields": {
+      "contributor": 2,
+      "music_group": 1,
+      "from_date": "1996-01-01",
+      "to_date": null,
+      "contributor_role": [
+        3,
+        8,
+        7
+      ]
+    }
+  },
+  {
+    "model": "viewer.song",
+    "pk": 1,
+    "fields": {
+      "title": "Papercut",
+      "duration": 185,
+      "released_year": 2000,
+      "summary": "",
+      "lyrics": "Why does it feel like night today?\r\nSomething in here's not right today\r\nWhy am I so uptight today?\r\nParanoia's all I got left\r\nI don't know what stressed me first\r\nOr how the pressure was fed\r\nBut I know just what it feels like\r\nTo have a voice in the back of my head\r\nLike a face that I hold inside\r\nA face that awakes when I close my eyes\r\nA face that watches every time I lie\r\nA face that laughs every time I fall (and watches everything)\r\nSo I know that when it's time to sink or swim\r\nThat the face inside is here in me, right underneath my skin\r\nIt's like, I'm paranoid, lookin' over my back\r\nIt's like a whirlwind inside of my head\r\nIt's like, I can't stop what I'm hearing within\r\nIt's like the face inside is right beneath my skin\r\nI know I've got a face in me\r\nPoints out all my mistakes to me\r\nYou've got a face on the inside too\r\nAnd your paranoia's probably worse\r\nI don't know what set me off first\r\nBut I know what I can't stand\r\nEverybody acts like the fact of the matter is\r\nI can't add up to what you can\r\nBut everybody has a face that they hold inside\r\nA face that awakes when I close my eyes\r\nA face that watches every time they lie\r\nA face that laughs every time they fall (and watches everything)\r\nSo you know that when it's time to sink or swim\r\nThat the face inside is watching you too, right inside your skin\r\nIt's like, I'm paranoid, lookin' over my back\r\nIt's like a whirlwind inside of my head\r\nIt's like, I can't stop what I'm hearing within\r\nIt's like the face inside is right beneath the skin\r\nIt's like, I'm paranoid, lookin' over my back\r\nIt's like a whirlwind inside of my head\r\nIt's like, I can't stop what I'm hearing within\r\nIt's like the face inside is right beneath my skin\r\nThe face inside is right beneath your skin\r\nThe face inside is right beneath your skin\r\nThe face inside is right beneath your skin\r\nThe sun goes down\r\nI feel the light betray me\r\nThe sun goes down\r\nI feel the light betray me\r\nit's like, I'm paranoid, lookin' over my back\r\nIt's like a whirlwind inside of my head\r\nIt's like, I can't stop what I'm hearing within\r\nIt's like the face inside is right beneath the skin (I feel the light betray me)\r\nit's like, I'm paranoid, lookin' over my back\r\nIt's like a whirlwind inside of my head\r\nIt's like, I can't stop what I'm hearing within\r\nIt's like, I can't stop what I'm hearing within (I feel the light betray me)\r\nIt's like, I can't stop what I'm hearing within (ah)\r\nIt's like the face inside is right beneath my skin",
+      "language": 1,
+      "genres": [
+        3,
+        1,
+        5,
+        2,
+        4
+      ]
+    }
+  },
+  {
+    "model": "viewer.song",
+    "pk": 2,
+    "fields": {
+      "title": "One Step Closer",
+      "duration": 156,
+      "released_year": 2000,
+      "summary": "",
+      "lyrics": "I cannot take this anymore\r\nSaying everything I've said before\r\nAll these words they make no sense\r\nI found bliss in ignorance\r\nLess I hear the less you'll say\r\nYou'll find that out anyway\r\n\r\n(Just like before)\r\n\r\nEverything you say to me\r\n(Takes me one step closer to the edge, and I'm about to break)\r\nI need a little room to breathe\r\n('Cause I'm one step closer to the edge, I'm about to break)\r\n\r\nI find the answers aren't so clear\r\nWish I could find a way to disappear\r\nAll these thoughts they make no sense\r\nI found bliss in ignorance\r\nNothing seems to go away\r\nOver and over again\r\n\r\n(Just like before)\r\n\r\nEverything you say to me\r\n(Takes me one step closer to the edge, and I'm about to break)\r\nI need a little room to breathe\r\n('Cause I'm one step closer to the edge, I'm about to break)\r\n\r\nEverything you say to me\r\n(Takes me one step closer to the edge, and I'm about to break)\r\nI need a little room to breathe\r\n('Cause I'm one step closer to the edge, I'm about to break)\r\n\r\nShut up when I'm talking to you!\r\n\r\nShut up!\r\nShut up!\r\nShut up!\r\nShut up when I'm talking to you!\r\nShut up!\r\nShut up!\r\nShut up!\r\nShut up, I'm about to break\r\n\r\nEverything you say to me\r\n(Takes me one step closer to the edge, and I'm about to break)\r\nI need a little room to breathe\r\n('Cause I'm one step closer to the edge, I'm about to break)\r\n\r\nEverything you say to me\r\n(Takes me one step closer to the edge, and I'm about to break)\r\nI need a little room to breathe\r\n('Cause I'm one step closer to the edge, and I'm about to break)",
+      "language": 1,
+      "genres": [
+        3,
+        1,
+        5,
+        2,
+        4
+      ]
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 1,
+    "fields": {
+      "song": 1,
+      "contributor": null,
+      "contributor_role": null,
+      "music_group": 1,
+      "music_group_role": 1
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 2,
+    "fields": {
+      "song": 2,
+      "contributor": null,
+      "contributor_role": null,
+      "music_group": 1,
+      "music_group_role": 1
+    }
+  },
+  {
+    "model": "viewer.album",
+    "pk": 1,
+    "fields": {
+      "title": "Hybrid Theory",
+      "released_year": 2000,
+      "summary": "Hybrid Theory is the debut studio album by American rock band Linkin Park, released on October 24, 2000, by Warner Bros. Records. Recorded at NRG Recordings in North Hollywood, California, and produced by Don Gilmore, the album's lyrical themes deal with problems lead vocalist Chester Bennington experienced during his adolescence, including drug abuse and the constant fighting and eventual divorce of his parents. Hybrid Theory takes its title from the previous name of the band as well as the concepts of music theory and combining different styles. It is also the band's only album in which bassist Dave \"Phoenix\" Farrell does not play, however, he is credited as a member of the band as well as a songwriter on some of its tracks.",
+      "songs": [
+        2,
+        1
+      ]
+    }
+  }
+]

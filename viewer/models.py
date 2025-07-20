@@ -69,6 +69,10 @@ class ContributorPreviousName(Model):
     middle_name = CharField(max_length=64, null=True, blank=True)
     last_name = CharField(max_length=64)
 
+    class Meta:
+        ordering = ['last_name', 'first_name']
+        db_table = 'viewer_contributor_previous_name'
+
     def __str__(self):
         return f"{self.first_name} {self.middle_name or ''} {self.last_name}"
 
@@ -79,6 +83,10 @@ class ContributorPreviousName(Model):
 class ContributorRole(Model):
     name = CharField(max_length=64, unique=True)
 
+    class Meta:
+        ordering = ['name']
+        db_table = 'viewer_contributor_role'
+
     def __str__(self):
         return self.name
 
@@ -86,11 +94,29 @@ class ContributorRole(Model):
         return f"ContributorRole(name={self.name})"
 
 
+class MusicGroupRole(Model):
+    name = CharField(max_length=64, unique=True)
+
+    class Meta:
+        ordering = ['name']
+        db_table = 'viewer_music_group_role'
+
+    def __str__(self):
+        return self.name
+
+    def __repr__(self):
+        return f"MusicGroupRole(name={self.name})"
+
+
 class MusicGroup(Model):
     name = CharField(max_length=64, null=False, blank=False, unique=True)
     bio = TextField(null=True, blank=True)
     founded = DateField(null=True, blank=True)
     disbanded = DateField(null=True, blank=True)
+
+    class Meta:
+        ordering = ['name']
+        db_table = 'viewer_music_group'
 
     def __repr__(self):
         return f"MusicGroup(name={self.name})"
@@ -102,9 +128,13 @@ class MusicGroup(Model):
 class MusicGroupMembership(Model):
     contributor = ForeignKey(Contributor, on_delete=CASCADE, related_name="memberships")
     music_group = ForeignKey(MusicGroup, on_delete=CASCADE, related_name="members")
-    role = ManyToManyField(ContributorRole, blank=True)
+    contributor_role = ManyToManyField(ContributorRole, blank=True)
     from_date = DateField(null=True, blank=True)
     to_date = DateField(null=True, blank=True)
+
+    class Meta:
+        ordering = ['contributor', 'music_group']
+        db_table = 'viewer_music_group_membership'
 
     def __str__(self):
         return f"{self.contributor} in {self.music_group}"
@@ -122,6 +152,9 @@ class Song(Model):
     lyrics = TextField(null=True, blank=True)
     language = ForeignKey(Language, on_delete=SET_NULL, null=True, blank=True, related_name="songs")
 
+    class Meta:
+        ordering = ['title']
+
     def __str__(self):
         return self.title
 
@@ -132,8 +165,13 @@ class Song(Model):
 class SongPerformance(Model):
     song = ForeignKey(Song, on_delete=CASCADE, related_name="performances")
     contributor = ForeignKey(Contributor, on_delete=CASCADE, null=True, blank=True, related_name="song_performances")
+    contributor_role = ForeignKey(ContributorRole, on_delete=SET_NULL, null=True, blank=True)
     music_group = ForeignKey(MusicGroup, on_delete=CASCADE, null=True, blank=True, related_name="song_performances")
-    role = ForeignKey(ContributorRole, on_delete=SET_NULL, null=True, blank=True)
+    music_group_role = ForeignKey(MusicGroupRole, on_delete=SET_NULL, null=True, blank=True)
+
+    class Meta:
+        ordering = ['song']
+        db_table = 'viewer_song_performance'
 
     def __str__(self):
         return f"Performance of {self.song}"
