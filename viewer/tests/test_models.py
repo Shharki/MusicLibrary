@@ -114,3 +114,46 @@ class MusicLibraryModelTest(TestCase):
         prev_name = ContributorPreviousName.objects.get(contributor=contributor)
         print(f"Previous last name: {prev_name.last_name}")
         self.assertEqual(prev_name.last_name, "Hron")
+
+
+class GenreModelTest(TestCase):
+    def test_str(self):
+        genre = Genre.objects.create(name="Rock")
+        self.assertEqual(str(genre), "Rock")
+
+
+class CountryModelTest(TestCase):
+    def test_str(self):
+        country = Country.objects.create(name="Czechia")
+        self.assertEqual(str(country), "Czechia")
+
+
+class LanguageModelTest(TestCase):
+    def test_str(self):
+        lang = Language.objects.create(name="English")
+        self.assertEqual(str(lang), "English")
+
+
+class ContributorModelTest(TestCase):
+
+    def test_str_with_stage_name(self):
+        c = Contributor.objects.create(first_name="David", last_name="Bowie", stage_name="Ziggy")
+        self.assertEqual(str(c), "Ziggy")
+
+    def test_str_without_stage_name(self):
+        c = Contributor.objects.create(first_name="John", last_name="Lennon")
+        self.assertEqual(str(c), "John Lennon")
+
+
+class ContributorRoleModelTest(TestCase):
+    def test_str(self):
+        role = ContributorRole.objects.create(name="Singer")
+        self.assertEqual(str(role), "Singer")
+
+
+class SongModelTest(TestCase):
+    def test_str_and_repr(self):
+        lang = Language.objects.create(name="Czech")
+        song = Song.objects.create(title="Test Song", language=lang)
+        self.assertEqual(str(song), "Test Song")
+        self.assertEqual(repr(song), "Song(title=Test Song)")

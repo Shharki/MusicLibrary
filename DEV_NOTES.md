@@ -316,4 +316,8 @@ chystaná úprava README:
   -[ ] length (Integer -> length in seconds)
   -[ ] Artist ()
   -[ ] Genre ()
-  
+
+#### Tests
+
+Duplicity:
+- tests.py (test_contributor_str) -> test_models.py (ContributorModelTest) - test_str_with_stage_name
