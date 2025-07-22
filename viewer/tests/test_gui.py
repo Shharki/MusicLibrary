@@ -9,7 +9,8 @@ from selenium.webdriver.common.by import By
 class GuiTestWithSelenium(LiveServerTestCase):
 
     # GUI test spustíme zakomentováním/odstraněním @skip
-    #skip
+    # Nelze commitnout do GITU, neprojde testy
+    @skip
     def test_home_and_songs_page(self):
         drivers = [webdriver.Firefox(), webdriver.Chrome()]
         for driver in drivers:
