@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Song list
+{% endblock %}
+
+{% block content %}
+    <h1>Song list</h1>
+    {% for song in songs %}
+        {{ song }} <br>
+    {% empty %}
+        There is no song in the database.
+    {% endfor %}
+{% endblock %}
