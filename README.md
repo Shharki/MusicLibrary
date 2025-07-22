@@ -14,7 +14,7 @@ Development & CI    Git, GitHub Actions (lint + tests), PyCharm
 
 ## PROJECT Functionality 
 - [ ] 1. Songs – listing
-    - [ ] Alphabetical list
+    - [x] Alphabetical list
     - [ ] Filtering by: genre, country, language, year, album, performer, ratings
 - [ ] 2. Songs – song detail
     - [ ] Title
