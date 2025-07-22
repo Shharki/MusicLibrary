@@ -80,7 +80,7 @@ Development & CI    Git, GitHub Actions (lint + tests), PyCharm
     - [ ] Protection of specific views (e.g. admin only)
 
 #### Databáze
-![ER diagram](./files/ER_diagram_v1.png)
+![ER diagram](./files/ER_diagram_v2.png)
 - [x] Genre  
   - [x] name (String)
 - [x] Country  
@@ -103,6 +103,8 @@ Development & CI    Git, GitHub Actions (lint + tests), PyCharm
   - [x] last_name (String)
 - [x] ContributorRole  
   - [x] name (String)
+- [x] MusicGroupRole  
+  - [x] name (String)
 - [x] MusicGroup  
   - [x] name (String)  
   - [x] bio (Text)  
@@ -111,7 +113,7 @@ Development & CI    Git, GitHub Actions (lint + tests), PyCharm
 - [x] MusicGroupMembership  
   - [x] contributor (FK -> Contributor)  
   - [x] music_group (FK -> MusicGroup)  
-  - [x] role (n:m -> ContributorRole)  
+  - [x] contributor_role (n:m -> ContributorRole)  
   - [x] from_date (Date)  
   - [x] to_date (Date)
 - [x] Song  
@@ -125,8 +127,9 @@ Development & CI    Git, GitHub Actions (lint + tests), PyCharm
 - [x] SongPerformance  
   - [x] song (FK -> Song)  
   - [x] contributor (FK -> Contributor)  
+  - [x] contributor_role (FK -> ContributorRole)  
   - [x] music_group (FK -> MusicGroup) 
-  - [x] role (FK -> ContributorRole)
+  - [x] music_group_role (FK -> MusicGroupRole)
 - [x] Album  
   - [x] title (String)  
   - [x] songs (n:m -> Song)  
