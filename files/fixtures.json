@@ -35,6 +35,20 @@
     }
   },
   {
+    "model": "viewer.genre",
+    "pk": 6,
+    "fields": {
+      "name": "alternative rock"
+    }
+  },
+  {
+    "model": "viewer.genre",
+    "pk": 7,
+    "fields": {
+      "name": "hard rock"
+    }
+  },
+  {
     "model": "viewer.country",
     "pk": 1,
     "fields": {
@@ -60,6 +74,27 @@
     "pk": 10,
     "fields": {
       "name": "Czech"
+    }
+  },
+  {
+    "model": "viewer.language",
+    "pk": 11,
+    "fields": {
+      "name": "German"
+    }
+  },
+  {
+    "model": "viewer.language",
+    "pk": 12,
+    "fields": {
+      "name": "Spanish"
+    }
+  },
+  {
+    "model": "viewer.language",
+    "pk": 13,
+    "fields": {
+      "name": "Italian"
     }
   },
   {
@@ -105,6 +140,90 @@
     }
   },
   {
+    "model": "viewer.contributor",
+    "pk": 4,
+    "fields": {
+      "first_name": "Joseph",
+      "middle_name": null,
+      "last_name": "Hahn",
+      "stage_name": "Chairman Hahn",
+      "date_of_birth": "1977-03-15",
+      "date_of_death": null,
+      "country": 1,
+      "bio": "Joseph Hahn (born March 15, 1977) is an American musician, DJ, director, and visual artist best known as the DJ and creative director of the rock band Linkin Park, doing the scratching, turntables, sampling, and programming for all eight of Linkin Park's albums. Hahn and bandmate Mike Shinoda are responsible for most of Linkin Park's album artwork. Hahn also directed many of the band's music videos.\r\n\r\nEarly life and education\r\nJoseph \"Joe\" Hahn was born the youngest of three children[5] in Dallas; Hahn has two older sisters. Hahn is a second-generation Korean American, and he grew up in a predominantly Mexican neighborhood of Glendale, California. As a child, Hahn played the violin for a few years in school, then also tried out the guitar for a bit.\r\n\r\nHahn graduated from Herbert Hoover High School in Glendale. He then studied at the Art Center College of Design in Pasadena but did not graduate."
+    }
+  },
+  {
+    "model": "viewer.contributor",
+    "pk": 5,
+    "fields": {
+      "first_name": "Bradford",
+      "middle_name": "Philip",
+      "last_name": "Delson",
+      "stage_name": null,
+      "date_of_birth": "1977-12-01",
+      "date_of_death": null,
+      "country": 1,
+      "bio": "Bradford Philip Delson (born December 1, 1977) is an American musician. He is the lead guitarist and one of the founding members of the rock band Linkin Park.\r\n\r\nEarly life\r\nDelson was born and raised in Agoura Hills, California. He attended Agoura High School with his friend, Mike Shinoda. Delson played the trumpet and later began playing the guitar when he was 12 years old. He enjoyed listening to Guns N' Roses and Metallica. He played in the rock band Relative Degree with drummer Rob Bourdon, but the group disbanded after their first live show.\r\n\r\nDelson attended UCLA, where he was roommates with bassist Dave Farrell for three years. He majored in communication studies, and later interned for Jeff Blue, then the vice president of A&R for Zomba Music. Blue shared his insight and experience on the music industry with Delson, while also giving him constructive feedback on musical projects. Delson graduated with a bachelor's degree in communication studies from UCLA in 1999. He considered attending law school after graduation but instead pursued a career as a professional musician."
+    }
+  },
+  {
+    "model": "viewer.contributor",
+    "pk": 6,
+    "fields": {
+      "first_name": "Robert",
+      "middle_name": "Gregory",
+      "last_name": "Bourdon",
+      "stage_name": null,
+      "date_of_birth": "1979-01-20",
+      "date_of_death": null,
+      "country": 1,
+      "bio": "Robert Gregory Bourdon (born January 20, 1979) is an American musician, best known as a co-founding member and the former drummer of the rock band Linkin Park. He remained in the band until their hiatus in 2017; when the band members began working together out of the public eye in 2019, he declined to rejoin the band and was succeeded by Colin Brittain.\r\n\r\nEarly life\r\nBourdon was born in Calabasas, California. He received classical piano lessons at a young age. He was inspired to play the drums after attending an Aerosmith concert, where he was personally introduced to drummer Joey Kramer. He also cites Tower of Power and Earth, Wind and Fire as his early influences. Bourdon attended Agoura High School in Agoura Hills where he met future bandmates Brad Delson and Mike Shinoda, in the high school's jazz band.[5] Bourdon waited tables at a restaurant and worked as a party coordinator at a bowling alley prior to becoming a full-time musician. He attended Santa Monica College where he studied accounting."
+    }
+  },
+  {
+    "model": "viewer.contributor",
+    "pk": 7,
+    "fields": {
+      "first_name": "Colin",
+      "middle_name": null,
+      "last_name": "Cunningham",
+      "stage_name": "Colin \"Doc\" Brittain",
+      "date_of_birth": "1986-12-29",
+      "date_of_death": null,
+      "country": 1,
+      "bio": "Colin Cunningham (born December 29, 1986), known professionally as Colin \"Doc\" Brittain, is an American songwriter, producer, and musician signed to Warner Chappell Music. In September 2024, he joined Linkin Park and has been the band's new drummer since their reunion following the departure of the band's previous drummer Rob Bourdon.\r\n\r\nPrior to joining Linkin Park, he wrote and produced for acts such as Papa Roach, 311, A Day to Remember, Foundry, Dashboard Confessional, 5 Seconds of Summer, From Ashes to New, and One Ok Rock.\r\n\r\nCareer\r\nBrittain began his career playing drums in the band Oh No Fiasco, starting in 2011. Oh No Fiasco was signed to Five Seven Music where they released their debut EP, No One's Gotta Know in 2013. In the same year they were supposed to be releasing a thirteen-track album, but it was never released. The band broke up the same year, playing their last show on March 10, 2013. Afterwards, Brittain continued to work as a producer.\r\n\r\nIn 2024, he joined American rock band Linkin Park as their new drummer, after original drummer Rob Bourdon declined to rejoin the reunited band. Brittain is one of two new members alongside new vocalist Emily Armstrong"
+    }
+  },
+  {
+    "model": "viewer.contributor",
+    "pk": 8,
+    "fields": {
+      "first_name": "David",
+      "middle_name": "Michael",
+      "last_name": "Farrell",
+      "stage_name": "Phoenix",
+      "date_of_birth": "1977-02-08",
+      "date_of_death": null,
+      "country": 1,
+      "bio": "David Michael Farrell (born February 8, 1977), also known by his stage name Phoenix, is an American musician, best known as the bassist of the rock band Linkin Park. He was also a member of Tasty Snax, a ska punk band.\r\n\r\nEarly life\r\nFarrell was born in Plymouth, Massachusetts but later moved to Mission Viejo, California at the age of five.He was taught how to play guitar by his mother when he was in high school. He also played the violin in high school. Farrell attended UCLA, where he was roommates with future bandmate Brad Delson. He graduated from UCLA with a degree in philosophy.\r\n\r\nCareer\r\nTasty Snax\r\nWhile attending high school, Farrell joined a Christian ska punk band named Tasty Snax, who would later rename themselves to The Snax. Phoenix transitioned from the electric guitar to bass to accommodate The Snax. The band included Farrell's longtime college friend Mark Fiore, who was also associated in making various video albums for Linkin Park. The band recorded two studio albums and one compilation album, signed to Screaming Giant Records. Farrell left the band in 2000."
+    }
+  },
+  {
+    "model": "viewer.contributor",
+    "pk": 9,
+    "fields": {
+      "first_name": "Emily",
+      "middle_name": "Marcia",
+      "last_name": "Armstrong",
+      "stage_name": null,
+      "date_of_birth": "1986-05-06",
+      "date_of_death": null,
+      "country": 1,
+      "bio": "Emily Marcia Armstrong (born May 6, 1986) is an American singer and guitarist. The co-founder of Dead Sara, she became the lead singer of Linkin Park when the band regrouped in September 2024, seven years after the death of their long-time lead vocalist Chester Bennington.\r\n\r\nEarly life\r\nArmstrong was born in Los Angeles. Her parents were prominent members of the Church of Scientology, and she was raised as a Scientologist. She started to write songs and play guitar when she was 11, and began to sing when she was 15. She dropped out of high school; she said she wanted to be in a rock band and had no interest in pursuing anything else. In an interview with the El Paso Times in 2012, Armstrong said music was the one thing that kept her motivated in life.\r\n\r\nCareer\r\nDead Sara\r\n\r\nArmstrong with Dead Sara in Akvárium, Budapest\r\nIn 2002, Armstrong began playing with guitarist Siouxsie Medley, who she met through a mutual friend. They had similar taste in music; both Medley and Armstrong were influenced by Nirvana and L7, among others, and 1960s and 1970s folk and blues artists and classic rock bands such as Led Zeppelin, Stevie Nicks, Joni Mitchell, and Fleetwood Mac.\r\n\r\nInitially known as Epiphany, Dead Sara's first gig was at the Los Angeles nightclub The Mint in March 2005. In addition to singing, Armstrong played the bass.\r\n\r\nAs a songwriter, Armstrong was significantly influenced by folk rock. Her interest in open and alternate tunings, such as those used by Mitchell, resulted in what Guitar World referred to as Dead Sara's signature sound. As a performer, she was influenced by artists including Iggy Pop and Janis Joplin.\r\n\r\nArmstrong received significant attention as a singer before Dead Sara's debut was released. Noting her \"strong, urgent sound\", Grace Slick said Armstrong was a singer she admired in an interview with the Wall Street Journal in 2011, and Courtney Love brought Armstrong to New York to sing on Hole's 2010 album, Nobody's Daughter.\r\n\r\nPrior to joining Linkin Park, she recorded and/or performed live with artists including the Offspring, Beck, Demi Lovato, Awolnation, and Robby Krieger of the Doors."
+    }
+  },
+  {
     "model": "viewer.contributorrole",
     "pk": 1,
     "fields": {
@@ -129,7 +248,7 @@
     "model": "viewer.contributorrole",
     "pk": 4,
     "fields": {
-      "name": "vocals"
+      "name": "composer"
     }
   },
   {
@@ -151,6 +270,34 @@
     "pk": 8,
     "fields": {
       "name": "keyboard"
+    }
+  },
+  {
+    "model": "viewer.contributorrole",
+    "pk": 14,
+    "fields": {
+      "name": "lyricist"
+    }
+  },
+  {
+    "model": "viewer.contributorrole",
+    "pk": 15,
+    "fields": {
+      "name": "visual artist"
+    }
+  },
+  {
+    "model": "viewer.contributorrole",
+    "pk": 16,
+    "fields": {
+      "name": "percussion"
+    }
+  },
+  {
+    "model": "viewer.contributorrole",
+    "pk": 17,
+    "fields": {
+      "name": "DJ"
     }
   },
   {
@@ -186,7 +333,7 @@
     "pk": 1,
     "fields": {
       "name": "Linkin Park",
-      "bio": "inkin Park is an American rock band formed in Agoura Hills, California, in 1996. The band's current lineup consists of vocalist/rhythm guitarist/keyboardist Mike Shinoda, lead guitarist Brad Delson, DJ/turntablist Joe Hahn, bassist Dave Farrell, vocalist Emily Armstrong, and drummer Colin Brittain. The lineup for the band's first seven studio albums included lead vocalist Chester Bennington and drummer Rob Bourdon; after Bennington's death in July 2017, the band endured a seven-year hiatus, during which, Bourdon chose to depart from the band. In September 2024, Linkin Park's reformation was announced along with the addition of Armstrong and Brittain.\r\n\r\nCategorized mainly as alternative rock and nu metal, Linkin Park's earlier music spanned a fusion of heavy metal and hip hop, with their later music featuring more electronica and pop elements. Linkin Park rose to international fame with their debut studio album, Hybrid Theory (2000), which became certified Diamond by the Recording Industry Association of America (RIAA). Released during the peak of the nu metal scene, the album's singles' heavy airplay on MTV led to the singles \"One Step Closer\", \"Crawling\", and \"In the End\" all charting highly on the US Mainstream Rock chart. The lattermost also crossed over to the number two spot on the nation's Billboard Hot 100. Their second album, Meteora (2003), continued the band's success. The band explored experimental sounds on their third album, Minutes to Midnight (2007). By the end of the decade, Linkin Park was among the most successful and popular rock acts.\r\n\r\nThe band continued to explore a wider variation of musical types on their fourth album, A Thousand Suns (2010), layering their music with more electronic sounds. The band's fifth album, Living Things (2012), combined musical elements from all of their previous records. Their sixth album, The Hunting Party (2014), returned to a heavier rock sound, while their seventh album, One More Light (2017), was a substantially more pop-oriented record. The band's eighth album, From Zero (2024), returned to more of their original sound while also incorporating musical elements from all of their previous records.\r\n\r\nLinkin Park is among both the best-selling bands of the 21st century and the world's best-selling music artists, having sold over 100 million records worldwide. They have won two Grammy Awards, six American Music Awards, four Billboard Music Awards, four MTV Video Music Awards, 10 MTV Europe Music Awards, and three World Music Awards. In 2003, MTV2 named Linkin Park the sixth-greatest band of the music video era and the third-best of the new millennium. Billboard ranked Linkin Park No. 19 on the Best Artists of the Decade list. In 2012, the band was voted as the greatest artist of the 2000s in a Bracket Madness poll on VH1. In 2014, the band was declared \"the Biggest Rock Band in the World Right Now\" by Kerrang!.",
+      "bio": "Linkin Park is an American rock band formed in Agoura Hills, California, in 1996. The band's current lineup consists of vocalist/rhythm guitarist/keyboardist Mike Shinoda, lead guitarist Brad Delson, DJ/turntablist Joe Hahn, bassist Dave Farrell, vocalist Emily Armstrong, and drummer Colin Brittain. The lineup for the band's first seven studio albums included lead vocalist Chester Bennington and drummer Rob Bourdon; after Bennington's death in July 2017, the band endured a seven-year hiatus, during which, Bourdon chose to depart from the band. In September 2024, Linkin Park's reformation was announced along with the addition of Armstrong and Brittain.\r\n\r\nCategorized mainly as alternative rock and nu metal, Linkin Park's earlier music spanned a fusion of heavy metal and hip hop, with their later music featuring more electronica and pop elements. Linkin Park rose to international fame with their debut studio album, Hybrid Theory (2000), which became certified Diamond by the Recording Industry Association of America (RIAA). Released during the peak of the nu metal scene, the album's singles' heavy airplay on MTV led to the singles \"One Step Closer\", \"Crawling\", and \"In the End\" all charting highly on the US Mainstream Rock chart. The lattermost also crossed over to the number two spot on the nation's Billboard Hot 100. Their second album, Meteora (2003), continued the band's success. The band explored experimental sounds on their third album, Minutes to Midnight (2007). By the end of the decade, Linkin Park was among the most successful and popular rock acts.\r\n\r\nThe band continued to explore a wider variation of musical types on their fourth album, A Thousand Suns (2010), layering their music with more electronic sounds. The band's fifth album, Living Things (2012), combined musical elements from all of their previous records. Their sixth album, The Hunting Party (2014), returned to a heavier rock sound, while their seventh album, One More Light (2017), was a substantially more pop-oriented record. The band's eighth album, From Zero (2024), returned to more of their original sound while also incorporating musical elements from all of their previous records.\r\n\r\nLinkin Park is among both the best-selling bands of the 21st century and the world's best-selling music artists, having sold over 100 million records worldwide. They have won two Grammy Awards, six American Music Awards, four Billboard Music Awards, four MTV Video Music Awards, 10 MTV Europe Music Awards, and three World Music Awards. In 2003, MTV2 named Linkin Park the sixth-greatest band of the music video era and the third-best of the new millennium. Billboard ranked Linkin Park No. 19 on the Best Artists of the Decade list. In 2012, the band was voted as the greatest artist of the 2000s in a Bracket Madness poll on VH1. In 2014, the band was declared \"the Biggest Rock Band in the World Right Now\" by Kerrang!.",
       "founded": "1996-01-01",
       "disbanded": null
     }
@@ -231,6 +378,89 @@
     }
   },
   {
+    "model": "viewer.musicgroupmembership",
+    "pk": 3,
+    "fields": {
+      "contributor": 4,
+      "music_group": 1,
+      "from_date": "1997-01-01",
+      "to_date": null,
+      "contributor_role": [
+        17,
+        15
+      ]
+    }
+  },
+  {
+    "model": "viewer.musicgroupmembership",
+    "pk": 4,
+    "fields": {
+      "contributor": 6,
+      "music_group": 1,
+      "from_date": "1996-01-01",
+      "to_date": "2017-01-01",
+      "contributor_role": [
+        2,
+        16
+      ]
+    }
+  },
+  {
+    "model": "viewer.musicgroupmembership",
+    "pk": 5,
+    "fields": {
+      "contributor": 5,
+      "music_group": 1,
+      "from_date": "1996-01-01",
+      "to_date": null,
+      "contributor_role": [
+        3
+      ]
+    }
+  },
+  {
+    "model": "viewer.musicgroupmembership",
+    "pk": 6,
+    "fields": {
+      "contributor": 7,
+      "music_group": 1,
+      "from_date": "2024-09-01",
+      "to_date": null,
+      "contributor_role": [
+        2,
+        3,
+        5
+      ]
+    }
+  },
+  {
+    "model": "viewer.musicgroupmembership",
+    "pk": 7,
+    "fields": {
+      "contributor": 8,
+      "music_group": 1,
+      "from_date": "1997-01-01",
+      "to_date": null,
+      "contributor_role": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "viewer.musicgroupmembership",
+    "pk": 8,
+    "fields": {
+      "contributor": 9,
+      "music_group": 1,
+      "from_date": "2024-09-01",
+      "to_date": null,
+      "contributor_role": [
+        3,
+        7
+      ]
+    }
+  },
+  {
     "model": "viewer.song",
     "pk": 1,
     "fields": {
@@ -269,6 +499,139 @@
     }
   },
   {
+    "model": "viewer.song",
+    "pk": 3,
+    "fields": {
+      "title": "With You",
+      "duration": 203,
+      "released_year": null,
+      "summary": "",
+      "lyrics": "",
+      "language": 1,
+      "genres": []
+    }
+  },
+  {
+    "model": "viewer.song",
+    "pk": 4,
+    "fields": {
+      "title": "Points of Authority",
+      "duration": 200,
+      "released_year": null,
+      "summary": "",
+      "lyrics": "",
+      "language": 1,
+      "genres": [
+        6,
+        7
+      ]
+    }
+  },
+  {
+    "model": "viewer.song",
+    "pk": 5,
+    "fields": {
+      "title": "Crawling",
+      "duration": 209,
+      "released_year": null,
+      "summary": "",
+      "lyrics": "",
+      "language": 1,
+      "genres": []
+    }
+  },
+  {
+    "model": "viewer.song",
+    "pk": 6,
+    "fields": {
+      "title": "Runaway",
+      "duration": 183,
+      "released_year": null,
+      "summary": "",
+      "lyrics": "",
+      "language": 1,
+      "genres": []
+    }
+  },
+  {
+    "model": "viewer.song",
+    "pk": 7,
+    "fields": {
+      "title": "By Myself",
+      "duration": 189,
+      "released_year": null,
+      "summary": "",
+      "lyrics": "",
+      "language": 1,
+      "genres": []
+    }
+  },
+  {
+    "model": "viewer.song",
+    "pk": 8,
+    "fields": {
+      "title": "In the End",
+      "duration": 216,
+      "released_year": null,
+      "summary": "",
+      "lyrics": "",
+      "language": 1,
+      "genres": []
+    }
+  },
+  {
+    "model": "viewer.song",
+    "pk": 9,
+    "fields": {
+      "title": "A Place for My Head",
+      "duration": 184,
+      "released_year": null,
+      "summary": "",
+      "lyrics": "",
+      "language": 1,
+      "genres": []
+    }
+  },
+  {
+    "model": "viewer.song",
+    "pk": 10,
+    "fields": {
+      "title": "Forgotten",
+      "duration": 194,
+      "released_year": null,
+      "summary": "",
+      "lyrics": "",
+      "language": 1,
+      "genres": []
+    }
+  },
+  {
+    "model": "viewer.song",
+    "pk": 11,
+    "fields": {
+      "title": "Cure for the Itch",
+      "duration": 157,
+      "released_year": null,
+      "summary": "",
+      "lyrics": "",
+      "language": 1,
+      "genres": []
+    }
+  },
+  {
+    "model": "viewer.song",
+    "pk": 12,
+    "fields": {
+      "title": "Pushing Me Away",
+      "duration": 191,
+      "released_year": null,
+      "summary": "",
+      "lyrics": "",
+      "language": 1,
+      "genres": []
+    }
+  },
+  {
     "model": "viewer.songperformance",
     "pk": 1,
     "fields": {
@@ -291,6 +654,116 @@
     }
   },
   {
+    "model": "viewer.songperformance",
+    "pk": 3,
+    "fields": {
+      "song": 9,
+      "contributor": null,
+      "contributor_role": null,
+      "music_group": 1,
+      "music_group_role": 1
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 4,
+    "fields": {
+      "song": 7,
+      "contributor": null,
+      "contributor_role": null,
+      "music_group": 1,
+      "music_group_role": 1
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 5,
+    "fields": {
+      "song": 5,
+      "contributor": null,
+      "contributor_role": null,
+      "music_group": 1,
+      "music_group_role": 1
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 6,
+    "fields": {
+      "song": 11,
+      "contributor": null,
+      "contributor_role": null,
+      "music_group": 1,
+      "music_group_role": 1
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 7,
+    "fields": {
+      "song": 10,
+      "contributor": null,
+      "contributor_role": null,
+      "music_group": 1,
+      "music_group_role": 1
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 8,
+    "fields": {
+      "song": 8,
+      "contributor": null,
+      "contributor_role": null,
+      "music_group": 1,
+      "music_group_role": 1
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 9,
+    "fields": {
+      "song": 4,
+      "contributor": null,
+      "contributor_role": null,
+      "music_group": 1,
+      "music_group_role": 1
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 10,
+    "fields": {
+      "song": 12,
+      "contributor": null,
+      "contributor_role": null,
+      "music_group": 1,
+      "music_group_role": 1
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 11,
+    "fields": {
+      "song": 6,
+      "contributor": null,
+      "contributor_role": null,
+      "music_group": 1,
+      "music_group_role": 1
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 12,
+    "fields": {
+      "song": 3,
+      "contributor": null,
+      "contributor_role": null,
+      "music_group": 1,
+      "music_group_role": 1
+    }
+  },
+  {
     "model": "viewer.album",
     "pk": 1,
     "fields": {
@@ -298,8 +771,9 @@
       "released_year": 2000,
       "summary": "Hybrid Theory is the debut studio album by American rock band Linkin Park, released on October 24, 2000, by Warner Bros. Records. Recorded at NRG Recordings in North Hollywood, California, and produced by Don Gilmore, the album's lyrical themes deal with problems lead vocalist Chester Bennington experienced during his adolescence, including drug abuse and the constant fighting and eventual divorce of his parents. Hybrid Theory takes its title from the previous name of the band as well as the concepts of music theory and combining different styles. It is also the band's only album in which bassist Dave \"Phoenix\" Farrell does not play, however, he is credited as a member of the band as well as a songwriter on some of its tracks.",
       "songs": [
-        2,
-        1
+        11,
+        12,
+        3
       ]
     }
   }
