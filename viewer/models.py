@@ -189,7 +189,7 @@ class SongPerformance(Model):
     music_group = ForeignKey(MusicGroup, on_delete=CASCADE, null=True, blank=True, related_name="song_performances")
     music_group_role = ForeignKey(MusicGroupRole, on_delete=SET_NULL, null=True, blank=True)
 
-    '''def clean(self):
+    def clean(self):
         super().clean()
 
         if self.contributor and self.music_group:
@@ -200,7 +200,7 @@ class SongPerformance(Model):
         if self.contributor and not self.contributor_role:
             raise ValidationError("If a contributor is set, contributor role must also be set.")
         if self.music_group and not self.music_group_role:
-            raise ValidationError("If a music group is set, music group role must also be set.")'''
+            raise ValidationError("If a music group is set, music group role must also be set.")
 
     class Meta:
         ordering = ['song']
