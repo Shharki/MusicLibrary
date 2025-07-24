@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ song }}
+{% endblock %}
+
+{% block content %}
+
+    <h1 class="display-4">{{ song.title }}</h1>
+
+    {% if song_artists or song_music_groups %}
+        <p>by
+            <strong>
+            {% for artist in song_artists %}{{ artist }}{% if not forloop.last or song_music_groups %},
+            {% endif %}{% endfor %}
+            {% for group in song_music_groups %}{{ group }}{% if not forloop.last %}, {% endif %}{% endfor %}
+            </strong>
+        </p>
+    {% endif %}
+
+    <hr class="my-4">
+    <div class="row">
+        <div class="col-md-6">
+            {% if album %}
+                <p><strong>Album:</strong> {{ album.title }}</p>
+            {% endif %}
+
+            <p><strong>Genres:</strong>
+                {% for genre in song.genre.all %}
+                    <span class="badge badge-secondary">{{ genre }}</span>
+                {% empty %}
+                    No genres yet
+                {% endfor %}
+            </p>
+
+            <p><strong>Duration:</strong> {{ song.duration_format }}</p>
+            <p><strong>Released year:</strong> {{ song.released_year }}</p>
+        </div>
+
+        <div class="col-md-6">
+            {% if contributors_by_category.performer %}
+                <p><strong>Performers:</strong>
+                    {% for contributor, role_name in contributors_by_category.performer %}
+                        {{ contributor }} ({{ role_name }}){% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                </p>
+            {% endif %}
+
+            {% if contributors_by_category.writer %}
+                <p><strong>Writers:</strong>
+                    {% for contributor, role_name in contributors_by_category.writer %}
+                        {{ contributor }} ({{ role_name }}){% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                </p>
+            {% endif %}
+
+            {% if contributors_by_category.producer %}
+                <p><strong>Producers:</strong>
+                    {% for contributor, role_name in contributors_by_category.producer %}
+                        {{ contributor }} ({{ role_name }}){% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                </p>
+            {% endif %}
+
+            {% if contributors_by_category.other %}
+                <p><strong>Other contributors:</strong>
+                    {% for contributor, role_name in contributors_by_category.other %}
+                        {{ contributor }} ({{ role_name }}){% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                </p>
+            {% endif %}
+
+            {% if groups_by_role %}
+                <p><strong>Music Groups:</strong>
+                    {% for role, groups in groups_by_role.items %}
+                        {% for group in groups %}
+                            {{ group }} ({{ role }}){% if not forloop.last or not forloop.parentloop.last %},
+                        {% endif %}
+                        {% endfor %}
+                    {% endfor %}
+                </p>
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}

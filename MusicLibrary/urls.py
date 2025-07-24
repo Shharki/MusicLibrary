@@ -17,11 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from viewer.views import home, songs
+from viewer.views import home, SongsListView, SongDetailView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-
     path('', home, name='home'),
-    path('songs/', songs, name='songs'),
+    path('songs/', SongsListView.as_view(), name='songs'),
+    path('song/<int:pk>/', SongDetailView.as_view(), name='song'),
 ]
