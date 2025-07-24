@@ -30,9 +30,9 @@ Development & CI    Git, GitHub Actions (lint + tests), PyCharm
     - [ ] Album image (via Album relation)
     - [ ] Rating (user-based)
     - [ ] Audio sample / streaming link
-- [ ] 4. Contributors (Artists) – listing and detail
-    - [ ] Alphabetical list
-    - [ ] Contributor detail (singer, composer...)
+- [ ] 4. Contributors – listing and detail
+    - [x] 4.1. Alphabetical list
+    - [ ] 4.2. Contributor detail (singer, composer...)
         - [ ] First name, last name, stage name
         - [ ] Date of birth and death
         - [ ] Country of origin
@@ -42,15 +42,15 @@ Development & CI    Git, GitHub Actions (lint + tests), PyCharm
         - [ ] Groups they were members of (MusicGroupMembership)
         - [ ] Picture 
 - [ ] 5. Music Groups – listing and detail
-    - [ ] Alphabetical list
-    - [ ] Group detail
+    - [ ] 5.1. Alphabetical list
+    - [ ] 5.2. Group detail
         - [ ] Name, description
         - [ ] Founded / disbanded year
         - [ ] Members, roles, active periods
         - [ ] Songs they performed in
 - [ ] 6. Albums – listing and detail
-    - [ ] Alphabetical album list
-    - [ ] Album detail
+    - [ ] 6.1 Alphabetical album list
+    - [ ] 6.2 Album detail
         - [ ] Title
         - [ ] Release year
         - [ ] Summary

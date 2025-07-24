@@ -6,9 +6,13 @@
 
 {% block content %}
     <h1>Song list</h1>
-    {% for song in songs %}
-        {{ song }} ({{ song.released_year }}) <br>
-    {% empty %}
-        There is no song in the database.
-    {% endfor %}
+    <ul>
+        {% for song in songs %}
+            <li>
+                {{ song }} ({{ song.released_year }})
+            </li>
+        {% empty %}
+            There is no song in the database.
+        {% endfor %}
+    </ul>
 {% endblock %}

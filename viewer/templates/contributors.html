@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Contributor list
+{% endblock %}
+
+{% block content %}
+    <h1>Contributor list</h1>
+    <ul>
+        {% for contributor in contributors %}
+            <li>
+                {{ contributor }}
+            </li>
+        {% empty %}
+            There is no contributor in the database.
+        {% endfor %}
+    </ul>
+{% endblock %}

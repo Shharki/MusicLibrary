@@ -1,5 +1,6 @@
+from django.core.exceptions import ValidationError
 from django.db.models import Model, CharField, DateField, ForeignKey, TextField, DateTimeField, SET_NULL, \
-    ManyToManyField, CASCADE, PositiveIntegerField, ImageField
+    ManyToManyField, CASCADE, PositiveIntegerField, ImageField, CheckConstraint, Q
 
 
 class Genre(Model):
@@ -47,14 +48,13 @@ class Contributor(Model):
     middle_name = CharField(max_length=64, null=True, blank=True)
     last_name = CharField(max_length=64, null=False, blank=False)
     stage_name = CharField(max_length=64, null=True, blank=True)
-    date_of_birth = DateField(null=True, blank=True, unique=True)
-    date_of_death = DateField(null=True, blank=True, unique=True)
+    date_of_birth = DateField(null=True, blank=True)
+    date_of_death = DateField(null=True, blank=True)
     country = ForeignKey(Country, null=True, blank=True, on_delete=SET_NULL, related_name='contributors')
     bio = TextField(null=True, blank=True)
 
-
     class Meta:
-        ordering = ['last_name', 'first_name']
+        ordering = ['last_name', 'first_name', 'stage_name']
 
     def __repr__(self):
         return f"Contributor({self.__str__()})"
@@ -81,7 +81,16 @@ class ContributorPreviousName(Model):
 
 
 class ContributorRole(Model):
+    CATEGORY_CHOICES = [
+        ('writer', 'Writer'),
+        ('performer', 'Performer'),
+        ('producer', 'Producer'),
+        ('publisher', 'Publisher'),
+        ('other', 'Other'),
+    ]
+
     name = CharField(max_length=64, unique=True)
+    category = CharField(max_length=20, choices=CATEGORY_CHOICES, default='other')
 
     class Meta:
         ordering = ['name']
@@ -126,18 +135,18 @@ class MusicGroup(Model):
 
 
 class MusicGroupMembership(Model):
-    contributor = ForeignKey(Contributor, on_delete=CASCADE, related_name="memberships")
+    member = ForeignKey(Contributor, on_delete=CASCADE, related_name="memberships")
     music_group = ForeignKey(MusicGroup, on_delete=CASCADE, related_name="members")
-    contributor_role = ManyToManyField(ContributorRole, blank=True)
+    member_role = ManyToManyField(ContributorRole, blank=True)
     from_date = DateField(null=True, blank=True)
     to_date = DateField(null=True, blank=True)
 
     class Meta:
-        ordering = ['contributor', 'music_group']
+        ordering = ['member__last_name', 'member__first_name', 'member__stage_name']
         db_table = 'viewer_music_group_membership'
 
     def __str__(self):
-        return f"{self.contributor} in {self.music_group}"
+        return f"{self.member} in {self.music_group}"
 
     def __repr__(self):
         return f"MusicGroupMembership({self.__str__()})"
@@ -145,9 +154,11 @@ class MusicGroupMembership(Model):
 
 class Song(Model):
     title = CharField(max_length=128)
-    genres = ManyToManyField(Genre, blank=True)
+    artist = ManyToManyField(Contributor, blank=True, related_name="songs")
+    music_group = ManyToManyField(MusicGroup, blank=True, related_name="songs")
+    genre = ManyToManyField(Genre, blank=True)
     duration = PositiveIntegerField(help_text="Duration in seconds", null=True, blank=True)
-    released_year = PositiveIntegerField(null=True, blank=True)
+    released_year = DateField(null=True, blank=True)
     summary = TextField(null=True, blank=True)
     lyrics = TextField(null=True, blank=True)
     language = ForeignKey(Language, on_delete=SET_NULL, null=True, blank=True, related_name="songs")
@@ -161,6 +172,15 @@ class Song(Model):
     def __repr__(self):
         return f"Song(title={self.title})"
 
+    def duration_format(self):
+        # Conversion of song duration to minutes h:mm
+        # 155 min -> 2:35
+        if self.duration:
+            hours = self.duration // 60
+            minutes = self.duration % 60
+            return f"{hours}:{minutes:02}"
+        return None
+
 
 class SongPerformance(Model):
     song = ForeignKey(Song, on_delete=CASCADE, related_name="performances")
@@ -169,9 +189,34 @@ class SongPerformance(Model):
     music_group = ForeignKey(MusicGroup, on_delete=CASCADE, null=True, blank=True, related_name="song_performances")
     music_group_role = ForeignKey(MusicGroupRole, on_delete=SET_NULL, null=True, blank=True)
 
+    def clean(self):
+        super().clean()
+
+        if self.contributor and self.music_group:
+            raise ValidationError("Only one of contributor or music group can be set.")
+        if not self.contributor and not self.music_group:
+            raise ValidationError("Either contributor or music group must be set.")
+
+        if self.contributor and not self.contributor_role:
+            raise ValidationError("If a contributor is set, contributor role must also be set.")
+        if self.music_group and not self.music_group_role:
+            raise ValidationError("If a music group is set, music group role must also be set.")
+
     class Meta:
         ordering = ['song']
         db_table = 'viewer_song_performance'
+        constraints = [
+            CheckConstraint(
+                check=(
+                        (Q(contributor__isnull=False) & Q(contributor_role__isnull=False) &
+                         Q(music_group__isnull=True) & Q(music_group_role__isnull=True)) |
+                        (Q(contributor__isnull=True) & Q(contributor_role__isnull=True) &
+                         Q(music_group__isnull=False) & Q(music_group_role__isnull=False))
+                ),
+                name="contributor_or_group"
+            )
+        ]
+
 
     def __str__(self):
         return f"Performance of {self.song}"
@@ -182,8 +227,10 @@ class SongPerformance(Model):
 
 class Album(Model):
     title = CharField(max_length=128)
+    artist = ManyToManyField(Contributor, blank=True, related_name="albums")
+    music_group = ManyToManyField(MusicGroup, blank=True, related_name="albums")
     songs = ManyToManyField(Song, blank=True, related_name="albums")
-    released_year = PositiveIntegerField(null=True, blank=True)
+    released_year = DateField(null=True, blank=True)
     summary = TextField(null=True, blank=True)
 
     class Meta:
