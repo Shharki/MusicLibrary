@@ -9,7 +9,7 @@
     <ul>
         {% for contributor in contributors %}
             <li>
-                {{ contributor }}
+                {{ contributor.display_more }}
             </li>
         {% empty %}
             There is no contributor in the database.

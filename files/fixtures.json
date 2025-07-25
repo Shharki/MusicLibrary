@@ -70,6 +70,13 @@
     }
   },
   {
+    "model": "viewer.genre",
+    "pk": 21,
+    "fields": {
+      "name": "pop"
+    }
+  },
+  {
     "model": "viewer.country",
     "pk": 1,
     "fields": {
@@ -102,6 +109,13 @@
     "pk": 12,
     "fields": {
       "name": "Switzerland"
+    }
+  },
+  {
+    "model": "viewer.country",
+    "pk": 13,
+    "fields": {
+      "name": "Czech Republic"
     }
   },
   {
@@ -462,6 +476,20 @@
     }
   },
   {
+    "model": "viewer.contributor",
+    "pk": 60,
+    "fields": {
+      "first_name": "Jiří",
+      "middle_name": null,
+      "last_name": "Schelinger",
+      "stage_name": null,
+      "date_of_birth": "1951-03-06",
+      "date_of_death": "1981-04-13",
+      "country": 13,
+      "bio": "Jiří Schelinger (6 March 1951 – 13 April 1981) was a Czech rock singer and guitarist considered to have been the first Czech hard rocker and an influential musician to this day."
+    }
+  },
+  {
     "model": "viewer.contributorrole",
     "pk": 1,
     "fields": {
@@ -545,7 +573,7 @@
     "model": "viewer.contributorrole",
     "pk": 17,
     "fields": {
-      "name": "DJ",
+      "name": "dj",
       "category": "performer"
     }
   },
@@ -715,6 +743,16 @@
       "name": "Queen",
       "bio": "Formed in 1970, Queen was a British rock band whose classic line-up consisted of Freddie Mercury on lead vocals and piano, Brian May on lead guitar, Roger Taylor on drums, and John Deacon on bass. Although Mercury and May wrote the bulk of the band’s material, all four contributed to the songwriting, churning out huge hits. Initially a progressive rock band with strong metal influences, their sound evolved dramatically over time. The band went on to refine, if not define “stadium rock,” as they grew to become one of the most beloved rock bands of all time.\r\n\r\nTheir early progressive phase spawned epic tracks like “March of the Black Queen” and one international hit single: “Killer Queen”. But it was their 1975 track “Bohemian Rhapsody” which catapulted the group to super-stardom. The song reigned at #1 on the UK charts for nine weeks and has since been praised as one of the greatest songs of all time.\r\n\r\nMoving away from their album-orientated sound, the band only grew in popularity with such songs as “Somebody to Love”, “We Are the Champions”, “Don’t Stop Me Now”, “Another One Bites the Dust”, “Radio Ga Ga” and many more. These songs are so beloved that a musical based on the band’s discography, titled We Will Rock You, became one of West-End’s longest-running shows with a 12-year run through May 2014—and more events being featured internationally, as well.\r\n\r\nIn November 2018, Queen’s popularity rose with the Oscar-winning biopic, Bohemian Rhapsody. The movie’s climax, Queen’s Live Aid charity performance, had already gone down in history as one of the greatest live concerts in music history. At the time, in mid-1985, the show was pivotal to Queen’s legacy on a global scale.\r\n\r\nAfter Live Aid event, Queen released their 12th studio album, 1986’s A Kind of Magic, and embarked on their final stadium run: The Magic Tour. In 1995, Queen released their 15th studio album, Made in Heaven, culled from vocals recorded before Freddie Mercury’s death in November 1991, due to complications related to AIDS. This occurred just nine months after the February release of Queen’s 14th studio album, Innuendo, which was heralded as their best effort in years.\r\n\r\nDeacon retired from music in 1997, after he, May, and Taylor recorded the Freddie Mercury tribute song “No-One But You (Only the Good Die Young)”; May and Taylor would continue to tour as Queen, with stand-in lead vocalists Paul Rodgers and Adam Lambert.\r\n\r\nQueen has been a huge influence in the past 50 years, influencing bands and solo acts alike such as Prince, Metallica, Lady Gaga, Radiohead, Nirvana, and many, many more.",
       "founded": "1970-01-01",
+      "disbanded": null
+    }
+  },
+  {
+    "model": "viewer.musicgroup",
+    "pk": 76,
+    "fields": {
+      "name": "Skupina F. R. Čecha",
+      "bio": "",
+      "founded": null,
       "disbanded": null
     }
   },
@@ -900,7 +938,7 @@
     "fields": {
       "title": "Papercut",
       "duration": 185,
-      "released_year": "2000-10-24",
+      "released": "2000-10-24",
       "summary": "",
       "lyrics": "Why does it feel like night today?\r\nSomething in here's not right today\r\nWhy am I so uptight today?\r\nParanoia's all I got left\r\nI don't know what stressed me first\r\nOr how the pressure was fed\r\nBut I know just what it feels like\r\nTo have a voice in the back of my head\r\nLike a face that I hold inside\r\nA face that awakes when I close my eyes\r\nA face that watches every time I lie\r\nA face that laughs every time I fall (and watches everything)\r\nSo I know that when it's time to sink or swim\r\nThat the face inside is here in me, right underneath my skin\r\nIt's like, I'm paranoid, lookin' over my back\r\nIt's like a whirlwind inside of my head\r\nIt's like, I can't stop what I'm hearing within\r\nIt's like the face inside is right beneath my skin\r\nI know I've got a face in me\r\nPoints out all my mistakes to me\r\nYou've got a face on the inside too\r\nAnd your paranoia's probably worse\r\nI don't know what set me off first\r\nBut I know what I can't stand\r\nEverybody acts like the fact of the matter is\r\nI can't add up to what you can\r\nBut everybody has a face that they hold inside\r\nA face that awakes when I close my eyes\r\nA face that watches every time they lie\r\nA face that laughs every time they fall (and watches everything)\r\nSo you know that when it's time to sink or swim\r\nThat the face inside is watching you too, right inside your skin\r\nIt's like, I'm paranoid, lookin' over my back\r\nIt's like a whirlwind inside of my head\r\nIt's like, I can't stop what I'm hearing within\r\nIt's like the face inside is right beneath the skin\r\nIt's like, I'm paranoid, lookin' over my back\r\nIt's like a whirlwind inside of my head\r\nIt's like, I can't stop what I'm hearing within\r\nIt's like the face inside is right beneath my skin\r\nThe face inside is right beneath your skin\r\nThe face inside is right beneath your skin\r\nThe face inside is right beneath your skin\r\nThe sun goes down\r\nI feel the light betray me\r\nThe sun goes down\r\nI feel the light betray me\r\nit's like, I'm paranoid, lookin' over my back\r\nIt's like a whirlwind inside of my head\r\nIt's like, I can't stop what I'm hearing within\r\nIt's like the face inside is right beneath the skin (I feel the light betray me)\r\nit's like, I'm paranoid, lookin' over my back\r\nIt's like a whirlwind inside of my head\r\nIt's like, I can't stop what I'm hearing within\r\nIt's like, I can't stop what I'm hearing within (I feel the light betray me)\r\nIt's like, I can't stop what I'm hearing within (ah)\r\nIt's like the face inside is right beneath my skin",
       "language": 1,
@@ -923,7 +961,7 @@
     "fields": {
       "title": "One Step Closer",
       "duration": 156,
-      "released_year": "2000-10-24",
+      "released": "2000-10-24",
       "summary": "",
       "lyrics": "I cannot take this anymore\r\nSaying everything I've said before\r\nAll these words they make no sense\r\nI found bliss in ignorance\r\nLess I hear the less you'll say\r\nYou'll find that out anyway\r\n\r\n(Just like before)\r\n\r\nEverything you say to me\r\n(Takes me one step closer to the edge, and I'm about to break)\r\nI need a little room to breathe\r\n('Cause I'm one step closer to the edge, I'm about to break)\r\n\r\nI find the answers aren't so clear\r\nWish I could find a way to disappear\r\nAll these thoughts they make no sense\r\nI found bliss in ignorance\r\nNothing seems to go away\r\nOver and over again\r\n\r\n(Just like before)\r\n\r\nEverything you say to me\r\n(Takes me one step closer to the edge, and I'm about to break)\r\nI need a little room to breathe\r\n('Cause I'm one step closer to the edge, I'm about to break)\r\n\r\nEverything you say to me\r\n(Takes me one step closer to the edge, and I'm about to break)\r\nI need a little room to breathe\r\n('Cause I'm one step closer to the edge, I'm about to break)\r\n\r\nShut up when I'm talking to you!\r\n\r\nShut up!\r\nShut up!\r\nShut up!\r\nShut up when I'm talking to you!\r\nShut up!\r\nShut up!\r\nShut up!\r\nShut up, I'm about to break\r\n\r\nEverything you say to me\r\n(Takes me one step closer to the edge, and I'm about to break)\r\nI need a little room to breathe\r\n('Cause I'm one step closer to the edge, I'm about to break)\r\n\r\nEverything you say to me\r\n(Takes me one step closer to the edge, and I'm about to break)\r\nI need a little room to breathe\r\n('Cause I'm one step closer to the edge, and I'm about to break)",
       "language": 1,
@@ -946,7 +984,7 @@
     "fields": {
       "title": "With You",
       "duration": 203,
-      "released_year": "2000-10-24",
+      "released": "2000-10-24",
       "summary": "",
       "lyrics": "",
       "language": 1,
@@ -969,7 +1007,7 @@
     "fields": {
       "title": "Points of Authority",
       "duration": 200,
-      "released_year": "2000-10-24",
+      "released": "2000-10-24",
       "summary": "",
       "lyrics": "",
       "language": 1,
@@ -992,7 +1030,7 @@
     "fields": {
       "title": "Crawling",
       "duration": 209,
-      "released_year": "2000-10-24",
+      "released": "2000-10-24",
       "summary": "",
       "lyrics": "",
       "language": 1,
@@ -1015,7 +1053,7 @@
     "fields": {
       "title": "Runaway",
       "duration": 183,
-      "released_year": "2000-10-24",
+      "released": "2000-10-24",
       "summary": "",
       "lyrics": "",
       "language": 1,
@@ -1038,7 +1076,7 @@
     "fields": {
       "title": "By Myself",
       "duration": 189,
-      "released_year": "2000-10-24",
+      "released": "2000-10-24",
       "summary": "",
       "lyrics": "",
       "language": 1,
@@ -1061,7 +1099,7 @@
     "fields": {
       "title": "In the End",
       "duration": 216,
-      "released_year": "2000-10-24",
+      "released": "2000-10-24",
       "summary": "",
       "lyrics": "",
       "language": 1,
@@ -1084,7 +1122,7 @@
     "fields": {
       "title": "A Place for My Head",
       "duration": 184,
-      "released_year": "2000-10-24",
+      "released": "2000-10-24",
       "summary": "",
       "lyrics": "",
       "language": 1,
@@ -1107,7 +1145,7 @@
     "fields": {
       "title": "Forgotten",
       "duration": 194,
-      "released_year": "2000-10-24",
+      "released": "2000-10-24",
       "summary": "",
       "lyrics": "",
       "language": 1,
@@ -1130,7 +1168,7 @@
     "fields": {
       "title": "Cure for the Itch",
       "duration": 157,
-      "released_year": "2000-10-24",
+      "released": "2000-10-24",
       "summary": "",
       "lyrics": "",
       "language": 1,
@@ -1153,7 +1191,7 @@
     "fields": {
       "title": "Pushing Me Away",
       "duration": 191,
-      "released_year": "2000-10-24",
+      "released": "2000-10-24",
       "summary": "",
       "lyrics": "",
       "language": 1,
@@ -1176,7 +1214,7 @@
     "fields": {
       "title": "Foreword",
       "duration": 13,
-      "released_year": "2003-03-25",
+      "released": "2003-03-25",
       "summary": null,
       "lyrics": null,
       "language": 1,
@@ -1193,7 +1231,7 @@
     "fields": {
       "title": "Don't Stay",
       "duration": 188,
-      "released_year": "2003-03-25",
+      "released": "2003-03-25",
       "summary": null,
       "lyrics": null,
       "language": 1,
@@ -1210,7 +1248,7 @@
     "fields": {
       "title": "Somewhere I Belong",
       "duration": 214,
-      "released_year": "2003-03-25",
+      "released": "2003-03-25",
       "summary": null,
       "lyrics": null,
       "language": 1,
@@ -1227,7 +1265,7 @@
     "fields": {
       "title": "Lying From You",
       "duration": 175,
-      "released_year": "2003-03-25",
+      "released": "2003-03-25",
       "summary": null,
       "lyrics": null,
       "language": 1,
@@ -1244,7 +1282,7 @@
     "fields": {
       "title": "Hit the Floor",
       "duration": 164,
-      "released_year": "2003-03-25",
+      "released": "2003-03-25",
       "summary": null,
       "lyrics": null,
       "language": 1,
@@ -1261,7 +1299,7 @@
     "fields": {
       "title": "Easier to Run",
       "duration": 204,
-      "released_year": "2003-03-25",
+      "released": "2003-03-25",
       "summary": null,
       "lyrics": null,
       "language": 1,
@@ -1278,7 +1316,7 @@
     "fields": {
       "title": "Faint",
       "duration": 162,
-      "released_year": "2003-03-25",
+      "released": "2003-03-25",
       "summary": null,
       "lyrics": null,
       "language": 1,
@@ -1295,7 +1333,7 @@
     "fields": {
       "title": "Figure.09",
       "duration": 198,
-      "released_year": "2003-03-25",
+      "released": "2003-03-25",
       "summary": null,
       "lyrics": null,
       "language": 1,
@@ -1312,7 +1350,7 @@
     "fields": {
       "title": "Breaking the Habit",
       "duration": 196,
-      "released_year": "2003-03-25",
+      "released": "2003-03-25",
       "summary": null,
       "lyrics": null,
       "language": 1,
@@ -1329,7 +1367,7 @@
     "fields": {
       "title": "From the Inside",
       "duration": 176,
-      "released_year": "2003-03-25",
+      "released": "2003-03-25",
       "summary": null,
       "lyrics": null,
       "language": 1,
@@ -1346,7 +1384,7 @@
     "fields": {
       "title": "Nobody’s Listening",
       "duration": 179,
-      "released_year": "2003-03-25",
+      "released": "2003-03-25",
       "summary": null,
       "lyrics": null,
       "language": 1,
@@ -1363,7 +1401,7 @@
     "fields": {
       "title": "Session",
       "duration": 145,
-      "released_year": "2003-03-25",
+      "released": "2003-03-25",
       "summary": null,
       "lyrics": null,
       "language": 1,
@@ -1380,7 +1418,7 @@
     "fields": {
       "title": "Numb",
       "duration": 188,
-      "released_year": "2003-03-25",
+      "released": "2003-03-25",
       "summary": null,
       "lyrics": null,
       "language": 1,
@@ -1397,7 +1435,7 @@
     "fields": {
       "title": "Death on Two Legs (Dedicated To...)",
       "duration": 223,
-      "released_year": "1975-11-28",
+      "released": "1975-11-28",
       "summary": "",
       "lyrics": "",
       "language": 1,
@@ -1420,7 +1458,7 @@
     "fields": {
       "title": "Lazing on a Sunday Afternoon",
       "duration": 68,
-      "released_year": "1975-11-28",
+      "released": "1975-11-28",
       "summary": "",
       "lyrics": "",
       "language": 1,
@@ -1443,7 +1481,7 @@
     "fields": {
       "title": "I’m in Love With My Car",
       "duration": 185,
-      "released_year": "1975-11-28",
+      "released": "1975-11-28",
       "summary": "",
       "lyrics": "",
       "language": 1,
@@ -1466,7 +1504,7 @@
     "fields": {
       "title": "You’re My Best Friend",
       "duration": 170,
-      "released_year": "1975-11-28",
+      "released": "1975-11-28",
       "summary": "",
       "lyrics": "",
       "language": 1,
@@ -1489,7 +1527,7 @@
     "fields": {
       "title": "’39",
       "duration": 205,
-      "released_year": "1975-11-28",
+      "released": "1975-11-28",
       "summary": "",
       "lyrics": "",
       "language": 1,
@@ -1512,7 +1550,7 @@
     "fields": {
       "title": "Sweet Lady",
       "duration": 241,
-      "released_year": "1975-11-28",
+      "released": "1975-11-28",
       "summary": "",
       "lyrics": "",
       "language": 1,
@@ -1535,7 +1573,7 @@
     "fields": {
       "title": "Seaside Rendezvous",
       "duration": 133,
-      "released_year": "1975-11-28",
+      "released": "1975-11-28",
       "summary": "",
       "lyrics": "",
       "language": 1,
@@ -1558,7 +1596,7 @@
     "fields": {
       "title": "The Prophet's Song",
       "duration": 497,
-      "released_year": "1975-11-28",
+      "released": "1975-11-28",
       "summary": "",
       "lyrics": "",
       "language": 1,
@@ -1581,7 +1619,7 @@
     "fields": {
       "title": "Love of My Life",
       "duration": 218,
-      "released_year": "1975-11-28",
+      "released": "1975-11-28",
       "summary": "",
       "lyrics": "",
       "language": 1,
@@ -1604,7 +1642,7 @@
     "fields": {
       "title": "Good Company",
       "duration": 206,
-      "released_year": "1975-11-28",
+      "released": "1975-11-28",
       "summary": "",
       "lyrics": "",
       "language": 1,
@@ -1627,7 +1665,7 @@
     "fields": {
       "title": "Bohemian Rhapsody",
       "duration": 355,
-      "released_year": "1975-11-28",
+      "released": "1975-11-28",
       "summary": "",
       "lyrics": "",
       "language": 1,
@@ -1650,7 +1688,7 @@
     "fields": {
       "title": "God Save the Queen",
       "duration": 71,
-      "released_year": "1975-11-28",
+      "released": "1975-11-28",
       "summary": "",
       "lyrics": "",
       "language": 1,
@@ -1664,6 +1702,258 @@
         19,
         7,
         4
+      ]
+    }
+  },
+  {
+    "model": "viewer.song",
+    "pk": 271,
+    "fields": {
+      "title": "Miminko",
+      "duration": 165,
+      "released": "1975-01-01",
+      "summary": "",
+      "lyrics": "",
+      "language": 10,
+      "artist": [
+        60
+      ],
+      "music_group": [
+        76
+      ],
+      "genre": [
+        21
+      ]
+    }
+  },
+  {
+    "model": "viewer.song",
+    "pk": 272,
+    "fields": {
+      "title": "Hledám cestu zpátky",
+      "duration": null,
+      "released": "1975-01-01",
+      "summary": null,
+      "lyrics": null,
+      "language": 10,
+      "artist": [
+        60
+      ],
+      "music_group": [
+        76
+      ],
+      "genre": [
+        21
+      ]
+    }
+  },
+  {
+    "model": "viewer.song",
+    "pk": 273,
+    "fields": {
+      "title": "Vnímám",
+      "duration": 217,
+      "released": "1975-01-01",
+      "summary": null,
+      "lyrics": null,
+      "language": 10,
+      "artist": [
+        60
+      ],
+      "music_group": [
+        76
+      ],
+      "genre": [
+        21
+      ]
+    }
+  },
+  {
+    "model": "viewer.song",
+    "pk": 274,
+    "fields": {
+      "title": "Metro, dobrý den",
+      "duration": 342,
+      "released": "1975-01-01",
+      "summary": null,
+      "lyrics": null,
+      "language": 10,
+      "artist": [
+        60
+      ],
+      "music_group": [
+        76
+      ],
+      "genre": [
+        21
+      ]
+    }
+  },
+  {
+    "model": "viewer.song",
+    "pk": 275,
+    "fields": {
+      "title": "Že ho neznám, jsem vážně rád",
+      "duration": 191,
+      "released": "1975-01-01",
+      "summary": null,
+      "lyrics": null,
+      "language": 10,
+      "artist": [
+        60
+      ],
+      "music_group": [
+        76
+      ],
+      "genre": [
+        21
+      ]
+    }
+  },
+  {
+    "model": "viewer.song",
+    "pk": 276,
+    "fields": {
+      "title": "Perpetuum mobile",
+      "duration": 144,
+      "released": "1975-01-01",
+      "summary": null,
+      "lyrics": null,
+      "language": 10,
+      "artist": [
+        60
+      ],
+      "music_group": [
+        76
+      ],
+      "genre": [
+        21
+      ]
+    }
+  },
+  {
+    "model": "viewer.song",
+    "pk": 277,
+    "fields": {
+      "title": "Misaluba",
+      "duration": 152,
+      "released": "1975-01-01",
+      "summary": null,
+      "lyrics": null,
+      "language": 10,
+      "artist": [
+        60
+      ],
+      "music_group": [
+        76
+      ],
+      "genre": [
+        21
+      ]
+    }
+  },
+  {
+    "model": "viewer.song",
+    "pk": 278,
+    "fields": {
+      "title": "Pojď",
+      "duration": 166,
+      "released": "1975-01-01",
+      "summary": null,
+      "lyrics": null,
+      "language": 10,
+      "artist": [
+        60
+      ],
+      "music_group": [
+        76
+      ],
+      "genre": [
+        21
+      ]
+    }
+  },
+  {
+    "model": "viewer.song",
+    "pk": 279,
+    "fields": {
+      "title": "Nemám hlas jako zvon",
+      "duration": 148,
+      "released": "1975-01-01",
+      "summary": null,
+      "lyrics": null,
+      "language": 10,
+      "artist": [
+        60
+      ],
+      "music_group": [
+        76
+      ],
+      "genre": [
+        21
+      ]
+    }
+  },
+  {
+    "model": "viewer.song",
+    "pk": 280,
+    "fields": {
+      "title": "Kluci, už je to tady",
+      "duration": 267,
+      "released": "1975-01-01",
+      "summary": null,
+      "lyrics": null,
+      "language": 10,
+      "artist": [
+        60
+      ],
+      "music_group": [
+        76
+      ],
+      "genre": [
+        21
+      ]
+    }
+  },
+  {
+    "model": "viewer.song",
+    "pk": 281,
+    "fields": {
+      "title": "Buď s námi dál",
+      "duration": 223,
+      "released": "1975-01-01",
+      "summary": null,
+      "lyrics": null,
+      "language": 10,
+      "artist": [
+        60
+      ],
+      "music_group": [
+        76
+      ],
+      "genre": [
+        21
+      ]
+    }
+  },
+  {
+    "model": "viewer.song",
+    "pk": 282,
+    "fields": {
+      "title": "V baloně",
+      "duration": null,
+      "released": "1975-01-01",
+      "summary": null,
+      "lyrics": null,
+      "language": 10,
+      "artist": [
+        60
+      ],
+      "music_group": [
+        76
+      ],
+      "genre": [
+        21
       ]
     }
   },
@@ -4715,29 +5005,720 @@
     }
   },
   {
+    "model": "viewer.songperformance",
+    "pk": 290,
+    "fields": {
+      "song": 271,
+      "contributor": 60,
+      "contributor_role": 7,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 291,
+    "fields": {
+      "song": 271,
+      "contributor": null,
+      "contributor_role": null,
+      "music_group": 76,
+      "music_group_role": 3
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 292,
+    "fields": {
+      "song": 272,
+      "contributor": null,
+      "contributor_role": null,
+      "music_group": 76,
+      "music_group_role": 3
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 293,
+    "fields": {
+      "song": 273,
+      "contributor": null,
+      "contributor_role": null,
+      "music_group": 76,
+      "music_group_role": 3
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 294,
+    "fields": {
+      "song": 274,
+      "contributor": null,
+      "contributor_role": null,
+      "music_group": 76,
+      "music_group_role": 3
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 295,
+    "fields": {
+      "song": 275,
+      "contributor": null,
+      "contributor_role": null,
+      "music_group": 76,
+      "music_group_role": 3
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 296,
+    "fields": {
+      "song": 276,
+      "contributor": null,
+      "contributor_role": null,
+      "music_group": 76,
+      "music_group_role": 3
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 297,
+    "fields": {
+      "song": 277,
+      "contributor": null,
+      "contributor_role": null,
+      "music_group": 76,
+      "music_group_role": 3
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 298,
+    "fields": {
+      "song": 278,
+      "contributor": null,
+      "contributor_role": null,
+      "music_group": 76,
+      "music_group_role": 3
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 299,
+    "fields": {
+      "song": 279,
+      "contributor": null,
+      "contributor_role": null,
+      "music_group": 76,
+      "music_group_role": 3
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 300,
+    "fields": {
+      "song": 280,
+      "contributor": null,
+      "contributor_role": null,
+      "music_group": 76,
+      "music_group_role": 3
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 301,
+    "fields": {
+      "song": 281,
+      "contributor": null,
+      "contributor_role": null,
+      "music_group": 76,
+      "music_group_role": 3
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 302,
+    "fields": {
+      "song": 282,
+      "contributor": null,
+      "contributor_role": null,
+      "music_group": 76,
+      "music_group_role": 3
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 303,
+    "fields": {
+      "song": 272,
+      "contributor": 60,
+      "contributor_role": 7,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 304,
+    "fields": {
+      "song": 273,
+      "contributor": 60,
+      "contributor_role": 7,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 305,
+    "fields": {
+      "song": 274,
+      "contributor": 60,
+      "contributor_role": 7,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 306,
+    "fields": {
+      "song": 275,
+      "contributor": 60,
+      "contributor_role": 7,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 307,
+    "fields": {
+      "song": 276,
+      "contributor": 60,
+      "contributor_role": 7,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 308,
+    "fields": {
+      "song": 277,
+      "contributor": 60,
+      "contributor_role": 7,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 309,
+    "fields": {
+      "song": 278,
+      "contributor": 60,
+      "contributor_role": 7,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 310,
+    "fields": {
+      "song": 279,
+      "contributor": 60,
+      "contributor_role": 7,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 311,
+    "fields": {
+      "song": 280,
+      "contributor": 60,
+      "contributor_role": 7,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 312,
+    "fields": {
+      "song": 281,
+      "contributor": 60,
+      "contributor_role": 7,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 313,
+    "fields": {
+      "song": 282,
+      "contributor": 60,
+      "contributor_role": 7,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.albumsong",
+    "pk": 1,
+    "fields": {
+      "album": 1,
+      "song": 1,
+      "order": 1
+    }
+  },
+  {
+    "model": "viewer.albumsong",
+    "pk": 2,
+    "fields": {
+      "album": 1,
+      "song": 2,
+      "order": 2
+    }
+  },
+  {
+    "model": "viewer.albumsong",
+    "pk": 3,
+    "fields": {
+      "album": 1,
+      "song": 3,
+      "order": 3
+    }
+  },
+  {
+    "model": "viewer.albumsong",
+    "pk": 4,
+    "fields": {
+      "album": 1,
+      "song": 4,
+      "order": 4
+    }
+  },
+  {
+    "model": "viewer.albumsong",
+    "pk": 5,
+    "fields": {
+      "album": 1,
+      "song": 5,
+      "order": 5
+    }
+  },
+  {
+    "model": "viewer.albumsong",
+    "pk": 6,
+    "fields": {
+      "album": 1,
+      "song": 6,
+      "order": 6
+    }
+  },
+  {
+    "model": "viewer.albumsong",
+    "pk": 7,
+    "fields": {
+      "album": 1,
+      "song": 7,
+      "order": 7
+    }
+  },
+  {
+    "model": "viewer.albumsong",
+    "pk": 8,
+    "fields": {
+      "album": 1,
+      "song": 8,
+      "order": 8
+    }
+  },
+  {
+    "model": "viewer.albumsong",
+    "pk": 9,
+    "fields": {
+      "album": 1,
+      "song": 9,
+      "order": 9
+    }
+  },
+  {
+    "model": "viewer.albumsong",
+    "pk": 10,
+    "fields": {
+      "album": 1,
+      "song": 10,
+      "order": 10
+    }
+  },
+  {
+    "model": "viewer.albumsong",
+    "pk": 11,
+    "fields": {
+      "album": 1,
+      "song": 11,
+      "order": 11
+    }
+  },
+  {
+    "model": "viewer.albumsong",
+    "pk": 12,
+    "fields": {
+      "album": 1,
+      "song": 12,
+      "order": 12
+    }
+  },
+  {
+    "model": "viewer.albumsong",
+    "pk": 13,
+    "fields": {
+      "album": 415,
+      "song": 246,
+      "order": 1
+    }
+  },
+  {
+    "model": "viewer.albumsong",
+    "pk": 14,
+    "fields": {
+      "album": 415,
+      "song": 247,
+      "order": 2
+    }
+  },
+  {
+    "model": "viewer.albumsong",
+    "pk": 15,
+    "fields": {
+      "album": 415,
+      "song": 248,
+      "order": 3
+    }
+  },
+  {
+    "model": "viewer.albumsong",
+    "pk": 16,
+    "fields": {
+      "album": 415,
+      "song": 249,
+      "order": 4
+    }
+  },
+  {
+    "model": "viewer.albumsong",
+    "pk": 17,
+    "fields": {
+      "album": 415,
+      "song": 250,
+      "order": 5
+    }
+  },
+  {
+    "model": "viewer.albumsong",
+    "pk": 18,
+    "fields": {
+      "album": 415,
+      "song": 251,
+      "order": 6
+    }
+  },
+  {
+    "model": "viewer.albumsong",
+    "pk": 19,
+    "fields": {
+      "album": 415,
+      "song": 252,
+      "order": 7
+    }
+  },
+  {
+    "model": "viewer.albumsong",
+    "pk": 20,
+    "fields": {
+      "album": 415,
+      "song": 253,
+      "order": 8
+    }
+  },
+  {
+    "model": "viewer.albumsong",
+    "pk": 21,
+    "fields": {
+      "album": 415,
+      "song": 254,
+      "order": 9
+    }
+  },
+  {
+    "model": "viewer.albumsong",
+    "pk": 22,
+    "fields": {
+      "album": 415,
+      "song": 255,
+      "order": 10
+    }
+  },
+  {
+    "model": "viewer.albumsong",
+    "pk": 23,
+    "fields": {
+      "album": 415,
+      "song": 256,
+      "order": 11
+    }
+  },
+  {
+    "model": "viewer.albumsong",
+    "pk": 24,
+    "fields": {
+      "album": 415,
+      "song": 257,
+      "order": 12
+    }
+  },
+  {
+    "model": "viewer.albumsong",
+    "pk": 25,
+    "fields": {
+      "album": 415,
+      "song": 258,
+      "order": 13
+    }
+  },
+  {
+    "model": "viewer.albumsong",
+    "pk": 26,
+    "fields": {
+      "album": 422,
+      "song": 259,
+      "order": 1
+    }
+  },
+  {
+    "model": "viewer.albumsong",
+    "pk": 27,
+    "fields": {
+      "album": 422,
+      "song": 260,
+      "order": 2
+    }
+  },
+  {
+    "model": "viewer.albumsong",
+    "pk": 28,
+    "fields": {
+      "album": 422,
+      "song": 261,
+      "order": 3
+    }
+  },
+  {
+    "model": "viewer.albumsong",
+    "pk": 29,
+    "fields": {
+      "album": 422,
+      "song": 262,
+      "order": 4
+    }
+  },
+  {
+    "model": "viewer.albumsong",
+    "pk": 30,
+    "fields": {
+      "album": 422,
+      "song": 263,
+      "order": 5
+    }
+  },
+  {
+    "model": "viewer.albumsong",
+    "pk": 31,
+    "fields": {
+      "album": 422,
+      "song": 264,
+      "order": 6
+    }
+  },
+  {
+    "model": "viewer.albumsong",
+    "pk": 32,
+    "fields": {
+      "album": 422,
+      "song": 265,
+      "order": 7
+    }
+  },
+  {
+    "model": "viewer.albumsong",
+    "pk": 33,
+    "fields": {
+      "album": 422,
+      "song": 266,
+      "order": 8
+    }
+  },
+  {
+    "model": "viewer.albumsong",
+    "pk": 34,
+    "fields": {
+      "album": 422,
+      "song": 267,
+      "order": 9
+    }
+  },
+  {
+    "model": "viewer.albumsong",
+    "pk": 35,
+    "fields": {
+      "album": 422,
+      "song": 268,
+      "order": 10
+    }
+  },
+  {
+    "model": "viewer.albumsong",
+    "pk": 36,
+    "fields": {
+      "album": 422,
+      "song": 269,
+      "order": 11
+    }
+  },
+  {
+    "model": "viewer.albumsong",
+    "pk": 37,
+    "fields": {
+      "album": 422,
+      "song": 270,
+      "order": 12
+    }
+  },
+  {
+    "model": "viewer.albumsong",
+    "pk": 38,
+    "fields": {
+      "album": 423,
+      "song": 271,
+      "order": 1
+    }
+  },
+  {
+    "model": "viewer.albumsong",
+    "pk": 39,
+    "fields": {
+      "album": 423,
+      "song": 272,
+      "order": 2
+    }
+  },
+  {
+    "model": "viewer.albumsong",
+    "pk": 40,
+    "fields": {
+      "album": 423,
+      "song": 273,
+      "order": 3
+    }
+  },
+  {
+    "model": "viewer.albumsong",
+    "pk": 41,
+    "fields": {
+      "album": 423,
+      "song": 274,
+      "order": 4
+    }
+  },
+  {
+    "model": "viewer.albumsong",
+    "pk": 42,
+    "fields": {
+      "album": 423,
+      "song": 275,
+      "order": 5
+    }
+  },
+  {
+    "model": "viewer.albumsong",
+    "pk": 43,
+    "fields": {
+      "album": 423,
+      "song": 276,
+      "order": 6
+    }
+  },
+  {
+    "model": "viewer.albumsong",
+    "pk": 44,
+    "fields": {
+      "album": 423,
+      "song": 277,
+      "order": 7
+    }
+  },
+  {
+    "model": "viewer.albumsong",
+    "pk": 45,
+    "fields": {
+      "album": 423,
+      "song": 278,
+      "order": 8
+    }
+  },
+  {
+    "model": "viewer.albumsong",
+    "pk": 46,
+    "fields": {
+      "album": 423,
+      "song": 279,
+      "order": 9
+    }
+  },
+  {
+    "model": "viewer.albumsong",
+    "pk": 47,
+    "fields": {
+      "album": 423,
+      "song": 280,
+      "order": 10
+    }
+  },
+  {
+    "model": "viewer.albumsong",
+    "pk": 48,
+    "fields": {
+      "album": 423,
+      "song": 281,
+      "order": 11
+    }
+  },
+  {
+    "model": "viewer.albumsong",
+    "pk": 49,
+    "fields": {
+      "album": 423,
+      "song": 282,
+      "order": 12
+    }
+  },
+  {
     "model": "viewer.album",
     "pk": 1,
     "fields": {
       "title": "Hybrid Theory",
-      "released_year": "2000-10-24",
+      "released": "2000-10-24",
       "summary": "Hybrid Theory is the debut studio album by American rock band Linkin Park, released on October 24, 2000, by Warner Bros. Records. Recorded at NRG Recordings in North Hollywood, California, and produced by Don Gilmore, the album's lyrical themes deal with problems lead vocalist Chester Bennington experienced during his adolescence, including drug abuse and the constant fighting and eventual divorce of his parents. Hybrid Theory takes its title from the previous name of the band as well as the concepts of music theory and combining different styles. It is also the band's only album in which bassist Dave \"Phoenix\" Farrell does not play, however, he is credited as a member of the band as well as a songwriter on some of its tracks.",
       "artist": [],
       "music_group": [
         1
-      ],
-      "songs": [
-        9,
-        7,
-        5,
-        11,
-        10,
-        8,
-        2,
-        1,
-        4,
-        12,
-        6,
-        3
       ]
     }
   },
@@ -4746,26 +5727,11 @@
     "pk": 415,
     "fields": {
       "title": "Meteora",
-      "released_year": "2003-03-25",
+      "released": "2003-03-25",
       "summary": "Meteora is the second studio album by American rock band Linkin Park, released on March 25, 2003, through Warner Bros. Records. It followed Reanimation, a collaboration album which featured remixes of songs included on their 2000 debut studio album Hybrid Theory. The album was produced by the band alongside Don Gilmore. The title Meteora is taken from the Greek Orthodox monasteries originally bearing the name. Meteora has a similar sound to Hybrid Theory, as described by critics, and the album took almost a year to be recorded. It is the first Linkin Park studio album to feature bassist Dave \"Phoenix\" Farrell after he rejoined the band in 2000 following his temporary touring with other bands.",
       "artist": [],
       "music_group": [
         1
-      ],
-      "songs": [
-        254,
-        247,
-        251,
-        252,
-        253,
-        246,
-        255,
-        250,
-        249,
-        256,
-        258,
-        257,
-        248
       ]
     }
   },
@@ -4774,11 +5740,12 @@
     "pk": 416,
     "fields": {
       "title": "Minutes to Midnight",
-      "released_year": "2007-05-14",
+      "released": "2007-05-14",
       "summary": "Minutes to Midnight is the third studio album by American rock band Linkin Park, released on May 14, 2007, through Warner Bros. Records. The album was produced by Mike Shinoda and Rick Rubin; it is Linkin Park's first studio album produced without Don Gilmore, who had produced the band's two previous albums. Minutes to Midnight is the band's follow-up album to Meteora (2003), and features a shift in the group's musical direction. For the band, the album marked a beginning of deviation from their signature nu metal sound. Minutes to Midnight takes its title from the Doomsday Clock symbol. It is also the band's first full-length album to carry a Parental Advisory label.",
       "artist": [],
-      "music_group": [],
-      "songs": []
+      "music_group": [
+        1
+      ]
     }
   },
   {
@@ -4786,11 +5753,12 @@
     "pk": 417,
     "fields": {
       "title": "A Thousand Suns",
-      "released_year": "2010-08-10",
+      "released": "2010-08-10",
       "summary": "A Thousand Suns is the fourth studio album by American rock band Linkin Park. It was first released in multiple nations on September 8, 2010, and in the United States on September 13, 2010, by Warner Bros. Records. The album was produced by Mike Shinoda and Rick Rubin, who had also worked together to produce the band's previous studio album Minutes to Midnight (2007). Recording sessions for A Thousand Suns took place at NRG Recording Studios in Hollywood, California from 2009 until mid 2010.",
       "artist": [],
-      "music_group": [],
-      "songs": []
+      "music_group": [
+        1
+      ]
     }
   },
   {
@@ -4798,11 +5766,12 @@
     "pk": 418,
     "fields": {
       "title": "Living Things",
-      "released_year": "2012-06-20",
+      "released": "2012-06-20",
       "summary": "Living Things (stylized in all caps) is the fifth studio album by American rock band Linkin Park. It was released under Warner Bros. Records and Machine Shop Records on June 20, 2012, in Japan, and throughout the rest of the world during the following week. Production was handled by vocalist Mike Shinoda and Rick Rubin, who both co-produced the band's previous two studio albums, Minutes to Midnight (2007) and A Thousand Suns (2010). Living Things was their last album to be produced by Rubin and recorded at NRG Recording Studios.",
       "artist": [],
-      "music_group": [],
-      "songs": []
+      "music_group": [
+        1
+      ]
     }
   },
   {
@@ -4810,11 +5779,12 @@
     "pk": 419,
     "fields": {
       "title": "The Hunting Party",
-      "released_year": "2014-06-17",
+      "released": "2014-06-17",
       "summary": "The Hunting Party is the sixth studio album by American rock band Linkin Park. The album, produced by band members Mike Shinoda and Brad Delson, was released by Warner Bros. Records and Machine Shop on June 17, 2014. It is the first album since Meteora (2003) not to be produced with Rick Rubin, who produced the band's previous three studio albums. The album's title is a contextual metaphor: Linkin Park is the party that is hunting to bring back the energy and soul of rock.",
       "artist": [],
-      "music_group": [],
-      "songs": []
+      "music_group": [
+        1
+      ]
     }
   },
   {
@@ -4822,11 +5792,12 @@
     "pk": 420,
     "fields": {
       "title": "One More Light",
-      "released_year": "2017-03-19",
+      "released": "2017-03-19",
       "summary": "One More Light is the seventh studio album by American rock band Linkin Park. It was released on May 19, 2017, through Warner Bros. Records and Machine Shop. It is the band's first album to have a title track, as they felt that the song \"One More Light\" was the heart of the album. It is also the band's final album to feature two of their longtime members: co-lead vocalist Chester Bennington, who died of suicide two months after the album's release, and drummer and band co-founder Rob Bourdon, who opted to not return for the band's reformation in 2024.",
       "artist": [],
-      "music_group": [],
-      "songs": []
+      "music_group": [
+        1
+      ]
     }
   },
   {
@@ -4834,11 +5805,12 @@
     "pk": 421,
     "fields": {
       "title": "From Zero",
-      "released_year": "2024-11-15",
+      "released": "2024-11-15",
       "summary": "From Zero is the eighth studio album by American rock band Linkin Park. It was released on November 15, 2024, through Warner Records and Machine Shop, and is Linkin Park's first studio album since One More Light (2017). This is also their first album with vocalist Emily Armstrong and drummer Colin Brittain following the death of vocalist Chester Bennington in 2017 and departure of drummer and band co-founder Rob Bourdon. The album's title has a double meaning; it is a reference to both the band's original name, Xero, and the band's new chapter with Armstrong and Brittain. The album marks the band's return to the nu metal, alternative metal and rap rock genres while still incorporating some of the experimental sounds from their later records.",
       "artist": [],
-      "music_group": [],
-      "songs": []
+      "music_group": [
+        1
+      ]
     }
   },
   {
@@ -4846,25 +5818,26 @@
     "pk": 422,
     "fields": {
       "title": "A Night at the Opera",
-      "released_year": "1975-11-28",
+      "released": "1975-11-28",
       "summary": "A Night at the Opera is the fourth studio album by the British rock band Queen, released on 28 November 1975, by EMI Records in the United Kingdom and Elektra Records in the United States. Produced by Roy Thomas Baker and Queen, it was reportedly the most expensive album ever recorded at the time of its release.",
       "artist": [],
       "music_group": [
         2
+      ]
+    }
+  },
+  {
+    "model": "viewer.album",
+    "pk": 423,
+    "fields": {
+      "title": "Nemám hlas jako zvon",
+      "released": "1975-01-01",
+      "summary": "",
+      "artist": [
+        60
       ],
-      "songs": [
-        269,
-        259,
-        270,
-        268,
-        261,
-        260,
-        267,
-        265,
-        264,
-        266,
-        262,
-        263
+      "music_group": [
+        76
       ]
     }
   }

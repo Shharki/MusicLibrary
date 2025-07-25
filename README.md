@@ -17,19 +17,28 @@ Development & CI    Git, GitHub Actions (lint + tests), PyCharm
     - [x] Alphabetical list
     - [ ] Filtering by: genre, country, language, year, album, performer, ratings
 - [ ] 2. Songs – song detail
-    - [ ] Title
-    - [ ] Genres (n:m -> Genre)
-    - [ ] Duration (in seconds)
-    - [ ] Release year
-    - [ ] Language
-    - [ ] Lyrics
-    - [ ] Summary / note
-    - [ ] Performers: individuals or groups (from SongPerformance)
-    - [ ] Performer roles (singer, composer, lyricist, etc.)
-- [ ] 3. Songs – other
+    - [X] Title
+    - [X] Genres (n:m -> Genre)
+    - [X] Duration (in seconds)
+    - [X] Release year
+    - [X] Language
+    - [X] Lyrics
+    - [X] Summary / note
+    - [X] Performers: individuals or groups (from SongPerformance)
+    - [X] Performer roles (singer, composer, lyricist, etc.)
+- [ ] 2.1. Songs – other
     - [ ] Album image (via Album relation)
     - [ ] Rating (user-based)
     - [ ] Audio sample / streaming link
+- [ ] 3. Albums – listing and detail
+    - [X] 3.1 Alphabetical album list
+    - [ ] 3.2 Album detail
+        - [ ] Title
+        - [ ] Release year
+        - [ ] Summary
+        - [ ] List of songs (with performers, durations, etc.)
+        - [ ] Total album duration (via get_duration())
+        - [ ] Genres, languages, performers (derived from songs)
 - [ ] 4. Contributors – listing and detail
     - [x] 4.1. Alphabetical list
     - [ ] 4.2. Contributor detail (singer, composer...)
@@ -48,34 +57,25 @@ Development & CI    Git, GitHub Actions (lint + tests), PyCharm
         - [ ] Founded / disbanded year
         - [ ] Members, roles, active periods
         - [ ] Songs they performed in
-- [ ] 6. Albums – listing and detail
-    - [ ] 6.1 Alphabetical album list
-    - [ ] 6.2 Album detail
-        - [ ] Title
-        - [ ] Release year
-        - [ ] Summary
-        - [ ] List of songs (with performers, durations, etc.)
-        - [ ] Total album duration (via get_duration())
-        - [ ] Genres, languages, performers (derived from songs)
-- [ ] 7. Countries – listing and detail
+- [ ] 6. Countries – listing and detail
     - [ ] Alphabetical list
     - [ ] Detail (list of contributors from the given country)
-- [ ] 8. Genres – listing and detail
+- [ ] 7. Genres – listing and detail
     - [ ] Alphabetical list
     - [ ] Detail (list of songs of the given genre)
-- [ ] 9. CRUD operations (via admin or views):
+- [ ] 8. CRUD operations (via admin or views):
     - [ ] Create
         - [ ] Songs, Contributors, Albums, Countries, Genres
     - [ ] Update
         - [ ] Songs, Contributors, Albums, Countries, Genres
     - [ ] Delete
         - [ ] Songs, Contributors, Albums, Countries, Genres
-- [ ] 10. Authentication and Users
+- [ ] 9. Authentication and Users
     - [ ] Display of logged-in user
     - [ ] Access restrictions by user type (regular vs. admin)
     - [ ] Login / Logout / Password reset
     - [ ] Registration, user profile
-- [ ] 11. Authorization
+- [ ] 10. Authorization
     - [ ] Permissions for CRUD operations
     - [ ] Protection of specific views (e.g. admin only)
 
@@ -137,10 +137,3 @@ Development & CI    Git, GitHub Actions (lint + tests), PyCharm
   - [x] summary (Text)  
 
 
-
-
-
-
-   
-    
-    

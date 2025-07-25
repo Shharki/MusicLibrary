@@ -2,7 +2,7 @@ from django.contrib import admin
 
 from viewer.models import (
     Genre, Country, Language, Contributor, MusicGroup, ContributorPreviousName, ContributorRole, \
-    MusicGroupMembership, Song, SongPerformance, Album, MusicGroupRole
+    MusicGroupMembership, Song, SongPerformance, Album, MusicGroupRole, AlbumSong
 )
 
 admin.site.register(Genre)
@@ -17,3 +17,4 @@ admin.site.register(MusicGroupRole)
 admin.site.register(Song)
 admin.site.register(SongPerformance)
 admin.site.register(Album)
+admin.site.register(AlbumSong)

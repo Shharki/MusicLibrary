@@ -54,13 +54,25 @@ class Contributor(Model):
     bio = TextField(null=True, blank=True)
 
     class Meta:
-        ordering = ['last_name', 'first_name', 'stage_name']
+        ordering = ['stage_name', 'last_name', 'first_name']
 
-    def __repr__(self):
-        return f"Contributor({self.__str__()})"
+    def display_more(self):
+        name = self.stage_name or f"{self.first_name} {self.middle_name + ' ' if self.middle_name else ''}{self.last_name}"
+        years = []
+
+        if self.date_of_birth:
+            years.append(str(self.date_of_birth.year))
+
+        if years:
+            name += f" ({'–'.join(years)})"
+
+        return name
 
     def __str__(self):
         return self.stage_name or f"{self.first_name} {self.last_name}"
+
+    def __repr__(self):
+        return f"Contributor({self.__str__()})"
 
 
 class ContributorPreviousName(Model):
@@ -142,7 +154,7 @@ class MusicGroupMembership(Model):
     to_date = DateField(null=True, blank=True)
 
     class Meta:
-        ordering = ['member__last_name', 'member__first_name', 'member__stage_name']
+        ordering = ['music_group', 'member__last_name', 'member__first_name', 'member__stage_name']
         db_table = 'viewer_music_group_membership'
 
     def __str__(self):
@@ -158,7 +170,7 @@ class Song(Model):
     music_group = ManyToManyField(MusicGroup, blank=True, related_name="songs")
     genre = ManyToManyField(Genre, blank=True)
     duration = PositiveIntegerField(help_text="Duration in seconds", null=True, blank=True)
-    released_year = DateField(null=True, blank=True)
+    released = DateField(null=True, blank=True)
     summary = TextField(null=True, blank=True)
     lyrics = TextField(null=True, blank=True)
     language = ForeignKey(Language, on_delete=SET_NULL, null=True, blank=True, related_name="songs")
@@ -203,7 +215,7 @@ class SongPerformance(Model):
             raise ValidationError("If a music group is set, music group role must also be set.")
 
     class Meta:
-        ordering = ['song']
+        ordering = ['song__title', 'contributor', 'music_group']
         db_table = 'viewer_song_performance'
         constraints = [
             CheckConstraint(
@@ -217,26 +229,66 @@ class SongPerformance(Model):
             )
         ]
 
+    def display_more(self):
+        album = self.song.albums.first()
+        album_title = album.title if album else "Unknown Album"
+        return f"{self.__str__} ({album_title})"
 
     def __str__(self):
-        return f"Performance of {self.song}"
+        if self.music_group:
+            performer = self.music_group.name
+        elif self.contributor:
+            performer = str(self.contributor)
+        else:
+            performer = "Unknown Performer"
+
+        return f"{performer} - {self.song}"
 
     def __repr__(self):
         return f"SongPerformance(song={self.song})"
 
 
+class AlbumSong(Model):
+    album = ForeignKey('Album', on_delete=CASCADE)
+    song = ForeignKey('Song', on_delete=CASCADE)
+    order = PositiveIntegerField()
+
+    class Meta:
+        unique_together = ('album', 'song')
+        ordering = ['album__title', 'order']
+        db_table = 'viewer_album_song'
+
+    def __str__(self):
+        return f"{self.album.title} - {self.order}. {self.song.title}"
+
+    def __repr__(self):
+        return f"<AlbumSong id={self.id} album={self.album_id} song={self.song_id} order={self.order}>"
+
 class Album(Model):
     title = CharField(max_length=128)
     artist = ManyToManyField(Contributor, blank=True, related_name="albums")
     music_group = ManyToManyField(MusicGroup, blank=True, related_name="albums")
-    songs = ManyToManyField(Song, blank=True, related_name="albums")
-    released_year = DateField(null=True, blank=True)
+    songs = ManyToManyField(Song, through='AlbumSong', blank=True, related_name="albums")
+    released = DateField(null=True, blank=True)
     summary = TextField(null=True, blank=True)
 
     class Meta:
-        ordering = ["title"]
+        ordering = ['released', 'title']
         verbose_name = "Album"
         verbose_name_plural = "Albums"
+
+    def display_more(self):
+        artist_names = ', '.join(str(artist) for artist in self.artist.all())
+        group_names = ', '.join(group.name for group in self.music_group.all())
+
+        if artist_names and group_names:
+            creators = f"{artist_names} / {group_names}"
+        else:
+            creators = artist_names or group_names or "Unknown"
+
+        if self.released:
+            return f"{self.title} ({self.released.year}) – {creators}"
+        return f"{self.title} – {creators}"
 
     def __str__(self):
         return self.title

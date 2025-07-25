@@ -1,18 +1,18 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    Song list
+    Album list
 {% endblock %}
 
 {% block content %}
-    <h1>Song list</h1>
+    <h1>Album list</h1>
     <ul>
-        {% for song in songs %}
+        {% for album in albums %}
             <li>
-                {{ song }} ({{ song.released.year }})
+                {{ album.display_more }}
             </li>
         {% empty %}
-            There is no song in the database.
+            There is no album in the database.
         {% endfor %}
     </ul>
 {% endblock %}

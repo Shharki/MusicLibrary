@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 
-from viewer.models import Song, MusicGroupMembership, Contributor
+from viewer.models import Song, MusicGroupMembership, Contributor, Album
 
 
 def home(request):
@@ -101,3 +101,9 @@ class ContributorsListView(ListView):
     template_name = 'contributors.html'
     model = Contributor
     context_object_name = 'contributors'
+
+
+class AlbumsListView(ListView):
+    template_name = 'albums.html'
+    model = Album
+    context_object_name = 'albums'
