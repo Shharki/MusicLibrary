@@ -11,9 +11,9 @@
     {% if song_artists or song_music_groups %}
         <p>by
             <strong>
-            {% for artist in song_artists %}{{ artist }}{% if not forloop.last or song_music_groups %},
-            {% endif %}{% endfor %}
-            {% for group in song_music_groups %}{{ group }}{% if not forloop.last %}, {% endif %}{% endfor %}
+                {% for artist in song_artists %}{{ artist }}{% if not forloop.last or song_music_groups %},
+                {% endif %}{% endfor %}
+                {% for group in song_music_groups %}{{ group }}{% if not forloop.last %}, {% endif %}{% endfor %}
             </strong>
         </p>
     {% endif %}
@@ -33,8 +33,21 @@
                 {% endfor %}
             </p>
 
-            <p><strong>Duration:</strong> {{ song.duration_format }}</p>
-            <p><strong>Released year:</strong> {{ song.released_year }}</p>
+            {% if song.duration %}
+                <p><strong>Duration:</strong> {{ song.duration_format }}</p>
+            {% endif %}
+
+            {% if song.released_year %}
+                <p><strong>Released year:</strong> {{ song.released_year }}</p>
+            {% endif %}
+
+            {% if song.language %}
+                <p><strong>Language:</strong> {{ song.language }}</p>
+            {% endif %}
+            {% if song.summary %}
+                <p><strong>Summary:</strong> {{ song.summary }}</p>
+            {% endif %}
+
         </div>
 
         <div class="col-md-6">
@@ -82,5 +95,11 @@
             {% endif %}
         </div>
     </div>
+    <hr class="my-4">
+    <div class="row">
+        <div class="col-md-12 text-center">
+            {% if song.lyrics %}
+                <p><strong>Lyrics:</strong> {{ song.lyrics|linebreaks }}</p>
+            {% endif %}
 
 {% endblock %}

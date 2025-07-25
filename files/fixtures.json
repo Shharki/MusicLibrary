@@ -49,6 +49,27 @@
     }
   },
   {
+    "model": "viewer.genre",
+    "pk": 18,
+    "fields": {
+      "name": "art rock"
+    }
+  },
+  {
+    "model": "viewer.genre",
+    "pk": 19,
+    "fields": {
+      "name": "glam rock"
+    }
+  },
+  {
+    "model": "viewer.genre",
+    "pk": 20,
+    "fields": {
+      "name": "baroque pop"
+    }
+  },
+  {
     "model": "viewer.country",
     "pk": 1,
     "fields": {
@@ -60,6 +81,27 @@
     "pk": 7,
     "fields": {
       "name": "Tanzania"
+    }
+  },
+  {
+    "model": "viewer.country",
+    "pk": 10,
+    "fields": {
+      "name": "Iran"
+    }
+  },
+  {
+    "model": "viewer.country",
+    "pk": 11,
+    "fields": {
+      "name": "United Kingdom"
+    }
+  },
+  {
+    "model": "viewer.country",
+    "pk": 12,
+    "fields": {
+      "name": "Switzerland"
     }
   },
   {
@@ -224,87 +266,415 @@
     }
   },
   {
+    "model": "viewer.contributor",
+    "pk": 46,
+    "fields": {
+      "first_name": "Don",
+      "middle_name": null,
+      "last_name": "Gilmore",
+      "stage_name": null,
+      "date_of_birth": null,
+      "date_of_death": null,
+      "country": null,
+      "bio": ""
+    }
+  },
+  {
+    "model": "viewer.contributor",
+    "pk": 47,
+    "fields": {
+      "first_name": "John",
+      "middle_name": "Jr.",
+      "last_name": "Ewing",
+      "stage_name": null,
+      "date_of_birth": null,
+      "date_of_death": null,
+      "country": null,
+      "bio": ""
+    }
+  },
+  {
+    "model": "viewer.contributor",
+    "pk": 48,
+    "fields": {
+      "first_name": "Matt",
+      "middle_name": null,
+      "last_name": "Griffin",
+      "stage_name": null,
+      "date_of_birth": null,
+      "date_of_death": null,
+      "country": null,
+      "bio": ""
+    }
+  },
+  {
+    "model": "viewer.contributor",
+    "pk": 49,
+    "fields": {
+      "first_name": "Steve",
+      "middle_name": null,
+      "last_name": "Sisco",
+      "stage_name": null,
+      "date_of_birth": null,
+      "date_of_death": null,
+      "country": 1,
+      "bio": ""
+    }
+  },
+  {
+    "model": "viewer.contributor",
+    "pk": 50,
+    "fields": {
+      "first_name": "Andy",
+      "middle_name": null,
+      "last_name": "Wallace",
+      "stage_name": null,
+      "date_of_birth": null,
+      "date_of_death": null,
+      "country": 1,
+      "bio": ""
+    }
+  },
+  {
+    "model": "viewer.contributor",
+    "pk": 51,
+    "fields": {
+      "first_name": "Ian",
+      "middle_name": null,
+      "last_name": "Hornbeck",
+      "stage_name": null,
+      "date_of_birth": null,
+      "date_of_death": null,
+      "country": 10,
+      "bio": ""
+    }
+  },
+  {
+    "model": "viewer.contributor",
+    "pk": 52,
+    "fields": {
+      "first_name": "Joseph",
+      "middle_name": null,
+      "last_name": "Hahn",
+      "stage_name": null,
+      "date_of_birth": null,
+      "date_of_death": null,
+      "country": 1,
+      "bio": ""
+    }
+  },
+  {
+    "model": "viewer.contributor",
+    "pk": 53,
+    "fields": {
+      "first_name": "Gary",
+      "middle_name": null,
+      "last_name": "Lyons",
+      "stage_name": null,
+      "date_of_birth": null,
+      "date_of_death": null,
+      "country": 11,
+      "bio": ""
+    }
+  },
+  {
+    "model": "viewer.contributor",
+    "pk": 54,
+    "fields": {
+      "first_name": "Kris",
+      "middle_name": null,
+      "last_name": "Fredriksson",
+      "stage_name": null,
+      "date_of_birth": null,
+      "date_of_death": null,
+      "country": 12,
+      "bio": ""
+    }
+  },
+  {
+    "model": "viewer.contributor",
+    "pk": 55,
+    "fields": {
+      "first_name": "Mike",
+      "middle_name": null,
+      "last_name": "Stone",
+      "stage_name": null,
+      "date_of_birth": null,
+      "date_of_death": null,
+      "country": 11,
+      "bio": ""
+    }
+  },
+  {
+    "model": "viewer.contributor",
+    "pk": 56,
+    "fields": {
+      "first_name": "Brian",
+      "middle_name": "Harold",
+      "last_name": "May",
+      "stage_name": null,
+      "date_of_birth": "1947-07-19",
+      "date_of_death": null,
+      "country": 11,
+      "bio": "Sir Brian Harold May (born 19 July 1947) is an English musician, songwriter, record producer, animal welfare activist, and astrophysicist. He achieved global fame as the lead guitarist and backing vocalist of the rock band Queen, which he co-founded with singer Freddie Mercury and drummer Roger Taylor. His guitar work and songwriting contributions helped Queen become one of the most successful acts in music history."
+    }
+  },
+  {
+    "model": "viewer.contributor",
+    "pk": 57,
+    "fields": {
+      "first_name": "Roger",
+      "middle_name": "Meddows",
+      "last_name": "Taylor",
+      "stage_name": null,
+      "date_of_birth": "1949-07-26",
+      "date_of_death": null,
+      "country": 11,
+      "bio": "Roger Meddows Taylor (born 26 July 1949) is an English musician, songwriter and record producer. He achieved international fame as the drummer and backing vocalist for the rock band Queen. As a drummer, Taylor was recognised early in his career for his unique sound and was voted the eighth-greatest drummer in classic rock music history in a listener poll conducted by Planet Rock in 2005. He was inducted into the Rock and Roll Hall of Fame in 2001 as a member of Queen.\r\n\r\nAs a songwriter, Taylor composed at least one track on every Queen album, and often sang lead vocals on his own compositions. He wrote or co-wrote three UK number ones (\"These Are the Days of Our Lives\", \"Innuendo\" and \"Under Pressure\") and wrote a further five major hits (\"Radio Ga Ga\", \"A Kind of Magic\", \"Heaven for Everyone\", \"Breakthru\" and \"The Invisible Man\"). He has collaborated with such artists as Eric Clapton, Roger Waters, Roger Daltrey, Robert Plant, Phil Collins, Genesis, Jimmy Nail, Kansas, Elton John, Gary Numan, Shakin' Stevens, Foo Fighters, Al Stewart, Steve Vai, Yoshiki, Cyndi Almouzni and Bon Jovi. As a producer, he has produced albums by Virginia Wolf, Jimmy Nail and Magnum.\r\n\r\nAs a singer, Taylor employs a falsetto vocal range. During the 1980s, in addition to his work with Queen, he formed a parallel band known as the Cross, in which he was the lead singer and rhythm guitarist. During the early 1980s, Taylor was also a panellist on the UK quiz show Pop Quiz, hosted by Mike Read. In 2014, he appeared in Brian Pern as himself.\r\n\r\nHe is the father of the Darkness' drummer Rufus Tiger Taylor."
+    }
+  },
+  {
+    "model": "viewer.contributor",
+    "pk": 58,
+    "fields": {
+      "first_name": "Roy",
+      "middle_name": "Thomas",
+      "last_name": "Baker",
+      "stage_name": null,
+      "date_of_birth": "1946-11-10",
+      "date_of_death": "2025-04-12",
+      "country": 11,
+      "bio": "Roy Thomas Baker (10 November 1946 – 12 April 2025) was an English record producer, songwriter and arranger who produced rock and pop songs, best known for producing five out of the first seven albums by British rock band Queen and the first four albums by Boston-based band The Cars."
+    }
+  },
+  {
+    "model": "viewer.contributor",
+    "pk": 59,
+    "fields": {
+      "first_name": "John",
+      "middle_name": "Richard",
+      "last_name": "Deacon",
+      "stage_name": null,
+      "date_of_birth": "1951-08-19",
+      "date_of_death": null,
+      "country": 11,
+      "bio": "John Richard Deacon (born 19 August 1951) is an English retired musician who was the bass guitarist for the rock band Queen. He wrote several songs for the group, including Top 10 hits \"You're My Best Friend\", \"Another One Bites the Dust\" and \"I Want to Break Free\"; co-wrote \"Under Pressure\", \"Friends Will Be Friends\" and \"One Vision\"; and he was involved in the band's financial management."
+    }
+  },
+  {
     "model": "viewer.contributorrole",
     "pk": 1,
     "fields": {
-      "name": "bass guitar"
+      "name": "bass guitar",
+      "category": "performer"
     }
   },
   {
     "model": "viewer.contributorrole",
     "pk": 2,
     "fields": {
-      "name": "drums"
+      "name": "drums",
+      "category": "performer"
     }
   },
   {
     "model": "viewer.contributorrole",
     "pk": 3,
     "fields": {
-      "name": "guitar"
+      "name": "guitar",
+      "category": "performer"
     }
   },
   {
     "model": "viewer.contributorrole",
     "pk": 4,
     "fields": {
-      "name": "composer"
+      "name": "composer",
+      "category": "writer"
     }
   },
   {
     "model": "viewer.contributorrole",
     "pk": 5,
     "fields": {
-      "name": "writer"
+      "name": "songwriter",
+      "category": "writer"
     }
   },
   {
     "model": "viewer.contributorrole",
     "pk": 7,
     "fields": {
-      "name": "vocalist"
+      "name": "vocalist",
+      "category": "performer"
     }
   },
   {
     "model": "viewer.contributorrole",
     "pk": 8,
     "fields": {
-      "name": "keyboard"
+      "name": "keyboard",
+      "category": "performer"
     }
   },
   {
     "model": "viewer.contributorrole",
     "pk": 14,
     "fields": {
-      "name": "lyricist"
+      "name": "lyricist",
+      "category": "writer"
     }
   },
   {
     "model": "viewer.contributorrole",
     "pk": 15,
     "fields": {
-      "name": "visual artist"
+      "name": "visual artist",
+      "category": "other"
     }
   },
   {
     "model": "viewer.contributorrole",
     "pk": 16,
     "fields": {
-      "name": "percussion"
+      "name": "percussion",
+      "category": "performer"
     }
   },
   {
     "model": "viewer.contributorrole",
     "pk": 17,
     "fields": {
-      "name": "DJ"
+      "name": "DJ",
+      "category": "performer"
     }
   },
   {
-    "model": "viewer.musicgrouprole",
-    "pk": 1,
+    "model": "viewer.contributorrole",
+    "pk": 24,
     "fields": {
-      "name": "main band"
+      "name": "recording engineer and producer",
+      "category": "producer"
+    }
+  },
+  {
+    "model": "viewer.contributorrole",
+    "pk": 26,
+    "fields": {
+      "name": "additional engineer",
+      "category": "producer"
+    }
+  },
+  {
+    "model": "viewer.contributorrole",
+    "pk": 27,
+    "fields": {
+      "name": "assistant engineer",
+      "category": "producer"
+    }
+  },
+  {
+    "model": "viewer.contributorrole",
+    "pk": 28,
+    "fields": {
+      "name": "engineer",
+      "category": "producer"
+    }
+  },
+  {
+    "model": "viewer.contributorrole",
+    "pk": 29,
+    "fields": {
+      "name": "mixer",
+      "category": "producer"
+    }
+  },
+  {
+    "model": "viewer.contributorrole",
+    "pk": 30,
+    "fields": {
+      "name": "additional sound engineer",
+      "category": "producer"
+    }
+  },
+  {
+    "model": "viewer.contributorrole",
+    "pk": 31,
+    "fields": {
+      "name": "executive engineer",
+      "category": "producer"
+    }
+  },
+  {
+    "model": "viewer.contributorrole",
+    "pk": 32,
+    "fields": {
+      "name": "executive producer",
+      "category": "producer"
+    }
+  },
+  {
+    "model": "viewer.contributorrole",
+    "pk": 33,
+    "fields": {
+      "name": "producer",
+      "category": "producer"
+    }
+  },
+  {
+    "model": "viewer.contributorrole",
+    "pk": 34,
+    "fields": {
+      "name": "lead vocalist",
+      "category": "performer"
+    }
+  },
+  {
+    "model": "viewer.contributorrole",
+    "pk": 35,
+    "fields": {
+      "name": "pianist",
+      "category": "performer"
+    }
+  },
+  {
+    "model": "viewer.contributorrole",
+    "pk": 36,
+    "fields": {
+      "name": "background vocals",
+      "category": "performer"
+    }
+  },
+  {
+    "model": "viewer.contributorrole",
+    "pk": 37,
+    "fields": {
+      "name": "handclaps",
+      "category": "performer"
+    }
+  },
+  {
+    "model": "viewer.contributorrole",
+    "pk": 38,
+    "fields": {
+      "name": "arranger",
+      "category": "other"
+    }
+  },
+  {
+    "model": "viewer.contributorrole",
+    "pk": 39,
+    "fields": {
+      "name": "electric guitar",
+      "category": "performer"
+    }
+  },
+  {
+    "model": "viewer.contributorrole",
+    "pk": 40,
+    "fields": {
+      "name": "operatic vocalist",
+      "category": "performer"
     }
   },
   {
@@ -352,13 +722,13 @@
     "model": "viewer.musicgroupmembership",
     "pk": 1,
     "fields": {
-      "contributor": 1,
+      "member": 1,
       "music_group": 1,
       "from_date": "1999-01-01",
       "to_date": "2017-07-20",
-      "contributor_role": [
-        7,
-        5
+      "member_role": [
+        5,
+        7
       ]
     }
   },
@@ -366,11 +736,11 @@
     "model": "viewer.musicgroupmembership",
     "pk": 2,
     "fields": {
-      "contributor": 2,
+      "member": 2,
       "music_group": 1,
       "from_date": "1996-01-01",
       "to_date": null,
-      "contributor_role": [
+      "member_role": [
         3,
         8,
         7
@@ -381,11 +751,11 @@
     "model": "viewer.musicgroupmembership",
     "pk": 3,
     "fields": {
-      "contributor": 4,
+      "member": 4,
       "music_group": 1,
       "from_date": "1997-01-01",
       "to_date": null,
-      "contributor_role": [
+      "member_role": [
         17,
         15
       ]
@@ -395,11 +765,11 @@
     "model": "viewer.musicgroupmembership",
     "pk": 4,
     "fields": {
-      "contributor": 6,
+      "member": 6,
       "music_group": 1,
       "from_date": "1996-01-01",
       "to_date": "2017-01-01",
-      "contributor_role": [
+      "member_role": [
         2,
         16
       ]
@@ -409,11 +779,11 @@
     "model": "viewer.musicgroupmembership",
     "pk": 5,
     "fields": {
-      "contributor": 5,
+      "member": 5,
       "music_group": 1,
       "from_date": "1996-01-01",
       "to_date": null,
-      "contributor_role": [
+      "member_role": [
         3
       ]
     }
@@ -422,11 +792,11 @@
     "model": "viewer.musicgroupmembership",
     "pk": 6,
     "fields": {
-      "contributor": 7,
+      "member": 7,
       "music_group": 1,
       "from_date": "2024-09-01",
       "to_date": null,
-      "contributor_role": [
+      "member_role": [
         2,
         3,
         5
@@ -437,11 +807,11 @@
     "model": "viewer.musicgroupmembership",
     "pk": 7,
     "fields": {
-      "contributor": 8,
+      "member": 8,
       "music_group": 1,
       "from_date": "1997-01-01",
       "to_date": null,
-      "contributor_role": [
+      "member_role": [
         1
       ]
     }
@@ -450,13 +820,77 @@
     "model": "viewer.musicgroupmembership",
     "pk": 8,
     "fields": {
-      "contributor": 9,
+      "member": 9,
       "music_group": 1,
       "from_date": "2024-09-01",
       "to_date": null,
-      "contributor_role": [
+      "member_role": [
         3,
         7
+      ]
+    }
+  },
+  {
+    "model": "viewer.musicgroupmembership",
+    "pk": 195,
+    "fields": {
+      "member": 3,
+      "music_group": 2,
+      "from_date": null,
+      "to_date": null,
+      "member_role": [
+        36,
+        4,
+        34,
+        14,
+        40,
+        35,
+        5,
+        7
+      ]
+    }
+  },
+  {
+    "model": "viewer.musicgroupmembership",
+    "pk": 196,
+    "fields": {
+      "member": 56,
+      "music_group": 2,
+      "from_date": null,
+      "to_date": null,
+      "member_role": [
+        36,
+        4,
+        32,
+        3,
+        14
+      ]
+    }
+  },
+  {
+    "model": "viewer.musicgroupmembership",
+    "pk": 197,
+    "fields": {
+      "member": 57,
+      "music_group": 2,
+      "from_date": null,
+      "to_date": null,
+      "member_role": [
+        2,
+        31
+      ]
+    }
+  },
+  {
+    "model": "viewer.musicgroupmembership",
+    "pk": 198,
+    "fields": {
+      "member": 59,
+      "music_group": 2,
+      "from_date": null,
+      "to_date": null,
+      "member_role": [
+        1
       ]
     }
   },
@@ -466,11 +900,15 @@
     "fields": {
       "title": "Papercut",
       "duration": 185,
-      "released_year": 2000,
+      "released_year": "2000-10-24",
       "summary": "",
       "lyrics": "Why does it feel like night today?\r\nSomething in here's not right today\r\nWhy am I so uptight today?\r\nParanoia's all I got left\r\nI don't know what stressed me first\r\nOr how the pressure was fed\r\nBut I know just what it feels like\r\nTo have a voice in the back of my head\r\nLike a face that I hold inside\r\nA face that awakes when I close my eyes\r\nA face that watches every time I lie\r\nA face that laughs every time I fall (and watches everything)\r\nSo I know that when it's time to sink or swim\r\nThat the face inside is here in me, right underneath my skin\r\nIt's like, I'm paranoid, lookin' over my back\r\nIt's like a whirlwind inside of my head\r\nIt's like, I can't stop what I'm hearing within\r\nIt's like the face inside is right beneath my skin\r\nI know I've got a face in me\r\nPoints out all my mistakes to me\r\nYou've got a face on the inside too\r\nAnd your paranoia's probably worse\r\nI don't know what set me off first\r\nBut I know what I can't stand\r\nEverybody acts like the fact of the matter is\r\nI can't add up to what you can\r\nBut everybody has a face that they hold inside\r\nA face that awakes when I close my eyes\r\nA face that watches every time they lie\r\nA face that laughs every time they fall (and watches everything)\r\nSo you know that when it's time to sink or swim\r\nThat the face inside is watching you too, right inside your skin\r\nIt's like, I'm paranoid, lookin' over my back\r\nIt's like a whirlwind inside of my head\r\nIt's like, I can't stop what I'm hearing within\r\nIt's like the face inside is right beneath the skin\r\nIt's like, I'm paranoid, lookin' over my back\r\nIt's like a whirlwind inside of my head\r\nIt's like, I can't stop what I'm hearing within\r\nIt's like the face inside is right beneath my skin\r\nThe face inside is right beneath your skin\r\nThe face inside is right beneath your skin\r\nThe face inside is right beneath your skin\r\nThe sun goes down\r\nI feel the light betray me\r\nThe sun goes down\r\nI feel the light betray me\r\nit's like, I'm paranoid, lookin' over my back\r\nIt's like a whirlwind inside of my head\r\nIt's like, I can't stop what I'm hearing within\r\nIt's like the face inside is right beneath the skin (I feel the light betray me)\r\nit's like, I'm paranoid, lookin' over my back\r\nIt's like a whirlwind inside of my head\r\nIt's like, I can't stop what I'm hearing within\r\nIt's like, I can't stop what I'm hearing within (I feel the light betray me)\r\nIt's like, I can't stop what I'm hearing within (ah)\r\nIt's like the face inside is right beneath my skin",
       "language": 1,
-      "genres": [
+      "artist": [],
+      "music_group": [
+        1
+      ],
+      "genre": [
         3,
         1,
         5,
@@ -485,11 +923,15 @@
     "fields": {
       "title": "One Step Closer",
       "duration": 156,
-      "released_year": 2000,
+      "released_year": "2000-10-24",
       "summary": "",
       "lyrics": "I cannot take this anymore\r\nSaying everything I've said before\r\nAll these words they make no sense\r\nI found bliss in ignorance\r\nLess I hear the less you'll say\r\nYou'll find that out anyway\r\n\r\n(Just like before)\r\n\r\nEverything you say to me\r\n(Takes me one step closer to the edge, and I'm about to break)\r\nI need a little room to breathe\r\n('Cause I'm one step closer to the edge, I'm about to break)\r\n\r\nI find the answers aren't so clear\r\nWish I could find a way to disappear\r\nAll these thoughts they make no sense\r\nI found bliss in ignorance\r\nNothing seems to go away\r\nOver and over again\r\n\r\n(Just like before)\r\n\r\nEverything you say to me\r\n(Takes me one step closer to the edge, and I'm about to break)\r\nI need a little room to breathe\r\n('Cause I'm one step closer to the edge, I'm about to break)\r\n\r\nEverything you say to me\r\n(Takes me one step closer to the edge, and I'm about to break)\r\nI need a little room to breathe\r\n('Cause I'm one step closer to the edge, I'm about to break)\r\n\r\nShut up when I'm talking to you!\r\n\r\nShut up!\r\nShut up!\r\nShut up!\r\nShut up when I'm talking to you!\r\nShut up!\r\nShut up!\r\nShut up!\r\nShut up, I'm about to break\r\n\r\nEverything you say to me\r\n(Takes me one step closer to the edge, and I'm about to break)\r\nI need a little room to breathe\r\n('Cause I'm one step closer to the edge, I'm about to break)\r\n\r\nEverything you say to me\r\n(Takes me one step closer to the edge, and I'm about to break)\r\nI need a little room to breathe\r\n('Cause I'm one step closer to the edge, and I'm about to break)",
       "language": 1,
-      "genres": [
+      "artist": [],
+      "music_group": [
+        1
+      ],
+      "genre": [
         3,
         1,
         5,
@@ -504,11 +946,21 @@
     "fields": {
       "title": "With You",
       "duration": 203,
-      "released_year": null,
+      "released_year": "2000-10-24",
       "summary": "",
       "lyrics": "",
       "language": 1,
-      "genres": []
+      "artist": [],
+      "music_group": [
+        1
+      ],
+      "genre": [
+        3,
+        1,
+        5,
+        2,
+        4
+      ]
     }
   },
   {
@@ -517,13 +969,20 @@
     "fields": {
       "title": "Points of Authority",
       "duration": 200,
-      "released_year": null,
+      "released_year": "2000-10-24",
       "summary": "",
       "lyrics": "",
       "language": 1,
-      "genres": [
-        6,
-        7
+      "artist": [],
+      "music_group": [
+        1
+      ],
+      "genre": [
+        3,
+        1,
+        5,
+        2,
+        4
       ]
     }
   },
@@ -533,11 +992,21 @@
     "fields": {
       "title": "Crawling",
       "duration": 209,
-      "released_year": null,
+      "released_year": "2000-10-24",
       "summary": "",
       "lyrics": "",
       "language": 1,
-      "genres": []
+      "artist": [],
+      "music_group": [
+        1
+      ],
+      "genre": [
+        3,
+        1,
+        5,
+        2,
+        4
+      ]
     }
   },
   {
@@ -546,11 +1015,21 @@
     "fields": {
       "title": "Runaway",
       "duration": 183,
-      "released_year": null,
+      "released_year": "2000-10-24",
       "summary": "",
       "lyrics": "",
       "language": 1,
-      "genres": []
+      "artist": [],
+      "music_group": [
+        1
+      ],
+      "genre": [
+        3,
+        1,
+        5,
+        2,
+        4
+      ]
     }
   },
   {
@@ -559,11 +1038,21 @@
     "fields": {
       "title": "By Myself",
       "duration": 189,
-      "released_year": null,
+      "released_year": "2000-10-24",
       "summary": "",
       "lyrics": "",
       "language": 1,
-      "genres": []
+      "artist": [],
+      "music_group": [
+        1
+      ],
+      "genre": [
+        3,
+        1,
+        5,
+        2,
+        4
+      ]
     }
   },
   {
@@ -572,11 +1061,21 @@
     "fields": {
       "title": "In the End",
       "duration": 216,
-      "released_year": null,
+      "released_year": "2000-10-24",
       "summary": "",
       "lyrics": "",
       "language": 1,
-      "genres": []
+      "artist": [],
+      "music_group": [
+        1
+      ],
+      "genre": [
+        3,
+        1,
+        5,
+        2,
+        4
+      ]
     }
   },
   {
@@ -585,11 +1084,21 @@
     "fields": {
       "title": "A Place for My Head",
       "duration": 184,
-      "released_year": null,
+      "released_year": "2000-10-24",
       "summary": "",
       "lyrics": "",
       "language": 1,
-      "genres": []
+      "artist": [],
+      "music_group": [
+        1
+      ],
+      "genre": [
+        3,
+        1,
+        5,
+        2,
+        4
+      ]
     }
   },
   {
@@ -598,11 +1107,21 @@
     "fields": {
       "title": "Forgotten",
       "duration": 194,
-      "released_year": null,
+      "released_year": "2000-10-24",
       "summary": "",
       "lyrics": "",
       "language": 1,
-      "genres": []
+      "artist": [],
+      "music_group": [
+        1
+      ],
+      "genre": [
+        3,
+        1,
+        5,
+        2,
+        4
+      ]
     }
   },
   {
@@ -611,11 +1130,21 @@
     "fields": {
       "title": "Cure for the Itch",
       "duration": 157,
-      "released_year": null,
+      "released_year": "2000-10-24",
       "summary": "",
       "lyrics": "",
       "language": 1,
-      "genres": []
+      "artist": [],
+      "music_group": [
+        1
+      ],
+      "genre": [
+        3,
+        1,
+        5,
+        2,
+        4
+      ]
     }
   },
   {
@@ -624,11 +1153,518 @@
     "fields": {
       "title": "Pushing Me Away",
       "duration": 191,
-      "released_year": null,
+      "released_year": "2000-10-24",
       "summary": "",
       "lyrics": "",
       "language": 1,
-      "genres": []
+      "artist": [],
+      "music_group": [
+        1
+      ],
+      "genre": [
+        3,
+        1,
+        5,
+        2,
+        4
+      ]
+    }
+  },
+  {
+    "model": "viewer.song",
+    "pk": 246,
+    "fields": {
+      "title": "Foreword",
+      "duration": 13,
+      "released_year": "2003-03-25",
+      "summary": null,
+      "lyrics": null,
+      "language": 1,
+      "artist": [],
+      "music_group": [
+        1
+      ],
+      "genre": []
+    }
+  },
+  {
+    "model": "viewer.song",
+    "pk": 247,
+    "fields": {
+      "title": "Don't Stay",
+      "duration": 188,
+      "released_year": "2003-03-25",
+      "summary": null,
+      "lyrics": null,
+      "language": 1,
+      "artist": [],
+      "music_group": [
+        1
+      ],
+      "genre": []
+    }
+  },
+  {
+    "model": "viewer.song",
+    "pk": 248,
+    "fields": {
+      "title": "Somewhere I Belong",
+      "duration": 214,
+      "released_year": "2003-03-25",
+      "summary": null,
+      "lyrics": null,
+      "language": 1,
+      "artist": [],
+      "music_group": [
+        1
+      ],
+      "genre": []
+    }
+  },
+  {
+    "model": "viewer.song",
+    "pk": 249,
+    "fields": {
+      "title": "Lying From You",
+      "duration": 175,
+      "released_year": "2003-03-25",
+      "summary": null,
+      "lyrics": null,
+      "language": 1,
+      "artist": [],
+      "music_group": [
+        1
+      ],
+      "genre": []
+    }
+  },
+  {
+    "model": "viewer.song",
+    "pk": 250,
+    "fields": {
+      "title": "Hit the Floor",
+      "duration": 164,
+      "released_year": "2003-03-25",
+      "summary": null,
+      "lyrics": null,
+      "language": 1,
+      "artist": [],
+      "music_group": [
+        1
+      ],
+      "genre": []
+    }
+  },
+  {
+    "model": "viewer.song",
+    "pk": 251,
+    "fields": {
+      "title": "Easier to Run",
+      "duration": 204,
+      "released_year": "2003-03-25",
+      "summary": null,
+      "lyrics": null,
+      "language": 1,
+      "artist": [],
+      "music_group": [
+        1
+      ],
+      "genre": []
+    }
+  },
+  {
+    "model": "viewer.song",
+    "pk": 252,
+    "fields": {
+      "title": "Faint",
+      "duration": 162,
+      "released_year": "2003-03-25",
+      "summary": null,
+      "lyrics": null,
+      "language": 1,
+      "artist": [],
+      "music_group": [
+        1
+      ],
+      "genre": []
+    }
+  },
+  {
+    "model": "viewer.song",
+    "pk": 253,
+    "fields": {
+      "title": "Figure.09",
+      "duration": 198,
+      "released_year": "2003-03-25",
+      "summary": null,
+      "lyrics": null,
+      "language": 1,
+      "artist": [],
+      "music_group": [
+        1
+      ],
+      "genre": []
+    }
+  },
+  {
+    "model": "viewer.song",
+    "pk": 254,
+    "fields": {
+      "title": "Breaking the Habit",
+      "duration": 196,
+      "released_year": "2003-03-25",
+      "summary": null,
+      "lyrics": null,
+      "language": 1,
+      "artist": [],
+      "music_group": [
+        1
+      ],
+      "genre": []
+    }
+  },
+  {
+    "model": "viewer.song",
+    "pk": 255,
+    "fields": {
+      "title": "From the Inside",
+      "duration": 176,
+      "released_year": "2003-03-25",
+      "summary": null,
+      "lyrics": null,
+      "language": 1,
+      "artist": [],
+      "music_group": [
+        1
+      ],
+      "genre": []
+    }
+  },
+  {
+    "model": "viewer.song",
+    "pk": 256,
+    "fields": {
+      "title": "Nobody’s Listening",
+      "duration": 179,
+      "released_year": "2003-03-25",
+      "summary": null,
+      "lyrics": null,
+      "language": 1,
+      "artist": [],
+      "music_group": [
+        1
+      ],
+      "genre": []
+    }
+  },
+  {
+    "model": "viewer.song",
+    "pk": 257,
+    "fields": {
+      "title": "Session",
+      "duration": 145,
+      "released_year": "2003-03-25",
+      "summary": null,
+      "lyrics": null,
+      "language": 1,
+      "artist": [],
+      "music_group": [
+        1
+      ],
+      "genre": []
+    }
+  },
+  {
+    "model": "viewer.song",
+    "pk": 258,
+    "fields": {
+      "title": "Numb",
+      "duration": 188,
+      "released_year": "2003-03-25",
+      "summary": null,
+      "lyrics": null,
+      "language": 1,
+      "artist": [],
+      "music_group": [
+        1
+      ],
+      "genre": []
+    }
+  },
+  {
+    "model": "viewer.song",
+    "pk": 259,
+    "fields": {
+      "title": "Death on Two Legs (Dedicated To...)",
+      "duration": 223,
+      "released_year": "1975-11-28",
+      "summary": "",
+      "lyrics": "",
+      "language": 1,
+      "artist": [],
+      "music_group": [
+        2
+      ],
+      "genre": [
+        18,
+        20,
+        19,
+        7,
+        4
+      ]
+    }
+  },
+  {
+    "model": "viewer.song",
+    "pk": 260,
+    "fields": {
+      "title": "Lazing on a Sunday Afternoon",
+      "duration": 68,
+      "released_year": "1975-11-28",
+      "summary": "",
+      "lyrics": "",
+      "language": 1,
+      "artist": [],
+      "music_group": [
+        2
+      ],
+      "genre": [
+        18,
+        20,
+        19,
+        7,
+        4
+      ]
+    }
+  },
+  {
+    "model": "viewer.song",
+    "pk": 261,
+    "fields": {
+      "title": "I’m in Love With My Car",
+      "duration": 185,
+      "released_year": "1975-11-28",
+      "summary": "",
+      "lyrics": "",
+      "language": 1,
+      "artist": [],
+      "music_group": [
+        2
+      ],
+      "genre": [
+        18,
+        20,
+        19,
+        7,
+        4
+      ]
+    }
+  },
+  {
+    "model": "viewer.song",
+    "pk": 262,
+    "fields": {
+      "title": "You’re My Best Friend",
+      "duration": 170,
+      "released_year": "1975-11-28",
+      "summary": "",
+      "lyrics": "",
+      "language": 1,
+      "artist": [],
+      "music_group": [
+        2
+      ],
+      "genre": [
+        18,
+        20,
+        19,
+        7,
+        4
+      ]
+    }
+  },
+  {
+    "model": "viewer.song",
+    "pk": 263,
+    "fields": {
+      "title": "’39",
+      "duration": 205,
+      "released_year": "1975-11-28",
+      "summary": "",
+      "lyrics": "",
+      "language": 1,
+      "artist": [],
+      "music_group": [
+        2
+      ],
+      "genre": [
+        18,
+        20,
+        19,
+        7,
+        4
+      ]
+    }
+  },
+  {
+    "model": "viewer.song",
+    "pk": 264,
+    "fields": {
+      "title": "Sweet Lady",
+      "duration": 241,
+      "released_year": "1975-11-28",
+      "summary": "",
+      "lyrics": "",
+      "language": 1,
+      "artist": [],
+      "music_group": [
+        2
+      ],
+      "genre": [
+        18,
+        20,
+        19,
+        7,
+        4
+      ]
+    }
+  },
+  {
+    "model": "viewer.song",
+    "pk": 265,
+    "fields": {
+      "title": "Seaside Rendezvous",
+      "duration": 133,
+      "released_year": "1975-11-28",
+      "summary": "",
+      "lyrics": "",
+      "language": 1,
+      "artist": [],
+      "music_group": [
+        2
+      ],
+      "genre": [
+        18,
+        20,
+        19,
+        7,
+        4
+      ]
+    }
+  },
+  {
+    "model": "viewer.song",
+    "pk": 266,
+    "fields": {
+      "title": "The Prophet's Song",
+      "duration": 497,
+      "released_year": "1975-11-28",
+      "summary": "",
+      "lyrics": "",
+      "language": 1,
+      "artist": [],
+      "music_group": [
+        2
+      ],
+      "genre": [
+        18,
+        20,
+        19,
+        7,
+        4
+      ]
+    }
+  },
+  {
+    "model": "viewer.song",
+    "pk": 267,
+    "fields": {
+      "title": "Love of My Life",
+      "duration": 218,
+      "released_year": "1975-11-28",
+      "summary": "",
+      "lyrics": "",
+      "language": 1,
+      "artist": [],
+      "music_group": [
+        2
+      ],
+      "genre": [
+        18,
+        20,
+        19,
+        7,
+        4
+      ]
+    }
+  },
+  {
+    "model": "viewer.song",
+    "pk": 268,
+    "fields": {
+      "title": "Good Company",
+      "duration": 206,
+      "released_year": "1975-11-28",
+      "summary": "",
+      "lyrics": "",
+      "language": 1,
+      "artist": [],
+      "music_group": [
+        2
+      ],
+      "genre": [
+        18,
+        20,
+        19,
+        7,
+        4
+      ]
+    }
+  },
+  {
+    "model": "viewer.song",
+    "pk": 269,
+    "fields": {
+      "title": "Bohemian Rhapsody",
+      "duration": 355,
+      "released_year": "1975-11-28",
+      "summary": "",
+      "lyrics": "",
+      "language": 1,
+      "artist": [],
+      "music_group": [
+        2
+      ],
+      "genre": [
+        18,
+        20,
+        19,
+        7,
+        4
+      ]
+    }
+  },
+  {
+    "model": "viewer.song",
+    "pk": 270,
+    "fields": {
+      "title": "God Save the Queen",
+      "duration": 71,
+      "released_year": "1975-11-28",
+      "summary": "",
+      "lyrics": "",
+      "language": 1,
+      "artist": [],
+      "music_group": [
+        2
+      ],
+      "genre": [
+        18,
+        20,
+        19,
+        7,
+        4
+      ]
     }
   },
   {
@@ -636,131 +1672,3046 @@
     "pk": 1,
     "fields": {
       "song": 1,
-      "contributor": null,
-      "contributor_role": null,
-      "music_group": 1,
-      "music_group_role": 1
+      "contributor": 5,
+      "contributor_role": 3,
+      "music_group": null,
+      "music_group_role": null
     }
   },
   {
     "model": "viewer.songperformance",
-    "pk": 2,
+    "pk": 13,
+    "fields": {
+      "song": 1,
+      "contributor": 6,
+      "contributor_role": 2,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 14,
+    "fields": {
+      "song": 1,
+      "contributor": 46,
+      "contributor_role": 24,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 16,
+    "fields": {
+      "song": 1,
+      "contributor": 47,
+      "contributor_role": 26,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 17,
+    "fields": {
+      "song": 1,
+      "contributor": 48,
+      "contributor_role": 27,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 18,
+    "fields": {
+      "song": 1,
+      "contributor": 49,
+      "contributor_role": 28,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 19,
+    "fields": {
+      "song": 1,
+      "contributor": 50,
+      "contributor_role": 29,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 20,
+    "fields": {
+      "song": 1,
+      "contributor": 51,
+      "contributor_role": 1,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 21,
+    "fields": {
+      "song": 1,
+      "contributor": 1,
+      "contributor_role": 7,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 22,
+    "fields": {
+      "song": 1,
+      "contributor": 2,
+      "contributor_role": 7,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 23,
+    "fields": {
+      "song": 1,
+      "contributor": 1,
+      "contributor_role": 5,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 24,
+    "fields": {
+      "song": 1,
+      "contributor": 6,
+      "contributor_role": 5,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 25,
+    "fields": {
+      "song": 1,
+      "contributor": 5,
+      "contributor_role": 5,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 26,
+    "fields": {
+      "song": 1,
+      "contributor": 52,
+      "contributor_role": 5,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 27,
     "fields": {
       "song": 2,
-      "contributor": null,
-      "contributor_role": null,
-      "music_group": 1,
-      "music_group_role": 1
+      "contributor": 6,
+      "contributor_role": 2,
+      "music_group": null,
+      "music_group_role": null
     }
   },
   {
     "model": "viewer.songperformance",
-    "pk": 3,
+    "pk": 28,
     "fields": {
-      "song": 9,
-      "contributor": null,
-      "contributor_role": null,
-      "music_group": 1,
-      "music_group_role": 1
+      "song": 2,
+      "contributor": 46,
+      "contributor_role": 24,
+      "music_group": null,
+      "music_group_role": null
     }
   },
   {
     "model": "viewer.songperformance",
-    "pk": 4,
+    "pk": 29,
     "fields": {
-      "song": 7,
-      "contributor": null,
-      "contributor_role": null,
-      "music_group": 1,
-      "music_group_role": 1
+      "song": 2,
+      "contributor": 47,
+      "contributor_role": 26,
+      "music_group": null,
+      "music_group_role": null
     }
   },
   {
     "model": "viewer.songperformance",
-    "pk": 5,
+    "pk": 30,
     "fields": {
-      "song": 5,
-      "contributor": null,
-      "contributor_role": null,
-      "music_group": 1,
-      "music_group_role": 1
+      "song": 2,
+      "contributor": 48,
+      "contributor_role": 27,
+      "music_group": null,
+      "music_group_role": null
     }
   },
   {
     "model": "viewer.songperformance",
-    "pk": 6,
+    "pk": 31,
     "fields": {
-      "song": 11,
-      "contributor": null,
-      "contributor_role": null,
-      "music_group": 1,
-      "music_group_role": 1
+      "song": 2,
+      "contributor": 49,
+      "contributor_role": 28,
+      "music_group": null,
+      "music_group_role": null
     }
   },
   {
     "model": "viewer.songperformance",
-    "pk": 7,
+    "pk": 32,
     "fields": {
-      "song": 10,
-      "contributor": null,
-      "contributor_role": null,
-      "music_group": 1,
-      "music_group_role": 1
+      "song": 2,
+      "contributor": 50,
+      "contributor_role": 29,
+      "music_group": null,
+      "music_group_role": null
     }
   },
   {
     "model": "viewer.songperformance",
-    "pk": 8,
+    "pk": 33,
     "fields": {
-      "song": 8,
-      "contributor": null,
-      "contributor_role": null,
-      "music_group": 1,
-      "music_group_role": 1
+      "song": 2,
+      "contributor": 5,
+      "contributor_role": 3,
+      "music_group": null,
+      "music_group_role": null
     }
   },
   {
     "model": "viewer.songperformance",
-    "pk": 9,
+    "pk": 34,
     "fields": {
-      "song": 4,
-      "contributor": null,
-      "contributor_role": null,
-      "music_group": 1,
-      "music_group_role": 1
+      "song": 2,
+      "contributor": 1,
+      "contributor_role": 7,
+      "music_group": null,
+      "music_group_role": null
     }
   },
   {
     "model": "viewer.songperformance",
-    "pk": 10,
+    "pk": 35,
     "fields": {
-      "song": 12,
-      "contributor": null,
-      "contributor_role": null,
-      "music_group": 1,
-      "music_group_role": 1
+      "song": 2,
+      "contributor": 2,
+      "contributor_role": 7,
+      "music_group": null,
+      "music_group_role": null
     }
   },
   {
     "model": "viewer.songperformance",
-    "pk": 11,
+    "pk": 36,
     "fields": {
-      "song": 6,
-      "contributor": null,
-      "contributor_role": null,
-      "music_group": 1,
-      "music_group_role": 1
+      "song": 2,
+      "contributor": 1,
+      "contributor_role": 5,
+      "music_group": null,
+      "music_group_role": null
     }
   },
   {
     "model": "viewer.songperformance",
-    "pk": 12,
+    "pk": 37,
+    "fields": {
+      "song": 2,
+      "contributor": 6,
+      "contributor_role": 5,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 38,
+    "fields": {
+      "song": 2,
+      "contributor": 5,
+      "contributor_role": 5,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 39,
+    "fields": {
+      "song": 2,
+      "contributor": 52,
+      "contributor_role": 5,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 40,
     "fields": {
       "song": 3,
-      "contributor": null,
-      "contributor_role": null,
-      "music_group": 1,
-      "music_group_role": 1
+      "contributor": 6,
+      "contributor_role": 2,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 41,
+    "fields": {
+      "song": 3,
+      "contributor": 46,
+      "contributor_role": 24,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 42,
+    "fields": {
+      "song": 3,
+      "contributor": 47,
+      "contributor_role": 26,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 43,
+    "fields": {
+      "song": 3,
+      "contributor": 48,
+      "contributor_role": 27,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 44,
+    "fields": {
+      "song": 3,
+      "contributor": 49,
+      "contributor_role": 28,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 45,
+    "fields": {
+      "song": 3,
+      "contributor": 50,
+      "contributor_role": 29,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 46,
+    "fields": {
+      "song": 3,
+      "contributor": 5,
+      "contributor_role": 3,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 47,
+    "fields": {
+      "song": 3,
+      "contributor": 1,
+      "contributor_role": 7,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 48,
+    "fields": {
+      "song": 3,
+      "contributor": 2,
+      "contributor_role": 7,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 49,
+    "fields": {
+      "song": 3,
+      "contributor": 1,
+      "contributor_role": 5,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 50,
+    "fields": {
+      "song": 3,
+      "contributor": 6,
+      "contributor_role": 5,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 51,
+    "fields": {
+      "song": 3,
+      "contributor": 5,
+      "contributor_role": 5,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 52,
+    "fields": {
+      "song": 3,
+      "contributor": 52,
+      "contributor_role": 5,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 53,
+    "fields": {
+      "song": 4,
+      "contributor": 6,
+      "contributor_role": 2,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 54,
+    "fields": {
+      "song": 4,
+      "contributor": 46,
+      "contributor_role": 24,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 55,
+    "fields": {
+      "song": 4,
+      "contributor": 47,
+      "contributor_role": 26,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 56,
+    "fields": {
+      "song": 4,
+      "contributor": 48,
+      "contributor_role": 27,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 57,
+    "fields": {
+      "song": 4,
+      "contributor": 49,
+      "contributor_role": 28,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 58,
+    "fields": {
+      "song": 4,
+      "contributor": 50,
+      "contributor_role": 29,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 59,
+    "fields": {
+      "song": 4,
+      "contributor": 5,
+      "contributor_role": 3,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 60,
+    "fields": {
+      "song": 4,
+      "contributor": 1,
+      "contributor_role": 7,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 61,
+    "fields": {
+      "song": 4,
+      "contributor": 2,
+      "contributor_role": 7,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 62,
+    "fields": {
+      "song": 4,
+      "contributor": 1,
+      "contributor_role": 5,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 63,
+    "fields": {
+      "song": 4,
+      "contributor": 6,
+      "contributor_role": 5,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 64,
+    "fields": {
+      "song": 4,
+      "contributor": 5,
+      "contributor_role": 5,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 65,
+    "fields": {
+      "song": 4,
+      "contributor": 52,
+      "contributor_role": 5,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 66,
+    "fields": {
+      "song": 5,
+      "contributor": 6,
+      "contributor_role": 2,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 67,
+    "fields": {
+      "song": 5,
+      "contributor": 46,
+      "contributor_role": 24,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 68,
+    "fields": {
+      "song": 5,
+      "contributor": 47,
+      "contributor_role": 26,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 69,
+    "fields": {
+      "song": 5,
+      "contributor": 48,
+      "contributor_role": 27,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 70,
+    "fields": {
+      "song": 5,
+      "contributor": 49,
+      "contributor_role": 28,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 71,
+    "fields": {
+      "song": 5,
+      "contributor": 50,
+      "contributor_role": 29,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 72,
+    "fields": {
+      "song": 5,
+      "contributor": 5,
+      "contributor_role": 3,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 73,
+    "fields": {
+      "song": 5,
+      "contributor": 1,
+      "contributor_role": 7,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 74,
+    "fields": {
+      "song": 5,
+      "contributor": 2,
+      "contributor_role": 7,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 75,
+    "fields": {
+      "song": 5,
+      "contributor": 1,
+      "contributor_role": 5,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 76,
+    "fields": {
+      "song": 5,
+      "contributor": 6,
+      "contributor_role": 5,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 77,
+    "fields": {
+      "song": 5,
+      "contributor": 5,
+      "contributor_role": 5,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 78,
+    "fields": {
+      "song": 5,
+      "contributor": 52,
+      "contributor_role": 5,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 79,
+    "fields": {
+      "song": 6,
+      "contributor": 6,
+      "contributor_role": 2,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 80,
+    "fields": {
+      "song": 6,
+      "contributor": 46,
+      "contributor_role": 24,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 81,
+    "fields": {
+      "song": 6,
+      "contributor": 47,
+      "contributor_role": 26,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 82,
+    "fields": {
+      "song": 6,
+      "contributor": 48,
+      "contributor_role": 27,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 83,
+    "fields": {
+      "song": 6,
+      "contributor": 49,
+      "contributor_role": 28,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 84,
+    "fields": {
+      "song": 6,
+      "contributor": 50,
+      "contributor_role": 29,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 85,
+    "fields": {
+      "song": 6,
+      "contributor": 5,
+      "contributor_role": 3,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 86,
+    "fields": {
+      "song": 6,
+      "contributor": 1,
+      "contributor_role": 7,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 87,
+    "fields": {
+      "song": 6,
+      "contributor": 2,
+      "contributor_role": 7,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 88,
+    "fields": {
+      "song": 6,
+      "contributor": 1,
+      "contributor_role": 5,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 89,
+    "fields": {
+      "song": 6,
+      "contributor": 6,
+      "contributor_role": 5,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 90,
+    "fields": {
+      "song": 6,
+      "contributor": 5,
+      "contributor_role": 5,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 91,
+    "fields": {
+      "song": 6,
+      "contributor": 52,
+      "contributor_role": 5,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 92,
+    "fields": {
+      "song": 7,
+      "contributor": 6,
+      "contributor_role": 2,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 93,
+    "fields": {
+      "song": 7,
+      "contributor": 46,
+      "contributor_role": 24,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 94,
+    "fields": {
+      "song": 7,
+      "contributor": 47,
+      "contributor_role": 26,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 95,
+    "fields": {
+      "song": 7,
+      "contributor": 48,
+      "contributor_role": 27,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 96,
+    "fields": {
+      "song": 7,
+      "contributor": 49,
+      "contributor_role": 28,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 97,
+    "fields": {
+      "song": 7,
+      "contributor": 50,
+      "contributor_role": 29,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 98,
+    "fields": {
+      "song": 7,
+      "contributor": 5,
+      "contributor_role": 3,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 99,
+    "fields": {
+      "song": 7,
+      "contributor": 1,
+      "contributor_role": 7,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 100,
+    "fields": {
+      "song": 7,
+      "contributor": 2,
+      "contributor_role": 7,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 101,
+    "fields": {
+      "song": 7,
+      "contributor": 1,
+      "contributor_role": 5,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 102,
+    "fields": {
+      "song": 7,
+      "contributor": 6,
+      "contributor_role": 5,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 103,
+    "fields": {
+      "song": 7,
+      "contributor": 5,
+      "contributor_role": 5,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 104,
+    "fields": {
+      "song": 7,
+      "contributor": 52,
+      "contributor_role": 5,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 105,
+    "fields": {
+      "song": 8,
+      "contributor": 6,
+      "contributor_role": 2,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 106,
+    "fields": {
+      "song": 8,
+      "contributor": 46,
+      "contributor_role": 24,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 107,
+    "fields": {
+      "song": 8,
+      "contributor": 47,
+      "contributor_role": 26,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 108,
+    "fields": {
+      "song": 8,
+      "contributor": 48,
+      "contributor_role": 27,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 109,
+    "fields": {
+      "song": 8,
+      "contributor": 49,
+      "contributor_role": 28,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 110,
+    "fields": {
+      "song": 8,
+      "contributor": 50,
+      "contributor_role": 29,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 111,
+    "fields": {
+      "song": 8,
+      "contributor": 5,
+      "contributor_role": 3,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 112,
+    "fields": {
+      "song": 8,
+      "contributor": 1,
+      "contributor_role": 7,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 113,
+    "fields": {
+      "song": 8,
+      "contributor": 2,
+      "contributor_role": 7,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 114,
+    "fields": {
+      "song": 8,
+      "contributor": 1,
+      "contributor_role": 5,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 115,
+    "fields": {
+      "song": 8,
+      "contributor": 6,
+      "contributor_role": 5,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 116,
+    "fields": {
+      "song": 8,
+      "contributor": 5,
+      "contributor_role": 5,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 117,
+    "fields": {
+      "song": 8,
+      "contributor": 52,
+      "contributor_role": 5,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 118,
+    "fields": {
+      "song": 9,
+      "contributor": 6,
+      "contributor_role": 2,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 119,
+    "fields": {
+      "song": 9,
+      "contributor": 46,
+      "contributor_role": 24,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 120,
+    "fields": {
+      "song": 9,
+      "contributor": 47,
+      "contributor_role": 26,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 121,
+    "fields": {
+      "song": 9,
+      "contributor": 48,
+      "contributor_role": 27,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 122,
+    "fields": {
+      "song": 9,
+      "contributor": 49,
+      "contributor_role": 28,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 123,
+    "fields": {
+      "song": 9,
+      "contributor": 50,
+      "contributor_role": 29,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 124,
+    "fields": {
+      "song": 9,
+      "contributor": 5,
+      "contributor_role": 3,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 125,
+    "fields": {
+      "song": 9,
+      "contributor": 1,
+      "contributor_role": 7,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 126,
+    "fields": {
+      "song": 9,
+      "contributor": 2,
+      "contributor_role": 7,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 127,
+    "fields": {
+      "song": 9,
+      "contributor": 1,
+      "contributor_role": 5,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 128,
+    "fields": {
+      "song": 9,
+      "contributor": 6,
+      "contributor_role": 5,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 129,
+    "fields": {
+      "song": 9,
+      "contributor": 5,
+      "contributor_role": 5,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 130,
+    "fields": {
+      "song": 9,
+      "contributor": 52,
+      "contributor_role": 5,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 131,
+    "fields": {
+      "song": 10,
+      "contributor": 6,
+      "contributor_role": 2,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 132,
+    "fields": {
+      "song": 10,
+      "contributor": 46,
+      "contributor_role": 24,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 133,
+    "fields": {
+      "song": 10,
+      "contributor": 47,
+      "contributor_role": 26,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 134,
+    "fields": {
+      "song": 10,
+      "contributor": 48,
+      "contributor_role": 27,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 135,
+    "fields": {
+      "song": 10,
+      "contributor": 49,
+      "contributor_role": 28,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 136,
+    "fields": {
+      "song": 10,
+      "contributor": 50,
+      "contributor_role": 29,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 137,
+    "fields": {
+      "song": 10,
+      "contributor": 5,
+      "contributor_role": 3,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 138,
+    "fields": {
+      "song": 10,
+      "contributor": 1,
+      "contributor_role": 7,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 139,
+    "fields": {
+      "song": 10,
+      "contributor": 2,
+      "contributor_role": 7,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 140,
+    "fields": {
+      "song": 10,
+      "contributor": 1,
+      "contributor_role": 5,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 141,
+    "fields": {
+      "song": 10,
+      "contributor": 6,
+      "contributor_role": 5,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 142,
+    "fields": {
+      "song": 10,
+      "contributor": 5,
+      "contributor_role": 5,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 143,
+    "fields": {
+      "song": 10,
+      "contributor": 52,
+      "contributor_role": 5,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 144,
+    "fields": {
+      "song": 11,
+      "contributor": 6,
+      "contributor_role": 2,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 145,
+    "fields": {
+      "song": 11,
+      "contributor": 46,
+      "contributor_role": 24,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 146,
+    "fields": {
+      "song": 11,
+      "contributor": 47,
+      "contributor_role": 26,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 147,
+    "fields": {
+      "song": 11,
+      "contributor": 48,
+      "contributor_role": 27,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 148,
+    "fields": {
+      "song": 11,
+      "contributor": 49,
+      "contributor_role": 28,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 149,
+    "fields": {
+      "song": 11,
+      "contributor": 50,
+      "contributor_role": 29,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 150,
+    "fields": {
+      "song": 11,
+      "contributor": 5,
+      "contributor_role": 3,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 151,
+    "fields": {
+      "song": 11,
+      "contributor": 1,
+      "contributor_role": 7,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 152,
+    "fields": {
+      "song": 11,
+      "contributor": 2,
+      "contributor_role": 7,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 153,
+    "fields": {
+      "song": 11,
+      "contributor": 1,
+      "contributor_role": 5,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 154,
+    "fields": {
+      "song": 11,
+      "contributor": 6,
+      "contributor_role": 5,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 155,
+    "fields": {
+      "song": 11,
+      "contributor": 5,
+      "contributor_role": 5,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 156,
+    "fields": {
+      "song": 11,
+      "contributor": 52,
+      "contributor_role": 5,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 157,
+    "fields": {
+      "song": 12,
+      "contributor": 6,
+      "contributor_role": 2,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 158,
+    "fields": {
+      "song": 12,
+      "contributor": 46,
+      "contributor_role": 24,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 159,
+    "fields": {
+      "song": 12,
+      "contributor": 47,
+      "contributor_role": 26,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 160,
+    "fields": {
+      "song": 12,
+      "contributor": 48,
+      "contributor_role": 27,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 161,
+    "fields": {
+      "song": 12,
+      "contributor": 49,
+      "contributor_role": 28,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 162,
+    "fields": {
+      "song": 12,
+      "contributor": 50,
+      "contributor_role": 29,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 163,
+    "fields": {
+      "song": 12,
+      "contributor": 5,
+      "contributor_role": 3,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 164,
+    "fields": {
+      "song": 12,
+      "contributor": 1,
+      "contributor_role": 7,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 165,
+    "fields": {
+      "song": 12,
+      "contributor": 2,
+      "contributor_role": 7,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 166,
+    "fields": {
+      "song": 12,
+      "contributor": 1,
+      "contributor_role": 5,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 167,
+    "fields": {
+      "song": 12,
+      "contributor": 6,
+      "contributor_role": 5,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 168,
+    "fields": {
+      "song": 12,
+      "contributor": 5,
+      "contributor_role": 5,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 169,
+    "fields": {
+      "song": 12,
+      "contributor": 52,
+      "contributor_role": 5,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 170,
+    "fields": {
+      "song": 259,
+      "contributor": 53,
+      "contributor_role": 30,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 171,
+    "fields": {
+      "song": 259,
+      "contributor": 54,
+      "contributor_role": 26,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 172,
+    "fields": {
+      "song": 259,
+      "contributor": 55,
+      "contributor_role": 31,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 173,
+    "fields": {
+      "song": 259,
+      "contributor": 56,
+      "contributor_role": 32,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 174,
+    "fields": {
+      "song": 259,
+      "contributor": 57,
+      "contributor_role": 32,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 175,
+    "fields": {
+      "song": 259,
+      "contributor": 58,
+      "contributor_role": 33,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 176,
+    "fields": {
+      "song": 259,
+      "contributor": 59,
+      "contributor_role": 1,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 177,
+    "fields": {
+      "song": 259,
+      "contributor": 57,
+      "contributor_role": 2,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 178,
+    "fields": {
+      "song": 259,
+      "contributor": 56,
+      "contributor_role": 3,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 179,
+    "fields": {
+      "song": 259,
+      "contributor": 3,
+      "contributor_role": 34,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 180,
+    "fields": {
+      "song": 260,
+      "contributor": 53,
+      "contributor_role": 30,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 181,
+    "fields": {
+      "song": 260,
+      "contributor": 54,
+      "contributor_role": 26,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 182,
+    "fields": {
+      "song": 260,
+      "contributor": 55,
+      "contributor_role": 31,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 183,
+    "fields": {
+      "song": 260,
+      "contributor": 56,
+      "contributor_role": 32,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 184,
+    "fields": {
+      "song": 260,
+      "contributor": 57,
+      "contributor_role": 32,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 185,
+    "fields": {
+      "song": 260,
+      "contributor": 58,
+      "contributor_role": 33,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 186,
+    "fields": {
+      "song": 260,
+      "contributor": 59,
+      "contributor_role": 1,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 187,
+    "fields": {
+      "song": 260,
+      "contributor": 57,
+      "contributor_role": 2,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 188,
+    "fields": {
+      "song": 260,
+      "contributor": 56,
+      "contributor_role": 3,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 189,
+    "fields": {
+      "song": 260,
+      "contributor": 3,
+      "contributor_role": 34,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 190,
+    "fields": {
+      "song": 261,
+      "contributor": 53,
+      "contributor_role": 30,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 191,
+    "fields": {
+      "song": 261,
+      "contributor": 54,
+      "contributor_role": 26,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 192,
+    "fields": {
+      "song": 261,
+      "contributor": 55,
+      "contributor_role": 31,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 193,
+    "fields": {
+      "song": 261,
+      "contributor": 56,
+      "contributor_role": 32,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 194,
+    "fields": {
+      "song": 261,
+      "contributor": 57,
+      "contributor_role": 32,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 195,
+    "fields": {
+      "song": 261,
+      "contributor": 58,
+      "contributor_role": 33,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 196,
+    "fields": {
+      "song": 261,
+      "contributor": 59,
+      "contributor_role": 1,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 197,
+    "fields": {
+      "song": 261,
+      "contributor": 57,
+      "contributor_role": 2,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 198,
+    "fields": {
+      "song": 261,
+      "contributor": 56,
+      "contributor_role": 3,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 199,
+    "fields": {
+      "song": 261,
+      "contributor": 3,
+      "contributor_role": 34,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 200,
+    "fields": {
+      "song": 262,
+      "contributor": 53,
+      "contributor_role": 30,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 201,
+    "fields": {
+      "song": 262,
+      "contributor": 54,
+      "contributor_role": 26,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 202,
+    "fields": {
+      "song": 262,
+      "contributor": 55,
+      "contributor_role": 31,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 203,
+    "fields": {
+      "song": 262,
+      "contributor": 56,
+      "contributor_role": 32,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 204,
+    "fields": {
+      "song": 262,
+      "contributor": 57,
+      "contributor_role": 32,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 205,
+    "fields": {
+      "song": 262,
+      "contributor": 58,
+      "contributor_role": 33,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 206,
+    "fields": {
+      "song": 262,
+      "contributor": 59,
+      "contributor_role": 1,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 207,
+    "fields": {
+      "song": 262,
+      "contributor": 57,
+      "contributor_role": 2,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 208,
+    "fields": {
+      "song": 262,
+      "contributor": 56,
+      "contributor_role": 3,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 209,
+    "fields": {
+      "song": 262,
+      "contributor": 3,
+      "contributor_role": 34,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 210,
+    "fields": {
+      "song": 263,
+      "contributor": 53,
+      "contributor_role": 30,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 211,
+    "fields": {
+      "song": 263,
+      "contributor": 54,
+      "contributor_role": 26,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 212,
+    "fields": {
+      "song": 263,
+      "contributor": 55,
+      "contributor_role": 31,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 213,
+    "fields": {
+      "song": 263,
+      "contributor": 56,
+      "contributor_role": 32,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 214,
+    "fields": {
+      "song": 263,
+      "contributor": 57,
+      "contributor_role": 32,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 215,
+    "fields": {
+      "song": 263,
+      "contributor": 58,
+      "contributor_role": 33,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 216,
+    "fields": {
+      "song": 263,
+      "contributor": 59,
+      "contributor_role": 1,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 217,
+    "fields": {
+      "song": 263,
+      "contributor": 57,
+      "contributor_role": 2,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 218,
+    "fields": {
+      "song": 263,
+      "contributor": 56,
+      "contributor_role": 3,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 219,
+    "fields": {
+      "song": 263,
+      "contributor": 3,
+      "contributor_role": 34,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 220,
+    "fields": {
+      "song": 264,
+      "contributor": 53,
+      "contributor_role": 30,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 221,
+    "fields": {
+      "song": 264,
+      "contributor": 54,
+      "contributor_role": 26,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 222,
+    "fields": {
+      "song": 264,
+      "contributor": 55,
+      "contributor_role": 31,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 223,
+    "fields": {
+      "song": 264,
+      "contributor": 56,
+      "contributor_role": 32,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 224,
+    "fields": {
+      "song": 264,
+      "contributor": 57,
+      "contributor_role": 32,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 225,
+    "fields": {
+      "song": 264,
+      "contributor": 58,
+      "contributor_role": 33,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 226,
+    "fields": {
+      "song": 264,
+      "contributor": 59,
+      "contributor_role": 1,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 227,
+    "fields": {
+      "song": 264,
+      "contributor": 57,
+      "contributor_role": 2,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 228,
+    "fields": {
+      "song": 264,
+      "contributor": 56,
+      "contributor_role": 3,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 229,
+    "fields": {
+      "song": 264,
+      "contributor": 3,
+      "contributor_role": 34,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 230,
+    "fields": {
+      "song": 265,
+      "contributor": 53,
+      "contributor_role": 30,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 231,
+    "fields": {
+      "song": 265,
+      "contributor": 54,
+      "contributor_role": 26,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 232,
+    "fields": {
+      "song": 265,
+      "contributor": 55,
+      "contributor_role": 31,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 233,
+    "fields": {
+      "song": 265,
+      "contributor": 56,
+      "contributor_role": 32,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 234,
+    "fields": {
+      "song": 265,
+      "contributor": 57,
+      "contributor_role": 32,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 235,
+    "fields": {
+      "song": 265,
+      "contributor": 58,
+      "contributor_role": 33,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 236,
+    "fields": {
+      "song": 265,
+      "contributor": 59,
+      "contributor_role": 1,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 237,
+    "fields": {
+      "song": 265,
+      "contributor": 57,
+      "contributor_role": 2,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 238,
+    "fields": {
+      "song": 265,
+      "contributor": 56,
+      "contributor_role": 3,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 239,
+    "fields": {
+      "song": 265,
+      "contributor": 3,
+      "contributor_role": 34,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 240,
+    "fields": {
+      "song": 266,
+      "contributor": 53,
+      "contributor_role": 30,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 241,
+    "fields": {
+      "song": 266,
+      "contributor": 54,
+      "contributor_role": 26,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 242,
+    "fields": {
+      "song": 266,
+      "contributor": 55,
+      "contributor_role": 31,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 243,
+    "fields": {
+      "song": 266,
+      "contributor": 56,
+      "contributor_role": 32,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 244,
+    "fields": {
+      "song": 266,
+      "contributor": 57,
+      "contributor_role": 32,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 245,
+    "fields": {
+      "song": 266,
+      "contributor": 58,
+      "contributor_role": 33,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 246,
+    "fields": {
+      "song": 266,
+      "contributor": 59,
+      "contributor_role": 1,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 247,
+    "fields": {
+      "song": 266,
+      "contributor": 57,
+      "contributor_role": 2,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 248,
+    "fields": {
+      "song": 266,
+      "contributor": 56,
+      "contributor_role": 3,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 249,
+    "fields": {
+      "song": 266,
+      "contributor": 3,
+      "contributor_role": 34,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 250,
+    "fields": {
+      "song": 267,
+      "contributor": 53,
+      "contributor_role": 30,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 251,
+    "fields": {
+      "song": 267,
+      "contributor": 54,
+      "contributor_role": 26,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 252,
+    "fields": {
+      "song": 267,
+      "contributor": 55,
+      "contributor_role": 31,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 253,
+    "fields": {
+      "song": 267,
+      "contributor": 56,
+      "contributor_role": 32,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 254,
+    "fields": {
+      "song": 267,
+      "contributor": 57,
+      "contributor_role": 32,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 255,
+    "fields": {
+      "song": 267,
+      "contributor": 58,
+      "contributor_role": 33,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 256,
+    "fields": {
+      "song": 267,
+      "contributor": 59,
+      "contributor_role": 1,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 257,
+    "fields": {
+      "song": 267,
+      "contributor": 57,
+      "contributor_role": 2,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 258,
+    "fields": {
+      "song": 267,
+      "contributor": 56,
+      "contributor_role": 3,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 259,
+    "fields": {
+      "song": 267,
+      "contributor": 3,
+      "contributor_role": 34,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 260,
+    "fields": {
+      "song": 268,
+      "contributor": 53,
+      "contributor_role": 30,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 261,
+    "fields": {
+      "song": 268,
+      "contributor": 54,
+      "contributor_role": 26,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 262,
+    "fields": {
+      "song": 268,
+      "contributor": 55,
+      "contributor_role": 31,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 263,
+    "fields": {
+      "song": 268,
+      "contributor": 56,
+      "contributor_role": 32,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 264,
+    "fields": {
+      "song": 268,
+      "contributor": 57,
+      "contributor_role": 32,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 265,
+    "fields": {
+      "song": 268,
+      "contributor": 58,
+      "contributor_role": 33,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 266,
+    "fields": {
+      "song": 268,
+      "contributor": 59,
+      "contributor_role": 1,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 267,
+    "fields": {
+      "song": 268,
+      "contributor": 57,
+      "contributor_role": 2,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 268,
+    "fields": {
+      "song": 268,
+      "contributor": 56,
+      "contributor_role": 3,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 269,
+    "fields": {
+      "song": 268,
+      "contributor": 3,
+      "contributor_role": 34,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 270,
+    "fields": {
+      "song": 269,
+      "contributor": 53,
+      "contributor_role": 30,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 271,
+    "fields": {
+      "song": 269,
+      "contributor": 54,
+      "contributor_role": 26,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 272,
+    "fields": {
+      "song": 269,
+      "contributor": 55,
+      "contributor_role": 31,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 273,
+    "fields": {
+      "song": 269,
+      "contributor": 56,
+      "contributor_role": 32,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 274,
+    "fields": {
+      "song": 269,
+      "contributor": 57,
+      "contributor_role": 32,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 275,
+    "fields": {
+      "song": 269,
+      "contributor": 58,
+      "contributor_role": 33,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 276,
+    "fields": {
+      "song": 269,
+      "contributor": 59,
+      "contributor_role": 1,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 277,
+    "fields": {
+      "song": 269,
+      "contributor": 57,
+      "contributor_role": 2,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 278,
+    "fields": {
+      "song": 269,
+      "contributor": 56,
+      "contributor_role": 3,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 279,
+    "fields": {
+      "song": 269,
+      "contributor": 3,
+      "contributor_role": 34,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 280,
+    "fields": {
+      "song": 270,
+      "contributor": 53,
+      "contributor_role": 30,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 281,
+    "fields": {
+      "song": 270,
+      "contributor": 54,
+      "contributor_role": 26,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 282,
+    "fields": {
+      "song": 270,
+      "contributor": 55,
+      "contributor_role": 31,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 283,
+    "fields": {
+      "song": 270,
+      "contributor": 56,
+      "contributor_role": 32,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 284,
+    "fields": {
+      "song": 270,
+      "contributor": 57,
+      "contributor_role": 32,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 285,
+    "fields": {
+      "song": 270,
+      "contributor": 58,
+      "contributor_role": 33,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 286,
+    "fields": {
+      "song": 270,
+      "contributor": 59,
+      "contributor_role": 1,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 287,
+    "fields": {
+      "song": 270,
+      "contributor": 57,
+      "contributor_role": 2,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 288,
+    "fields": {
+      "song": 270,
+      "contributor": 56,
+      "contributor_role": 3,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
+    "model": "viewer.songperformance",
+    "pk": 289,
+    "fields": {
+      "song": 270,
+      "contributor": 3,
+      "contributor_role": 34,
+      "music_group": null,
+      "music_group_role": null
     }
   },
   {
@@ -768,12 +4719,152 @@
     "pk": 1,
     "fields": {
       "title": "Hybrid Theory",
-      "released_year": 2000,
+      "released_year": "2000-10-24",
       "summary": "Hybrid Theory is the debut studio album by American rock band Linkin Park, released on October 24, 2000, by Warner Bros. Records. Recorded at NRG Recordings in North Hollywood, California, and produced by Don Gilmore, the album's lyrical themes deal with problems lead vocalist Chester Bennington experienced during his adolescence, including drug abuse and the constant fighting and eventual divorce of his parents. Hybrid Theory takes its title from the previous name of the band as well as the concepts of music theory and combining different styles. It is also the band's only album in which bassist Dave \"Phoenix\" Farrell does not play, however, he is credited as a member of the band as well as a songwriter on some of its tracks.",
+      "artist": [],
+      "music_group": [
+        1
+      ],
       "songs": [
+        9,
+        7,
+        5,
         11,
+        10,
+        8,
+        2,
+        1,
+        4,
         12,
+        6,
         3
+      ]
+    }
+  },
+  {
+    "model": "viewer.album",
+    "pk": 415,
+    "fields": {
+      "title": "Meteora",
+      "released_year": "2003-03-25",
+      "summary": "Meteora is the second studio album by American rock band Linkin Park, released on March 25, 2003, through Warner Bros. Records. It followed Reanimation, a collaboration album which featured remixes of songs included on their 2000 debut studio album Hybrid Theory. The album was produced by the band alongside Don Gilmore. The title Meteora is taken from the Greek Orthodox monasteries originally bearing the name. Meteora has a similar sound to Hybrid Theory, as described by critics, and the album took almost a year to be recorded. It is the first Linkin Park studio album to feature bassist Dave \"Phoenix\" Farrell after he rejoined the band in 2000 following his temporary touring with other bands.",
+      "artist": [],
+      "music_group": [
+        1
+      ],
+      "songs": [
+        254,
+        247,
+        251,
+        252,
+        253,
+        246,
+        255,
+        250,
+        249,
+        256,
+        258,
+        257,
+        248
+      ]
+    }
+  },
+  {
+    "model": "viewer.album",
+    "pk": 416,
+    "fields": {
+      "title": "Minutes to Midnight",
+      "released_year": "2007-05-14",
+      "summary": "Minutes to Midnight is the third studio album by American rock band Linkin Park, released on May 14, 2007, through Warner Bros. Records. The album was produced by Mike Shinoda and Rick Rubin; it is Linkin Park's first studio album produced without Don Gilmore, who had produced the band's two previous albums. Minutes to Midnight is the band's follow-up album to Meteora (2003), and features a shift in the group's musical direction. For the band, the album marked a beginning of deviation from their signature nu metal sound. Minutes to Midnight takes its title from the Doomsday Clock symbol. It is also the band's first full-length album to carry a Parental Advisory label.",
+      "artist": [],
+      "music_group": [],
+      "songs": []
+    }
+  },
+  {
+    "model": "viewer.album",
+    "pk": 417,
+    "fields": {
+      "title": "A Thousand Suns",
+      "released_year": "2010-08-10",
+      "summary": "A Thousand Suns is the fourth studio album by American rock band Linkin Park. It was first released in multiple nations on September 8, 2010, and in the United States on September 13, 2010, by Warner Bros. Records. The album was produced by Mike Shinoda and Rick Rubin, who had also worked together to produce the band's previous studio album Minutes to Midnight (2007). Recording sessions for A Thousand Suns took place at NRG Recording Studios in Hollywood, California from 2009 until mid 2010.",
+      "artist": [],
+      "music_group": [],
+      "songs": []
+    }
+  },
+  {
+    "model": "viewer.album",
+    "pk": 418,
+    "fields": {
+      "title": "Living Things",
+      "released_year": "2012-06-20",
+      "summary": "Living Things (stylized in all caps) is the fifth studio album by American rock band Linkin Park. It was released under Warner Bros. Records and Machine Shop Records on June 20, 2012, in Japan, and throughout the rest of the world during the following week. Production was handled by vocalist Mike Shinoda and Rick Rubin, who both co-produced the band's previous two studio albums, Minutes to Midnight (2007) and A Thousand Suns (2010). Living Things was their last album to be produced by Rubin and recorded at NRG Recording Studios.",
+      "artist": [],
+      "music_group": [],
+      "songs": []
+    }
+  },
+  {
+    "model": "viewer.album",
+    "pk": 419,
+    "fields": {
+      "title": "The Hunting Party",
+      "released_year": "2014-06-17",
+      "summary": "The Hunting Party is the sixth studio album by American rock band Linkin Park. The album, produced by band members Mike Shinoda and Brad Delson, was released by Warner Bros. Records and Machine Shop on June 17, 2014. It is the first album since Meteora (2003) not to be produced with Rick Rubin, who produced the band's previous three studio albums. The album's title is a contextual metaphor: Linkin Park is the party that is hunting to bring back the energy and soul of rock.",
+      "artist": [],
+      "music_group": [],
+      "songs": []
+    }
+  },
+  {
+    "model": "viewer.album",
+    "pk": 420,
+    "fields": {
+      "title": "One More Light",
+      "released_year": "2017-03-19",
+      "summary": "One More Light is the seventh studio album by American rock band Linkin Park. It was released on May 19, 2017, through Warner Bros. Records and Machine Shop. It is the band's first album to have a title track, as they felt that the song \"One More Light\" was the heart of the album. It is also the band's final album to feature two of their longtime members: co-lead vocalist Chester Bennington, who died of suicide two months after the album's release, and drummer and band co-founder Rob Bourdon, who opted to not return for the band's reformation in 2024.",
+      "artist": [],
+      "music_group": [],
+      "songs": []
+    }
+  },
+  {
+    "model": "viewer.album",
+    "pk": 421,
+    "fields": {
+      "title": "From Zero",
+      "released_year": "2024-11-15",
+      "summary": "From Zero is the eighth studio album by American rock band Linkin Park. It was released on November 15, 2024, through Warner Records and Machine Shop, and is Linkin Park's first studio album since One More Light (2017). This is also their first album with vocalist Emily Armstrong and drummer Colin Brittain following the death of vocalist Chester Bennington in 2017 and departure of drummer and band co-founder Rob Bourdon. The album's title has a double meaning; it is a reference to both the band's original name, Xero, and the band's new chapter with Armstrong and Brittain. The album marks the band's return to the nu metal, alternative metal and rap rock genres while still incorporating some of the experimental sounds from their later records.",
+      "artist": [],
+      "music_group": [],
+      "songs": []
+    }
+  },
+  {
+    "model": "viewer.album",
+    "pk": 422,
+    "fields": {
+      "title": "A Night at the Opera",
+      "released_year": "1975-11-28",
+      "summary": "A Night at the Opera is the fourth studio album by the British rock band Queen, released on 28 November 1975, by EMI Records in the United Kingdom and Elektra Records in the United States. Produced by Roy Thomas Baker and Queen, it was reportedly the most expensive album ever recorded at the time of its release.",
+      "artist": [],
+      "music_group": [
+        2
+      ],
+      "songs": [
+        269,
+        259,
+        270,
+        268,
+        261,
+        260,
+        267,
+        265,
+        264,
+        266,
+        262,
+        263
       ]
     }
   }
