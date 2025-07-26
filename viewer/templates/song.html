@@ -22,7 +22,8 @@
     <div class="row">
         <div class="col-md-6">
             {% if album %}
-                <p><strong>Album:</strong> {{ album.title }}</p>
+                <p><strong>Album:</strong>
+                <a href="{% url 'album' album.pk %}">{{ album.title }}</a></p>
             {% endif %}
 
             <p><strong>Genres:</strong>
@@ -34,11 +35,11 @@
             </p>
 
             {% if song.duration %}
-                <p><strong>Duration:</strong> {{ song.duration_format }}</p>
+                <p><strong>Duration:</strong> {{ song.format_seconds }}</p>
             {% endif %}
 
-            {% if song.released_year %}
-                <p><strong>Released year:</strong> {{ song.released_year }}</p>
+            {% if song.released %}
+                <p><strong>Released year:</strong> {{ song.released.year }}</p>
             {% endif %}
 
             {% if song.language %}

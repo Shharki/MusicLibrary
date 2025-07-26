@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ album.title }}
+{% endblock %}
+
+{% block content %}
+
+    <h1 class="display-4">{{ album.title }}</h1>
+
+    {% if album_artists or album_music_groups %}
+        <p>by
+            <strong>
+                {% for artist in album_artists %}
+                    {{ artist }}{% if not forloop.last or album_music_groups %}, {% endif %}
+                {% endfor %}
+                {% for group in album_music_groups %}
+                    {{ group }}{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+            </strong>
+        </p>
+    {% endif %}
+
+    <hr class="my-4">
+    <div class="row">
+        {% if songs %}
+            <div class="col-md-6">
+
+            <strong>Songs:</strong>
+            <ol>
+                {% for song in songs %}
+                    <li>
+                        <a href="{% url 'song' song.pk %}">{{ song.title }}</a>
+                    </li>
+                {% empty %}
+                    <li>No songs found for this album.</li>
+                {% endfor %}
+            </ol>
+        {% endif %}
+        </div>
+
+        <div class="col-md-6">
+
+            {% if genres %}
+                <p><strong>{{ genre_label }}:</strong>
+                    {% for g in genres %}
+                        {{ g.name }}{% if not forloop.last %}, {% endif %}
+                    {% empty %}
+                        No genres
+                    {% endfor %}
+                </p>
+            {% endif %}
+
+            {% if album.released %}
+                <p><strong>Released year:</strong> {{ album.released.year }}</p>
+            {% endif %}
+
+            {% if total_duration %}
+                <p><strong>Total duration:</strong> {{ total_duration }}</p>
+            {% endif %}
+
+            {% if languages %}
+                <p><strong>{{ language_label }}:</strong>
+                    {% for l in languages %}
+                        {{ l.name }}{% if not forloop.last %}, {% endif %}
+                    {% empty %}
+                        No languages
+                    {% endfor %}
+                </p>
+            {% endif %}
+
+            {% if contributors_by_category.writer %}
+                <p><strong>Writers:</strong>
+                    {% for contributor, role_name in contributors_by_category.writer %}
+                        {{ contributor }} ({{ role_name }}){% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                </p>
+            {% endif %}
+
+            {% if contributors_by_category.producer %}
+                <p><strong>Producers:</strong>
+                    {% for contributor, role_name in contributors_by_category.producer %}
+                        {{ contributor }} ({{ role_name }}){% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                </p>
+            {% endif %}
+
+            {% if contributors_by_category.other %}
+                <p><strong>Other contributors:</strong>
+                    {% for contributor, role_name in contributors_by_category.other %}
+                        {{ contributor }} ({{ role_name }}){% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                </p>
+            {% endif %}
+
+            {% if contributors_by_category.performer %}
+                <p><strong>Performers:</strong>
+                    {% for contributor, role_name in contributors_by_category.performer %}
+                        {{ contributor }} ({{ role_name }}){% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                </p>
+            {% endif %}
+            {% if groups_by_role %}
+                <p><strong>Music Groups:</strong>
+                    {% for role, groups in groups_by_role.items %}
+                        {% for group in groups %}
+                            {{ group }} ({{ role }}){% if not forloop.last or not forloop.parentloop.last %},
+                        {% endif %}
+                        {% endfor %}
+                    {% endfor %}
+                </p>
+            {% endif %}
+        </div>
+    </div>
+    <hr class="my-4">
+    <div class="row">
+    <div class="col-md-12">
+    {% if album.summary %}
+        <p><strong>Summary:</strong> {{ album.summary|linebreaks }}</p>
+    {% endif %}
+
+
+
+
+{% endblock %}

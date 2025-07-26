@@ -32,13 +32,14 @@ Development & CI    Git, GitHub Actions (lint + tests), PyCharm
     - [ ] Audio sample / streaming link
 - [ ] 3. Albums – listing and detail
     - [X] 3.1 Alphabetical album list
-    - [ ] 3.2 Album detail
-        - [ ] Title
-        - [ ] Release year
-        - [ ] Summary
-        - [ ] List of songs (with performers, durations, etc.)
-        - [ ] Total album duration (via get_duration())
-        - [ ] Genres, languages, performers (derived from songs)
+    - [X] 3.2 Album details (derived from songs)
+        - [X] Title
+        - [X] Ordered list of songs
+        - [X] Genres
+        - [X] Released year
+        - [X] Total duration
+        - [X] Languages
+        - [X] Contributors list (performers, writers, producers)
 - [ ] 4. Contributors – listing and detail
     - [x] 4.1. Alphabetical list
     - [ ] 4.2. Contributor detail (singer, composer...)

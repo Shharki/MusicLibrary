@@ -1,6 +1,6 @@
 from django.core.exceptions import ValidationError
-from django.db.models import Model, CharField, DateField, ForeignKey, TextField, DateTimeField, SET_NULL, \
-    ManyToManyField, CASCADE, PositiveIntegerField, ImageField, CheckConstraint, Q
+from django.db.models import Model, CharField, DateField, ForeignKey, TextField, SET_NULL, \
+    ManyToManyField, CASCADE, PositiveIntegerField, CheckConstraint, Q
 
 
 class Genre(Model):
@@ -184,14 +184,12 @@ class Song(Model):
     def __repr__(self):
         return f"Song(title={self.title})"
 
-    def duration_format(self):
-        # Conversion of song duration to minutes h:mm
-        # 155 min -> 2:35
-        if self.duration:
-            hours = self.duration // 60
-            minutes = self.duration % 60
-            return f"{hours}:{minutes:02}"
-        return None
+    @property
+    def format_seconds(self):
+        if self.duration is None:
+            return None
+        mins, secs = divmod(self.duration, 60)
+        return f"{mins}:{secs:02}"
 
 
 class SongPerformance(Model):
