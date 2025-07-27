@@ -62,11 +62,30 @@ class Contributor(Model):
 
         if self.date_of_birth:
             years.append(str(self.date_of_birth.year))
+        else:
+            years.append("")  # Because of the hyphenation
 
-        if years:
-            name += f" ({'–'.join(years)})"
+        if self.date_of_death:
+            years.append(str(self.date_of_death.year))
+
+        if any(years):
+            name += f" ({'–'.join(years).strip('–')})"
 
         return name
+
+    def full_name(self):
+        return f"{self.first_name} {self.middle_name + ' ' if self.middle_name else ''}{self.last_name}"
+
+    @property                               # Able to use this method in templates as an attribute
+    def has_distinct_stage_name(self):
+        return self.stage_name and self.stage_name.strip() != self.full_name().strip()
+
+    @property                               # Only shows up if it is not identical to what is already listed as {{ contributor }}
+    def should_display_stage_name(self):
+        return (
+                self.stage_name
+                and self.stage_name.strip() != str(self).strip()
+        )
 
     def __str__(self):
         return self.stage_name or f"{self.first_name} {self.last_name}"

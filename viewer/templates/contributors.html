@@ -9,10 +9,12 @@
     <ul>
         {% for contributor in contributors %}
             <li>
-                {{ contributor.display_more }}
+                <a href="{% url 'contributor' contributor.id %}">
+                    {{ contributor.display_more }}
+                </a>
             </li>
         {% empty %}
-            There is no contributor in the database.
+            <li>There is no contributor in the database.</li>
         {% endfor %}
     </ul>
 {% endblock %}
