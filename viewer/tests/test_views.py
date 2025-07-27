@@ -237,3 +237,37 @@ class AlbumDetailViewTest(TestCase):
         response = self.client.get(url)
         expected_duration = format_seconds(self.song.duration)  # 230 seconds = 3:50
         self.assertEqual(response.context['total_duration'], expected_duration)
+
+
+class MusicGroupsListViewTest(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        cls.group1 = MusicGroup.objects.create(
+            name='The Rolling Codes',
+            founded=datetime.date(2000, 1, 1),
+            disbanded=datetime.date(2010, 1, 1),
+            bio="Legendary Group of Decoders",
+        )
+        cls.group2 = MusicGroup.objects.create(
+            name='Debuggers United',
+            founded=datetime.date(2015, 5, 20),
+            bio="Bugs, bugs, give them more bugs!",
+        )
+
+    def test_music_groups_view_status_code(self):
+        response = self.client.get(reverse('music-groups'))
+        self.assertEqual(response.status_code, 200)
+
+    def test_music_groups_view_template_used(self):
+        response = self.client.get(reverse('music-groups'))
+        self.assertTemplateUsed(response, 'music-groups.html')
+
+    def test_music_groups_context(self):
+        response = self.client.get(reverse('music-groups'))
+        self.assertIn('music_groups', response.context)
+        self.assertEqual(len(response.context['music_groups']), 2)
+
+    def test_music_groups_displayed_in_html(self):
+        response = self.client.get(reverse('music-groups'))
+        self.assertContains(response, 'The Rolling Codes')
+        self.assertContains(response, 'Debuggers United')

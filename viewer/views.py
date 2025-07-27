@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 
 from viewer.models import (
-    Song, MusicGroupMembership, Contributor, Album, SongPerformance, Genre, Language
+    Song, MusicGroupMembership, Contributor, Album, SongPerformance, Genre, Language, MusicGroup
 )
 from viewer.utils import format_seconds
 
@@ -210,9 +210,12 @@ class AlbumDetailView(DetailView):
             'genre_label': genre_label,
             'languages': languages,
             'language_label': language_label,
-
-
         })
 
         return context
 
+
+class MusicGroupsListView(ListView):
+    template_name = 'music-groups.html'
+    model = MusicGroup
+    context_object_name = 'music_groups'

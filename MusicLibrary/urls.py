@@ -17,7 +17,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from viewer.views import home, SongsListView, SongDetailView, ContributorsListView, AlbumsListView, AlbumDetailView
+from viewer.views import home, SongsListView, SongDetailView, ContributorsListView, AlbumsListView, AlbumDetailView, \
+    MusicGroupsListView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,4 +28,5 @@ urlpatterns = [
     path('contributors/', ContributorsListView.as_view(), name='contributors'),
     path('albums/', AlbumsListView.as_view(), name='albums'),
     path('album/<int:pk>/', AlbumDetailView.as_view(), name='album'),
+    path('music-groups/', MusicGroupsListView.as_view(), name='music-groups'),
 ]
