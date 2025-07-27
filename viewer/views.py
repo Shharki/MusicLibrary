@@ -107,3 +107,29 @@ class AlbumsListView(ListView):
     template_name = 'albums.html'
     model = Album
     context_object_name = 'albums'
+
+
+class ContributorDetailView(DetailView):
+    template_name = 'contributor.html'
+    model = Contributor
+    context_object_name = 'contributor'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        contributor = self.object
+
+        songs = contributor.songs.all()     # Songs in which he participated
+
+
+        albums = contributor.albums.all()       # Albums he has contributed to (optional)
+
+
+        memberships = contributor.memberships.select_related('music_group').all()   # Group membership (optional)
+
+        context.update({
+            'songs': songs,
+            'albums': albums,
+            'memberships': memberships,
+        })
+
+        return context
