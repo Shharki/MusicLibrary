@@ -52,7 +52,7 @@ Development & CI    Git, GitHub Actions (lint + tests), PyCharm
         - [ ] Groups they were members of (MusicGroupMembership)
         - [ ] Picture 
 - [ ] 5. Music Groups – listing and detail
-    - [ ] 5.1. Alphabetical list
+    - [X] 5.1. Alphabetical list
     - [ ] 5.2. Group detail
         - [ ] Name, description
         - [ ] Founded / disbanded year
