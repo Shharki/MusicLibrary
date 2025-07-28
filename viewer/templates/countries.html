@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    List of countries
+{% endblock %}
+
+{% block content %}
+    <h1>List of countries</h1>
+    <ul>
+        {% for country in countries %}
+            <li>
+                {{ country }}
+            </li>
+        {% empty %}
+            <li>There is no country in the database.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

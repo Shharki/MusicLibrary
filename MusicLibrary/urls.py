@@ -19,7 +19,7 @@ from django.urls import path
 
 from viewer.views import (
     home, SongsListView, SongDetailView, ContributorsListView, ContributorDetailView, AlbumsListView, AlbumDetailView, \
-    MusicGroupsListView, MusicGroupDetailView
+    MusicGroupsListView, MusicGroupDetailView, CountriesListView
 )
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -32,4 +32,5 @@ urlpatterns = [
     path('album/<int:pk>/', AlbumDetailView.as_view(), name='album'),
     path('music-groups/', MusicGroupsListView.as_view(), name='music-groups'),
     path('music-group/<int:pk>/', MusicGroupDetailView.as_view(), name='music-group'),
+    path('countries/', CountriesListView.as_view(), name='countries'),
 ]
