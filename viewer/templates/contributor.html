@@ -8,45 +8,42 @@
 
     <h1 class="display-4">{{ contributor }}</h1>
 
-    {% if contributor.should_display_stage_name %}
+    {% if contributor.stage_name %}
         <p><strong>Stage name:</strong> {{ contributor.stage_name }}</p>
     {% endif %}
 
-<div class="card mb-4">
-  <div class="card-body">
+    <hr class="my-4">
     <div class="row">
-      <div class="col-md-6">
-        <p><strong>Full name:</strong> {{ contributor.first_name }}{% if contributor.middle_name %}
-          {{ contributor.middle_name }}{% endif %} {{ contributor.last_name }}</p>
+        <div class="col-md-6">
+            <p><strong>Full name:</strong> {{ contributor.first_name }}{% if contributor.middle_name %}
+                {{ contributor.middle_name }}{% endif %} {{ contributor.last_name }}</p>
 
-        {% if contributor.previous_names.exists %}
-          <p><strong>Previous name:</strong>
-            {% for name in contributor.previous_names.all %}
-              {{ name }}{% if not forloop.last %}, {% endif %}
-            {% endfor %}
-          </p>
-        {% endif %}
+            {% if contributor.previous_names.exists %}
+                <p><strong>Previous name:</strong>
+                    {% for name in contributor.previous_names.all %}
+                        {{ name }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                </p>
+            {% endif %}
 
-        {% if contributor.date_of_birth %}
-          <p><strong>Born:</strong> {{ contributor.date_of_birth }}</p>
-        {% endif %}
-        {% if contributor.date_of_death %}
-          <p><strong>Died:</strong> {{ contributor.date_of_death }}</p>
-        {% endif %}
+            {% if contributor.date_of_birth %}
+                <p><strong>Born:</strong> {{ contributor.date_of_birth }}</p>
+            {% endif %}
+            {% if contributor.date_of_death %}
+                <p><strong>Died:</strong> {{ contributor.date_of_death }}</p>
+            {% endif %}
 
-        {% if contributor.country %}
-          <p><strong>Country:</strong> {{ contributor.country }}</p>
-        {% endif %}
-      </div>
+            {% if contributor.country %}
+                <p><strong>Country:</strong> {{ contributor.country }}</p>
+            {% endif %}
+        </div>
 
-      <div class="col-md-6 ps-3">
-        {% if contributor.bio %}
-          <p><strong>Bio:</strong> {{ contributor.bio|linebreaks }}</p>
-        {% endif %}
-      </div>
+        <div class="col-md-6">
+            {% if contributor.bio %}
+                <p><strong>Bio:</strong> {{ contributor.bio|linebreaks }}</p>
+            {% endif %}
+        </div>
     </div>
-  </div>
-</div>
     {% if memberships %}
         <hr>
         <h3>Music Groups</h3>

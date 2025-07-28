@@ -42,13 +42,13 @@ Development & CI    Git, GitHub Actions (lint + tests), PyCharm
         - [X] Contributors list (performers, writers, producers)
 - [ ] 4. Contributors – listing and detail
     - [x] 4.1. Alphabetical list
-    - [ ] 4.2. Contributor detail (singer, composer...)
-        - [ ] First name, last name, stage name
-        - [ ] Date of birth and death
-        - [ ] Country of origin
-        - [ ] Biography
-        - [ ] Previous names
-        - [ ] Songs performed (from SongPerformance)
+    - [x] 4.2. Contributor detail (singer, composer...)
+        - [x] First name, last name, stage name
+        - [x] Date of birth and death
+        - [x] Country of origin
+        - [x] Biography
+        - [x] Previous names
+        - [x] Songs performed (from SongPerformance)
         - [ ] Groups they were members of (MusicGroupMembership)
         - [ ] Picture 
 - [ ] 5. Music Groups – listing and detail
@@ -59,17 +59,17 @@ Development & CI    Git, GitHub Actions (lint + tests), PyCharm
         - [ ] Members, roles, active periods
         - [ ] Songs they performed in
 - [ ] 6. Countries – listing and detail
-    - [ ] Alphabetical list
-    - [ ] Detail (list of contributors from the given country)
+    - [ ] 6.1. Alphabetical list
+    - [ ] 6.2. Detail (list of contributors from the given country)
 - [ ] 7. Genres – listing and detail
-    - [ ] Alphabetical list
-    - [ ] Detail (list of songs of the given genre)
+    - [ ] 7.1. Alphabetical list
+    - [ ] 7.2. Detail (list of songs of the given genre)
 - [ ] 8. CRUD operations (via admin or views):
-    - [ ] Create
+    - [ ] 8.1. Create
         - [ ] Songs, Contributors, Albums, Countries, Genres
-    - [ ] Update
+    - [ ] 8.2 Update
         - [ ] Songs, Contributors, Albums, Countries, Genres
-    - [ ] Delete
+    - [ ] 8.3. Delete
         - [ ] Songs, Contributors, Albums, Countries, Genres
 - [ ] 9. Authentication and Users
     - [ ] Display of logged-in user

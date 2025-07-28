@@ -117,11 +117,7 @@ class ContributorDetailView(DetailView):
         contributor = self.object
 
         songs = contributor.songs.all()     # Songs in which he participated
-
-
         albums = contributor.albums.all()       # Albums he has contributed to (optional)
-
-
         memberships = contributor.memberships.select_related('music_group').all()   # Group membership (optional)
 
         context.update({
