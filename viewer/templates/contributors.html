@@ -5,7 +5,8 @@
 {% endblock %}
 
 {% block content %}
-    <h1>List of Performers</h1>
+    <h1>Performer list</h1>
+    <hr class="my-4">
     <ul>
         {% for contributor in performers %}
             <li><a href="{% url 'contributor' contributor.pk %}">{{ contributor }}</a></li>
@@ -14,7 +15,8 @@
         {% endfor %}
     </ul>
 
-    <h1>List of Producers</h1>
+    <h1>Producer list</h1>
+    <hr class="my-4">
     <ul>
         {% for contributor in producers %}
             <li><a href="{% url 'contributor' contributor.pk %}">{{ contributor }}</a></li>
@@ -23,7 +25,8 @@
         {% endfor %}
     </ul>
 
-    <h1>List of Writers</h1>
+    <h1>Writer list</h1>
+    <hr class="my-4">
     <ul>
         {% for contributor in writers %}
             <li><a href="{% url 'contributor' contributor.pk %}">{{ contributor }}</a></li>

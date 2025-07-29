@@ -5,12 +5,11 @@
 {% endblock %}
 
 {% block content %}
-    <h1>List of countries</h1>
+    <h1>Country list</h1>
+    <hr class="my-4">
     <ul>
         {% for country in countries %}
-            <li>
-                {{ country }}
-            </li>
+            <li><a href="{% url 'country' country.id %}">{{ country }}</a></li>
         {% empty %}
             <li>There is no country in the database.</li>
         {% endfor %}
