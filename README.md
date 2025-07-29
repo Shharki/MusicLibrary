@@ -59,7 +59,7 @@ Development & CI    Git, GitHub Actions (lint + tests), PyCharm
         - [ ] Members, roles, active periods
         - [ ] Songs they performed in
 - [ ] 6. Countries – listing and detail
-    - [ ] 6.1. Alphabetical list
+    - [x] 6.1. Alphabetical list
     - [ ] 6.2. Detail (list of contributors from the given country)
 - [ ] 7. Genres – listing and detail
     - [ ] 7.1. Alphabetical list
