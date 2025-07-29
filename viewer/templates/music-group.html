@@ -5,6 +5,70 @@
 {% endblock %}
 
 {% block content %}
-     <h1 class="display-4">{{ music_group.name }}</h1>
-{% endblock %}
+    <h1 class="display-4">{{ music_group.name }}</h1>
+    <hr class="my-4">
+    <div class="row">
+        {% if music_group.all_members_with_roles or music_group.founded or music_group.disbanded %}
+            <div class="col-md-7">
 
+
+            {% if music_group.all_members_with_roles %}
+
+                <strong>Members:</strong>
+                <ul>
+                    {% for members in music_group.all_members_with_roles %}
+                        <li>
+                            <a href="{% url 'contributor' members.member.pk %}">{{ members.member }}</a>
+                            {% if members.member_role.exists %}
+                                ({{ members.display_roles }})
+                            {% endif %}
+                    {#  Member period Not implemented yet           #}
+                    {#      {% if members.member.active_period %}   #}
+                    {#          {{ members.member.active_period }}  #}
+                    {#      {% endif %}                             #}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+            {% if music_group.founded %}
+                <p>
+                    <strong>Founded:</strong>
+                    {{ music_group.founded.year }}
+                </p>
+            {% endif %}
+
+            {% if music_group.disbanded %}
+                <p>
+                    <strong>Disbanded:</strong>
+                    {{ music_group.disbanded.year }}
+                </p>
+            {% endif %}
+        {% endif %}
+        </div>
+        <div class="col-md-5">
+            {% if music_group.all_albums %}
+                <div>
+                    <ol>
+                        <strong>Albums:</strong>
+                        {% for album in music_group.all_albums %}
+                            <li>
+                                <a href="{% url 'album' album.pk %}">
+                                    {{ album.title }}</a> ({{ album.released|date:"Y" }})
+                            </li>
+                        {% endfor %}
+                    </ol>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <hr class="my-4">
+    <div class="row">
+        <div class="col-md-12">
+            {% if music_group.bio %}
+                <p><strong>Bio:</strong> {{ music_group.bio|linebreaks }}</p>
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}
