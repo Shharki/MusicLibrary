@@ -96,23 +96,46 @@ class SongDetailViewTest(TestCase):
 class ContributorListViewTest(TestCase):
     def test_contributors_list_view_status_code(self):
         response = self.client.get(reverse('contributors'))
+        self.assertIn('performers', response.context)
+        self.assertIn('producers', response.context)
+        self.assertIn('writers', response.context)
         self.assertEqual(response.status_code, 200)
 
     def test_contributors_list_view_uses_correct_template(self):
         response = self.client.get(reverse('contributors'))
+        self.assertIn('performers', response.context)
+        self.assertIn('producers', response.context)
+        self.assertIn('writers', response.context)
         self.assertTemplateUsed(response, 'contributors.html')
 
     def test_contributors_list_view_context_with_data(self):
-        Contributor.objects.create(first_name="Karel", last_name="Gott")
+        lang = Language.objects.create(name="Czech")
+        role = ContributorRole.objects.create(name="Zpěvák", category="performer")
+        contributor = Contributor.objects.create(first_name="Karel", last_name="Gott")
+        song = Song.objects.create(title="Lady Carneval", language=lang)
+
+        SongPerformance.objects.create(
+            song=song,
+            contributor=contributor,
+            contributor_role=role
+        )
+
         response = self.client.get(reverse('contributors'))
-        self.assertIn('contributors', response.context)
+        self.assertIn('performers', response.context)
+        self.assertIn('producers', response.context)
+        self.assertIn('writers', response.context)
+
         self.assertContains(response, "Karel")
         self.assertContains(response, "Gott")
 
     def test_contributors_list_view_context_empty(self):
         response = self.client.get(reverse('contributors'))
-        self.assertIn('contributors', response.context)
-        self.assertContains(response, "There is no contributor in the database.")
+        self.assertIn('performers', response.context)
+        self.assertIn('producers', response.context)
+        self.assertIn('writers', response.context)
+        self.assertContains(response, "No performers found.")
+        self.assertContains(response, "No producers found.")
+        self.assertContains(response, "No writers found.")
 
 
 class AlbumSongModelTest(TestCase):
@@ -129,7 +152,7 @@ class AlbumSongModelTest(TestCase):
             date_of_birth=datetime.date(1939, 7, 14),
             date_of_death=datetime.date(2019, 10, 1)
         )
-        cls.role = ContributorRole.objects.create(name="Singer")
+        cls.role = ContributorRole.objects.create(name="Singer", category="performer")
 
         cls.song = Song.objects.create(
             title="Lady Carneval",

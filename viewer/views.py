@@ -1,6 +1,6 @@
 from django.db.models import Sum
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, TemplateView
 
 from viewer.models import (
     Song, MusicGroupMembership, Contributor, Album, SongPerformance, Genre, Language, MusicGroup, Country
@@ -101,10 +101,25 @@ class SongDetailView(DetailView):
         return context
 
 
-class ContributorsListView(ListView):
+class ContributorsListView(TemplateView):
     template_name = 'contributors.html'
-    model = Contributor
-    context_object_name = 'contributors'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['performers'] = Contributor.objects.filter(
+            song_performances__contributor_role__category='performer'
+        ).distinct()
+
+        context['producers'] = Contributor.objects.filter(
+            song_performances__contributor_role__category='producer'
+        ).distinct()
+
+        context['writers'] = Contributor.objects.filter(
+            song_performances__contributor_role__category='writer'
+        ).distinct()
+
+        return context
 
 
 class ContributorDetailView(DetailView):
@@ -116,9 +131,9 @@ class ContributorDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         contributor = self.object
 
-        songs = contributor.songs.all()     # Songs in which he participated
-        albums = contributor.albums.all()       # Albums he has contributed to (optional)
-        memberships = contributor.memberships.select_related('music_group').all()   # Group membership (optional)
+        songs = contributor.songs.all()  # Songs in which he participated
+        albums = contributor.albums.all()  # Albums he has contributed to (optional)
+        memberships = contributor.memberships.select_related('music_group').all()  # Group membership (optional)
 
         context.update({
             'songs': songs,

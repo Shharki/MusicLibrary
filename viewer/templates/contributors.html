@@ -1,20 +1,34 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    Contributor list
+    Contributors
 {% endblock %}
 
 {% block content %}
-    <h1>Contributor list</h1>
+    <h1>List of Performers</h1>
     <ul>
-        {% for contributor in contributors %}
-            <li>
-                <a href="{% url 'contributor' contributor.id %}">
-                    {{ contributor.display_more }}
-                </a>
-            </li>
+        {% for contributor in performers %}
+            <li><a href="{% url 'contributor' contributor.pk %}">{{ contributor }}</a></li>
         {% empty %}
-            <li>There is no contributor in the database.</li>
+            <li>No performers found.</li>
+        {% endfor %}
+    </ul>
+
+    <h1>List of Producers</h1>
+    <ul>
+        {% for contributor in producers %}
+            <li><a href="{% url 'contributor' contributor.pk %}">{{ contributor }}</a></li>
+        {% empty %}
+            <li>No producers found.</li>
+        {% endfor %}
+    </ul>
+
+    <h1>List of Writers</h1>
+    <ul>
+        {% for contributor in writers %}
+            <li><a href="{% url 'contributor' contributor.pk %}">{{ contributor }}</a></li>
+        {% empty %}
+            <li>No writers found.</li>
         {% endfor %}
     </ul>
 {% endblock %}
