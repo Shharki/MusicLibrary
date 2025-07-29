@@ -54,9 +54,12 @@ Development & CI    Git, GitHub Actions (lint + tests), PyCharm
 - [ ] 5. Music Groups – listing and detail
     - [X] 5.1. Alphabetical list
     - [ ] 5.2. Group detail
-        - [ ] Name, description
-        - [ ] Founded / disbanded year
-        - [ ] Members, roles, active periods
+        - [X] Name
+        - [X] Bio
+        - [X] Founded / disbanded year
+        - [X] Members, roles
+        - [ ] Members active periods
+        - [X] Albums they performed in
         - [ ] Songs they performed in
 - [ ] 6. Countries – listing and detail
     - [ ] 6.1. Alphabetical list

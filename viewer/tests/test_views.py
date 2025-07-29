@@ -271,3 +271,58 @@ class MusicGroupsListViewTest(TestCase):
         response = self.client.get(reverse('music-groups'))
         self.assertContains(response, 'The Rolling Codes')
         self.assertContains(response, 'Debuggers United')
+
+
+class MusicGroupDetailViewTest(TestCase):
+    def setUp(self):
+        self.group = MusicGroup.objects.create(
+            name="The Rolling Codes",
+            bio="Legendární skupina vývojářů.",
+            founded=datetime.date(2000, 1, 1),
+            disbanded=datetime.date(2020, 1, 1)
+        )
+
+        self.member = Contributor.objects.create(
+            first_name="Alan",
+            last_name="Turing",
+            stage_name="Code Wizard"
+        )
+
+        self.role = ContributorRole.objects.create(
+            name="Lead Developer",
+            category="performer"
+        )
+
+        membership = MusicGroupMembership.objects.create(
+            member=self.member,
+            music_group=self.group,
+            from_date=datetime.date(2001, 1, 1),
+            to_date=datetime.date(2010, 1, 1)
+        )
+        membership.member_role.add(self.role)
+
+        self.album = Album.objects.create(
+            title="Greatest Hits of Logic",
+            released=datetime.date(2005, 6, 1)
+        )
+        self.album.music_group.add(self.group)
+
+    def test_group_detail_view_status_code(self):
+        url = reverse('music-group', args=[self.group.pk])
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_group_name_displayed(self):
+        url = reverse('music-group', args=[self.group.pk])
+        response = self.client.get(url)
+        self.assertContains(response, self.group.name)
+
+    def test_group_members_displayed(self):
+        url = reverse('music-group', args=[self.group.pk])
+        response = self.client.get(url)
+        self.assertContains(response, self.member.stage_name)
+
+    def test_group_albums_displayed(self):
+        url = reverse('music-group', args=[self.group.pk])
+        response = self.client.get(url)
+        self.assertContains(response, self.album.title)

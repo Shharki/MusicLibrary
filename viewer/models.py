@@ -144,6 +144,20 @@ class MusicGroup(Model):
         ordering = ['name']
         db_table = 'viewer_music_group'
 
+    # Not used anywhere atm
+    '''@property
+    def all_members(self):
+        return Contributor.objects.filter(
+            memberships__music_group=self
+        ).distinct().order_by('stage_name', 'last_name', 'first_name')'''
+
+    def all_members_with_roles(self):
+        return self.members.select_related('member').prefetch_related('member_role')
+
+    @property
+    def all_albums(self):
+        return self.albums.order_by('released', 'title')
+
     def __repr__(self):
         return f"MusicGroup(name={self.name})"
 
@@ -161,6 +175,19 @@ class MusicGroupMembership(Model):
     class Meta:
         ordering = ['music_group', 'member__last_name', 'member__first_name', 'member__stage_name']
         db_table = 'viewer_music_group_membership'
+
+    def display_roles(self):
+        return ', '.join(role.name for role in self.member_role.all())
+
+    @property
+    def active_period(self):
+        if self.from_date and self.to_date:
+            return f"[{self.from_date}–{self.to_date}]"
+        elif self.from_date:
+            return f"[{self.from_date}–]"
+        elif self.to_date:
+            return f"[–{self.to_date}]"
+        return ""
 
     def __str__(self):
         return f"{self.member} in {self.music_group}"

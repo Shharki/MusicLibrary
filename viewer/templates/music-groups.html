@@ -9,9 +9,7 @@
     <ul>
         {% for music_group in music_groups %}
             <li>
-                {{ music_group }}
-                {# Replace with next line when MusicGroupDetailView is done                 #}
-                {# <a href="{% url 'music-group' music_group.pk %}">{{ music_group }}</a>   #}
+                 <a href="{% url 'music-group' music_group.pk %}">{{ music_group }}</a>
             </li>
         {% empty %}
             There is no music group in the database.
