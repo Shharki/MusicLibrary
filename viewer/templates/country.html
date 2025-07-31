@@ -7,13 +7,6 @@
 {% block content %}
     <h1 class="display-4">{{ country }}</h1>
 
-    <hr class="my-4">
-    <h2>Songs</h2>
-    <ul>
-        {% for song in country.songs.all %}
-            <li><a href="{% url 'song' song.id %}">{{ song }}</a></li>
-        {% endfor %}
-    </ul>
     <h2>Contributors</h2>
     <ul>
         {% for contributor in country.contributors.all %}

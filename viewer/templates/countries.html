@@ -6,7 +6,6 @@
 
 {% block content %}
     <h1>Country list</h1>
-    <hr class="my-4">
     <ul>
         {% for country in countries %}
             <li><a href="{% url 'country' country.id %}">{{ country }}</a></li>
