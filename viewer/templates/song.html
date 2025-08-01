@@ -5,102 +5,172 @@
 {% endblock %}
 
 {% block content %}
-
-    <h1 class="display-4">{{ song.title }}</h1>
-
-    {% if song_artists or song_music_groups %}
-        <p>by
-            <strong>
-                {% for artist in song_artists %}{{ artist }}{% if not forloop.last or song_music_groups %},
-                {% endif %}{% endfor %}
-                {% for group in song_music_groups %}{{ group }}{% if not forloop.last %}, {% endif %}{% endfor %}
-            </strong>
-        </p>
-    {% endif %}
-
-    <hr class="my-4">
-    <div class="row">
-        <div class="col-md-6">
-            {% if album %}
-                <p><strong>Album:</strong>
-                <a href="{% url 'album' album.pk %}">{{ album.title }}</a></p>
-            {% endif %}
-
-            <p><strong>Genres:</strong>
-                {% for genre in song.genre.all %}
-                    <span class="badge badge-secondary">{{ genre }}</span>
-                {% empty %}
-                    No genres yet
-                {% endfor %}
-            </p>
-
-            {% if song.duration %}
-                <p><strong>Duration:</strong> {{ song.format_seconds }}</p>
-            {% endif %}
-
-            {% if song.released %}
-                <p><strong>Released year:</strong> {{ song.released.year }}</p>
-            {% endif %}
-
-            {% if song.language %}
-                <p><strong>Language:</strong> {{ song.language }}</p>
-            {% endif %}
-            {% if song.summary %}
-                <p><strong>Summary:</strong> {{ song.summary }}</p>
-            {% endif %}
-
-        </div>
-
-        <div class="col-md-6">
-            {% if contributors_by_category.performer %}
-                <p><strong>Performers:</strong>
-                    {% for contributor, role_name in contributors_by_category.performer %}
-                        {{ contributor }} ({{ role_name }}){% if not forloop.last %}, {% endif %}
+    <div class="d-flex justify-content-center text-center mb-4">
+        <div>
+            {# Song title #}
+            <h1 class="display-2 text-primary">{{ song.title }}</h1>
+            {# by Artist/s or/and Music group/s #}
+            {% if song_artists or song_music_groups %}
+                <p class="fs-5">by
+                    {% for artist in song_artists %}
+                        <a href="{% url 'contributor' artist.pk %}" class="hover-link">
+                            {{ artist }}
+                        </a>{% if not forloop.last %}, {% endif %}
                     {% endfor %}
-                </p>
-            {% endif %}
-
-            {% if contributors_by_category.writer %}
-                <p><strong>Writers:</strong>
-                    {% for contributor, role_name in contributors_by_category.writer %}
-                        {{ contributor }} ({{ role_name }}){% if not forloop.last %}, {% endif %}
-                    {% endfor %}
-                </p>
-            {% endif %}
-
-            {% if contributors_by_category.producer %}
-                <p><strong>Producers:</strong>
-                    {% for contributor, role_name in contributors_by_category.producer %}
-                        {{ contributor }} ({{ role_name }}){% if not forloop.last %}, {% endif %}
-                    {% endfor %}
-                </p>
-            {% endif %}
-
-            {% if contributors_by_category.other %}
-                <p><strong>Other contributors:</strong>
-                    {% for contributor, role_name in contributors_by_category.other %}
-                        {{ contributor }} ({{ role_name }}){% if not forloop.last %}, {% endif %}
-                    {% endfor %}
-                </p>
-            {% endif %}
-
-            {% if groups_by_role %}
-                <p><strong>Music Groups:</strong>
-                    {% for role, groups in groups_by_role.items %}
-                        {% for group in groups %}
-                            {{ group }} ({{ role }}){% if not forloop.last or not forloop.parentloop.last %},
-                        {% endif %}
-                        {% endfor %}
+                    {% for group in song_music_groups %}
+                        <a href="{% url 'music-group' group.pk %}" class="hover-link">
+                            {{ group }}
+                        </a>{% if not forloop.last %}, {% endif %}
                     {% endfor %}
                 </p>
             {% endif %}
         </div>
     </div>
-    <hr class="my-4">
-    <div class="row">
-        <div class="col-md-12 text-center">
-            {% if song.lyrics %}
-                <p><strong>Lyrics:</strong> {{ song.lyrics|linebreaks }}</p>
-            {% endif %}
+    <div class="p-5 text-center bg-body-secondary">
+        <div class="container-fluid">
+            <div class="row d-flex align-items-stretch">
+                <div class="col-md-6 d-flex flex-column justify-content-start text-start h-100">
+                    {# Album #}
+                    {% if album %}
+                        <p><span class="header-custom">Album:</span>
+                            <a href="{% url 'album' album.pk %} "
+                               class="hover-link">{{ album.title }}</a>
+                        </p>
+                    {% endif %}
+                    {# Genre/s #}
+                    <p><span class="header-custom">Genres:</span>
+                        {% for genre in song.genre.all %}
+                            {#                        Need to implement genre url, view first                       #}
+                            {#                            <a href="{% url 'genre' genre.pk %}"                      #}
+                            {#                               class="hover-link">                                    #}
+                            {#                                <span class="badge hover-badge">{{ genre }}</span>    #}
+                            {#                            </a>                                                      #}
+                            <span class="badge hover-badge">{{ genre }}</span>
+                        {% empty %}
+                            No genres yet
+                        {% endfor %}
+                    </p>
+                    {# Duration #}
+                    {% if song.duration %}
+                        <p><span class="header-custom">Duration:</span> {{ song.format_seconds }}</p>
+                    {% endif %}
+                    {# Released #}
+                    {% if song.released %}
+                        <p><span class="header-custom">Released year:</span> {{ song.released.year }}</p>
+                    {% endif %}
+                    {# Language/s #}
+                    {% if song.language %}
+                        {#                        Need to implement language url, view first                    #}
+                        {#                            <a href="{% url 'language' language.pk %}"                #}
+                        {#                               class="text-primary text-decoration-none">             #}
+                        {#                                <span class="badge bg-primary">{{ language }}</span>  #}
+                        {#                            </a>                                                      #}
+                        <p><span class="header-custom">Language:</span> {{ song.language }}</p>
+                    {% endif %}
+                    {# Summary #}
+                    {% if song.summary %}
+                        <p><span class="header-custom">Summary:</span> {{ song.summary }}</p>
+                    {% endif %}
+                </div>
 
+                <div class="col-md-6 d-flex flex-column justify-content-start text-start h-100">
+                    {# Performer/s #}
+                    {% if contributors_by_category.performer %}
+                        <p>
+                            <span class="header-custom">Performers:</span>
+                            {% for contributor, roles in contributors_by_category.performer %}
+                                <span class="d-inline-block mb-1">
+                                <a href="{% url 'contributor' contributor.pk %}" class="hover-link">
+                                  {{ contributor }}
+                                </a>
+                                ({{ roles|join:", " }}){% if not forloop.last %}, {% endif %}
+                                </span>
+                            {% endfor %}
+                        </p>
+                    {% endif %}
+                    {# Writer/s #}
+                    {% if contributors_by_category.writer %}
+                        <p>
+                            <span class="header-custom">Writers:</span>
+                            {% for contributor, roles in contributors_by_category.writer %}
+                                <span class="d-inline-block mb-1">
+                                    <a href="{% url 'contributor' contributor.pk %}" class="hover-link">
+                                    {{ contributor }}
+                                    </a>
+                                    ({{ roles|join:", " }}){% if not forloop.last %}, {% endif %}
+                                </span>
+                            {% endfor %}
+                        </p>
+                    {% endif %}
+                    {# Producer/s #}
+                    {% if contributors_by_category.producer %}
+                        <p>
+                            <span class="header-custom">Producers:</span>
+                            {% for contributor, roles in contributors_by_category.producer %}
+                                <span class="d-inline-block mb-1">
+                                    <a href="{% url 'contributor' contributor.pk %}" class="hover-link">
+                                    {{ contributor }}
+                                    </a>
+                                    ({{ roles|join:", " }}){% if not forloop.last %}, {% endif %}
+                                </span>
+                            {% endfor %}
+                        </p>
+                    {% endif %}
+                    {# Publisher/s #}
+                    {% if contributors_by_category.publisher %}
+                        <p>
+                            <span class="header-custom">Publishers:</span>
+                            {% for contributor, roles in contributors_by_category.publisher %}
+                                <span class="d-inline-block mb-1">
+                                    <a href="{% url 'contributor' contributor.pk %}" class="hover-link">
+                                    {{ contributor }}
+                                    </a>
+                                    ({{ roles|join:", " }}){% if not forloop.last %}, {% endif %}
+                                </span>
+                            {% endfor %}
+                        </p>
+                    {% endif %}
+                    {# Other contributors #}
+                    {% if contributors_by_category.other %}
+                        <p>
+                            <span class="header-custom">Other contributors:</span>
+                            {% for contributor, roles in contributors_by_category.other %}
+                                <span class="d-inline-block mb-1">
+                                    <a href="{% url 'contributor' contributor.pk %}" class="hover-link">
+                                    {{ contributor }}
+                                    </a>
+                                    ({{ roles|join:", " }}){% if not forloop.last %}, {% endif %}
+                                </span>
+                            {% endfor %}
+                        </p>
+                    {% endif %}
+                    {# Music groups #}
+                    {% if groups_by_role %}
+                        <p>
+                            <span class="header-custom">Music groups:</span>
+                            {% for role, groups in groups_by_role.items %}
+                                {% for group in groups %}
+                                    <span class="d-inline-block mb-1">
+                                    <a href="{% url 'music-group' group.pk %}" class="hover-link">
+                                    {{ group }}
+                                    </a> ({{ role }}){% if not forloop.last or not forloop.parentloop.last %},
+                                    {% endif %}
+                                    </span>
+                                {% endfor %}
+                            {% endfor %}
+                        </p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {# Lyrics #}
+    {% if song.lyrics %}
+        <div class="text-center my-4">
+            <p><span class="header-custom fs-5">Lyrics:</span></p>
+            <div>
+                {{ song.lyrics|linebreaks }}
+            </div>
+        </div>
+    {% endif %}
 {% endblock %}

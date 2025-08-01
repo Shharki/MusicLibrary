@@ -1,21 +1,59 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container fixed">
-        <a class="navbar-brand" href="{% url 'home' %}">MusicLibrary</a>
+<nav class="navbar navbar-expand-lg bg-body-secondary rounded" aria-label="Main navigation">
+    <div class="container-fluid">
         <button
-                class="navbar-toggler" type="button"
-                data-toggle="collapse" data-target="#navbarNavAltMarkup"
-        >
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-                <a class="nav-item nav-link active" href="{% url 'home' %}">Home</a>
-                <a class="nav-item nav-link active" href="{% url 'songs' %}">Songs</a>
-                <a class="nav-item nav-link active" href="{% url 'albums' %}">Albums</a>
-                <a class="nav-item nav-link active" href="{% url 'contributors' %}">Contributors</a>
-                <a class="nav-item nav-link active" href="{% url 'music-groups' %}">Music groups</a>
-                <a class="nav-item nav-link active" href="{% url 'countries' %}">Countries</a>
-                <a class="nav-item nav-link active" href="{% url 'genres' %}">Genres</a>
+
+        <div class="collapse navbar-collapse d-lg-flex" id="navbarSupportedContent">
+            <a class="navbar-brand col-lg-3 me-0 hover-link" href="{% url 'home' %}">MusicLibrary</a>
+            <ul class="navbar-nav col-lg-6 justify-content-lg-center">
+                {# Navbar items #}
+                <li class="nav-item">
+                    <a class="nav-link {% if request.resolver_match.view_name == 'songs' %}active-custom{% endif %}"
+                       href="{% url 'songs' %}">
+                        Songs
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if request.resolver_match.view_name == 'albums' %}active-custom{% endif %}"
+                       href="{% url 'albums' %}">
+                        Albums
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if request.resolver_match.view_name == 'contributors' %}active-custom{% endif %}"
+                       href="{% url 'contributors' %}">
+                        Contributors
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if request.resolver_match.view_name == 'music-groups' %}active-custom{% endif %}"
+                       href="{% url 'music-groups' %}">
+                        Music-groups
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if request.resolver_match.view_name == 'countries' %}active-custom{% endif %}"
+                       href="{% url 'countries' %}">
+                        Countries
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if request.resolver_match.view_name == 'genres' %}active-custom{% endif %}"
+                       href="{% url 'genres' %}">
+                        Countries
+                    </a>
+                </li>
+            </ul>
+            <div class="d-lg-flex col-lg-3 justify-content-lg-end">
+                <button class="btn btn-primary">Sign In</button>
             </div>
         </div>
     </div>

@@ -1,6 +1,8 @@
 from django.core.exceptions import ValidationError
 from django.db.models import Model, CharField, DateField, ForeignKey, TextField, SET_NULL, \
-    ManyToManyField, CASCADE, PositiveIntegerField, CheckConstraint, Q
+    ManyToManyField, CASCADE, PositiveIntegerField, CheckConstraint, Q, Sum, ImageField
+
+from viewer.utils import format_seconds
 
 
 class Genre(Model):
@@ -216,6 +218,62 @@ class Song(Model):
     def __repr__(self):
         return f"Song(title={self.title})"
 
+    def contributors_by_category(self):
+        """
+        Vrací dict: kategorie => list of (contributor, [role1, role2, ...])
+        """
+        performances = self.performances.select_related('contributor', 'contributor_role')
+        contributors = {}
+
+        for perf in performances:
+            if perf.contributor and perf.contributor_role:
+                category = perf.contributor_role.category
+                role_name = perf.contributor_role.name
+                contributor = perf.contributor
+
+                if category not in contributors:
+                    contributors[category] = []
+
+                # Zkusíme najít, jestli už je contributor v seznamu
+                for i, (existing_contributor, roles) in enumerate(contributors[category]):
+                    if existing_contributor == contributor:
+                        if role_name not in roles:
+                            roles.append(role_name)
+                        break
+                else:
+                    # Pokud tam ještě není, přidáme ho
+                    contributors[category].append((contributor, [role_name]))
+
+        return contributors
+
+    def groups_by_role(self):
+        """
+        Vrátí dict: role => list of music groups bez duplicit
+        """
+        performances = self.performances.select_related('music_group', 'music_group_role')
+        groups = {}
+
+        seen = set()
+        for perf in performances:
+            if perf.music_group and perf.music_group_role:
+                role = perf.music_group_role.name
+                if role not in groups:
+                    groups[role] = []
+                if perf.music_group.id not in seen:
+                    groups[role].append(perf.music_group)
+                    seen.add(perf.music_group.id)
+
+        return groups
+
+    def first_album(self):
+        return self.albums.first()
+
+    def artists(self):
+        return self.artist.all()
+
+    def music_groups(self):
+        return self.music_group.all()
+
     @property
     def format_seconds(self):
         if self.duration is None:
@@ -262,7 +320,7 @@ class SongPerformance(Model):
     def display_more(self):
         album = self.song.albums.first()
         album_title = album.title if album else "Unknown Album"
-        return f"{self.__str__} ({album_title})"
+        return f"{str(self)} ({album_title})"
 
     def __str__(self):
         if self.music_group:
@@ -301,11 +359,71 @@ class Album(Model):
     songs = ManyToManyField(Song, through='AlbumSong', blank=True, related_name="albums")
     released = DateField(null=True, blank=True)
     summary = TextField(null=True, blank=True)
+    cover_image = ImageField(upload_to='album_covers/', null=True, blank=True)
 
     class Meta:
         ordering = ['released', 'title']
         verbose_name = "Album"
         verbose_name_plural = "Albums"
+
+    def songs_list(self):
+        """Vrátí všechny songy na albu s prefetchem performances."""
+        return self.songs.all().prefetch_related('performances')
+
+    def ordered_songs(self):
+        return Song.objects.filter(albumsong__album=self).order_by('albumsong__order')
+
+    def total_duration(self):
+        total = self.songs_list().aggregate(total=Sum('duration'))['total']
+        return format_seconds(total) if total else None
+
+    def genres_list(self):
+        genre_ids = self.songs_list().values_list('genre', flat=True).distinct()
+        return Genre.objects.filter(id__in=genre_ids).order_by('name')
+
+    def languages_list(self):
+        language_ids = self.songs_list().values_list('language', flat=True).distinct()
+        return Language.objects.filter(id__in=language_ids).order_by('name')
+
+    def contributors_by_category(self):
+        all_performances = SongPerformance.objects.filter(song__in=self.songs_list()).select_related(
+            'contributor', 'contributor_role', 'music_group', 'music_group_role'
+        )
+
+        contributors = {}
+        for perf in all_performances:
+            if perf.contributor and perf.contributor_role:
+                cat = perf.contributor_role.category
+                role_name = perf.contributor_role.name
+                contributors.setdefault(cat, {})
+
+                # pokud contributor není ještě v dictu, přidej ho s prázdným setem rolí
+                if perf.contributor not in contributors[cat]:
+                    contributors[cat][perf.contributor] = set()
+
+                # přidej roli do setu rolí
+                contributors[cat][perf.contributor].add(role_name)
+
+        # převedeme sety rolí na seznamy a vytvoříme finální strukturu listů (contributor, [role_list])
+        for cat, contribs in contributors.items():
+            contributors[cat] = [(contrib, sorted(list(roles))) for contrib, roles in contribs.items()]
+
+        return contributors
+
+    def groups_by_role(self):
+        all_performances = SongPerformance.objects.filter(song__in=self.songs_list()).select_related(
+            'music_group', 'music_group_role'
+        )
+        groups = {}
+        seen = set()
+        for perf in all_performances:
+            if perf.music_group and perf.music_group_role:
+                role = perf.music_group_role.name
+                groups.setdefault(role, [])
+                if perf.music_group.id not in seen:
+                    groups[role].append(perf.music_group)
+                    seen.add(perf.music_group.id)
+        return groups
 
     def display_more(self):
         artist_names = ', '.join(str(artist) for artist in self.artist.all())
