@@ -940,7 +940,7 @@
       "duration": 185,
       "released": "2000-10-24",
       "summary": "",
-      "lyrics": "Why does it feel like night today?\r\nSomething in here's not right today\r\nWhy am I so uptight today?\r\nParanoia's all I got left\r\nI don't know what stressed me first\r\nOr how the pressure was fed\r\nBut I know just what it feels like\r\nTo have a voice in the back of my head\r\nLike a face that I hold inside\r\nA face that awakes when I close my eyes\r\nA face that watches every time I lie\r\nA face that laughs every time I fall (and watches everything)\r\nSo I know that when it's time to sink or swim\r\nThat the face inside is here in me, right underneath my skin\r\nIt's like, I'm paranoid, lookin' over my back\r\nIt's like a whirlwind inside of my head\r\nIt's like, I can't stop what I'm hearing within\r\nIt's like the face inside is right beneath my skin\r\nI know I've got a face in me\r\nPoints out all my mistakes to me\r\nYou've got a face on the inside too\r\nAnd your paranoia's probably worse\r\nI don't know what set me off first\r\nBut I know what I can't stand\r\nEverybody acts like the fact of the matter is\r\nI can't add up to what you can\r\nBut everybody has a face that they hold inside\r\nA face that awakes when I close my eyes\r\nA face that watches every time they lie\r\nA face that laughs every time they fall (and watches everything)\r\nSo you know that when it's time to sink or swim\r\nThat the face inside is watching you too, right inside your skin\r\nIt's like, I'm paranoid, lookin' over my back\r\nIt's like a whirlwind inside of my head\r\nIt's like, I can't stop what I'm hearing within\r\nIt's like the face inside is right beneath the skin\r\nIt's like, I'm paranoid, lookin' over my back\r\nIt's like a whirlwind inside of my head\r\nIt's like, I can't stop what I'm hearing within\r\nIt's like the face inside is right beneath my skin\r\nThe face inside is right beneath your skin\r\nThe face inside is right beneath your skin\r\nThe face inside is right beneath your skin\r\nThe sun goes down\r\nI feel the light betray me\r\nThe sun goes down\r\nI feel the light betray me\r\nit's like, I'm paranoid, lookin' over my back\r\nIt's like a whirlwind inside of my head\r\nIt's like, I can't stop what I'm hearing within\r\nIt's like the face inside is right beneath the skin (I feel the light betray me)\r\nit's like, I'm paranoid, lookin' over my back\r\nIt's like a whirlwind inside of my head\r\nIt's like, I can't stop what I'm hearing within\r\nIt's like, I can't stop what I'm hearing within (I feel the light betray me)\r\nIt's like, I can't stop what I'm hearing within (ah)\r\nIt's like the face inside is right beneath my skin",
+      "lyrics": "Why does it feel like night today?\r\nSomething in here's not right today\r\nWhy am I so uptight today?\r\nParanoia's all I got left\r\nI don't know what stressed me first\r\nOr how the pressure was fed\r\nBut I know just what it feels like\r\nTo have a voice in the back of my head\r\n\r\nLike a face that I hold inside\r\nA face that awakes when I close my eyes\r\nA face that watches every time I lie\r\nA face that laughs every time I fall (and watches everything)\r\nSo I know that when it's time to sink or swim\r\nThat the face inside is here in me, right underneath my skin\r\n\r\nIt's like, I'm paranoid, lookin' over my back\r\nIt's like a whirlwind inside of my head\r\nIt's like, I can't stop what I'm hearing within\r\nIt's like the face inside is right beneath my skin\r\n\r\nI know I've got a face in me\r\nPoints out all my mistakes to me\r\nYou've got a face on the inside too\r\nAnd your paranoia's probably worse\r\nI don't know what set me off first\r\nBut I know what I can't stand\r\nEverybody acts like the fact of the matter is\r\nI can't add up to what you can\r\n\r\nBut everybody has a face that they hold inside\r\nA face that awakes when I close my eyes\r\nA face that watches every time they lie\r\nA face that laughs every time they fall (and watches everything)\r\nSo you know that when it's time to sink or swim\r\nThat the face inside is watching you too, right inside your skin\r\n\r\nIt's like, I'm paranoid, lookin' over my back\r\nIt's like a whirlwind inside of my head\r\nIt's like, I can't stop what I'm hearing within\r\nIt's like the face inside is right beneath the skin\r\n\r\nIt's like, I'm paranoid, lookin' over my back\r\nIt's like a whirlwind inside of my head\r\nIt's like, I can't stop what I'm hearing within\r\nIt's like the face inside is right beneath my skin\r\n\r\nThe face inside is right beneath your skin\r\nThe face inside is right beneath your skin\r\nThe face inside is right beneath your skin\r\n\r\nThe sun goes down\r\nI feel the light betray me\r\nThe sun goes down\r\nI feel the light betray me\r\nit's like, I'm paranoid, lookin' over my back\r\nIt's like a whirlwind inside of my head\r\nIt's like, I can't stop what I'm hearing within\r\nIt's like the face inside is right beneath the skin (I feel the light betray me)\r\n\r\nit's like, I'm paranoid, lookin' over my back\r\nIt's like a whirlwind inside of my head\r\nIt's like, I can't stop what I'm hearing within\r\nIt's like, I can't stop what I'm hearing within (I feel the light betray me)\r\nIt's like, I can't stop what I'm hearing within (ah)\r\nIt's like the face inside is right beneath my skin",
       "language": 1,
       "artist": [],
       "music_group": [
@@ -5269,6 +5269,17 @@
     }
   },
   {
+    "model": "viewer.songperformance",
+    "pk": 317,
+    "fields": {
+      "song": 1,
+      "contributor": 1,
+      "contributor_role": 3,
+      "music_group": null,
+      "music_group_role": null
+    }
+  },
+  {
     "model": "viewer.albumsong",
     "pk": 1,
     "fields": {
@@ -5716,6 +5727,7 @@
       "title": "Hybrid Theory",
       "released": "2000-10-24",
       "summary": "Hybrid Theory is the debut studio album by American rock band Linkin Park, released on October 24, 2000, by Warner Bros. Records. Recorded at NRG Recordings in North Hollywood, California, and produced by Don Gilmore, the album's lyrical themes deal with problems lead vocalist Chester Bennington experienced during his adolescence, including drug abuse and the constant fighting and eventual divorce of his parents. Hybrid Theory takes its title from the previous name of the band as well as the concepts of music theory and combining different styles. It is also the band's only album in which bassist Dave \"Phoenix\" Farrell does not play, however, he is credited as a member of the band as well as a songwriter on some of its tracks.",
+      "cover_image": "album_covers/hybrid_theory.jpg",
       "artist": [],
       "music_group": [
         1
@@ -5729,6 +5741,7 @@
       "title": "Meteora",
       "released": "2003-03-25",
       "summary": "Meteora is the second studio album by American rock band Linkin Park, released on March 25, 2003, through Warner Bros. Records. It followed Reanimation, a collaboration album which featured remixes of songs included on their 2000 debut studio album Hybrid Theory. The album was produced by the band alongside Don Gilmore. The title Meteora is taken from the Greek Orthodox monasteries originally bearing the name. Meteora has a similar sound to Hybrid Theory, as described by critics, and the album took almost a year to be recorded. It is the first Linkin Park studio album to feature bassist Dave \"Phoenix\" Farrell after he rejoined the band in 2000 following his temporary touring with other bands.",
+      "cover_image": "album_covers/meteora.jpg",
       "artist": [],
       "music_group": [
         1
@@ -5742,6 +5755,7 @@
       "title": "Minutes to Midnight",
       "released": "2007-05-14",
       "summary": "Minutes to Midnight is the third studio album by American rock band Linkin Park, released on May 14, 2007, through Warner Bros. Records. The album was produced by Mike Shinoda and Rick Rubin; it is Linkin Park's first studio album produced without Don Gilmore, who had produced the band's two previous albums. Minutes to Midnight is the band's follow-up album to Meteora (2003), and features a shift in the group's musical direction. For the band, the album marked a beginning of deviation from their signature nu metal sound. Minutes to Midnight takes its title from the Doomsday Clock symbol. It is also the band's first full-length album to carry a Parental Advisory label.",
+      "cover_image": "album_covers/minutes_to_midnight.jpg",
       "artist": [],
       "music_group": [
         1
@@ -5755,6 +5769,7 @@
       "title": "A Thousand Suns",
       "released": "2010-08-10",
       "summary": "A Thousand Suns is the fourth studio album by American rock band Linkin Park. It was first released in multiple nations on September 8, 2010, and in the United States on September 13, 2010, by Warner Bros. Records. The album was produced by Mike Shinoda and Rick Rubin, who had also worked together to produce the band's previous studio album Minutes to Midnight (2007). Recording sessions for A Thousand Suns took place at NRG Recording Studios in Hollywood, California from 2009 until mid 2010.",
+      "cover_image": "album_covers/a_thousand_suns.jpg",
       "artist": [],
       "music_group": [
         1
@@ -5768,6 +5783,7 @@
       "title": "Living Things",
       "released": "2012-06-20",
       "summary": "Living Things (stylized in all caps) is the fifth studio album by American rock band Linkin Park. It was released under Warner Bros. Records and Machine Shop Records on June 20, 2012, in Japan, and throughout the rest of the world during the following week. Production was handled by vocalist Mike Shinoda and Rick Rubin, who both co-produced the band's previous two studio albums, Minutes to Midnight (2007) and A Thousand Suns (2010). Living Things was their last album to be produced by Rubin and recorded at NRG Recording Studios.",
+      "cover_image": "album_covers/living_things.jpeg",
       "artist": [],
       "music_group": [
         1
@@ -5781,6 +5797,7 @@
       "title": "The Hunting Party",
       "released": "2014-06-17",
       "summary": "The Hunting Party is the sixth studio album by American rock band Linkin Park. The album, produced by band members Mike Shinoda and Brad Delson, was released by Warner Bros. Records and Machine Shop on June 17, 2014. It is the first album since Meteora (2003) not to be produced with Rick Rubin, who produced the band's previous three studio albums. The album's title is a contextual metaphor: Linkin Park is the party that is hunting to bring back the energy and soul of rock.",
+      "cover_image": "album_covers/the_hunting_party.jpg",
       "artist": [],
       "music_group": [
         1
@@ -5794,6 +5811,7 @@
       "title": "One More Light",
       "released": "2017-03-19",
       "summary": "One More Light is the seventh studio album by American rock band Linkin Park. It was released on May 19, 2017, through Warner Bros. Records and Machine Shop. It is the band's first album to have a title track, as they felt that the song \"One More Light\" was the heart of the album. It is also the band's final album to feature two of their longtime members: co-lead vocalist Chester Bennington, who died of suicide two months after the album's release, and drummer and band co-founder Rob Bourdon, who opted to not return for the band's reformation in 2024.",
+      "cover_image": "album_covers/one_more_light.jpg",
       "artist": [],
       "music_group": [
         1
@@ -5807,6 +5825,7 @@
       "title": "From Zero",
       "released": "2024-11-15",
       "summary": "From Zero is the eighth studio album by American rock band Linkin Park. It was released on November 15, 2024, through Warner Records and Machine Shop, and is Linkin Park's first studio album since One More Light (2017). This is also their first album with vocalist Emily Armstrong and drummer Colin Brittain following the death of vocalist Chester Bennington in 2017 and departure of drummer and band co-founder Rob Bourdon. The album's title has a double meaning; it is a reference to both the band's original name, Xero, and the band's new chapter with Armstrong and Brittain. The album marks the band's return to the nu metal, alternative metal and rap rock genres while still incorporating some of the experimental sounds from their later records.",
+      "cover_image": "album_covers/from_zero.jpg",
       "artist": [],
       "music_group": [
         1
@@ -5820,6 +5839,7 @@
       "title": "A Night at the Opera",
       "released": "1975-11-28",
       "summary": "A Night at the Opera is the fourth studio album by the British rock band Queen, released on 28 November 1975, by EMI Records in the United Kingdom and Elektra Records in the United States. Produced by Roy Thomas Baker and Queen, it was reportedly the most expensive album ever recorded at the time of its release.",
+      "cover_image": "",
       "artist": [],
       "music_group": [
         2
@@ -5833,6 +5853,7 @@
       "title": "Nemám hlas jako zvon",
       "released": "1975-01-01",
       "summary": "",
+      "cover_image": "",
       "artist": [
         60
       ],

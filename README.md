@@ -5,14 +5,21 @@ Final_project_SDA_2025
 - Users can catalog songs, albums, artists, and genres; upload album artwork; 
   and conveniently manage the library through a user-friendly web interface with login 
   and permissions.
+- run "python copy_covers.py" to create media/album_covers with actual images
+
 
 Backend             Django 5, Python 3.13 
 Database            SQLite 3 (development)
-Frontend            Django Templates, Bootstrap 5, HTMX
+Frontend            Django Templates, Bootstrap 5.3.7. (local), HTMX
 Authentication      Django auth + accounts 
 Development & CI    Git, GitHub Actions (lint + tests), PyCharm
 
-## PROJECT Functionality 
+## PROJECT Functionality
+
+- [X] Bootstrap
+    - [X] Home screen with albums
+    - [X] Missing album images in home replaced with placeholder
+    - [X] Hover effects on navbar, links
 - [ ] 1. Songs – listing
     - [x] Alphabetical list
     - [ ] Filtering by: genre, country, language, year, album, performer, ratings
@@ -27,10 +34,9 @@ Development & CI    Git, GitHub Actions (lint + tests), PyCharm
     - [X] Performers: individuals or groups (from SongPerformance)
     - [X] Performer roles (singer, composer, lyricist, etc.)
 - [ ] 2.1. Songs – other
-    - [ ] Album image (via Album relation)
     - [ ] Rating (user-based)
     - [ ] Audio sample / streaming link
-- [ ] 3. Albums – listing and detail
+- [X] 3. Albums – listing and detail
     - [X] 3.1 Alphabetical album list
     - [X] 3.2 Album details (derived from songs)
         - [X] Title
@@ -40,6 +46,8 @@ Development & CI    Git, GitHub Actions (lint + tests), PyCharm
         - [X] Total duration
         - [X] Languages
         - [X] Contributors list (performers, writers, producers)
+        - [X] Summary
+        - [X] Cover image
 - [ ] 4. Contributors – listing and detail
     - [x] 4.1. Alphabetical list
     - [x] 4.2. Contributor detail (singer, composer...)

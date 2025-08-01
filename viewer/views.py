@@ -1,6 +1,9 @@
+import os
+
+from django.conf import settings
 from django.db.models import Sum
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, TemplateView
 
 from viewer.models import (
     Song, MusicGroupMembership, Contributor, Album, SongPerformance, Genre, Language, MusicGroup, Country
@@ -8,8 +11,25 @@ from viewer.models import (
 from viewer.utils import format_seconds
 
 
-def home(request):
-    return render(request, 'home.html')
+class HomeView(ListView):
+    model = Album
+    template_name = 'home.html'
+    context_object_name = 'albums'
+
+    def get_queryset(self):
+        return Album.objects.exclude(cover_image='').exclude(cover_image__isnull=True).order_by('?')[:6]
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        albums = context['albums']
+        for index, album in enumerate(albums):
+            file_path = os.path.join(settings.MEDIA_ROOT, album.cover_image.name)
+            if os.path.exists(file_path):
+                album.image_url = album.cover_image.url
+            else:
+                placeholder_number = (index % 6) + 1  # 1 až 6
+                album.image_url = f"{settings.STATIC_URL}images/placeholders/placeholder{placeholder_number}.jpg"
+        return context
 
 
 class SongsListView(ListView):
@@ -27,77 +47,13 @@ class SongDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         song = self.object
 
-        performances = song.performances.select_related(
-            'contributor', 'contributor_role', 'music_group', 'music_group_role'
-        )
-
-        contributors_by_category = {}
-        groups_by_role = {}
-        involved_music_groups = set()
-
-        for perf in performances:
-            # Contributors (people)
-            if perf.contributor and perf.contributor_role:
-                category = perf.contributor_role.category
-                role_name = perf.contributor_role.name
-                if category not in contributors_by_category:
-                    contributors_by_category[category] = []
-                contributors_by_category[category].append((perf.contributor, role_name))
-
-            # Music Groups
-            if perf.music_group and perf.music_group_role:
-                role = perf.music_group_role.name
-                if role not in groups_by_role:
-                    groups_by_role[role] = []
-                groups_by_role[role].append(perf.music_group)
-                involved_music_groups.add(perf.music_group)
-
-        # Remove duplicates for contributors
-        for category, contribs in contributors_by_category.items():
-            seen_ids = set()
-            filtered = []
-            for contributor, role_name in contribs:
-                if contributor.id not in seen_ids:
-                    filtered.append((contributor, role_name))
-                    seen_ids.add(contributor.id)
-            contributors_by_category[category] = filtered
-
-        # Remove duplicates for music groups
-        for role, groups in groups_by_role.items():
-            unique_groups = []
-            seen_ids = set()
-            for group in groups:
-                if group.id not in seen_ids:
-                    unique_groups.append(group)
-                    seen_ids.add(group.id)
-            groups_by_role[role] = unique_groups
-
-        # Members of involved music groups
-        music_groups_with_members = []
-        for group in involved_music_groups:
-            members = MusicGroupMembership.objects.filter(
-                music_group=group
-            ).select_related('member')
-            contributors = [m.member for m in members]
-            music_groups_with_members.append({
-                'group': group,
-                'members': contributors
-            })
-
-        # Additional context
-        album = song.albums.first()
-        song_artists = song.artist.all()
-        song_music_groups = song.music_group.all()
-
         context.update({
-            'contributors_by_category': contributors_by_category,
-            'groups_by_role': groups_by_role,
-            'music_groups_with_members': music_groups_with_members,
-            'album': album,
-            'song_artists': song_artists,
-            'song_music_groups': song_music_groups,
+            'contributors_by_category': song.contributors_by_category(),
+            'groups_by_role': song.groups_by_role(),
+            'album': song.first_album(),
+            'song_artists': song.artists(),
+            'song_music_groups': song.music_groups(),
         })
-
         return context
 
 
@@ -144,96 +100,27 @@ class AlbumDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         album = self.object
 
-        # Songs on the album
-        songs = album.songs.all().prefetch_related('performances')
+        songs = album.ordered_songs()
+        genres = album.genres_list()
+        languages = album.languages_list()
+        contributors_by_category = album.contributors_by_category()
+        groups_by_role = album.groups_by_role()
 
-        # Total duration
-        total_duration = songs.aggregate(total=Sum('duration'))['total']
-        total_duration_formatted = format_seconds(total_duration)
-
-        # List of unique genres
-        genre_ids = songs.values_list('genre', flat=True).distinct()
-        genres = Genre.objects.filter(id__in=genre_ids).order_by('name')
-
-        # List of unique languages
-        language_ids = songs.values_list('language', flat=True).distinct()
-        languages = Language.objects.filter(id__in=language_ids).order_by('name')
-
-        # Plural when > 1
-        genre_label = "Genre" if len(genres) == 1 else "Genres"
-        language_label = "Language" if len(languages) == 1 else "Languages"
-
-        all_performances = SongPerformance.objects.filter(song__in=songs).select_related(
-            'contributor', 'contributor_role', 'music_group', 'music_group_role'
-        )
-
-        contributors_by_category = {}
-        groups_by_role = {}
-        involved_music_groups = set()
-
-        for perf in all_performances:
-            # Contributors (people)
-            if perf.contributor and perf.contributor_role:
-                category = perf.contributor_role.category
-                role_name = perf.contributor_role.name
-                if category not in contributors_by_category:
-                    contributors_by_category[category] = []
-                contributors_by_category[category].append((perf.contributor, role_name))
-
-            # Music Groups
-            if perf.music_group and perf.music_group_role:
-                role = perf.music_group_role.name
-                if role not in groups_by_role:
-                    groups_by_role[role] = []
-                groups_by_role[role].append(perf.music_group)
-                involved_music_groups.add(perf.music_group)
-
-        # Remove duplicates for contributors
-        for category, contribs in contributors_by_category.items():
-            seen_ids = set()
-            filtered = []
-            for contributor, role_name in contribs:
-                if contributor.id not in seen_ids:
-                    filtered.append((contributor, role_name))
-                    seen_ids.add(contributor.id)
-            contributors_by_category[category] = filtered
-
-        # Remove duplicates for music groups
-        for role, groups in groups_by_role.items():
-            unique_groups = []
-            seen_ids = set()
-            for group in groups:
-                if group.id not in seen_ids:
-                    unique_groups.append(group)
-                    seen_ids.add(group.id)
-            groups_by_role[role] = unique_groups
-
-        # Members of involved music groups
-        music_groups_with_members = []
-        for group in involved_music_groups:
-            members = MusicGroupMembership.objects.filter(
-                music_group=group
-            ).select_related('member')
-            contributors = [m.member for m in members]
-            music_groups_with_members.append({
-                'group': group,
-                'members': contributors
-            })
+        genre_label = "Genre" if genres.count() == 1 else "Genres"
+        language_label = "Language" if languages.count() == 1 else "Languages"
 
         context.update({
             'songs': songs,
-            'contributors_by_category': contributors_by_category,
-            'groups_by_role': groups_by_role,
-            'music_groups_with_members': music_groups_with_members,
-            'album_artists': album.artist.all(),
-            'album_music_groups': album.music_group.all(),
-            'total_duration': total_duration_formatted,
+            'total_duration': album.total_duration(),
             'genres': genres,
             'genre_label': genre_label,
             'languages': languages,
             'language_label': language_label,
+            'contributors_by_category': contributors_by_category,
+            'groups_by_role': groups_by_role,
+            'album_artists': album.artist.all(),
+            'album_music_groups': album.music_group.all(),
         })
-
         return context
 
 
