@@ -9,9 +9,9 @@
     <ul>
         {% for genre in genres %}
             <li>
-                {{ genre }}
+                <a href="{% url 'genre' genre.id %}">{{ genre }}</a> ({{ genre.song_set.count }})
                 <ul>
-                    {% for song in genre.song.all %}
+                    {% for song in genre.song_set.all %}
                         <li><a href="{% url 'song' song.id %}">{{ song }}</a></li>
                     {% endfor %}
                 </ul>

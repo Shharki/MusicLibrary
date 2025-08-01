@@ -63,11 +63,11 @@ Development & CI    Git, GitHub Actions (lint + tests), PyCharm
         - [ ] Songs they performed in
 - [ ] 6. Countries – listing and detail
     - [x] 6.1. Alphabetical list
-    - [ ] 6.2. Detail (list of contributors from the given country)
+    - [x] 6.2. Detail (list of contributors from the given country)
 - [ ] 7. Genres – listing and detail
-    - [ ] 7.1. Alphabetical list
-    - [ ] 7.2. Detail (list of songs of the given genre)
-- [ ] 8. CRUD operations (via admin or views):
+    - [x] 7.1. Alphabetical list
+    - [x] 7.2. Detail (list of songs of the given genre)
+- [ ] 8. CRUD operations (via admin or views): 
     - [ ] 8.1. Create
         - [ ] Songs, Contributors, Albums, Countries, Genres
     - [ ] 8.2 Update

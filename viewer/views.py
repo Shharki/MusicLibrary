@@ -280,3 +280,10 @@ class GenresListView(ListView):
     template_name = 'genres.html'
     model = Genre
     context_object_name ='genres'
+
+
+class GenreDetailView(DetailView):
+    template_name = 'genre.html'
+    model = Genre
+    context_object_name = 'genre'
+

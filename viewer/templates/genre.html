@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ genre }}
+{% endblock %}
+
+{% block content %}
+    <h1 class="display-4">{{ genre }}</h1>
+    <ul>
+        {% for song in genre.song_set.all %}
+            <li><a href="{% url 'song' song.id %}">{{ song }}</a></li>
+        {% empty %}
+            <li>No songs in this genre.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
