@@ -1,23 +1,79 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    List of genres
+    Genres
 {% endblock %}
 
 {% block content %}
-    <h1>Genre list</h1>
-    <ul>
-        {% for genre in genres %}
-            <li>
-                <a href="{% url 'genre' genre.id %}">{{ genre }}</a> ({{ genre.song_set.count }})
-                <ul>
-                    {% for song in genre.song_set.all %}
-                        <li><a href="{% url 'song' song.id %}">{{ song }}</a></li>
+
+    {# Main container with vertical spacing #}
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+
+                {# Page heading #}
+                <h1 class="display-3 text-primary text-center">Genres</h1>
+
+                {# Accordion to group songs by genre #}
+                <div class="accordion bg-body-secondary rounded p-1 shadow-sm my-4" id="genreAccordion">
+
+                    {# Loop through each genre in the context #}
+                    {% for genre in genres %}
+
+                        {# Each genre gets its own accordion item #}
+                        <div class="accordion-item">
+
+                            {# Accordion header with genre name and song count #}
+                            <h2 class="accordion-header" id="heading-{{ genre.id }}">
+                                <button class="accordion-button collapsed text-capitalize"
+                                        type="button"
+                                        data-bs-toggle="collapse"
+                                        data-bs-target="#collapse-{{ genre.id }}"
+                                        aria-expanded="false"
+                                        aria-controls="collapse-{{ genre.id }}">
+                                    {{ genre }} ({{ genre.song_set.count }})
+                                </button>
+                            </h2>
+
+                            {# Collapsible body containing the list of songs #}
+                            <div id="collapse-{{ genre.id }}"
+                                 class="accordion-collapse collapse"
+                                 aria-labelledby="heading-{{ genre.id }}"
+                                 data-bs-parent="#genreAccordion">
+
+                                <div class="accordion-body">
+
+                                    {# Check if the genre has any songs #}
+                                    {% if genre.song_set.all %}
+                                        <div class="list-group">
+
+                                            {# Loop through all songs for this genre #}
+                                            {% for song in genre.song_set.all %}
+                                                <a href="{% url 'song' song.id %}"
+                                                   class="list-group-item list-group-item-action text-decoration-none hover-item">
+                                                    {{ song }}
+                                                </a>
+                                            {% endfor %}
+
+                                        </div>
+                                    {% else %}
+                                        {# Message for genres with no songs #}
+                                        <p class="text-muted">No songs in this genre.</p>
+                                    {% endif %}
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                    {% empty %}
+                        {# Message when there are no genres at all #}
+                        <div class="text-muted">There is no genre in the database.</div>
                     {% endfor %}
-                </ul>
-            </li>
-        {% empty %}
-            <li>There is no genre in the database.</li>
-        {% endfor %}
-    </ul>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}

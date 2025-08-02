@@ -5,70 +5,133 @@
 {% endblock %}
 
 {% block content %}
-    <h1 class="display-4">{{ music_group.name }}</h1>
-    <hr class="my-4">
-    <div class="row">
-        {% if music_group.all_members_with_roles or music_group.founded or music_group.disbanded %}
-            <div class="col-md-7">
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
 
+            <!-- Group name as main heading -->
+            <h1 class="display-3 text-primary text-center mb-4">
+                {{ music_group.name }}
+            </h1>
 
-            {% if music_group.all_members_with_roles %}
+            <!-- Section: Albums and Members in two columns -->
+            <div class="bg-body-secondary rounded p-1 shadow-sm mb-4">
+                <div class="bg-white rounded p-4 shadow-sm">
+                    <div class="row">
 
-                <strong>Members:</strong>
-                <ul>
-                    {% for members in music_group.all_members_with_roles %}
-                        <li>
-                            <a href="{% url 'contributor' members.member.pk %}">{{ members.member }}</a>
-                            {% if members.member_role.exists %}
-                                ({{ members.display_roles }})
+                        <!-- Left column: Albums accordion -->
+                        <div class="col-md-6">
+                            {% if music_group.all_albums %}
+                                <div class="accordion mb-4" id="groupAccordion">
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="heading-albums">
+                                            <button class="accordion-button collapsed fw-semibold"
+                                                    type="button"
+                                                    data-bs-toggle="collapse"
+                                                    data-bs-target="#collapse-albums"
+                                                    aria-expanded="false"
+                                                    aria-controls="collapse-albums">
+                                                Albums
+                                            </button>
+                                        </h2>
+                                        <div id="collapse-albums"
+                                             class="accordion-collapse collapse"
+                                             aria-labelledby="heading-albums"
+                                             data-bs-parent="#groupAccordion">
+                                            <div class="accordion-body p-0">
+                                                <div class="list-group list-group-flush">
+                                                    {% for album in music_group.all_albums %}
+                                                        <a href="{% url 'album' album.pk %}"
+                                                           class="list-group-item list-group-item-action
+                                                                  text-decoration-none hover-item">
+                                                            {{ album.title }}
+                                                            <small class="text-muted">
+                                                                ({{ album.released|date:"Y" }})
+                                                            </small>
+                                                        </a>
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             {% endif %}
-                    {#  Member period Not implemented yet           #}
-                    {#      {% if members.member.active_period %}   #}
-                    {#          {{ members.member.active_period }}  #}
-                    {#      {% endif %}                             #}
-                        </li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
+                        </div>
 
-            {% if music_group.founded %}
-                <p>
-                    <strong>Founded:</strong>
-                    {{ music_group.founded.year }}
-                </p>
-            {% endif %}
+                        <!-- Right column: Members accordion -->
+                        <div class="col-md-6">
+                            {% if music_group.all_members_with_roles %}
+                                <div class="accordion mb-4" id="groupAccordion">
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="heading-members">
+                                            <button class="accordion-button collapsed fw-semibold"
+                                                    type="button"
+                                                    data-bs-toggle="collapse"
+                                                    data-bs-target="#collapse-members"
+                                                    aria-expanded="false"
+                                                    aria-controls="collapse-members">
+                                                Members
+                                            </button>
+                                        </h2>
+                                        <div id="collapse-members"
+                                             class="accordion-collapse collapse"
+                                             aria-labelledby="heading-members"
+                                             data-bs-parent="#groupAccordion">
+                                            <div class="accordion-body p-0">
+                                                <div class="list-group list-group-flush">
+                                                    {% for member in music_group.all_members_with_roles %}
+                                                        <a href="{% url 'contributor' member.member.pk %}"
+                                                           class="list-group-item list-group-item-action
+                                                                  text-decoration-none hover-item">
+                                                            {{ member.member }}
+                                                            {% if member.member_role.exists %}
+                                                                <small class="text-muted">
+                                                                    ({{ member.display_roles }})
+                                                                </small>
+                                                            {% endif %}
+                                                        </a>
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
 
-            {% if music_group.disbanded %}
-                <p>
-                    <strong>Disbanded:</strong>
-                    {{ music_group.disbanded.year }}
-                </p>
-            {% endif %}
-        {% endif %}
-        </div>
-        <div class="col-md-5">
-            {% if music_group.all_albums %}
-                <div>
-                    <ol>
-                        <strong>Albums:</strong>
-                        {% for album in music_group.all_albums %}
-                            <li>
-                                <a href="{% url 'album' album.pk %}">
-                                    {{ album.title }}</a> ({{ album.released|date:"Y" }})
-                            </li>
-                        {% endfor %}
-                    </ol>
+                    </div>
                 </div>
-            {% endif %}
-        </div>
-    </div>
-    <hr class="my-4">
-    <div class="row">
-        <div class="col-md-12">
-            {% if music_group.bio %}
-                <p><strong>Bio:</strong> {{ music_group.bio|linebreaks }}</p>
-            {% endif %}
-        </div>
-    </div>
+            </div>
 
+            <!-- Section: Founded, Disbanded and Biography -->
+            <div class="bg-body-secondary rounded p-1 shadow-sm mb-4">
+                <div class="bg-white rounded p-4 shadow-sm">
+
+                    {% if music_group.founded %}
+                        <p>
+                            <span class="header-custom">Founded:</span>
+                            {{ music_group.founded.year }}
+                        </p>
+                    {% endif %}
+
+                    {% if music_group.disbanded %}
+                        <p>
+                            <span class="header-custom">Disbanded:</span>
+                            {{ music_group.disbanded.year }}
+                        </p>
+                    {% endif %}
+
+                    {% if music_group.bio %}
+                        <div>
+                            <p><span class="header-custom">Bio:</span></p>
+                            <p>{{ music_group.bio|linebreaks }}</p>
+                        </div>
+                    {% endif %}
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
 {% endblock %}

@@ -1,18 +1,33 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    Album list
+    Albums
 {% endblock %}
 
 {% block content %}
-    <h1>Album list</h1>
-    <ul>
-        {% for album in albums %}
-            <li>
-                {{ album.display_more }}
-            </li>
-        {% empty %}
-            There is no album in the database.
-        {% endfor %}
-    </ul>
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            {# Center the content with a medium-width column for readability #}
+            <div class="col-md-6">
+                {# Page main heading styled prominently and centered #}
+                <h1 class="display-3 text-primary text-center">Albums</h1>
+                {# Container with subtle background, rounded corners, padding and shadow #}
+                <div class="bg-body-secondary rounded p-1 my-4 shadow-sm">
+                    {# List group container to hold all album links #}
+                    <div class="list-group list-group-item-action text-center">
+                        {# Loop through albums, creating clickable list items for each #}
+                        {% for album in albums %}
+                            <a href="{% url 'album' album.pk %}"
+                               class="list-group-item list-group-item-action hover-item">
+                                {{ album.title }}
+                            </a>
+                        {% empty %}
+                            {# Display a message if there are no albums in the database #}
+                            <li class="list-group-item text-muted">There is no album in the database.</li>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

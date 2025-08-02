@@ -1,18 +1,42 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    Music groups list
+    Music Groups
 {% endblock %}
 
 {% block content %}
-    <h1>Music groups list</h1>
-    <ul>
-        {% for music_group in music_groups %}
-            <li>
-                 <a href="{% url 'music-group' music_group.pk %}">{{ music_group }}</a>
-            </li>
-        {% empty %}
-            There is no music group in the database.
-        {% endfor %}
-    </ul>
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+
+            <!-- Page heading for Music Groups -->
+            <h1 class="display-3 text-primary text-center">
+                Music Groups
+            </h1>
+
+            <!-- Card container with subtle background and shadow -->
+            <div class="bg-body-secondary rounded p-1 my-4 shadow-sm">
+
+                <!-- List group for music groups, clickable items -->
+                <div class="list-group list-group-item-action text-center">
+
+                    <!-- Loop through music_groups queryset -->
+                    {% for music_group in music_groups %}
+                        <a href="{% url 'music-group' music_group.pk %}"
+                           class="list-group-item list-group-item-action hover-item">
+                            {{ music_group.name }}
+                        </a>
+                    {% empty %}
+                        <!-- Message shown if there are no music groups -->
+                        <div class="list-group-item text-muted">
+                            There is no music group in the database.
+                        </div>
+                    {% endfor %}
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

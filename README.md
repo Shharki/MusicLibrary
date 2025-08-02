@@ -50,14 +50,15 @@ Development & CI    Git, GitHub Actions (lint + tests), PyCharm
         - [X] Cover image
 - [ ] 4. Contributors – listing and detail
     - [x] 4.1. Alphabetical list
-    - [x] 4.2. Contributor detail (singer, composer...)
+    - [x] 4.2. Contributor detail
         - [x] First name, last name, stage name
         - [x] Date of birth and death
         - [x] Country of origin
         - [x] Biography
         - [x] Previous names
-        - [x] Songs performed (from SongPerformance)
-        - [ ] Groups they were members of (MusicGroupMembership)
+        - [x] Featured songs and albums
+        - [X] Membership in music groups
+        - [X] Contributions in songs with roles
         - [ ] Picture 
 - [ ] 5. Music Groups – listing and detail
     - [X] 5.1. Alphabetical list
@@ -66,9 +67,11 @@ Development & CI    Git, GitHub Actions (lint + tests), PyCharm
         - [X] Bio
         - [X] Founded / disbanded year
         - [X] Members, roles
-        - [ ] Members active periods
+        - [ ] Genres
+        - [ ] Country
+        - [ ] Members -> Active members
+        - [ ] Former members and period
         - [X] Albums they performed in
-        - [ ] Songs they performed in
 - [ ] 6. Countries – listing and detail
     - [x] 6.1. Alphabetical list
     - [x] 6.2. Detail (list of contributors from the given country)

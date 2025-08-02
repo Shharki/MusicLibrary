@@ -5,30 +5,102 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Performer list</h1>
-    <ul>
-        {% for contributor in performers %}
-            <li><a href="{% url 'contributor' contributor.pk %}">{{ contributor }}</a></li>
-        {% empty %}
-            <li>No performers found.</li>
-        {% endfor %}
-    </ul>
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            {# Main page heading: Contributors, large and centered #}
+            <h1 class="display-3 text-primary text-center">Contributors</h1>
 
-    <h1>Producer list</h1>
-    <ul>
-        {% for contributor in producers %}
-            <li><a href="{% url 'contributor' contributor.pk %}">{{ contributor }}</a></li>
-        {% empty %}
-            <li>No producers found.</li>
-        {% endfor %}
-    </ul>
+            {# Container with light background, rounded corners, padding and shadow #}
+            <div class="bg-body-secondary rounded p-3 my-4 shadow-sm">
 
-    <h1>Writer list</h1>
-    <ul>
-        {% for contributor in writers %}
-            <li><a href="{% url 'contributor' contributor.pk %}">{{ contributor }}</a></li>
-        {% empty %}
-            <li>No writers found.</li>
-        {% endfor %}
-    </ul>
+                {# Responsive grid layout: 1 column on xs, 2 on md, 5 on xl #}
+                <div class="row row-cols-1 row-cols-md-2 row-cols-xl-5 g-3 text-center">
+
+                    {# Each column corresponds to one contributor category #}
+
+                    <!-- Performers Column -->
+                    <div class="col">
+                        {# Category title with dark text #}
+                        <h5 class="text-dark">Performers</h5>
+                        <div class="list-group">
+
+                            {# Loop through performers list #}
+                            {% for contributor in performers %}
+                                <a href="{% url 'contributor' contributor.pk %}"
+                                   class="list-group-item list-group-item-action hover-item">
+                                    {{ contributor }}
+                                </a>
+                            {% empty %}
+                                {# Message if no performers exist #}
+                                <div class="list-group-item text-muted">No performers</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <!-- Producers Column -->
+                    <div class="col">
+                        <h5 class="text-dark">Producers</h5>
+                        <div class="list-group">
+                            {% for contributor in producers %}
+                                <a href="{% url 'contributor' contributor.pk %}"
+                                   class="list-group-item list-group-item-action hover-item">
+                                    {{ contributor }}
+                                </a>
+                            {% empty %}
+                                <div class="list-group-item text-muted">No producers</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <!-- Writers Column -->
+                    <div class="col">
+                        <h5 class="text-dark">Writers</h5>
+                        <div class="list-group">
+                            {% for contributor in writers %}
+                                <a href="{% url 'contributor' contributor.pk %}"
+                                   class="list-group-item list-group-item-action hover-item">
+                                    {{ contributor }}
+                                </a>
+                            {% empty %}
+                                <div class="list-group-item text-muted">No writers</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <!-- Publishers Column -->
+                    <div class="col">
+                        <h5 class="text-dark">Publishers</h5>
+                        <div class="list-group">
+                            {% for contributor in publishers %}
+                                <a href="{% url 'contributor' contributor.pk %}"
+                                   class="list-group-item list-group-item-action hover-item">
+                                    {{ contributor }}
+                                </a>
+                            {% empty %}
+                                <div class="list-group-item text-muted">No publishers</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <!-- Others Column -->
+                    <div class="col">
+                        <h5 class="text-dark">Others</h5>
+                        <div class="list-group">
+                            {% for contributor in others %}
+                                <a href="{% url 'contributor' contributor.pk %}"
+                                   class="list-group-item list-group-item-action hover-item">
+                                    {{ contributor }}
+                                </a>
+                            {% empty %}
+                                <div class="list-group-item text-muted">No others</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

@@ -1,16 +1,36 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    List of countries
+    Countries
 {% endblock %}
 
 {% block content %}
-    <h1>Country list</h1>
-    <ul>
-        {% for country in countries %}
-            <li><a href="{% url 'country' country.id %}">{{ country }}</a></li>
-        {% empty %}
-            <li>There is no country in the database.</li>
-        {% endfor %}
-    </ul>
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                {# Page main heading: centered, large and primary colored #}
+                <h1 class="display-3 text-primary text-center">Countries</h1>
+
+                {# Card-like container with light background, rounded corners, padding and shadow #}
+                <div class="bg-body-secondary rounded p-1 my-4 shadow-sm">
+
+                    {# List group with clickable items, centered text #}
+                    <div class="list-group list-group-item-action text-center">
+
+                        {# Loop over countries; each item links to the country detail page #}
+                        {% for country in countries %}
+                            <a class="list-group-item list-group-item-action hover-item"
+                               href="{% url 'country' country.id %}">
+                                {{ country }}
+                            </a>
+
+                        {# If there are no countries, show muted message #}
+                        {% empty %}
+                            <div class="list-group-item text-muted">There is no country in the database.</div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

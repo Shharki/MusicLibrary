@@ -1,60 +1,92 @@
 <nav class="navbar navbar-expand-lg bg-body-secondary rounded" aria-label="Main navigation">
     <div class="container-fluid">
+
+        <!-- Hamburger button for toggling navbar on small screens -->
         <button
-                class="navbar-toggler"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent"
-                aria-expanded="false"
-                aria-label="Toggle navigation">
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+        >
             <span class="navbar-toggler-icon"></span>
         </button>
 
+        <!-- Navbar content that collapses on smaller screens -->
         <div class="collapse navbar-collapse d-lg-flex" id="navbarSupportedContent">
-            <a class="navbar-brand col-lg-3 me-0 hover-link" href="{% url 'home' %}">MusicLibrary</a>
+
+            <!-- Brand/logo on the left, clickable, links to home -->
+            <a class="navbar-brand col-lg-3 me-0 hover-link" href="{% url 'home' %}">
+                MusicLibrary
+            </a>
+
+            <!-- Navigation menu centered horizontally -->
             <ul class="navbar-nav col-lg-6 justify-content-lg-center">
-                {# Navbar items #}
+
+                <!-- Individual nav item with active state check -->
                 <li class="nav-item">
-                    <a class="nav-link {% if request.resolver_match.view_name == 'songs' %}active-custom{% endif %}"
-                       href="{% url 'songs' %}">
+                    <a
+                        href="{% url 'songs' %}"
+                        class="nav-link {% if request.resolver_match.view_name == 'songs' %}active-custom{% endif %}"
+                    >
                         Songs
                     </a>
                 </li>
+
                 <li class="nav-item">
-                    <a class="nav-link {% if request.resolver_match.view_name == 'albums' %}active-custom{% endif %}"
-                       href="{% url 'albums' %}">
+                    <a
+                        href="{% url 'albums' %}"
+                        class="nav-link {% if request.resolver_match.view_name == 'albums' %}active-custom{% endif %}"
+                    >
                         Albums
                     </a>
                 </li>
+
                 <li class="nav-item">
-                    <a class="nav-link {% if request.resolver_match.view_name == 'contributors' %}active-custom{% endif %}"
-                       href="{% url 'contributors' %}">
+                    <a
+                        href="{% url 'contributors' %}"
+                        class="nav-link {% if request.resolver_match.view_name == 'contributors' %}active-custom{% endif %}"
+                    >
                         Contributors
                     </a>
                 </li>
+
                 <li class="nav-item">
-                    <a class="nav-link {% if request.resolver_match.view_name == 'music-groups' %}active-custom{% endif %}"
-                       href="{% url 'music-groups' %}">
-                        Music-groups
+                    <a
+                        href="{% url 'music-groups' %}"
+                        class="nav-link {% if request.resolver_match.view_name == 'music-groups' %}active-custom{% endif %}"
+                    >
+                        Music Groups
                     </a>
                 </li>
+
                 <li class="nav-item">
-                    <a class="nav-link {% if request.resolver_match.view_name == 'countries' %}active-custom{% endif %}"
-                       href="{% url 'countries' %}">
+                    <a
+                        href="{% url 'countries' %}"
+                        class="nav-link {% if request.resolver_match.view_name == 'countries' %}active-custom{% endif %}"
+                    >
                         Countries
                     </a>
                 </li>
+
                 <li class="nav-item">
-                    <a class="nav-link {% if request.resolver_match.view_name == 'genres' %}active-custom{% endif %}"
-                       href="{% url 'genres' %}">
-                        Countries
+                    <a
+                        href="{% url 'genres' %}"
+                        class="nav-link {% if request.resolver_match.view_name == 'genres' %}active-custom{% endif %}"
+                    >
+                        Genres
                     </a>
                 </li>
+
             </ul>
+
+            <!-- Right-aligned sign-in button on larger screens -->
             <div class="d-lg-flex col-lg-3 justify-content-lg-end">
                 <button class="btn btn-primary">Sign In</button>
             </div>
+
         </div>
     </div>
 </nav>

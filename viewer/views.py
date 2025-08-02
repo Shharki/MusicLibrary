@@ -75,6 +75,14 @@ class ContributorsListView(TemplateView):
             song_performances__contributor_role__category='writer'
         ).distinct()
 
+        context['publishers'] = Contributor.objects.filter(
+            song_performances__contributor_role__category='publisher'
+        ).distinct()
+
+        context['others'] = Contributor.objects.filter(
+            song_performances__contributor_role__category='other'
+        ).distinct()
+
         return context
 
 
@@ -91,10 +99,12 @@ class ContributorDetailView(DetailView):
         albums = contributor.albums.all()  # Albums he has contributed to (optional)
         memberships = contributor.memberships.select_related('music_group').all()  # Group membership (optional)
 
+
         context.update({
             'songs': songs,
             'albums': albums,
             'memberships': memberships,
+            'songs_by_category': contributor.songs_grouped_by_category(),
         })
 
         return context

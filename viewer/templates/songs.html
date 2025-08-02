@@ -1,18 +1,45 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    Song list
+    Songs
 {% endblock %}
 
 {% block content %}
-    <h1>Song list</h1>
-    <ul>
-        {% for song in songs %}
-            <li>
-                {{ song }} ({{ song.released.year }})
-            </li>
-        {% empty %}
-            There is no song in the database.
-        {% endfor %}
-    </ul>
+    <div class="container my-5">
+        <div class="row justify-content-center">
+
+            <!-- Main column centered on page -->
+            <div class="col-md-6">
+
+                <!-- Page header -->
+                <h1 class="display-3 text-primary text-center">
+                    Songs
+                </h1>
+
+                <!-- Container with subtle background, rounded corners and shadow -->
+                <div class="bg-body-secondary rounded p-1 my-4 shadow-sm">
+
+                    <!-- List group for clickable song items, centered text -->
+                    <div class="list-group list-group-item-action text-center">
+
+                        <!-- Loop over songs, creating a link for each -->
+                        {% for song in songs %}
+                            <a
+                               href="{% url 'song' song.pk %}"
+                               class="list-group-item list-group-item-action hover-item"
+                            >
+                                {{ song.title }}
+                            </a>
+                        {% empty %}
+                            <!-- Display if no songs are in the database -->
+                            <div class="list-group-item text-muted">
+                                There is no song in the database.
+                            </div>
+                        {% endfor %}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

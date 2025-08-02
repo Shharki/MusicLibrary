@@ -81,6 +81,25 @@ class Contributor(Model):
     def __repr__(self):
         return f"Contributor({self.__str__()})"
 
+    def songs_grouped_by_category(self):
+        """
+        Vrátí dict: kategorie => [(song, role)]
+        """
+        performances = self.song_performances.select_related('song', 'contributor_role')
+        result = {}
+
+        for perf in performances:
+            if perf.contributor_role and perf.song:
+                category = perf.contributor_role.category
+                role = perf.contributor_role.name
+                song = perf.song
+
+                if category not in result:
+                    result[category] = []
+                result[category].append((song, role))
+
+        return result
+
 
 class ContributorPreviousName(Model):
     contributor = ForeignKey(Contributor, on_delete=CASCADE, related_name="previous_names")
@@ -425,7 +444,7 @@ class Album(Model):
                     seen.add(perf.music_group.id)
         return groups
 
-    def display_more(self):
+    def display_creator(self):
         artist_names = ', '.join(str(artist) for artist in self.artist.all())
         group_names = ', '.join(group.name for group in self.music_group.all())
 
@@ -434,9 +453,7 @@ class Album(Model):
         else:
             creators = artist_names or group_names or "Unknown"
 
-        if self.released:
-            return f"{self.title} ({self.released.year}) – {creators}"
-        return f"{self.title} – {creators}"
+        return f"{creators}"
 
     def __str__(self):
         return self.title

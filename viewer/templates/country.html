@@ -5,12 +5,40 @@
 {% endblock %}
 
 {% block content %}
-    <h1 class="display-4">{{ country }}</h1>
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
 
-    <h2>Contributors</h2>
-    <ul>
-        {% for contributor in country.contributors.all %}
-            <li><a href="{% url 'contributor' contributor.id %}">{{ contributor }}</a></li>
-        {% endfor %}
-    </ul>
+            {# Main heading showing the country name #}
+            <h1 class="display-3 text-primary text-center mb-4">{{ country }}</h1>
+
+            {# Card-like wrapper for the contributor list #}
+            <div class="bg-body-secondary rounded p-1 shadow-sm">
+
+                {# Section heading for contributors from this country #}
+                <h5 class="text-center pt-2">Contributors</h5>
+
+                {# List group with links to contributor detail pages #}
+                <div class="list-group list-group-item-action text-center">
+
+                    {# Loop through contributors associated with the country #}
+                    {% for contributor in country.contributors.all %}
+                        <a href="{% url 'contributor' contributor.pk %}"
+                           class="list-group-item list-group-item-action hover-item">
+                            {{ contributor }}
+                        </a>
+
+                    {# Show this if no contributors are found #}
+                    {% empty %}
+                        <div class="list-group-item text-muted">
+                            There are no contributors for this country.
+                        </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
 {% endblock %}

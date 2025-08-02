@@ -1,77 +1,117 @@
-/* Přepíše pozadí pro celý web v dark režimu */
+/* Always show vertical scrollbar to avoid layout shift when switching pages */
 html {
-  overflow-y: scroll;
+    overflow-y: scroll;
 }
 
+/* === LIGHT THEME OVERRIDES === */
+
+/* Set custom background color for light theme */
 html[data-bs-theme="light"] body {
-    background-color: #f8f9fa; /* vlastní tmavý odstín */
+    background-color: #f8f9fa; /* Light gray background */
 }
 
+/* === LINK STYLING WITH HOVER EFFECT === */
+
+/* Base style for custom links */
 .hover-link {
-    color: var(--bs-primary);              /* Výchozí barva (Bootstrap primary) */
+    color: var(--bs-primary); /* Use Bootstrap primary color */
+    text-decoration: none; /* Remove underline */
+    transition: color 0.3s ease-in-out; /* Smooth color transition on hover */
+    font-weight: 400; /* Normal font weight */
+}
+
+/* Hover style for links */
+.hover-link:hover {
+    color: var(--bs-info); /* Change to info color on hover */
+}
+
+
+/* === ITEM STYLING WITH HOVER EFFECT === */
+
+/* Base style for clickable items */
+.hover-item {
+    color: var(--bs-dark); /* Dark color for default state */
     text-decoration: none;
-    transition: color 0.3s ease-in-out;    /* Plynulá změna barvy */
+    transition: color; /* Transition color only */
     font-weight: 400;
 }
 
-.hover-link:hover {
-    color: var(--bs-info);               /* Cílová barva – např. červená */
+/* Hover style for items */
+.hover-item:hover {
+    color: var(--bs-primary) !important; /* Force primary color on hover */
 }
 
+/* === BADGE (LABEL) STYLING WITH HOVER === */
+
+/* Base style for badges */
 .hover-badge {
-    background-color: var(--bs-primary);   /* Výchozí pozadí */
+    background-color: var(--bs-primary); /* Primary background */
     text-decoration: none;
-    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out; /* Plynulý přechod */
-    padding: 0.25em 0.6em;                  /* Můžeš ladit podle potřeby */
-    border-radius: 0.375rem;                /* Stejné zaoblení jako Bootstrap badge */
-    display: inline-block;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out; /* Smooth background and text color transition */
+    padding: 0.25em 0.6em; /* Padding similar to Bootstrap badges */
+    border-radius: 0.375rem; /* Rounded corners */
+    display: inline-block; /* Inline display for layout control */
 }
 
+/* Hover style for badges */
 .hover-badge:hover {
-    background-color: var(--bs-info);   /* Barva pozadí při hoveru */
-    cursor: pointer;
+    background-color: var(--bs-info); /* Info background on hover */
+    cursor: pointer; /* Pointer cursor for interactive feel */
 }
 
+/* === NAVIGATION LINK STYLING === */
+
+/* Active navigation link style */
 .nav-link.active {
-    color: var(--bs-primary);
-    /* nebo tučnější text */
+    color: var(--bs-primary); /* Highlight active tab with primary color */
+    /* Optional: add bold or underline if desired */
 }
 
+/* Hover effect for inactive nav links */
 .nav-link:not(.active):hover {
-    color: var(--bs-primary);
+    color: var(--bs-primary); /* Same primary color on hover */
     transition: color 0.3s ease-in-out;
-    text-decoration: none; /* můžeš upravit, jestli chceš podtržení nebo ne */
+    text-decoration: none; /* No underline */
 }
 
+/* Additional styling for active elements (custom use) */
 .active-custom {
     color: var(--bs-primary);
     font-weight: 500;
 }
 
+/* Header styling for emphasized headings */
 .header-custom {
     font-weight: 600
 }
 
+/* Justify long text blocks */
 .text-justify {
     text-align: justify;
 }
 
+/* === CARD STYLING === */
+
+/* Maintain square aspect ratio and cover background image */
 .card-cover {
-  aspect-ratio: 1 / 1;  /* poměr šířky a výšky 1:1 */
-  background-size: cover; /* obrázek vyplní celý box */
-  background-position: center;
+    aspect-ratio: 1 / 1; /* Width:Height = 1:1 */
+    background-size: cover; /* Cover the entire box */
+    background-position: center; /* Center image */
 }
 
+/* Title text on cards with shadow */
 .card-title-custom {
-  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.75);
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.75); /* Strong shadow for readability */
 }
 
+/* Year display on cards */
 .card-year-custom {
     font-size: 1.2rem;
     font-weight: 600;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.75);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.75); /* Subtle shadow */
 }
 
+/* Prevent footer text from wrapping */
 .footer-no-wrap {
-  white-space: nowrap;
+    white-space: nowrap;
 }
