@@ -160,6 +160,7 @@ class MusicGroup(Model):
     bio = TextField(null=True, blank=True)
     founded = DateField(null=True, blank=True)
     disbanded = DateField(null=True, blank=True)
+    country = ForeignKey(Country, null=True, blank=True, on_delete=SET_NULL, related_name='music_groups')
 
     class Meta:
         ordering = ['name']

@@ -68,13 +68,14 @@ Development & CI    Git, GitHub Actions (lint + tests), PyCharm
         - [X] Founded / disbanded year
         - [X] Members, roles
         - [ ] Genres
-        - [ ] Country
+        - [X] Country
         - [ ] Members -> Active members
         - [ ] Former members and period
         - [X] Albums they performed in
 - [ ] 6. Countries – listing and detail
     - [x] 6.1. Alphabetical list
     - [x] 6.2. Detail (list of contributors from the given country)
+    - [ ] List of music groups
 - [ ] 7. Genres – listing and detail
     - [x] 7.1. Alphabetical list
     - [x] 7.2. Detail (list of songs of the given genre)

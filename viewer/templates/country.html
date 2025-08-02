@@ -7,35 +7,74 @@
 {% block content %}
 <div class="container my-5">
     <div class="row justify-content-center">
-        <div class="col-md-6">
+        <div class="col-md-12">
 
-            {# Main heading showing the country name #}
-            <h1 class="display-3 text-primary text-center mb-4">{{ country }}</h1>
+            <!-- Main page heading displaying the country name -->
+            <h1 class="display-3 text-primary text-center mb-4">
+                {{ country }}
+            </h1>
 
-            {# Card-like wrapper for the contributor list #}
-            <div class="bg-body-secondary rounded p-1 shadow-sm">
+            <!-- Responsive layout: two cards side-by-side on md+, stacked on small screens -->
+            <div class="row row-cols-1 row-cols-md-2 g-4">
 
-                {# Section heading for contributors from this country #}
-                <h5 class="text-center pt-2">Contributors</h5>
+                <!-- Contributors section -->
+                <div class="col">
+                    <div class="bg-body-secondary rounded p-3 shadow-sm h-100">
 
-                {# List group with links to contributor detail pages #}
-                <div class="list-group list-group-item-action text-center">
+                        <!-- Section heading -->
+                        <h5 class="text-center">Contributors</h5>
 
-                    {# Loop through contributors associated with the country #}
-                    {% for contributor in country.contributors.all %}
-                        <a href="{% url 'contributor' contributor.pk %}"
-                           class="list-group-item list-group-item-action hover-item">
-                            {{ contributor }}
-                        </a>
+                        <!-- List of contributors -->
+                        <div class="list-group list-group-item-action text-center">
+                            {% for contributor in country.contributors.all %}
 
-                    {# Show this if no contributors are found #}
-                    {% empty %}
-                        <div class="list-group-item text-muted">
-                            There are no contributors for this country.
+                                <!-- Link to each contributor's detail page -->
+                                <a href="{% url 'contributor' contributor.pk %}"
+                                   class="list-group-item list-group-item-action hover-item">
+                                    {{ contributor }}
+                                </a>
+
+                            {% empty %}
+
+                                <!-- Message shown when no contributors are available -->
+                                <div class="list-group-item text-muted">
+                                    There are no contributors for this country.
+                                </div>
+
+                            {% endfor %}
                         </div>
-                    {% endfor %}
-
+                    </div>
                 </div>
+
+                <!-- Music groups section -->
+                <div class="col">
+                    <div class="bg-body-secondary rounded p-3 shadow-sm h-100">
+
+                        <!-- Section heading -->
+                        <h5 class="text-center">Music Groups</h5>
+
+                        <!-- List of music groups -->
+                        <div class="list-group list-group-item-action text-center">
+                            {% for group in country.music_groups.all %}
+
+                                <!-- Link to each music group's detail page -->
+                                <a href="{% url 'music-group' group.pk %}"
+                                   class="list-group-item list-group-item-action hover-item">
+                                    {{ group }}
+                                </a>
+
+                            {% empty %}
+
+                                <!-- Message shown when no music groups are available -->
+                                <div class="list-group-item text-muted">
+                                    There are no music groups for this country.
+                                </div>
+
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
         </div>
