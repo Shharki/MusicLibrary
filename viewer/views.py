@@ -3,8 +3,10 @@ import os
 from django.conf import settings
 from django.db.models import Sum
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView, TemplateView
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, TemplateView, CreateView
 
+from viewer.forms import GenreModelForm
 from viewer.models import (
     Song, MusicGroupMembership, Contributor, Album, SongPerformance, Genre, Language, MusicGroup, Country
 )
@@ -183,4 +185,13 @@ class GenreDetailView(DetailView):
     template_name = 'genre.html'
     model = Genre
     context_object_name = 'genre'
+
+
+class GenreCreateView(CreateView):
+    # View to create a new Genre
+    template_name = 'form.html'     # Reusable form template
+    form_class = GenreModelForm     # Use custom form with validation
+    success_url = reverse_lazy('genres')  # Redirect after success
+
+    # form_valid is not needed --> CreateView handles saving
 
