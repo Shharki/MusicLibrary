@@ -1,16 +1,16 @@
 import os
 
 from django.conf import settings
-from django.db.models import Sum, Q
-from django.shortcuts import render
+from django.db.models import Q
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, TemplateView, CreateView, UpdateView, DeleteView
 
-from viewer.forms import GenreModelForm, CountryModelForm, ContributorModelForm
-from viewer.models import (
-    Song, MusicGroupMembership, Contributor, Album, SongPerformance, Genre, Language, MusicGroup, Country
+from viewer.forms import (
+    GenreModelForm, CountryModelForm, ContributorModelForm, MusicGroupModelForm, SongModelForm, AlbumModelForm
 )
-from viewer.utils import format_seconds
+from viewer.models import (
+    Song, Contributor, Album, Genre, MusicGroup, Country
+)
 
 
 class HomeView(ListView):
@@ -34,6 +34,7 @@ class HomeView(ListView):
         return context
 
 
+# Song Views
 class SongsListView(ListView):
     template_name = 'songs.html'
     model = Song
@@ -59,6 +60,30 @@ class SongDetailView(DetailView):
         return context
 
 
+class SongCreateView(CreateView):
+    template_name = 'form.html'
+    form_class = SongModelForm
+    success_url = reverse_lazy('songs')
+
+
+class SongUpdateView(UpdateView):
+    template_name = 'form.html'
+    form_class = SongModelForm
+    model = Song
+    success_url = reverse_lazy('songs')
+
+    def form_invalid(self, form):
+        print('Form invalid')
+        return super().form_invalid(form)
+
+
+class SongDeleteView(DeleteView):
+    template_name = 'confirm_delete.html'
+    model = Song
+    success_url = reverse_lazy('songs')
+
+
+# Contributor Views
 class ContributorsListView(TemplateView):
     template_name = 'contributors.html'
 
@@ -122,6 +147,24 @@ class ContributorCreateView(CreateView):
     success_url = reverse_lazy('contributors')
 
 
+class ContributorUpdateView(UpdateView):
+    template_name = 'form.html'
+    form_class = ContributorModelForm
+    model = Contributor
+    success_url = reverse_lazy('contributors')
+
+    def form_invalid(self, form):
+        print('Form invalid')
+        return super().form_invalid(form)
+
+
+class ContributorDeleteView(DeleteView):
+    template_name = 'confirm_delete.html'
+    model = Contributor
+    success_url = reverse_lazy('contributors')
+
+
+# Album Views
 class AlbumsListView(ListView):
     template_name = 'albums.html'
     model = Album
@@ -161,6 +204,30 @@ class AlbumDetailView(DetailView):
         return context
 
 
+class AlbumCreateView(CreateView):
+    template_name = 'form.html'
+    form_class = AlbumModelForm
+    success_url = reverse_lazy('albums')
+
+
+class AlbumUpdateView(UpdateView):
+    template_name = 'form.html'
+    form_class = AlbumModelForm
+    model = Album
+    success_url = reverse_lazy('albums')
+
+    def form_invalid(self, form):
+        print('Form invalid')
+        return super().form_invalid(form)
+
+
+class AlbumDeleteView(DeleteView):
+    template_name = 'confirm_delete.html'
+    model = Album
+    success_url = reverse_lazy('albums')
+
+
+# Music Group Views
 class MusicGroupsListView(ListView):
     template_name = 'music-groups.html'
     model = MusicGroup
@@ -173,6 +240,30 @@ class MusicGroupDetailView(DetailView):
     context_object_name = 'music_group'
 
 
+class MusicGroupCreateView(CreateView):
+    template_name = 'form.html'
+    form_class = MusicGroupModelForm
+    success_url = reverse_lazy('music-groups')
+
+
+class MusicGroupUpdateView(UpdateView):
+    template_name = 'form.html'
+    form_class = MusicGroupModelForm
+    model = MusicGroup
+    success_url = reverse_lazy('music-groups')
+
+    def form_invalid(self, form):
+        print('Form invalid')
+        return super().form_invalid(form)
+
+
+class MusicGroupDeleteView(DeleteView):
+    template_name = 'confirm_delete.html'
+    model = MusicGroup
+    success_url = reverse_lazy('music-groups')
+
+
+# Country Views
 class CountriesListView(ListView):
     template_name = 'countries.html'
     model = Country
@@ -191,6 +282,24 @@ class CountryCreateView(CreateView):
     success_url = reverse_lazy('countries')
 
 
+class CountryUpdateView(UpdateView):
+    template_name = 'form.html'
+    form_class = CountryModelForm
+    model = Country
+    success_url = reverse_lazy('countries')
+
+    def form_invalid(self, form):
+        print('Form invalid')
+        return super().form_invalid(form)
+
+
+class CountryDeleteView(DeleteView):
+    template_name = 'confirm_delete.html'
+    model = Country
+    success_url = reverse_lazy('countries')
+
+
+# Genre Views
 class GenresListView(ListView):
     template_name = 'genres.html'
     model = Genre

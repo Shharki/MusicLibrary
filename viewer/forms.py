@@ -2,7 +2,7 @@ from django.core.exceptions import ValidationError
 from django.forms import ModelForm, TextInput, CharField, DateInput
 from django.forms.widgets import Select, Textarea
 
-from viewer.models import Genre, Country, Contributor
+from viewer.models import Genre, Country, Contributor, MusicGroup, Album, Song
 
 
 class GenreModelForm(ModelForm):
@@ -93,3 +93,21 @@ class ContributorModelForm(ModelForm):
 
         if birth_date and death_date and birth_date > death_date:
             raise ValidationError("Date of birth cannot be after date of death.")
+
+
+class MusicGroupModelForm(ModelForm):
+    class Meta:
+        model = MusicGroup
+        fields = '__all__'
+
+
+class AlbumModelForm(ModelForm):
+    class Meta:
+        model = Album
+        fields = '__all__'
+
+
+class SongModelForm(ModelForm):
+    class Meta:
+        model = Song
+        fields = '__all__'

@@ -5,117 +5,226 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container my-5">
+<div class="container my-5">
     <div class="row justify-content-center">
         <div class="col-md-12">
-            {# Main page heading: Contributors, large and centered #}
-            <h1 class="display-3 text-primary text-center">Contributors</h1>
-            <a href="{% url 'contributor_create' %}" class="btn btn-primary">Create contributor</a>
 
-            {# Container with light background, rounded corners, padding and shadow #}
+            {# Page heading #}
+            <h1 class="display-3 text-primary text-center">Contributors</h1>
+
+            {# Create contributor button #}
+            <div class="text-center mb-4">
+                <a href="{% url 'contributor_create' %}" class="btn btn-primary">Create contributor</a>
+            </div>
+
+            {# Container with background and shadow #}
             <div class="bg-body-secondary rounded p-3 my-4 shadow-sm">
 
-                {# Responsive grid layout: 1 column on xs, 2 on md, 6 on xl #}
-                <div class="row row-cols-1 row-cols-md-2 row-cols-xl-6 g-3 text-center">
+                {# Responsive grid: 1 col xs, 2 cols md, 6 cols xl #}
+                <div class="row row-cols-1 row-cols-md-2 row-cols-xl-6 g-3">
 
-                    {# Each column corresponds to one contributor category #}
-
-                    <!-- Performers Column -->
+                    {# Performers #}
                     <div class="col">
-                        {# Category title with dark text #}
-                        <h5 class="text-dark">Performers</h5>
+                        <h5 class="text-dark text-center">Performers</h5>
                         <div class="list-group">
-
-                            {# Loop through performers list #}
                             {% for contributor in performers %}
-                                <a href="{% url 'contributor' contributor.pk %}"
-                                   class="list-group-item list-group-item-action hover-item">
-                                    {{ contributor }}
-                                </a>
+                                <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center position-relative hover-item px-3 py-2">
+
+                                    <a href="{% url 'contributor' contributor.pk %}"
+                                       class="stretched-link text-decoration-none text-dark hover-item">
+                                        {{ contributor }}
+                                    </a>
+
+                                    <div class="btn-group z-1">
+                                        <a href="{% url 'contributor_update' contributor.pk %}"
+                                           class="btn btn-outline-warning btn-sm"
+                                           title="Edit contributor"
+                                           onclick="event.stopPropagation();">
+                                            ✏️
+                                        </a>
+                                        <a href="{% url 'contributor_delete' contributor.pk %}"
+                                           class="btn btn-outline-danger btn-sm"
+                                           title="Delete contributor"
+                                           onclick="event.stopPropagation();">
+                                            ❌
+                                        </a>
+                                    </div>
+                                </div>
                             {% empty %}
-                                {# Message if no performers exist #}
                                 <div class="list-group-item text-muted">No performers</div>
                             {% endfor %}
                         </div>
                     </div>
 
-                    <!-- Producers Column -->
+                    {# Producers #}
                     <div class="col">
-                        <h5 class="text-dark">Producers</h5>
+                        <h5 class="text-dark text-center">Producers</h5>
                         <div class="list-group">
                             {% for contributor in producers %}
-                                <a href="{% url 'contributor' contributor.pk %}"
-                                   class="list-group-item list-group-item-action hover-item">
-                                    {{ contributor }}
-                                </a>
+                                <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center position-relative hover-item px-3 py-2">
+
+                                    <a href="{% url 'contributor' contributor.pk %}"
+                                       class="stretched-link text-decoration-none text-dark hover-item">
+                                        {{ contributor }}
+                                    </a>
+
+                                    <div class="btn-group z-1">
+                                        <a href="{% url 'contributor_update' contributor.pk %}"
+                                           class="btn btn-outline-warning btn-sm"
+                                           title="Edit contributor"
+                                           onclick="event.stopPropagation();">
+                                            ✏️
+                                        </a>
+                                        <a href="{% url 'contributor_delete' contributor.pk %}"
+                                           class="btn btn-outline-danger btn-sm"
+                                           title="Delete contributor"
+                                           onclick="event.stopPropagation();">
+                                            ❌
+                                        </a>
+                                    </div>
+                                </div>
                             {% empty %}
                                 <div class="list-group-item text-muted">No producers</div>
                             {% endfor %}
                         </div>
                     </div>
 
-                    <!-- Writers Column -->
+                    {# Writers #}
                     <div class="col">
-                        <h5 class="text-dark">Writers</h5>
+                        <h5 class="text-dark text-center">Writers</h5>
                         <div class="list-group">
                             {% for contributor in writers %}
-                                <a href="{% url 'contributor' contributor.pk %}"
-                                   class="list-group-item list-group-item-action hover-item">
-                                    {{ contributor }}
-                                </a>
+                                <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center position-relative hover-item px-3 py-2">
+
+                                    <a href="{% url 'contributor' contributor.pk %}"
+                                       class="stretched-link text-decoration-none text-dark hover-item">
+                                        {{ contributor }}
+                                    </a>
+
+                                    <div class="btn-group z-1">
+                                        <a href="{% url 'contributor_update' contributor.pk %}"
+                                           class="btn btn-outline-warning btn-sm"
+                                           title="Edit contributor"
+                                           onclick="event.stopPropagation();">
+                                            ✏️
+                                        </a>
+                                        <a href="{% url 'contributor_delete' contributor.pk %}"
+                                           class="btn btn-outline-danger btn-sm"
+                                           title="Delete contributor"
+                                           onclick="event.stopPropagation();">
+                                            ❌
+                                        </a>
+                                    </div>
+                                </div>
                             {% empty %}
                                 <div class="list-group-item text-muted">No writers</div>
                             {% endfor %}
                         </div>
                     </div>
 
-                    <!-- Publishers Column -->
+                    {# Publishers #}
                     <div class="col">
-                        <h5 class="text-dark">Publishers</h5>
+                        <h5 class="text-dark text-center">Publishers</h5>
                         <div class="list-group">
                             {% for contributor in publishers %}
-                                <a href="{% url 'contributor' contributor.pk %}"
-                                   class="list-group-item list-group-item-action hover-item">
-                                    {{ contributor }}
-                                </a>
+                                <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center position-relative hover-item px-3 py-2">
+
+                                    <a href="{% url 'contributor' contributor.pk %}"
+                                       class="stretched-link text-decoration-none text-dark hover-item">
+                                        {{ contributor }}
+                                    </a>
+
+                                    <div class="btn-group z-1">
+                                        <a href="{% url 'contributor_update' contributor.pk %}"
+                                           class="btn btn-outline-warning btn-sm"
+                                           title="Edit contributor"
+                                           onclick="event.stopPropagation();">
+                                            ✏️
+                                        </a>
+                                        <a href="{% url 'contributor_delete' contributor.pk %}"
+                                           class="btn btn-outline-danger btn-sm"
+                                           title="Delete contributor"
+                                           onclick="event.stopPropagation();">
+                                            ❌
+                                        </a>
+                                    </div>
+                                </div>
                             {% empty %}
                                 <div class="list-group-item text-muted">No publishers</div>
                             {% endfor %}
                         </div>
                     </div>
 
-                    <!-- Others Column -->
+                    {# Others #}
                     <div class="col">
-                        <h5 class="text-dark">Others</h5>
+                        <h5 class="text-dark text-center">Others</h5>
                         <div class="list-group">
                             {% for contributor in others %}
-                                <a href="{% url 'contributor' contributor.pk %}"
-                                   class="list-group-item list-group-item-action hover-item">
-                                    {{ contributor }}
-                                </a>
+                                <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center position-relative hover-item px-3 py-2">
+
+                                    <a href="{% url 'contributor' contributor.pk %}"
+                                       class="stretched-link text-decoration-none text-dark hover-item">
+                                        {{ contributor }}
+                                    </a>
+
+                                    <div class="btn-group z-1">
+                                        <a href="{% url 'contributor_update' contributor.pk %}"
+                                           class="btn btn-outline-warning btn-sm"
+                                           title="Edit contributor"
+                                           onclick="event.stopPropagation();">
+                                            ✏️
+                                        </a>
+                                        <a href="{% url 'contributor_delete' contributor.pk %}"
+                                           class="btn btn-outline-danger btn-sm"
+                                           title="Delete contributor"
+                                           onclick="event.stopPropagation();">
+                                            ❌
+                                        </a>
+                                    </div>
+                                </div>
                             {% empty %}
                                 <div class="list-group-item text-muted">No others</div>
                             {% endfor %}
                         </div>
                     </div>
-                    <!-- Without Role Column -->
+
+                    {# Without Role #}
                     <div class="col">
-                        <h5 class="text-dark">Without Role</h5>
+                        <h5 class="text-dark text-center">Without Role</h5>
                         <div class="list-group">
                             {% for contributor in without_role %}
-                                <a href="{% url 'contributor' contributor.pk %}"
-                                   class="list-group-item list-group-item-action hover-item">
-                                    {{ contributor }}
-                                </a>
+                                <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center position-relative hover-item px-3 py-2">
+
+                                    <a href="{% url 'contributor' contributor.pk %}"
+                                       class="stretched-link text-decoration-none text-dark hover-item ">
+                                        {{ contributor }}
+                                    </a>
+
+                                    <div class="btn-group z-1">
+                                        <a href="{% url 'contributor_update' contributor.pk %}"
+                                           class="btn btn-outline-warning btn-sm"
+                                           title="Edit contributor"
+                                           onclick="event.stopPropagation();">
+                                            ✏️
+                                        </a>
+                                        <a href="{% url 'contributor_delete' contributor.pk %}"
+                                           class="btn btn-outline-danger btn-sm"
+                                           title="Delete contributor"
+                                           onclick="event.stopPropagation();">
+                                            ❌
+                                        </a>
+                                    </div>
+                                </div>
                             {% empty %}
                                 <div class="list-group-item text-muted">No contributors without a role</div>
                             {% endfor %}
                         </div>
                     </div>
 
-                    </div>
                 </div>
             </div>
+
         </div>
     </div>
+</div>
 {% endblock %}

@@ -7,26 +7,55 @@
 {% block content %}
     <div class="container my-5">
         <div class="row justify-content-center">
-            {# Center the content with a medium-width column for readability #}
             <div class="col-md-6">
-                {# Page main heading styled prominently and centered #}
+
+                {# Page heading #}
                 <h1 class="display-3 text-primary text-center">Albums</h1>
-                {# Container with subtle background, rounded corners, padding and shadow #}
-                <div class="bg-body-secondary rounded p-1 my-4 shadow-sm">
-                    {# List group container to hold all album links #}
-                    <div class="list-group list-group-item-action text-center">
-                        {# Loop through albums, creating clickable list items for each #}
+
+                {# "Create album" button #}
+                <div class="text-center mb-4">
+                    <a href="{% url 'album_create' %}" class="btn btn-primary">Create album</a>
+                </div>
+
+                {# List container #}
+                <div class="bg-body-secondary rounded p-1 shadow-sm">
+                    <div class="list-group">
+
+                        {# Loop through albums #}
                         {% for album in albums %}
-                            <a href="{% url 'album' album.pk %}"
-                               class="list-group-item list-group-item-action hover-item">
-                                {{ album.title }}
-                            </a>
+                            <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center position-relative hover-item px-3 py-2">
+
+                                {# Clickable area (stretched-link) #}
+                                <a href="{% url 'album' album.pk %}"
+                                   class="stretched-link text-decoration-none text-dark hover-item">
+                                    {{ album.title }}
+                                </a>
+
+                                {# Action buttons (edit, delete) #}
+                                <div class="btn-group z-1">
+                                    <a href="{% url 'album_update' album.id %}"
+                                       class="btn btn-outline-warning btn-sm"
+                                       title="Edit album"
+                                       onclick="event.stopPropagation();">
+                                        ✏️
+                                    </a>
+                                    <a href="{% url 'album_delete' album.id %}"
+                                       class="btn btn-outline-danger btn-sm"
+                                       title="Delete album"
+                                       onclick="event.stopPropagation();">
+                                        ❌
+                                    </a>
+                                </div>
+                            </div>
                         {% empty %}
-                            {# Display a message if there are no albums in the database #}
-                            <li class="list-group-item text-muted">There is no album in the database.</li>
+                            <div class="list-group-item text-muted text-center">
+                                There is no album in the database.
+                            </div>
                         {% endfor %}
+
                     </div>
                 </div>
+
             </div>
         </div>
     </div>

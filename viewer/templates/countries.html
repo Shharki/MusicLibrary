@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 
+{# Page title block #}
 {% block title %}
     Countries
 {% endblock %}
@@ -8,29 +9,58 @@
     <div class="container my-5">
         <div class="row justify-content-center">
             <div class="col-md-6">
-                {# Page main heading: centered, large and primary colored #}
+
+                {# Page heading #}
                 <h1 class="display-3 text-primary text-center">Countries</h1>
-                <a href="{% url 'country_create' %}" class="btn btn-primary">Create country</a>
 
-                {# Card-like container with light background, rounded corners, padding and shadow #}
-                <div class="bg-body-secondary rounded p-1 my-4 shadow-sm">
+                {# "Create country" button #}
+                <div class="text-center mb-4">
+                    <a href="{% url 'country_create' %}" class="btn btn-primary">Create country</a>
+                </div>
 
-                    {# List group with clickable items, centered text #}
-                    <div class="list-group list-group-item-action text-center">
+                {# Container for country list #}
+                <div class="bg-body-secondary rounded p-1 shadow-sm">
+                    <div class="list-group">
 
-                        {# Loop over countries; each item links to the country detail page #}
+                        {# Loop through all countries #}
                         {% for country in countries %}
-                            <a class="list-group-item list-group-item-action hover-item"
-                               href="{% url 'country' country.id %}">
-                                {{ country }}
-                            </a>
 
-                        {# If there are no countries, show muted message #}
+                            {# Each country as a clickable list item with action buttons #}
+                            <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center position-relative hover-item px-3 py-2">
+
+                                {# Clickable area (entire row) linking to country detail #}
+                                <a href="{% url 'country' country.id %}"
+                                   class="stretched-link text-decoration-none text-dark hover-item">
+                                    {{ country }}
+                                </a>
+
+                                {# Action buttons aligned right (Edit, Delete) #}
+                                <div class="btn-group z-1">
+                                    <a href="{% url 'country_update' country.id %}"
+                                       class="btn btn-outline-warning btn-sm"
+                                       title="Edit country"
+                                       onclick="event.stopPropagation();">
+                                        ✏️
+                                    </a>
+                                    <a href="{% url 'country_delete' country.id %}"
+                                       class="btn btn-outline-danger btn-sm"
+                                       title="Delete country"
+                                       onclick="event.stopPropagation();">
+                                        ❌
+                                    </a>
+                                </div>
+                            </div>
+
+                            {# Fallback message when no countries exist #}
                         {% empty %}
-                            <div class="list-group-item text-muted">There is no country in the database.</div>
+                            <div class="list-group-item text-muted text-center">
+                                There is no country in the database.
+                            </div>
                         {% endfor %}
+
                     </div>
                 </div>
+
             </div>
         </div>
     </div>

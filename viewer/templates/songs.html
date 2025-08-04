@@ -7,38 +7,55 @@
 {% block content %}
     <div class="container my-5">
         <div class="row justify-content-center">
-
-            <!-- Main column centered on page -->
             <div class="col-md-6">
 
-                <!-- Page header -->
-                <h1 class="display-3 text-primary text-center">
-                    Songs
-                </h1>
+                {# Page heading #}
+                <h1 class="display-3 text-primary text-center">Songs</h1>
 
-                <!-- Container with subtle background, rounded corners and shadow -->
-                <div class="bg-body-secondary rounded p-1 my-4 shadow-sm">
+                {# "Create song" button #}
+                <div class="text-center mb-4">
+                    <a href="{% url 'song_create' %}" class="btn btn-primary">Create song</a>
+                </div>
 
-                    <!-- List group for clickable song items, centered text -->
-                    <div class="list-group list-group-item-action text-center">
+                {# List container #}
+                <div class="bg-body-secondary rounded p-1 shadow-sm">
+                    <div class="list-group">
 
-                        <!-- Loop over songs, creating a link for each -->
+                        {# Loop through songs #}
                         {% for song in songs %}
-                            <a
-                               href="{% url 'song' song.pk %}"
-                               class="list-group-item list-group-item-action hover-item"
-                            >
-                                {{ song.title }}
-                            </a>
+                            <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center position-relative hover-item px-3 py-2">
+
+                                {# Clickable area with stretched-link #}
+                                <a href="{% url 'song' song.pk %}"
+                                   class="stretched-link text-decoration-none text-dark hover-item">
+                                    {{ song.title }}
+                                </a>
+
+                                {# Action buttons (edit, delete) #}
+                                <div class="btn-group z-1">
+                                    <a href="{% url 'song_update' song.id %}"
+                                       class="btn btn-outline-warning btn-sm"
+                                       title="Edit song"
+                                       onclick="event.stopPropagation();">
+                                        ✏️
+                                    </a>
+                                    <a href="{% url 'song_delete' song.id %}"
+                                       class="btn btn-outline-danger btn-sm"
+                                       title="Delete song"
+                                       onclick="event.stopPropagation();">
+                                        ❌
+                                    </a>
+                                </div>
+                            </div>
                         {% empty %}
-                            <!-- Display if no songs are in the database -->
-                            <div class="list-group-item text-muted">
+                            <div class="list-group-item text-muted text-center">
                                 There is no song in the database.
                             </div>
                         {% endfor %}
 
                     </div>
                 </div>
+
             </div>
         </div>
     </div>

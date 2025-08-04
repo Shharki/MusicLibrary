@@ -5,79 +5,94 @@
 {% endblock %}
 
 {% block content %}
-<div class="container my-5">
-    <div class="row justify-content-center">
-        <div class="col-md-12">
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
 
-            <!-- Main page heading displaying the country name -->
-            <h1 class="display-3 text-primary text-center mb-4">
-                {{ country }}
-            </h1>
+                <!-- Main page heading displaying the country name -->
+                <h1 class="display-3 text-primary text-center mb-4">
+                    {{ country }}
+                    <div class="btn-group btn-group-sm" role="group">
+                        <a href="{% url 'country_update' country.pk %}" class="btn btn-outline-warning"
+                           title="Edit Country">
+                            ✏️
+                        </a>
+                        <a href="{% url 'country_delete' country.pk %}" class="btn btn-outline-danger"
+                           title="Delete Country">
+                            ❌
+                        </a>
+                    </div>
+                </h1>
 
-            <!-- Responsive layout: two cards side-by-side on md+, stacked on small screens -->
-            <div class="row row-cols-1 row-cols-md-2 g-4">
+                <!-- Responsive layout: two cards side-by-side on md+, stacked on small screens -->
+                <div class="row row-cols-1 row-cols-md-2 g-4">
 
-                <!-- Contributors section -->
-                <div class="col">
-                    <div class="bg-body-secondary rounded p-3 shadow-sm h-100">
+                    <!-- Contributors section -->
+                    <div class="col">
+                        <div class="bg-body-secondary rounded p-3 shadow-sm h-100">
+                            <h5 class="text-center">Contributors</h5>
 
-                        <!-- Section heading -->
-                        <h5 class="text-center">Contributors</h5>
-
-                        <!-- List of contributors -->
-                        <div class="list-group list-group-item-action text-center">
-                            {% for contributor in country.contributors.all %}
-
-                                <!-- Link to each contributor's detail page -->
-                                <a href="{% url 'contributor' contributor.pk %}"
-                                   class="list-group-item list-group-item-action hover-item">
-                                    {{ contributor }}
-                                </a>
-
-                            {% empty %}
-
-                                <!-- Message shown when no contributors are available -->
-                                <div class="list-group-item text-muted">
-                                    There are no contributors for this country.
-                                </div>
-
-                            {% endfor %}
+                            <div class="list-group list-group-item-action">
+                                {% for contributor in country.contributors.all %}
+                                    <div class="list-group-item d-flex justify-content-between align-items-center">
+                                        <a href="{% url 'contributor' contributor.pk %}"
+                                           class="text-decoration-none text-body fw-semibold">
+                                            {{ contributor }}
+                                        </a>
+                                        <div class="btn-group btn-group-sm" role="group">
+                                            <a href="{% url 'contributor_update' contributor.pk %}"
+                                               class="btn btn-outline-warning" title="Edit">
+                                                ✏️
+                                            </a>
+                                            <a href="{% url 'contributor_delete' contributor.pk %}"
+                                               class="btn btn-outline-danger" title="Delete">
+                                                ❌
+                                            </a>
+                                        </div>
+                                    </div>
+                                {% empty %}
+                                    <div class="list-group-item text-muted text-center">
+                                        There are no contributors for this country.
+                                    </div>
+                                {% endfor %}
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Music groups section -->
-                <div class="col">
-                    <div class="bg-body-secondary rounded p-3 shadow-sm h-100">
+                    <!-- Music groups section -->
+                    <div class="col">
+                        <div class="bg-body-secondary rounded p-3 shadow-sm h-100">
+                            <h5 class="text-center">Music Groups</h5>
 
-                        <!-- Section heading -->
-                        <h5 class="text-center">Music Groups</h5>
-
-                        <!-- List of music groups -->
-                        <div class="list-group list-group-item-action text-center">
-                            {% for group in country.music_groups.all %}
-
-                                <!-- Link to each music group's detail page -->
-                                <a href="{% url 'music-group' group.pk %}"
-                                   class="list-group-item list-group-item-action hover-item">
-                                    {{ group }}
-                                </a>
-
-                            {% empty %}
-
-                                <!-- Message shown when no music groups are available -->
-                                <div class="list-group-item text-muted">
-                                    There are no music groups for this country.
-                                </div>
-
-                            {% endfor %}
+                            <div class="list-group list-group-item-action">
+                                {% for group in country.music_groups.all %}
+                                    <div class="list-group-item d-flex justify-content-between align-items-center">
+                                        <a href="{% url 'music-group' group.pk %}"
+                                           class="text-decoration-none text-body fw-semibold">
+                                            {{ group }}
+                                        </a>
+                                        <div class="btn-group btn-group-sm" role="group">
+                                            <a href="{% url 'music-group_update' group.pk %}"
+                                               class="btn btn-outline-warning" title="Edit">
+                                                ✏️
+                                            </a>
+                                            <a href="{% url 'music-group_delete' group.pk %}"
+                                               class="btn btn-outline-danger" title="Delete">
+                                                ❌
+                                            </a>
+                                        </div>
+                                    </div>
+                                {% empty %}
+                                    <div class="list-group-item text-muted text-center">
+                                        There are no music groups for this country.
+                                    </div>
+                                {% endfor %}
+                            </div>
                         </div>
                     </div>
-                </div>
 
+                </div>
             </div>
-
         </div>
     </div>
-</div>
 {% endblock %}
