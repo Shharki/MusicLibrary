@@ -1,5 +1,7 @@
+from datetime import date
+
 from django.test import TestCase
-from viewer.forms import GenreModelForm, CountryModelForm
+from viewer.forms import GenreModelForm, CountryModelForm, ContributorModelForm
 from viewer.models import Genre, Country
 
 
@@ -54,3 +56,28 @@ class CountryModelFormTest(TestCase):
         form = CountryModelForm(data={'name': 'italy'})
         self.assertFalse(form.is_valid())
         self.assertIn('This country already exists.', form.errors['name'])
+
+
+class ContributorFormTests(TestCase):
+
+    def test_birth_date_after_death_date_raises_validation_error(self):
+        form_data = {
+            'first_name': 'Xena',
+            'last_name': 'Warrior',
+            'birth_date': date(2000, 1, 1),
+            'death_date': date(1999, 12, 31),
+        }
+        form = ContributorModelForm(data=form_data)
+        self.assertFalse(form.is_valid())
+        self.assertIn('Date of birth cannot be after date of death.', form.errors['__all__'])
+
+    def test_birth_date_in_future_raises_validation_error(self):
+        future_date = date.today().replace(year=date.today().year + 1)
+        form_data = {
+            'first_name': 'Future',
+            'last_name': 'Person',
+            'birth_date': future_date,
+        }
+        form = ContributorModelForm(data=form_data)
+        self.assertFalse(form.is_valid())
+        self.assertIn('Date of birth cannot be in the future.', form.errors['birth_date'])
