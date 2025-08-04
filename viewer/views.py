@@ -1,6 +1,8 @@
 import os
 
 from django.conf import settings
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, TemplateView, CreateView, UpdateView, DeleteView
@@ -13,10 +15,11 @@ from viewer.models import (
 )
 
 
-class HomeView(ListView):
+class HomeView(LoginRequiredMixin, ListView):
     model = Album
     template_name = 'home.html'
     context_object_name = 'albums'
+    login_url = 'login'
 
     def get_queryset(self):
         return Album.objects.exclude(cover_image='').exclude(cover_image__isnull=True).order_by('?')[:6]
@@ -36,10 +39,41 @@ class HomeView(ListView):
 
 # Song Views
 class SongsListView(ListView):
-    template_name = 'songs.html'
     model = Song
+    template_name = 'songs.html'
     context_object_name = 'songs'
+    paginate_by = 10
 
+    def get_ordering(self):
+        order = self.request.GET.get('order', 'asc')
+        return 'title' if order == 'asc' else '-title'
+
+    def get_paginate_by(self, queryset):
+        try:
+            return int(self.request.GET.get('paginate_by', self.paginate_by))
+        except (TypeError, ValueError):
+            return self.paginate_by
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        order = self.request.GET.get("order", "asc")
+        letter = self.request.GET.get("letter")
+
+        if letter:
+            queryset = queryset.filter(title__istartswith=letter)
+
+        if order == "desc":
+            queryset = queryset.order_by("-title")
+        else:
+            queryset = queryset.order_by("title")
+
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['paginate_options'] = [10, 20, 50, 100]
+        context['alphabet'] = list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+        return context
 
 class SongDetailView(DetailView):
     template_name = 'song.html'
@@ -166,9 +200,35 @@ class ContributorDeleteView(DeleteView):
 
 # Album Views
 class AlbumsListView(ListView):
-    template_name = 'albums.html'
     model = Album
+    template_name = 'albums.html'
     context_object_name = 'albums'
+    paginate_by = 10
+
+    def get_ordering(self):
+        order = self.request.GET.get('order', 'asc')
+        return 'title' if order == 'asc' else '-title'
+
+    def get_paginate_by(self, queryset):
+        try:
+            return int(self.request.GET.get('paginate_by', self.paginate_by))
+        except (TypeError, ValueError):
+            return self.paginate_by
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        letter = self.request.GET.get("letter")
+
+        if letter:
+            queryset = queryset.filter(title__istartswith=letter)
+
+        return queryset.order_by(self.get_ordering())
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['paginate_options'] = [10, 20, 50, 100]
+        context['alphabet'] = list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+        return context
 
 
 class AlbumDetailView(DetailView):
@@ -228,10 +288,40 @@ class AlbumDeleteView(DeleteView):
 
 
 # Music Group Views
+from django.views.generic import ListView
+from .models import MusicGroup  # uprav podle své appky a modelu
+
 class MusicGroupsListView(ListView):
-    template_name = 'music-groups.html'
     model = MusicGroup
+    template_name = 'music-groups.html'
     context_object_name = 'music_groups'
+    paginate_by = 10
+
+    def get_ordering(self):
+        order = self.request.GET.get('order', 'asc')
+        return 'name' if order == 'asc' else '-name'
+
+    def get_paginate_by(self, queryset):
+        try:
+            return int(self.request.GET.get('paginate_by', self.paginate_by))
+        except (TypeError, ValueError):
+            return self.paginate_by
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        letter = self.request.GET.get('letter')
+
+        if letter:
+            queryset = queryset.filter(name__istartswith=letter)
+
+        return queryset.order_by(self.get_ordering())
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['paginate_options'] = [10, 20, 50, 100]
+        context['alphabet'] = list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+        return context
+
 
 
 class MusicGroupDetailView(DetailView):
@@ -264,13 +354,13 @@ class MusicGroupDeleteView(DeleteView):
 
 
 # Country Views
-class CountriesListView(ListView):
+class CountriesListView(LoginRequiredMixin, ListView):
     template_name = 'countries.html'
     model = Country
     context_object_name = 'countries'
 
 
-class CountryDetailView(DetailView):
+class CountryDetailView(LoginRequiredMixin, DetailView):
     template_name = 'country.html'
     model = Country
     context_object_name = 'country'
@@ -300,13 +390,13 @@ class CountryDeleteView(DeleteView):
 
 
 # Genre Views
-class GenresListView(ListView):
+class GenresListView(LoginRequiredMixin, ListView):
     template_name = 'genres.html'
     model = Genre
     context_object_name ='genres'
 
 
-class GenreDetailView(DetailView):
+class GenreDetailView(LoginRequiredMixin, DetailView):
     template_name = 'genre.html'
     model = Genre
     context_object_name = 'genre'

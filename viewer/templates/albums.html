@@ -5,58 +5,113 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container my-5">
-        <div class="row justify-content-center">
-            <div class="col-md-6">
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
 
-                {# Page heading #}
-                <h1 class="display-3 text-primary text-center">Albums</h1>
+            <!-- Heading -->
+            <h1 class="display-3 text-primary text-center mb-4">Albums</h1>
 
-                {# "Create album" button #}
-                <div class="text-center mb-4">
+            <!-- Top controls: sorting, pagination and create -->
+            <div class="row align-items-center mb-3">
+                <div class="col-md-auto mb-2">
+                    <form method="get" class="d-flex gap-2">
+                        <div>
+                            <label for="order" class="form-label mb-0 small">Sort:</label>
+                            <select name="order" id="order" class="form-select form-select-sm" onchange="this.form.submit()">
+                                <option value="asc" {% if request.GET.order == "asc" %}selected{% endif %}>Title A–Z</option>
+                                <option value="desc" {% if request.GET.order == "desc" %}selected{% endif %}>Title Z–A</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="paginate_by" class="form-label mb-0 small">Per page:</label>
+                            <select name="paginate_by" id="paginate_by" class="form-select form-select-sm" onchange="this.form.submit()">
+                                {% for option in paginate_options %}
+                                    <option value="{{ option }}" {% if request.GET.paginate_by == option|stringformat:"s" %}selected{% endif %}>
+                                        {{ option }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        {% if request.GET.letter %}
+                            <input type="hidden" name="letter" value="{{ request.GET.letter }}">
+                        {% endif %}
+                    </form>
+                </div>
+                <div class="col text-end mb-2">
                     <a href="{% url 'album_create' %}" class="btn btn-primary">Create album</a>
                 </div>
+            </div>
 
-                {# List container #}
-                <div class="bg-body-secondary rounded p-1 shadow-sm">
-                    <div class="list-group">
+            <!-- Alphabet filter -->
+            <div class="d-flex flex-wrap justify-content-center gap-1 mb-4">
+                {% for letter in alphabet %}
+                    <a href="?letter={{ letter }}{% if request.GET.order %}&order={{ request.GET.order }}{% endif %}{% if request.GET.paginate_by %}&paginate_by={{ request.GET.paginate_by }}{% endif %}"
+                       class="btn btn-sm {% if request.GET.letter == letter %}btn-primary{% else %}btn-outline-primary{% endif %}">
+                        {{ letter }}
+                    </a>
+                {% endfor %}
+                <a href="?{% if request.GET.order %}order={{ request.GET.order }}&{% endif %}{% if request.GET.paginate_by %}paginate_by={{ request.GET.paginate_by }}&{% endif %}"
+                   class="btn btn-sm {% if not request.GET.letter %}btn-primary{% else %}btn-outline-secondary{% endif %}">
+                    All
+                </a>
+            </div>
 
-                        {# Loop through albums #}
-                        {% for album in albums %}
-                            <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center position-relative hover-item px-3 py-2">
-
-                                {# Clickable area (stretched-link) #}
-                                <a href="{% url 'album' album.pk %}"
-                                   class="stretched-link text-decoration-none text-dark hover-item">
-                                    {{ album.title }}
-                                </a>
-
-                                {# Action buttons (edit, delete) #}
-                                <div class="btn-group z-1">
-                                    <a href="{% url 'album_update' album.id %}"
-                                       class="btn btn-outline-warning btn-sm"
-                                       title="Edit album"
-                                       onclick="event.stopPropagation();">
-                                        ✏️
-                                    </a>
-                                    <a href="{% url 'album_delete' album.id %}"
-                                       class="btn btn-outline-danger btn-sm"
-                                       title="Delete album"
-                                       onclick="event.stopPropagation();">
-                                        ❌
-                                    </a>
-                                </div>
+            <!-- Albums list -->
+            <div class="bg-body-secondary rounded p-1 shadow-sm">
+                <div class="list-group">
+                    {% for album in albums %}
+                        <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center position-relative hover-item px-3 py-2">
+                            <a href="{% url 'album' album.pk %}" class="stretched-link text-decoration-none text-dark hover-item">
+                                {{ album.title }}
+                            </a>
+                            <div class="btn-group z-1">
+                                <a href="{% url 'album_update' album.id %}" class="btn btn-outline-warning btn-sm" onclick="event.stopPropagation();">✏️</a>
+                                <a href="{% url 'album_delete' album.id %}" class="btn btn-outline-danger btn-sm" onclick="event.stopPropagation();">❌</a>
                             </div>
-                        {% empty %}
-                            <div class="list-group-item text-muted text-center">
-                                There is no album in the database.
-                            </div>
+                        </div>
+                    {% empty %}
+                        <div class="list-group-item text-muted text-center">
+                            There is no album in the database.
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Pagination controls -->
+            {% if is_paginated %}
+                <nav class="mt-4">
+                    <ul class="pagination justify-content-center flex-wrap">
+                        {% if page_obj.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?{% if request.GET.order %}order={{ request.GET.order }}&{% endif %}{% if request.GET.paginate_by %}paginate_by={{ request.GET.paginate_by }}&{% endif %}{% if request.GET.letter %}letter={{ request.GET.letter }}&{% endif %}page={{ page_obj.previous_page_number }}">Previous</a>
+                            </li>
+                        {% else %}
+                            <li class="page-item disabled"><span class="page-link">Previous</span></li>
+                        {% endif %}
+
+                        {% for num in paginator.page_range %}
+                            {% if page_obj.number == num %}
+                                <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+                            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?{% if request.GET.order %}order={{ request.GET.order }}&{% endif %}{% if request.GET.paginate_by %}paginate_by={{ request.GET.paginate_by }}&{% endif %}{% if request.GET.letter %}letter={{ request.GET.letter }}&{% endif %}page={{ num }}">{{ num }}</a>
+                                </li>
+                            {% endif %}
                         {% endfor %}
 
-                    </div>
-                </div>
+                        {% if page_obj.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="?{% if request.GET.order %}order={{ request.GET.order }}&{% endif %}{% if request.GET.paginate_by %}paginate_by={{ request.GET.paginate_by }}&{% endif %}{% if request.GET.letter %}letter={{ request.GET.letter }}&{% endif %}page={{ page_obj.next_page_number }}">Next</a>
+                            </li>
+                        {% else %}
+                            <li class="page-item disabled"><span class="page-link">Next</span></li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            {% endif %}
 
-            </div>
         </div>
     </div>
+</div>
 {% endblock %}

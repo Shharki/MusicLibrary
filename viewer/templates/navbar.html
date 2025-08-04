@@ -24,68 +24,73 @@
 
             <!-- Navigation menu centered horizontally -->
             <ul class="navbar-nav col-lg-6 justify-content-lg-center">
-
-                <!-- Individual nav item with active state check -->
                 <li class="nav-item">
-                    <a
-                        href="{% url 'songs' %}"
-                        class="nav-link {% if request.resolver_match.view_name == 'songs' %}active-custom{% endif %}"
-                    >
+                    <a href="{% url 'songs' %}"
+                       class="nav-link {% if request.resolver_match.view_name == 'songs' %}active-custom{% endif %}">
                         Songs
                     </a>
                 </li>
-
                 <li class="nav-item">
-                    <a
-                        href="{% url 'albums' %}"
-                        class="nav-link {% if request.resolver_match.view_name == 'albums' %}active-custom{% endif %}"
-                    >
+                    <a href="{% url 'albums' %}"
+                       class="nav-link {% if request.resolver_match.view_name == 'albums' %}active-custom{% endif %}">
                         Albums
                     </a>
                 </li>
-
                 <li class="nav-item">
-                    <a
-                        href="{% url 'contributors' %}"
-                        class="nav-link {% if request.resolver_match.view_name == 'contributors' %}active-custom{% endif %}"
-                    >
+                    <a href="{% url 'contributors' %}"
+                       class="nav-link {% if request.resolver_match.view_name == 'contributors' %}active-custom{% endif %}">
                         Contributors
                     </a>
                 </li>
-
                 <li class="nav-item">
-                    <a
-                        href="{% url 'music-groups' %}"
-                        class="nav-link {% if request.resolver_match.view_name == 'music-groups' %}active-custom{% endif %}"
-                    >
+                    <a href="{% url 'music-groups' %}"
+                       class="nav-link {% if request.resolver_match.view_name == 'music-groups' %}active-custom{% endif %}">
                         Music Groups
                     </a>
                 </li>
-
+                {% if user.is_authenticated %}
                 <li class="nav-item">
-                    <a
-                        href="{% url 'countries' %}"
-                        class="nav-link {% if request.resolver_match.view_name == 'countries' %}active-custom{% endif %}"
-                    >
+                    <a href="{% url 'countries' %}"
+                       class="nav-link {% if request.resolver_match.view_name == 'countries' %}active-custom{% endif %}">
                         Countries
                     </a>
                 </li>
-
                 <li class="nav-item">
-                    <a
-                        href="{% url 'genres' %}"
-                        class="nav-link {% if request.resolver_match.view_name == 'genres' %}active-custom{% endif %}"
-                    >
+                    <a href="{% url 'genres' %}"
+                       class="nav-link {% if request.resolver_match.view_name == 'genres' %}active-custom{% endif %}">
                         Genres
                     </a>
                 </li>
-
+                {% endif %}
             </ul>
 
-            <!-- Right-aligned sign-in button on larger screens -->
-            <div class="d-lg-flex col-lg-3 justify-content-lg-end">
-                <button class="btn btn-primary">Sign In</button>
-            </div>
+            <!-- Right side login/logout -->
+            <ul class="navbar-nav ms-auto text-primary">
+                <li class="nav-item dropdown">
+                    {% if user.is_authenticated %}
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            {{ user.username }}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                            <li>
+                                <form method="post" action="{% url 'logout' %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="dropdown-item">Sign out</button>
+                                </form>
+                            </li>
+                        </ul>
+                    {% else %}
+                        <a class="nav-link dropdown-toggle" href="#" id="guestDropdown" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            Not signed in
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="guestDropdown">
+                            <li><a class="dropdown-item" href="{% url 'login' %}">Sign in</a></li>
+                        </ul>
+                    {% endif %}
+                </li>
+            </ul>
 
         </div>
     </div>

@@ -22,6 +22,8 @@ Development & CI    Git, GitHub Actions (lint + tests), PyCharm
     - [X] Hover effects on navbar, links
 - [ ] 1. Songs – listing
     - [x] Alphabetical list
+    - [X] Alphabetical sorting
+    - [X] Paginate listing
     - [ ] Filtering by: genre, country, language, year, album, performer, ratings
 - [ ] 2. Songs – song detail
     - [X] Title
@@ -38,6 +40,8 @@ Development & CI    Git, GitHub Actions (lint + tests), PyCharm
     - [ ] Audio sample / streaming link
 - [X] 3. Albums – listing and detail
     - [X] 3.1 Alphabetical album list
+        - [X] Alphabetical sorting
+        - [X] Paginate listing
     - [X] 3.2 Album details (derived from songs)
         - [X] Title
         - [X] Ordered list of songs
@@ -62,6 +66,8 @@ Development & CI    Git, GitHub Actions (lint + tests), PyCharm
         - [ ] Picture 
 - [ ] 5. Music Groups – listing and detail
     - [X] 5.1. Alphabetical list
+        - [X] Alphabetical sorting
+        - [X] Paginate listing
     - [ ] 5.2. Group detail
         - [X] Name
         - [X] Bio
@@ -80,16 +86,17 @@ Development & CI    Git, GitHub Actions (lint + tests), PyCharm
     - [x] 7.1. Alphabetical list
     - [x] 7.2. Detail (list of songs of the given genre)
 - [ ] 8. CRUD operations (via admin or views): 
-    - [ ] 8.1. Create
-        - [ ] Genres, Countries, Contributors, Music Groups, Songs, Albums  
-    - [ ] 8.2 Update
-        - [ ] Genres, Countries, Contributors, Music Groups, Songs, Albums 
-    - [ ] 8.3. Delete
-        - [ ] Genres, Countries, Contributors, Music Groups, Songs, Albums 
+    - [X] 8.1. Create
+        - [X] Songs, Contributors, Albums, Countries, Genres
+    - [X] 8.2 Update
+        - [X] Songs, Contributors, Albums, Countries, Genres
+    - [X] 8.3. Delete
+        - [X] Songs, Contributors, Albums, Countries, Genres
 - [ ] 9. Authentication and Users
-    - [ ] Display of logged-in user
-    - [ ] Access restrictions by user type (regular vs. admin)
-    - [ ] Login / Logout / Password reset
+    - [X] Display of logged-in user
+    - [X] Access restrictions by user type (regular vs. admin)
+    - [X] Login / Logout
+    - [ ] Password reset
     - [ ] Registration, user profile
 - [ ] 10. Authorization
     - [ ] Permissions for CRUD operations
