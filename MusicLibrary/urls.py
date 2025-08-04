@@ -20,29 +20,46 @@ from django.contrib import admin
 from django.urls import path
 
 from viewer.views import (
-    HomeView, SongsListView, SongDetailView, ContributorsListView, ContributorDetailView, AlbumsListView,
-    AlbumDetailView, \
-    MusicGroupsListView, MusicGroupDetailView, CountriesListView, CountryDetailView, GenresListView, GenreDetailView,
-    GenreCreateView, CountryCreateView, ContributorCreateView
+    HomeView,
+    SongsListView, SongDetailView,
+    ContributorsListView, ContributorDetailView, ContributorCreateView,
+    AlbumsListView, AlbumDetailView,
+    MusicGroupsListView, MusicGroupDetailView,
+    CountriesListView, CountryDetailView, CountryCreateView,
+    GenresListView, GenreDetailView, GenreCreateView, GenreUpdateView, GenreDeleteView,
 )
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', HomeView.as_view(), name='home'),
+
+    # Songs
     path('songs/', SongsListView.as_view(), name='songs'),
     path('song/<int:pk>/', SongDetailView.as_view(), name='song'),
+
+    # Contributors
     path('contributors/', ContributorsListView.as_view(), name='contributors'),
     path('contributor/<int:pk>/', ContributorDetailView.as_view(), name='contributor'),
     path('contributor/create/', ContributorCreateView.as_view(), name='contributor_create'),
+
+    # Albums
     path('albums/', AlbumsListView.as_view(), name='albums'),
     path('album/<int:pk>/', AlbumDetailView.as_view(), name='album'),
+
+    # Music Groups
     path('music-groups/', MusicGroupsListView.as_view(), name='music-groups'),
     path('music-group/<int:pk>/', MusicGroupDetailView.as_view(), name='music-group'),
+
+    # Countries
     path('countries/', CountriesListView.as_view(), name='countries'),
     path('country/<int:pk>', CountryDetailView.as_view(), name='country'),
     path('country/create/', CountryCreateView.as_view(), name='country_create'),
+
+    # Genres
     path('genres/', GenresListView.as_view(), name='genres'),
     path('genre/<int:pk>', GenreDetailView.as_view(), name='genre'),
     path('genre/create/', GenreCreateView.as_view(), name='genre_create'),
+    path('genre/update/<int:pk>/', GenreUpdateView.as_view(), name='genre_update'),
+    path('genre/delete/<int:pk>/', GenreDeleteView.as_view(), name='genre_delete'),
 ]
 
 if settings.DEBUG:

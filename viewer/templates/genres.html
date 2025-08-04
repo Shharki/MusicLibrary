@@ -25,8 +25,9 @@
                         <div class="accordion-item">
 
                             {# Accordion header with genre name and song count #}
-                            <h2 class="accordion-header" id="heading-{{ genre.id }}">
-                                <button class="accordion-button collapsed text-capitalize"
+                            <h2 class="accordion-header d-flex justify-content-between align-items-center px-2 py-1"
+                                id="heading-{{ genre.id }}">
+                                <button class="accordion-button collapsed flex-grow-1 text-capitalize"
                                         type="button"
                                         data-bs-toggle="collapse"
                                         data-bs-target="#collapse-{{ genre.id }}"
@@ -34,6 +35,14 @@
                                         aria-controls="collapse-{{ genre.id }}">
                                     {{ genre }} ({{ genre.song_set.count }})
                                 </button>
+                                <a href="{% url 'genre_update' genre.id %}"
+                                   class="btn btn-outline-warning hover-item btn-sm ms-2" title="Edit genre">
+                                    ✏️
+                                </a>
+                                <a href="{% url 'genre_delete' genre.id %}"
+                                   class="btn btn-outline-danger hover-item btn-sm ms-2" title="Delete genre">
+                                    ❌
+                                </a>
                             </h2>
 
                             {# Collapsible body containing the list of songs #}
@@ -42,7 +51,7 @@
                                  aria-labelledby="heading-{{ genre.id }}"
                                  data-bs-parent="#genreAccordion">
 
-                                <div class="accordion-body">
+                                <div class="accordion-body ">
 
                                     {# Check if the genre has any songs #}
                                     {% if genre.song_set.all %}
