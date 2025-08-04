@@ -185,6 +185,12 @@ class CountryDetailView(DetailView):
     context_object_name = 'country'
 
 
+class CountryCreateView(CreateView):
+    template_name = 'form.html'
+    form_class = CountryModelForm
+    success_url = reverse_lazy('countries')
+
+
 class GenresListView(ListView):
     template_name = 'genres.html'
     model = Genre
@@ -204,8 +210,3 @@ class GenreCreateView(CreateView):
 
     # form_valid is not needed --> CreateView handles saving
 
-
-class CountryCreateView(CreateView):
-    template_name = 'form.html'
-    form_class = CountryModelForm
-    success_url = reverse_lazy('countries')
