@@ -70,7 +70,7 @@ class ContributorFormTests(TestCase):
             'death_date': date(1999, 12, 31),
         }
         form = ContributorModelForm(data=form_data)
-        self.assertFalse(form.is_valid()) # error here
+        self.assertFalse(form.is_valid())   # tady je chyba
         self.assertIn('Date of birth cannot be after date of death.', form.errors['__all__'])
 
     @skip
@@ -82,5 +82,5 @@ class ContributorFormTests(TestCase):
             'birth_date': future_date,
         }
         form = ContributorModelForm(data=form_data)
-        self.assertFalse(form.is_valid()) # error here
+        self.assertFalse(form.is_valid())       # tady je chyba
         self.assertIn('Date of birth cannot be in the future.', form.errors['birth_date'])
