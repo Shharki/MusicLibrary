@@ -23,7 +23,7 @@ from viewer.views import (
     HomeView, SongsListView, SongDetailView, ContributorsListView, ContributorDetailView, AlbumsListView,
     AlbumDetailView, \
     MusicGroupsListView, MusicGroupDetailView, CountriesListView, CountryDetailView, GenresListView, GenreDetailView,
-    GenreCreateView, CountryCreateView
+    GenreCreateView, CountryCreateView, ContributorCreateView
 )
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -32,6 +32,7 @@ urlpatterns = [
     path('song/<int:pk>/', SongDetailView.as_view(), name='song'),
     path('contributors/', ContributorsListView.as_view(), name='contributors'),
     path('contributor/<int:pk>/', ContributorDetailView.as_view(), name='contributor'),
+    path('contributor/create/', ContributorCreateView.as_view(), name='contributor_create'),
     path('albums/', AlbumsListView.as_view(), name='albums'),
     path('album/<int:pk>/', AlbumDetailView.as_view(), name='album'),
     path('music-groups/', MusicGroupsListView.as_view(), name='music-groups'),

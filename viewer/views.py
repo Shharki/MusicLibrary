@@ -1,12 +1,12 @@
 import os
 
 from django.conf import settings
-from django.db.models import Sum
+from django.db.models import Sum, Q
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, TemplateView, CreateView
 
-from viewer.forms import GenreModelForm, CountryModelForm
+from viewer.forms import GenreModelForm, CountryModelForm, ContributorModelForm
 from viewer.models import (
     Song, MusicGroupMembership, Contributor, Album, SongPerformance, Genre, Language, MusicGroup, Country
 )
@@ -85,6 +85,10 @@ class ContributorsListView(TemplateView):
             song_performances__contributor_role__category='other'
         ).distinct()
 
+        context['without_role'] = Contributor.objects.exclude(
+            Q(song_performances__isnull=False)
+        ).distinct()
+
         return context
 
 
@@ -110,6 +114,12 @@ class ContributorDetailView(DetailView):
         })
 
         return context
+
+
+class ContributorCreateView(CreateView):
+    template_name = 'form.html'
+    form_class = ContributorModelForm
+    success_url = reverse_lazy('contributors')
 
 
 class AlbumsListView(ListView):

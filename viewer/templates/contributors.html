@@ -5,17 +5,18 @@
 {% endblock %}
 
 {% block content %}
-<div class="container my-5">
+    <div class="container my-5">
     <div class="row justify-content-center">
         <div class="col-md-12">
             {# Main page heading: Contributors, large and centered #}
             <h1 class="display-3 text-primary text-center">Contributors</h1>
+            <a href="{% url 'contributor_create' %}" class="btn btn-primary">Create contributor</a>
 
             {# Container with light background, rounded corners, padding and shadow #}
             <div class="bg-body-secondary rounded p-3 my-4 shadow-sm">
 
-                {# Responsive grid layout: 1 column on xs, 2 on md, 5 on xl #}
-                <div class="row row-cols-1 row-cols-md-2 row-cols-xl-5 g-3 text-center">
+                {# Responsive grid layout: 1 column on xs, 2 on md, 6 on xl #}
+                <div class="row row-cols-1 row-cols-md-2 row-cols-xl-6 g-3 text-center">
 
                     {# Each column corresponds to one contributor category #}
 
@@ -97,10 +98,23 @@
                             {% endfor %}
                         </div>
                     </div>
+                    <!-- Without Role Column -->
+                    <div class="col">
+                        <h5 class="text-dark">Without Role</h5>
+                        <div class="list-group">
+                            {% for contributor in without_role %}
+                                <a href="{% url 'contributor' contributor.pk %}"
+                                   class="list-group-item list-group-item-action hover-item">
+                                    {{ contributor }}
+                                </a>
+                            {% empty %}
+                                <div class="list-group-item text-muted">No contributors without a role</div>
+                            {% endfor %}
+                        </div>
 
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 {% endblock %}
