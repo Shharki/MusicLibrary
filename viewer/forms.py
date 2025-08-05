@@ -177,8 +177,9 @@ class AlbumModelForm(ModelForm):
         if image:
             if image.size > 2 * 1024 * 1024:
                 raise ValidationError("Image file size must be under 2MB.")
-            if not image.content_type in ['image/jpeg', 'image/png']:
-                raise ValidationError("Only JPEG and PNG formats are supported.")
+            if hasattr(image, 'content_type'):
+                if image.content_type not in ['image/jpeg', 'image/png']:
+                    raise ValidationError("Only JPEG and PNG formats are supported.")
         return image
 
     def clean(self):

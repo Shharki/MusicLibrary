@@ -1,20 +1,24 @@
 import os
 
 from django.conf import settings
+from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db import transaction
 from django.db.models import Q
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
+from django.views.decorators.http import require_POST
 from django.views.generic import ListView, DetailView, TemplateView, CreateView, UpdateView, DeleteView
 
 from viewer.forms import (
     GenreModelForm, CountryModelForm, ContributorModelForm, MusicGroupModelForm, SongModelForm, AlbumModelForm
 )
 from viewer.models import (
-    Song, Contributor, Album, Genre, Country
+    Song, Contributor, Album, Genre, Country, AlbumSong, MusicGroup,
 )
 
 
-class HomeView(LoginRequiredMixin, ListView):
+class HomeView(ListView):
     model = Album
     template_name = 'home.html'
     context_object_name = 'albums'
@@ -239,7 +243,9 @@ class AlbumDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         album = self.object
 
-        songs = album.ordered_songs()
+        # Vezmeme AlbumSong queryset, abychom měli order i song
+        album_songs = AlbumSong.objects.filter(album=album).select_related('song').order_by('order')
+
         genres = album.genres_list()
         languages = album.languages_list()
         contributors_by_category = album.contributors_by_category()
@@ -249,7 +255,7 @@ class AlbumDetailView(DetailView):
         language_label = "Language" if languages.count() == 1 else "Languages"
 
         context.update({
-            'songs': songs,
+            'album_songs': album_songs,   # Objekt AlbumSong obsahuje song i order
             'total_duration': album.total_duration(),
             'genres': genres,
             'genre_label': genre_label,
@@ -264,25 +270,75 @@ class AlbumDetailView(DetailView):
 
 
 class AlbumCreateView(CreateView):
-    template_name = 'form.html'
+    model = Album
     form_class = AlbumModelForm
+    template_name = 'form.html'
     success_url = reverse_lazy('albums')
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+
+        # Zpracování obrázku (pokud byl nahrán)
+        if self.request.FILES.get('cover_image'):
+            self.object.cover_image = self.request.FILES['cover_image']
+
+        self.object.save()
+        form.save_m2m()  # uloží artist, music_group, songs (form.cleaned_data)
+
+        songs = form.cleaned_data.get('songs', [])
+        if not songs:
+            form.add_error('songs', 'At least one song must be selected.')
+            return self.form_invalid(form)
+
+        # Smažeme existující vazby pro případ opakovaného použití view
+        AlbumSong.objects.filter(album=self.object).delete()
+
+        # Vytvoření AlbumSong vazeb s pořadím
+        for index, song in enumerate(songs, start=1):
+            AlbumSong.objects.create(
+                album=self.object,
+                song=song,
+                order=index
+            )
+
+        return redirect(self.get_success_url())
 
 
 class AlbumUpdateView(UpdateView):
-    template_name = 'form.html'
-    form_class = AlbumModelForm
     model = Album
+    form_class = AlbumModelForm
+    template_name = 'form.html'
     success_url = reverse_lazy('albums')
 
-    def form_invalid(self, form):
-        print('Form invalid')
-        return super().form_invalid(form)
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+
+        if self.request.FILES.get('cover_image'):
+            self.object.cover_image = self.request.FILES['cover_image']
+
+        self.object.save()
+        form.save_m2m()
+
+        songs = form.cleaned_data.get('songs', [])
+        if not songs:
+            form.add_error('songs', 'At least one song must be selected.')
+            return self.form_invalid(form)
+
+        AlbumSong.objects.filter(album=self.object).delete()
+
+        for index, song in enumerate(songs, start=1):
+            AlbumSong.objects.create(
+                album=self.object,
+                song=song,
+                order=index
+            )
+
+        return redirect(self.get_success_url())
 
 
 class AlbumDeleteView(DeleteView):
-    template_name = 'confirm_delete.html'
     model = Album
+    template_name = 'confirm_delete.html'
     success_url = reverse_lazy('albums')
 
 
@@ -402,7 +458,7 @@ class GenreDetailView(LoginRequiredMixin, DetailView):
 
 
 class GenreCreateView(CreateView):
-    template_name = 'form.html'     # Reusable form template
+    template_name = 'form.html'  # Reusable form template
     form_class = GenreModelForm     # Use custom form with validation
     success_url = reverse_lazy('genres')  # Redirect after success
 
@@ -424,3 +480,60 @@ class GenreDeleteView(DeleteView):
     template_name = 'confirm_delete.html'
     model = Genre
     success_url = reverse_lazy('genres')
+
+
+@require_POST
+def album_song_order_update(request, album_pk):
+    album = get_object_or_404(Album, pk=album_pk)
+
+    # Načteme všechny AlbumSong záznamy pro dané album
+    album_songs = list(AlbumSong.objects.filter(album=album))
+
+    # Počet písní v albu
+    max_order = len(album_songs)
+
+    # Slovník song_id -> new_order z POST
+    new_orders = {}
+
+    # Pro sběr chyb
+    errors = []
+
+    # Načteme a validujeme všechny ordery z POST dat
+    for album_song in album_songs:
+        field_name = f'order_{album_song.song.pk}'
+        value = request.POST.get(field_name)
+
+        if value is None:
+            errors.append(f"Missing order for song '{album_song.song.title}'.")
+            continue
+
+        try:
+            order_num = int(value)
+            if order_num < 1 or order_num > max_order:
+                errors.append(f"Order for song '{album_song.song.title}' must be between 1 and {max_order}.")
+                continue
+            new_orders[album_song.song.pk] = order_num
+        except ValueError:
+            errors.append(f"Invalid order value for song '{album_song.song.title}'.")
+
+    # Zkontrolujeme duplicity mezi novými pořadími
+    orders_list = list(new_orders.values())
+    if len(orders_list) != len(set(orders_list)):
+        errors.append("Duplicate order numbers are not allowed.")
+
+    # Pokud máme chyby, zobrazíme je uživateli a neprovedeme změny
+    if errors:
+        for error in errors:
+            messages.error(request, error)
+        return redirect('album', pk=album.pk)
+
+    # Pokud validace prošla, uložíme změny atomicky
+    with transaction.atomic():
+        for album_song in album_songs:
+            new_order = new_orders.get(album_song.song.pk)
+            if new_order is not None and new_order != album_song.order:
+                album_song.order = new_order
+                album_song.save()
+
+    messages.success(request, "Song order updated successfully.")
+    return redirect('album', pk=album.pk)
