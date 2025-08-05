@@ -87,11 +87,11 @@ Development & CI    Git, GitHub Actions (lint + tests), PyCharm
     - [x] 7.2. Detail (list of songs of the given genre)
 - [ ] 8. CRUD operations (via admin or views): 
     - [X] 8.1. Create
-        - [X] Songs, Contributors, Albums, Countries, Genres
+        - [X] Genres, Countries, Contributors, Music Groups, Songs, Albums
     - [X] 8.2 Update
-        - [X] Songs, Contributors, Albums, Countries, Genres
+        - [X] Genres, Countries, Contributors, Music Groups, Songs, Albums
     - [X] 8.3. Delete
-        - [X] Songs, Contributors, Albums, Countries, Genres
+        - [X] Genres, Countries, Contributors, Music Groups, Songs, Albums
 - [ ] 9. Authentication and Users
     - [X] Display of logged-in user
     - [X] Access restrictions by user type (regular vs. admin)

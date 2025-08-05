@@ -359,12 +359,16 @@ class SongPerformance(Model):
 class AlbumSong(Model):
     album = ForeignKey('Album', on_delete=CASCADE)
     song = ForeignKey('Song', on_delete=CASCADE)
-    order = PositiveIntegerField()
+    order = PositiveIntegerField(null=True, blank=True)
 
     class Meta:
-        unique_together = ('album', 'song')
         ordering = ['album__title', 'order']
         db_table = 'viewer_album_song'
+        # To implement later:
+        # constraints = [
+        #     UniqueConstraint(fields=['album', 'song'], name='unique_album_song'),
+        #     UniqueConstraint(fields=['album', 'order'], name='unique_album_order'),
+        # ]
 
     def __str__(self):
         return f"{self.album.title} - {self.order}. {self.song.title}"
