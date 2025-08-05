@@ -359,14 +359,15 @@ class SongPerformance(Model):
 class AlbumSong(Model):
     album = ForeignKey('Album', on_delete=CASCADE)
     song = ForeignKey('Song', on_delete=CASCADE)
-    order = PositiveIntegerField()
+    order = PositiveIntegerField(null=True, blank=True)
 
     class Meta:
         ordering = ['album__title', 'order']
         db_table = 'viewer_album_song'
         constraints = [
             UniqueConstraint(fields=['album', 'song'], name='unique_album_song'),
-            #UniqueConstraint(fields=['album', 'order'], name='unique_album_order'),
+            UniqueConstraint(fields=['album', 'order'], name='unique_album_order'),
+            CheckConstraint(check=Q(order__gte=1), name='order_gte_1'),
          ]
 
     def __str__(self):
@@ -374,6 +375,12 @@ class AlbumSong(Model):
 
     def __repr__(self):
         return f"<AlbumSong id={self.id} album={self.album_id} song={self.song_id} order={self.order}>"
+
+    def clean(self):
+        super().clean()
+        if self.order is None:
+            raise ValidationError("Order must be set and cannot be null.")
+
 
 class Album(Model):
     title = CharField(max_length=128)
@@ -458,6 +465,7 @@ class Album(Model):
             creators = artist_names or group_names or "Unknown"
 
         return f"{creators}"
+
 
     def __str__(self):
         return self.title

@@ -29,19 +29,26 @@
 
             <table style="width: auto; border-collapse: separate; border-spacing: 0 6px;">
                 {% for field in form %}
-                    <tr>
-                        <td style="padding-right: 24px;">
-                            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-                        </td>
-                        <td>
-                            {{ field }}
-                            {% if field.help_text %}
-                                <small class="form-text text-muted">{{ field.help_text }}</small>
-                            {% endif %}
-                        </td>
-                        <td class="text-danger">{{ field.errors }}</td>
-                    </tr>
-                {% endfor %}
+    <tr>
+        <td style="padding-right: 24px;">
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        </td>
+        <td>
+            {% if field.name == "cover_image" and form.instance.cover_image %}
+                <div class="mb-2">
+                    <img src="{{ form.instance.cover_image.url }}" alt="Current cover"
+                         class="img-thumbnail" style="max-height: 100px;">
+                    <p class="mt-1"><small>{{ form.instance.cover_image.name }}</small></p>
+                </div>
+            {% endif %}
+            {{ field }}
+            {% if field.help_text %}
+                <small class="form-text text-muted">{{ field.help_text }}</small>
+            {% endif %}
+        </td>
+        <td class="text-danger">{{ field.errors }}</td>
+    </tr>
+{% endfor %}
             </table>
 
             <button type="submit" class="btn btn-primary mt-3">
