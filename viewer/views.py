@@ -1,7 +1,6 @@
 import os
 
 from django.conf import settings
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 from django.urls import reverse_lazy
@@ -11,7 +10,7 @@ from viewer.forms import (
     GenreModelForm, CountryModelForm, ContributorModelForm, MusicGroupModelForm, SongModelForm, AlbumModelForm
 )
 from viewer.models import (
-    Song, Contributor, Album, Genre, MusicGroup, Country
+    Song, Contributor, Album, Genre, Country
 )
 
 

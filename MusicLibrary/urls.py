@@ -17,8 +17,7 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.contrib.auth.views import LoginView, LogoutView
-from django.urls import path
+from django.urls import path, include
 
 from viewer.views import (
     HomeView,
@@ -38,6 +37,7 @@ from viewer.views import (
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('accounts/', include('accounts.urls')),
     path('', HomeView.as_view(), name='home'),
 
     # Songs
@@ -82,8 +82,6 @@ urlpatterns = [
     path('genre/update/<int:pk>/', GenreUpdateView.as_view(), name='genre_update'),
     path('genre/delete/<int:pk>/', GenreDeleteView.as_view(), name='genre_delete'),
 
-    path('accounts/login/', LoginView.as_view(template_name='form.html'), name='login'),
-    path('accounts/logout/', LogoutView.as_view(), name='logout'),
 ]
 
 if settings.DEBUG:
