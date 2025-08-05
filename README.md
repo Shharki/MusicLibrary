@@ -97,7 +97,8 @@ Development & CI    Git, GitHub Actions (lint + tests), PyCharm
     - [X] Access restrictions by user type (regular vs. admin)
     - [X] Login / Logout
     - 9.1. [X] Password reset
-    - 9.2. [ ] Registration, user profile
+    - 9.2. [X] Registration, user profile
+    - 9.3. [X] Login in modal
 - [ ] 10. Authorization
     - [ ] Permissions for CRUD operations
     - [ ] Protection of specific views (e.g. admin only)

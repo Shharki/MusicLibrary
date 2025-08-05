@@ -32,7 +32,7 @@ from viewer.views import (
     # Countries
     CountriesListView, CountryDetailView, CountryCreateView, CountryUpdateView, CountryDeleteView,
     # Genres
-    GenresListView, GenreDetailView, GenreCreateView, GenreUpdateView, GenreDeleteView,
+    GenresListView, GenreDetailView, GenreCreateView, GenreUpdateView, GenreDeleteView, album_song_order_update,
 )
 
 urlpatterns = [
@@ -60,6 +60,7 @@ urlpatterns = [
     path('album/create/', AlbumCreateView.as_view(), name='album_create'),
     path('album/update/<int:pk>/', AlbumUpdateView.as_view(), name='album_update'),
     path('album/delete/<int:pk>/', AlbumDeleteView.as_view(), name='album_delete'),
+    path('album/<int:album_pk>/songs/order/', album_song_order_update, name='album_song_order_update'),
 
     # Music Groups
     path('music-groups/', MusicGroupsListView.as_view(), name='music-groups'),

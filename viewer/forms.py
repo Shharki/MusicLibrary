@@ -1,6 +1,9 @@
+import re
+from datetime import date
+
 from django.core.exceptions import ValidationError
-from django.forms import ModelForm, TextInput, CharField, DateInput
-from django.forms.widgets import Select, Textarea
+from django.forms import ModelForm, TextInput, CharField, DateInput, DateField
+from django.forms.widgets import Select, Textarea, SelectMultiple, ClearableFileInput, FileInput
 
 from viewer.models import Genre, Country, Contributor, MusicGroup, Album, Song
 
@@ -102,9 +105,108 @@ class MusicGroupModelForm(ModelForm):
 
 
 class AlbumModelForm(ModelForm):
+    released = DateField(
+        required=False,
+        widget=DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+        label="Release date"
+    )
+
     class Meta:
         model = Album
         fields = '__all__'
+
+        labels = {
+            'title': 'Album title',
+            'artist': 'Artist(s)',
+            'music_group': 'Music group(s)',
+            'songs': 'Songs',
+            'released': 'Release date',
+            'summary': 'Summary',
+            'cover_image': 'Album cover',
+        }
+
+        widgets = {
+            'title': TextInput(attrs={'class': 'form-control'}),
+            'artist': SelectMultiple(attrs={'class': 'form-control'}),
+            'music_group': SelectMultiple(attrs={'class': 'form-control'}),
+            'songs': SelectMultiple(attrs={'class': 'form-control'}),
+            'summary': Textarea(attrs={'class': 'form-control', 'rows': 4}),
+            'cover_image': FileInput(attrs={'class': 'form-control'}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for visible in self.visible_fields():
+            if not isinstance(visible.field.widget, FileInput):
+                visible.field.widget.attrs['class'] = 'form-control'
+
+    def clean_title(self):
+        title = self.cleaned_data.get('title', '')
+        if not title:
+            raise ValidationError("Album title is required.")
+        title = title.strip()
+        if len(title) < 2:
+            raise ValidationError("Album title must be at least 2 characters long.")
+        if title.isupper():
+            title = title.capitalize()
+        else:
+            # Capitalize each sentence
+            title = re.sub(' +', ' ', title).strip().title()
+        return title
+
+    def clean_released(self):
+        released = self.cleaned_data.get('released')
+        if released:
+            if released > date.today():
+                raise ValidationError("Release date cannot be in the future.")
+            if released.year < 1880:
+                raise ValidationError("Albums before 1880 are not supported.")
+        return released
+
+    def clean_summary(self):
+        summary = self.cleaned_data.get('summary', '')
+        if summary:
+            summary = summary.strip()
+            if len(summary) < 10:
+                raise ValidationError("Summary must be at least 10 characters long.")
+            summary = '. '.join(s.strip().capitalize() for s in re.split(r'[.!?]', summary) if s.strip())
+        return summary
+
+    def clean_cover_image(self):
+        image = self.cleaned_data.get('cover_image')
+        if image:
+            if image.size > 2 * 1024 * 1024:
+                raise ValidationError("Image file size must be under 2MB.")
+            if not image.content_type in ['image/jpeg', 'image/png']:
+                raise ValidationError("Only JPEG and PNG formats are supported.")
+        return image
+
+    def clean(self):
+        cleaned_data = super().clean()
+        title = cleaned_data.get('title')
+        artists = cleaned_data.get('artist')
+        groups = cleaned_data.get('music_group')
+        songs = cleaned_data.get('songs')
+        released = cleaned_data.get('released')
+
+        errors = []
+
+        if not artists and not groups:
+            errors.append(ValidationError("At least one artist or music group must be selected."))
+
+        if not songs or len(songs) == 0:
+            errors.append(ValidationError("At least one song must be added to the album."))
+
+        if title and (title.lower() == "untitled"):
+            errors.append(ValidationError("Album title cannot be 'Untitled'."))
+
+        if released and released.year > date.today().year:
+            errors.append(ValidationError("Release year is invalid."))
+
+        if errors:
+            raise ValidationError(errors)
+
+        return cleaned_data
 
 
 class SongModelForm(ModelForm):

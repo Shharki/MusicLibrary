@@ -1,6 +1,6 @@
 from django.core.exceptions import ValidationError
 from django.db.models import Model, CharField, DateField, ForeignKey, TextField, SET_NULL, \
-    ManyToManyField, CASCADE, PositiveIntegerField, CheckConstraint, Q, Sum, ImageField
+    ManyToManyField, CASCADE, PositiveIntegerField, CheckConstraint, Q, Sum, ImageField, UniqueConstraint
 
 from viewer.utils import format_seconds
 
@@ -362,9 +362,12 @@ class AlbumSong(Model):
     order = PositiveIntegerField()
 
     class Meta:
-        unique_together = ('album', 'song')
         ordering = ['album__title', 'order']
         db_table = 'viewer_album_song'
+        constraints = [
+            UniqueConstraint(fields=['album', 'song'], name='unique_album_song'),
+            #UniqueConstraint(fields=['album', 'order'], name='unique_album_order'),
+         ]
 
     def __str__(self):
         return f"{self.album.title} - {self.order}. {self.song.title}"
