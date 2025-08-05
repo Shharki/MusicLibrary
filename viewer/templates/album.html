@@ -8,34 +8,55 @@
 <div class="container my-5">
     <div class="row justify-content-center">
         <div class="col-lg-10">
-            {# Main album title, centered and styled prominently #}
-            <h1 class="display-4 text-primary text-center">{{ album.title }}</h1>
 
-            {# Display artists and music groups involved, if any #}
+            <!-- Album title and edit/delete buttons for authenticated users -->
+            <h1 class="display-4 text-primary text-center">
+                {{ album.title }}
+                {% if user.is_authenticated %}
+                    <!-- Link to edit album -->
+                    <a href="{% url 'album_update' album.id %}"
+                       class="btn btn-outline-warning hover-item btn-sm ms-2"
+                       title="Edit album">✏️</a>
+                    <!-- Link to delete album -->
+                    <a href="{% url 'album_delete' album.id %}"
+                       class="btn btn-outline-danger hover-item btn-sm ms-2"
+                       title="Delete album">❌</a>
+                {% endif %}
+            </h1>
+
+            <!-- Show flash messages if any and user is authenticated -->
+            {% if user.is_authenticated and messages %}
+                <div class="my-3">
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <!-- Display album artists and music groups if available -->
             {% if album_artists or album_music_groups %}
                 <p class="fs-5 text-center text-muted mb-4">
                     by
-                    {# List artists with links separated by commas #}
                     {% for artist in album_artists %}
                         <a href="{% url 'contributor' artist.pk %}" class="hover-link fw-semibold">{{ artist }}</a>{% if not forloop.last or album_music_groups %}, {% endif %}
                     {% endfor %}
-                    {# List music groups similarly #}
                     {% for group in album_music_groups %}
                         <a href="{% url 'music-group' group.pk %}" class="hover-link fw-semibold">{{ group }}</a>{% if not forloop.last %}, {% endif %}
                     {% endfor %}
                 </p>
             {% endif %}
 
-            {# Outer wrapper for a subtle background and rounded corners with shadow #}
             <div class="bg-body-secondary rounded p-1 shadow-sm">
-                {# Inner white container with padding and shadow for content separation #}
                 <div class="bg-white rounded p-4 shadow-sm">
                     <div class="row">
-                        {# Left column: Album cover and basic metadata #}
-                        <div class="col-md-7 p-3">
+                        <!-- Left column: Album cover image and metadata -->
+                        <div class="col-md-6 p-3">
                             {% if album.cover_image %}
                                 <div class="text-start mb-3">
-                                    {# Responsive album cover image with rounded corners and shadow #}
+                                    <!-- Album cover image with responsive styling -->
                                     <img src="{{ album.cover_image.url }}"
                                          alt="Cover image for album {{ album.title }}"
                                          class="img-fluid rounded shadow"
@@ -43,14 +64,14 @@
                                 </div>
                             {% endif %}
 
-                            {# Genres displayed as badges with hover effect #}
+                            <!-- Genres badges or fallback text -->
                             <p><span class="header-custom">Genres: </span>
                                 {% for genre in genres %}
                                     <span class="badge hover-badge me-1">{{ genre }}</span>
                                 {% empty %} No genres {% endfor %}
                             </p>
 
-                            {# Conditional display of release year, total duration and languages #}
+                            <!-- Optional album details -->
                             {% if album.released %}
                                 <p><span class="header-custom">Released year: </span> {{ album.released.year }}</p>
                             {% endif %}
@@ -64,36 +85,67 @@
                             {% endif %}
                         </div>
 
-                        {# Right column: List of songs in the album, styled as a numbered list #}
-                        <div class="col-md-5 p-3">
-                            {% if songs %}
-                            <ol class="list-group list-group-numbered">
-                                <li class="text-center header-custom pb-2">Songs:</li>
-                                {# Each song is a clickable list-group item with hover effect #}
-                                {% for song in songs %}
-                                    <a href="{% url 'song' song.pk %}" class="list-group-item list-group-item-action hover-item d-block px-3 py-2">
-                                        {{ song.title }}
-                                    </a>
-                                {% empty %}
-                                    {# Fallback message if no songs are present #}
-                                    <div class="list-group-item text-muted">
-                                        There is no song in the database.
-                                    </div>
-                                {% endfor %}
-                            </ol>
-                            {% endif %}
+                        <!-- Right column: Song list with order editing for authenticated users -->
+                        <div class="col-md-6 p-3">
+                            {% if album_songs %}
+    <div class="card shadow-sm border-0">
+        <div class="card-header bg-primary text-white fw-semibold text-center">
+            Songs{% if user.is_authenticated %} – Edit Order{% endif %}
+        </div>
+        <div class="card-body p-0">
+            {% if user.is_authenticated %}
+                <form method="post" action="{% url 'album_song_order_update' album.pk %}" id="album-order-form">
+                    {% csrf_token %}
+                    <ul class="list-group list-group-flush">
+                        {% for album_song in album_songs %}
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <a href="{% url 'song' album_song.song.pk %}" class="flex-grow-1 text-decoration-none text-dark hover-item">
+                                    {{ album_song.song.title }}
+                                </a>
+                                <input type="number"
+                                       name="order_{{ album_song.song.pk }}"
+                                       value="{{ album_song.order }}"
+                                       min="1"
+                                       max="{{ album_songs|length }}"
+                                       class="form-control form-control-sm me-2"
+                                       style="width: 60px;" />
+                                <div class="btn-group ms-2">
+                                    <a href="{% url 'song_update' album_song.song.pk %}" class="btn btn-outline-warning btn-sm" title="Edit song">✏️</a>
+                                    <a href="{% url 'song_delete' album_song.song.pk %}" class="btn btn-outline-danger btn-sm" title="Delete song">❌</a>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <div class="text-end p-3">
+                        <button type="submit" class="btn btn-sm btn-primary">💾 Save order</button>
+                    </div>
+                </form>
+            {% else %}
+                <ul class="list-group list-group-flush">
+                    {% for album_song in album_songs %}
+                        <li class="list-group-item text-center">
+                            <a href="{% url 'song' album_song.song.pk %}" class="text-decoration-none hover-item">
+                                {{ album_song.order }}. {{ album_song.song.title }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+    </div>
+{% else %}
+    <div class="alert alert-secondary">There are no songs in this album.</div>
+{% endif %}
                         </div>
                     </div>
 
-                    {# Accordion for contributors and music groups, if available #}
+                    <!-- Contributors accordion section -->
                     {% if contributors_by_category or groups_by_role %}
                         <div class="accordion mt-4" id="contributorsAccordion">
-                            {# Loop through each contributor category (e.g. Performer, Writer) #}
                             {% for category, contributors in contributors_by_category.items %}
                                 {% if contributors %}
                                     <div class="accordion-item">
                                         <h2 class="accordion-header" id="heading-{{ forloop.counter }}">
-                                            {# Accordion toggle button with collapsed default and bold font #}
                                             <button class="accordion-button collapsed fw-semibold" type="button" data-bs-toggle="collapse"
                                                     data-bs-target="#collapse-{{ forloop.counter }}" aria-expanded="false"
                                                     aria-controls="collapse-{{ forloop.counter }}">
@@ -102,10 +154,8 @@
                                         </h2>
                                         <div id="collapse-{{ forloop.counter }}" class="accordion-collapse collapse"
                                              aria-labelledby="heading-{{ forloop.counter }}" data-bs-parent="#contributorsAccordion">
-                                            {# Accordion body with no padding for cleaner look #}
                                             <div class="accordion-body p-1">
                                                 <div class="list-group list-group-flush">
-                                                    {# List each contributor with their roles shown on the right #}
                                                     {% for contributor, roles in contributors %}
                                                         <div class="list-group-item px-3 py-2 d-flex justify-content-between align-items-center">
                                                             <a href="{% url 'contributor' contributor.pk %}" class="hover-link">{{ contributor }}</a>
@@ -119,7 +169,6 @@
                                 {% endif %}
                             {% endfor %}
 
-                            {# Accordion item for music groups with roles #}
                             {% if groups_by_role %}
                                 <div class="accordion-item">
                                     <h2 class="accordion-header" id="heading-groups">
@@ -133,7 +182,6 @@
                                          aria-labelledby="heading-groups" data-bs-parent="#contributorsAccordion">
                                         <div class="accordion-body p-0">
                                             <div class="list-group list-group-flush">
-                                                {# List all music groups with their roles in the album #}
                                                 {% for role, groups in groups_by_role.items %}
                                                     {% for group in groups %}
                                                         <div class="list-group-item px-3 py-1 d-flex justify-content-between align-items-center">
@@ -150,7 +198,7 @@
                         </div>
                     {% endif %}
 
-                    {# Album summary section if available #}
+                    <!-- Album summary section -->
                     {% if album.summary %}
                         <div class="mt-4">
                             <p class="header-custom">Summary:</p>
@@ -159,7 +207,82 @@
                     {% endif %}
                 </div>
             </div>
+
         </div>
     </div>
 </div>
+
+<!--
+    JavaScript section for client-side form validation
+    Checks:
+    1. All inputs are filled with valid positive numbers
+    2. No duplicate order numbers
+    3. No order number exceeds the max allowed (number of songs)
+-->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("album-order-form");
+    if (form) {
+        form.addEventListener("submit", function (event) {
+            const inputs = form.querySelectorAll("input[type='number']");
+            const maxAllowed = inputs.length;  // maximum order number allowed is count of inputs
+
+            let allFilled = true;          // flag for empty or invalid input
+            let hasDuplicates = false;     // flag for duplicate order numbers
+            let hasTooLargeValue = false;  // flag for numbers exceeding maxAllowed
+
+            const values = [];
+            const valueCount = {};
+
+            // Iterate over all inputs to validate values
+            inputs.forEach(input => {
+                const value = input.value.trim();
+                const number = Number(value);
+
+                // Check for empty, non-numeric, or non-positive values
+                if (!value || isNaN(number) || number <= 0) {
+                    allFilled = false;
+                    input.classList.add("is-invalid"); // visually mark invalid input
+                }
+                // Check if value exceeds max allowed number of songs
+                else if (number > maxAllowed) {
+                    hasTooLargeValue = true;
+                    input.classList.add("is-invalid");
+                }
+                else {
+                    input.classList.remove("is-invalid");
+                    values.push(value);
+                    valueCount[value] = (valueCount[value] || 0) + 1;
+                }
+            });
+
+            // Check for duplicates by counting occurrences of each value
+            for (const count of Object.values(valueCount)) {
+                if (count > 1) {
+                    hasDuplicates = true;
+                    break;
+                }
+            }
+
+            // If any validation fails, prevent form submission and alert user
+            if (!allFilled || hasDuplicates || hasTooLargeValue) {
+                event.preventDefault();
+
+                let message = "";
+                if (!allFilled) {
+                    message += "⚠️ Please fill in all album order fields with valid numbers.\n";
+                }
+                if (hasTooLargeValue) {
+                    message += `⚠️ Order numbers must not be greater than ${maxAllowed}.\n`;
+                }
+                if (hasDuplicates) {
+                    message += "⚠️ Duplicate order numbers are not allowed.";
+                }
+
+                alert(message);
+            }
+        });
+    }
+});
+</script>
 {% endblock %}

@@ -17,8 +17,7 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.contrib.auth.views import LoginView, LogoutView
-from django.urls import path
+from django.urls import path, include
 
 from viewer.views import (
     HomeView,
@@ -33,11 +32,12 @@ from viewer.views import (
     # Countries
     CountriesListView, CountryDetailView, CountryCreateView, CountryUpdateView, CountryDeleteView,
     # Genres
-    GenresListView, GenreDetailView, GenreCreateView, GenreUpdateView, GenreDeleteView,
+    GenresListView, GenreDetailView, GenreCreateView, GenreUpdateView, GenreDeleteView, album_song_order_update,
 )
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('accounts/', include('accounts.urls')),
     path('', HomeView.as_view(), name='home'),
 
     # Songs
@@ -60,6 +60,7 @@ urlpatterns = [
     path('album/create/', AlbumCreateView.as_view(), name='album_create'),
     path('album/update/<int:pk>/', AlbumUpdateView.as_view(), name='album_update'),
     path('album/delete/<int:pk>/', AlbumDeleteView.as_view(), name='album_delete'),
+    path('album/<int:album_pk>/songs/order/', album_song_order_update, name='album_song_order_update'),
 
     # Music Groups
     path('music-groups/', MusicGroupsListView.as_view(), name='music-groups'),
@@ -82,8 +83,6 @@ urlpatterns = [
     path('genre/update/<int:pk>/', GenreUpdateView.as_view(), name='genre_update'),
     path('genre/delete/<int:pk>/', GenreDeleteView.as_view(), name='genre_delete'),
 
-    path('accounts/login/', LoginView.as_view(template_name='form.html'), name='login'),
-    path('accounts/logout/', LogoutView.as_view(), name='logout'),
 ]
 
 if settings.DEBUG:

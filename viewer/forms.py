@@ -3,7 +3,7 @@ from datetime import date
 
 from django.core.exceptions import ValidationError
 from django.forms import ModelForm, TextInput, CharField, DateInput, DateField
-from django.forms.widgets import Select, Textarea, SelectMultiple, FileInput, NumberInput
+from django.forms.widgets import Select, Textarea, SelectMultiple, ClearableFileInput, FileInput, NumberInput
 from django.utils.timezone import now
 
 from viewer.models import Genre, Country, Contributor, MusicGroup, Album, Song, Language

@@ -76,9 +76,10 @@
                             <li>
                                 <form method="post" action="{% url 'logout' %}">
                                     {% csrf_token %}
-                                    <button type="submit" class="dropdown-item">Sign out</button>
+                                    <button type="submit" class="dropdown-item">Log out</button>
                                 </form>
                             </li>
+                            <a class="dropdown-item" href="{% url 'password_change' %}">Password change</a>
                         </ul>
                     {% else %}
                         <a class="nav-link dropdown-toggle" href="#" id="guestDropdown" role="button"
@@ -86,7 +87,9 @@
                             Not signed in
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="guestDropdown">
-                            <li><a class="dropdown-item" href="{% url 'login' %}">Sign in</a></li>
+                            <li><a href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#loginModal">Log in</a></li>
+                            <li><a class="dropdown-item" href="{% url 'signup' %}">Sign up</a></li>
+                            <li><a class="dropdown-item" href="{% url 'password_reset' %}">Password reset</a></li>
                         </ul>
                     {% endif %}
                 </li>
