@@ -2,6 +2,7 @@ import os
 
 from django.conf import settings
 from django.db.models import Q
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, TemplateView, CreateView, UpdateView, DeleteView
 
@@ -9,7 +10,7 @@ from viewer.forms import (
     GenreModelForm, CountryModelForm, ContributorModelForm, MusicGroupModelForm, SongModelForm, AlbumModelForm
 )
 from viewer.models import (
-    Song, Contributor, Album, Genre, MusicGroup, Country
+    Song, Contributor, Album, Genre, MusicGroup, Country, AlbumSong
 )
 
 
@@ -205,16 +206,48 @@ class AlbumDetailView(DetailView):
 
 
 class AlbumCreateView(CreateView):
-    template_name = 'form.html'
+    model = Album
     form_class = AlbumModelForm
+    template_name = 'form.html'
     success_url = reverse_lazy('albums')
 
+    def form_valid(self, form):
+        response = super().form_valid(form)     # First save the album itself (without songs)
+        album = self.object
+        songs = form.cleaned_data.get('songs')
+        album.albumsong_set.all().delete()
+
+        for index, song in enumerate(songs):
+            AlbumSong.objects.create(album=album, song=song, order=index)
+
+        return response
+
+    def album_create_view(request):
+        if request.method == 'POST':
+            form = AlbumModelForm(request.POST, request.FILES)  # ← DŮLEŽITÉ!
+            if form.is_valid():
+                form.save()
+                return redirect('album')
+        else:
+            form = AlbumModelForm()
+        return render(request, 'viewer/album_form.html', {'form': form})
 
 class AlbumUpdateView(UpdateView):
     template_name = 'form.html'
     form_class = AlbumModelForm
     model = Album
     success_url = reverse_lazy('albums')
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        album = self.object
+        songs = form.cleaned_data.get('songs')
+        album.albumsong_set.all().delete()
+
+        for index, song in enumerate(songs):
+            AlbumSong.objects.create(album=album, song=song, order=index)
+
+        return response
 
     def form_invalid(self, form):
         print('Form invalid')
