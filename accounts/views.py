@@ -24,14 +24,20 @@ class SignUpView(CreateView):
 
 
 class MyLogoutView(LogoutView):
-    def dispatch(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         logout(request)
-        return redirect('/')
+        # Bezpečně použij referer nebo fallback "/"
+        next_page = request.META.get('HTTP_REFERER') or '/'
+        return redirect(next_page)
 
 
 class MyLoginView(LoginView):
-    template_name = 'base.html'  # renderujeme base.html, kde je modal
+    template_name = 'form.html'
     authentication_form = AuthenticationForm
+    extra_context = {
+        'title': 'Login',
+        'button_label': 'Log in',
+    }
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

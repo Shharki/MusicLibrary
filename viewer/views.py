@@ -6,15 +6,19 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db import transaction
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect, render
-from django.urls import reverse_lazy
+from django.urls import reverse, reverse_lazy
+from django.utils.decorators import method_decorator
+from django.views import View
 from django.views.decorators.http import require_POST
 from django.views.generic import ListView, DetailView, TemplateView, CreateView, UpdateView, DeleteView
 
 from viewer.forms import (
-    GenreModelForm, CountryModelForm, ContributorModelForm, MusicGroupModelForm, SongModelForm, AlbumModelForm
+    GenreModelForm, CountryModelForm, ContributorModelForm, MusicGroupModelForm, SongModelForm, AlbumModelForm,
+    ContributorSongPerformanceForm, MusicGroupMembershipForm
 )
 from viewer.models import (
-    Song, Contributor, Album, Genre, Country, AlbumSong, MusicGroup,
+    Song, Contributor, Album, Genre, Country, AlbumSong, MusicGroup, ContributorRole, MusicGroupMembership,
+    SongPerformance,
 )
 
 
@@ -97,13 +101,13 @@ class SongDetailView(DetailView):
         return context
 
 
-class SongCreateView(CreateView):
+class SongCreateView(LoginRequiredMixin, CreateView):
     template_name = 'form.html'
     form_class = SongModelForm
     success_url = reverse_lazy('songs')
 
 
-class SongUpdateView(UpdateView):
+class SongUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'form.html'
     form_class = SongModelForm
     model = Song
@@ -114,44 +118,104 @@ class SongUpdateView(UpdateView):
         return super().form_invalid(form)
 
 
-class SongDeleteView(DeleteView):
+class SongDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'confirm_delete.html'
     model = Song
     success_url = reverse_lazy('songs')
 
 
 # Contributor Views
+from django.views.generic import TemplateView
+from django.db.models import Q
+from django.core.paginator import Paginator
+
+from django.views.generic import TemplateView
+from django.core.paginator import Paginator
+from django.db.models import Q
+from .models import Contributor
+
 class ContributorsListView(TemplateView):
     template_name = 'contributors.html'
+    paginate_per_column = 5  # výchozí počet položek na sloupec
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        context['performers'] = Contributor.objects.filter(
-            song_performances__contributor_role__category='performer'
-        ).distinct()
+        letter = self.request.GET.get('letter')
 
-        context['producers'] = Contributor.objects.filter(
-            song_performances__contributor_role__category='producer'
-        ).distinct()
+        # Zkus načíst počet položek na sloupec z GET parametru
+        try:
+            self.paginate_per_column = int(self.request.GET.get('paginate_per_column', self.paginate_per_column))
+        except (ValueError, TypeError):
+            pass  # když je hodnota špatná, použij výchozí
 
-        context['writers'] = Contributor.objects.filter(
-            song_performances__contributor_role__category='writer'
-        ).distinct()
+        def get_paginated_contributors(category, page_param):
+            qs = Contributor.objects.all().prefetch_related('song_performances__contributor_role')
+            if category == 'without_role':
+                qs = qs.exclude(song_performances__isnull=False)
+            else:
+                qs = qs.filter(song_performances__contributor_role__category=category)
 
-        context['publishers'] = Contributor.objects.filter(
-            song_performances__contributor_role__category='publisher'
-        ).distinct()
+            if letter:
+                qs = qs.filter(
+                    Q(first_name__istartswith=letter) |
+                    Q(last_name__istartswith=letter) |
+                    Q(stage_name__istartswith=letter)
+                )
 
-        context['others'] = Contributor.objects.filter(
-            song_performances__contributor_role__category='other'
-        ).distinct()
+            qs = qs.distinct().order_by('last_name', 'first_name')
 
-        context['without_role'] = Contributor.objects.exclude(
-            Q(song_performances__isnull=False)
-        ).distinct()
+            paginator = Paginator(qs, self.paginate_per_column)
+            page_number = self.request.GET.get(page_param)
+            page_obj = paginator.get_page(page_number)
+
+            # Přidej ke každému contributorovi atribut role_names jako string s jejich rolemi
+            for contributor in page_obj.object_list:
+                roles = contributor.song_performances.values_list('contributor_role__name', flat=True).distinct()
+                contributor.role_names = ', '.join(sorted(set(roles))) if roles else '—'
+
+            return page_obj, paginator
+
+        performers_page_obj, performers_paginator = get_paginated_contributors('performer', 'page_performer')
+        producers_page_obj, producers_paginator = get_paginated_contributors('producer', 'page_producer')
+        writers_page_obj, writers_paginator = get_paginated_contributors('writer', 'page_writer')
+        publishers_page_obj, publishers_paginator = get_paginated_contributors('publisher', 'page_publisher')
+        others_page_obj, others_paginator = get_paginated_contributors('other', 'page_other')
+        without_role_page_obj, without_role_paginator = get_paginated_contributors('without_role', 'page_without_role')
+
+        context.update({
+            'letter': letter,
+            'alphabet': list("ABCDEFGHIJKLMNOPQRSTUVWXYZ"),
+            'paginate_per_column': self.paginate_per_column,
+            'pagination_options': [5, 10, 20],
+
+            'performers': performers_page_obj.object_list,
+            'performers_page_obj': performers_page_obj,
+            'performers_paginator': performers_paginator,
+
+            'producers': producers_page_obj.object_list,
+            'producers_page_obj': producers_page_obj,
+            'producers_paginator': producers_paginator,
+
+            'writers': writers_page_obj.object_list,
+            'writers_page_obj': writers_page_obj,
+            'writers_paginator': writers_paginator,
+
+            'publishers': publishers_page_obj.object_list,
+            'publishers_page_obj': publishers_page_obj,
+            'publishers_paginator': publishers_paginator,
+
+            'others': others_page_obj.object_list,
+            'others_page_obj': others_page_obj,
+            'others_paginator': others_paginator,
+
+            'without_role': without_role_page_obj.object_list,
+            'without_role_page_obj': without_role_page_obj,
+            'without_role_paginator': without_role_paginator,
+        })
 
         return context
+
 
 
 class ContributorDetailView(DetailView):
@@ -163,28 +227,39 @@ class ContributorDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         contributor = self.object
 
-        songs = contributor.songs.all()  # Songs in which he participated
-        albums = contributor.albums.all()  # Albums he has contributed to (optional)
-        memberships = contributor.memberships.select_related('music_group').all()  # Group membership (optional)
+        # SongPerformances pro daného contributora, eager load pro role a song
+        song_performances = SongPerformance.objects.filter(contributor=contributor).select_related('song', 'contributor_role')
 
+        # Seskupit podle role.category, hodnoty budou SongPerformance instance
+        songs_by_category = {}
+        for perf in song_performances:
+            category = perf.contributor_role.category if perf.contributor_role else 'other'
+            songs_by_category.setdefault(category, []).append(perf)
+
+        # Ostatní data (můžeš zachovat)
+        songs = contributor.songs.all()
+        albums = contributor.albums.all()
+        memberships = contributor.memberships.select_related('music_group').all()
 
         context.update({
             'songs': songs,
             'albums': albums,
             'memberships': memberships,
-            'songs_by_category': contributor.songs_grouped_by_category(),
+            'songs_by_category': songs_by_category,
+            'song_performances': song_performances,
         })
 
         return context
 
 
-class ContributorCreateView(CreateView):
+
+class ContributorCreateView(LoginRequiredMixin, CreateView):
     template_name = 'form.html'
     form_class = ContributorModelForm
     success_url = reverse_lazy('contributors')
 
 
-class ContributorUpdateView(UpdateView):
+class ContributorUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'form.html'
     form_class = ContributorModelForm
     model = Contributor
@@ -195,7 +270,7 @@ class ContributorUpdateView(UpdateView):
         return super().form_invalid(form)
 
 
-class ContributorDeleteView(DeleteView):
+class ContributorDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'confirm_delete.html'
     model = Contributor
     success_url = reverse_lazy('contributors')
@@ -269,7 +344,7 @@ class AlbumDetailView(DetailView):
         return context
 
 
-class AlbumCreateView(CreateView):
+class AlbumCreateView(LoginRequiredMixin, CreateView):
     model = Album
     form_class = AlbumModelForm
     template_name = 'form.html'
@@ -304,7 +379,7 @@ class AlbumCreateView(CreateView):
         return redirect(self.get_success_url())
 
 
-class AlbumUpdateView(UpdateView):
+class AlbumUpdateView(LoginRequiredMixin, UpdateView):
     model = Album
     form_class = AlbumModelForm
     template_name = 'form.html'
@@ -336,15 +411,59 @@ class AlbumUpdateView(UpdateView):
         return redirect(self.get_success_url())
 
 
-class AlbumDeleteView(DeleteView):
+class AlbumDeleteView(LoginRequiredMixin, DeleteView):
     model = Album
     template_name = 'confirm_delete.html'
     success_url = reverse_lazy('albums')
 
 
-# Music Group Views
-from django.views.generic import ListView
-from .models import MusicGroup  # uprav podle své appky a modelu
+class AlbumSongOrderUpdateView(LoginRequiredMixin, View):
+
+    @method_decorator(require_POST)
+    def post(self, request, album_pk):
+        album = get_object_or_404(Album, pk=album_pk)
+        album_songs = list(AlbumSong.objects.filter(album=album))
+        max_order = len(album_songs)
+
+        new_orders = {}
+        errors = []
+
+        for album_song in album_songs:
+            field_name = f'order_{album_song.song.pk}'
+            value = request.POST.get(field_name)
+
+            if value is None:
+                errors.append(f"Missing order for song '{album_song.song.title}'.")
+                continue
+
+            try:
+                order_num = int(value)
+                if order_num < 1 or order_num > max_order:
+                    errors.append(f"Order for song '{album_song.song.title}' must be between 1 and {max_order}.")
+                    continue
+                new_orders[album_song.song.pk] = order_num
+            except ValueError:
+                errors.append(f"Invalid order value for song '{album_song.song.title}'.")
+
+        orders_list = list(new_orders.values())
+        if len(orders_list) != len(set(orders_list)):
+            errors.append("Duplicate order numbers are not allowed.")
+
+        if errors:
+            for error in errors:
+                messages.error(request, error)
+            return redirect('album', pk=album.pk)
+
+        with transaction.atomic():
+            for album_song in album_songs:
+                new_order = new_orders.get(album_song.song.pk)
+                if new_order is not None and new_order != album_song.order:
+                    album_song.order = new_order
+                    album_song.save()
+
+        messages.success(request, "Song order updated successfully.")
+        return redirect('album', pk=album.pk)
+
 
 class MusicGroupsListView(ListView):
     model = MusicGroup
@@ -378,20 +497,19 @@ class MusicGroupsListView(ListView):
         return context
 
 
-
 class MusicGroupDetailView(DetailView):
     template_name = 'music-group.html'
     model = MusicGroup
     context_object_name = 'music_group'
 
 
-class MusicGroupCreateView(CreateView):
+class MusicGroupCreateView(LoginRequiredMixin, CreateView):
     template_name = 'form.html'
     form_class = MusicGroupModelForm
     success_url = reverse_lazy('music-groups')
 
 
-class MusicGroupUpdateView(UpdateView):
+class MusicGroupUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'form.html'
     form_class = MusicGroupModelForm
     model = MusicGroup
@@ -402,7 +520,7 @@ class MusicGroupUpdateView(UpdateView):
         return super().form_invalid(form)
 
 
-class MusicGroupDeleteView(DeleteView):
+class MusicGroupDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'confirm_delete.html'
     model = MusicGroup
     success_url = reverse_lazy('music-groups')
@@ -421,13 +539,13 @@ class CountryDetailView(LoginRequiredMixin, DetailView):
     context_object_name = 'country'
 
 
-class CountryCreateView(CreateView):
+class CountryCreateView(LoginRequiredMixin, CreateView):
     template_name = 'form.html'
     form_class = CountryModelForm
     success_url = reverse_lazy('countries')
 
 
-class CountryUpdateView(UpdateView):
+class CountryUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'form.html'
     form_class = CountryModelForm
     model = Country
@@ -438,7 +556,7 @@ class CountryUpdateView(UpdateView):
         return super().form_invalid(form)
 
 
-class CountryDeleteView(DeleteView):
+class CountryDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'confirm_delete.html'
     model = Country
     success_url = reverse_lazy('countries')
@@ -457,7 +575,7 @@ class GenreDetailView(LoginRequiredMixin, DetailView):
     context_object_name = 'genre'
 
 
-class GenreCreateView(CreateView):
+class GenreCreateView(LoginRequiredMixin, CreateView):
     template_name = 'form.html'  # Reusable form template
     form_class = GenreModelForm     # Use custom form with validation
     success_url = reverse_lazy('genres')  # Redirect after success
@@ -465,7 +583,7 @@ class GenreCreateView(CreateView):
     # form_valid is not needed --> CreateView handles saving
 
 
-class GenreUpdateView(UpdateView):
+class GenreUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'form.html'
     form_class = GenreModelForm
     model = Genre
@@ -476,64 +594,88 @@ class GenreUpdateView(UpdateView):
         return super().form_invalid(form)
 
 
-class GenreDeleteView(DeleteView):
+class GenreDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'confirm_delete.html'
     model = Genre
     success_url = reverse_lazy('genres')
 
 
-@require_POST
-def album_song_order_update(request, album_pk):
-    album = get_object_or_404(Album, pk=album_pk)
+class ContributorRoleUpdateView(UpdateView):
+    model = ContributorRole
+    fields = ['name', 'category']
+    template_name = 'form.html'
+    success_url = reverse_lazy('contributors')
 
-    # Načteme všechny AlbumSong záznamy pro dané album
-    album_songs = list(AlbumSong.objects.filter(album=album))
+class ContributorRoleDeleteView(DeleteView):
+    model = ContributorRole
+    template_name = 'confirm_delete.html'
+    success_url = reverse_lazy('contributors')
 
-    # Počet písní v albu
-    max_order = len(album_songs)
+class MusicGroupMembershipCreateView(CreateView):
+    model = MusicGroupMembership
+    form_class = MusicGroupMembershipForm
+    template_name = 'form.html'
 
-    # Slovník song_id -> new_order z POST
-    new_orders = {}
+    def get_success_url(self):
+        return reverse_lazy('contributor', kwargs={'pk': self.object.member.pk})
 
-    # Pro sběr chyb
-    errors = []
+    def form_valid(self, form):
+        contributor_pk = self.kwargs['contributor_pk']
+        contributor = Contributor.objects.get(pk=contributor_pk)
+        form.instance.member = contributor  # nastavím member přímo
+        return super().form_valid(form)
 
-    # Načteme a validujeme všechny ordery z POST dat
-    for album_song in album_songs:
-        field_name = f'order_{album_song.song.pk}'
-        value = request.POST.get(field_name)
 
-        if value is None:
-            errors.append(f"Missing order for song '{album_song.song.title}'.")
-            continue
+class MusicGroupMembershipUpdateView(UpdateView):
+    model = MusicGroupMembership
+    form_class = MusicGroupMembershipForm
+    template_name = 'form.html'
 
-        try:
-            order_num = int(value)
-            if order_num < 1 or order_num > max_order:
-                errors.append(f"Order for song '{album_song.song.title}' must be between 1 and {max_order}.")
-                continue
-            new_orders[album_song.song.pk] = order_num
-        except ValueError:
-            errors.append(f"Invalid order value for song '{album_song.song.title}'.")
+    def get_success_url(self):
+        return reverse_lazy('contributor', kwargs={'pk': self.object.member.pk})
 
-    # Zkontrolujeme duplicity mezi novými pořadími
-    orders_list = list(new_orders.values())
-    if len(orders_list) != len(set(orders_list)):
-        errors.append("Duplicate order numbers are not allowed.")
 
-    # Pokud máme chyby, zobrazíme je uživateli a neprovedeme změny
-    if errors:
-        for error in errors:
-            messages.error(request, error)
-        return redirect('album', pk=album.pk)
+class MusicGroupMembershipDeleteView(DeleteView):
+    model = MusicGroupMembership
+    template_name = 'confirm_delete.html'
 
-    # Pokud validace prošla, uložíme změny atomicky
-    with transaction.atomic():
-        for album_song in album_songs:
-            new_order = new_orders.get(album_song.song.pk)
-            if new_order is not None and new_order != album_song.order:
-                album_song.order = new_order
-                album_song.save()
+    def get_success_url(self):
+        return reverse_lazy('contributor', kwargs={'pk': self.object.member.pk})
 
-    messages.success(request, "Song order updated successfully.")
-    return redirect('album', pk=album.pk)
+
+class ContributorSongPerformanceCreateView(CreateView):
+    model = SongPerformance
+    form_class = ContributorSongPerformanceForm
+    template_name = 'form.html'
+
+    def get_initial(self):
+        # Předvyplníme contributor do formuláře (např. hidden field nebo readonly)
+        initial = super().get_initial()
+        initial['contributor'] = self.kwargs['contributor_pk']
+        return initial
+
+    def get_success_url(self):
+        return reverse('contributor', kwargs={'pk': self.kwargs['contributor_pk']})
+
+    def form_valid(self, form):
+        # Ujistíme se, že contributor bude vždy ten správný z URL,
+        # a ne něco, co by mohl uživatel odeslat v POSTu
+        contributor_pk = self.kwargs['contributor_pk']
+        contributor = Contributor.objects.get(pk=contributor_pk)
+        form.instance.contributor = contributor
+        return super().form_valid(form)
+
+
+class ContributorSongPerformanceUpdateView(UpdateView):
+    model = SongPerformance
+    form_class = ContributorSongPerformanceForm
+    template_name = 'form.html'
+    success_url = reverse_lazy('contributors')
+
+
+class ContributorSongPerformanceDeleteView(DeleteView):
+    model = ContributorRole
+    template_name = 'confirm_delete.html'
+    success_url = reverse_lazy('contributors')
+
+

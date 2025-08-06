@@ -7,7 +7,7 @@ from accounts.views import (
 )
 
 urlpatterns = [
-path('login/', MyLoginView.as_view(), name='login'),
+path('login/', MyLoginView.as_view(template_name="form.html"), name='login'),
 
 # Custom Logout through Form with working HTTP_REFERER. Safer because of csrf token.
 path('logout/', MyLogoutView.as_view(), name='logout'),

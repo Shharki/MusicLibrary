@@ -115,3 +115,8 @@ html[data-bs-theme="light"] body {
 .footer-no-wrap {
     white-space: nowrap;
 }
+
+/* Break long words in list-items to next line */
+.list-group-item a {
+  word-break: break-word;
+}

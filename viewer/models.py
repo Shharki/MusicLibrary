@@ -82,22 +82,16 @@ class Contributor(Model):
         return f"Contributor({self.__str__()})"
 
     def songs_grouped_by_category(self):
-        """
-        Vrátí dict: kategorie => [(song, role)]
-        """
         performances = self.song_performances.select_related('song', 'contributor_role')
         result = {}
-
         for perf in performances:
             if perf.contributor_role and perf.song:
-                category = perf.contributor_role.category
-                role = perf.contributor_role.name
+                cat = perf.contributor_role.category
+                role = perf.contributor_role  # skutečný objekt, ne jen jméno
                 song = perf.song
-
-                if category not in result:
-                    result[category] = []
-                result[category].append((song, role))
-
+                if cat not in result:
+                    result[cat] = []
+                result[cat].append((song, role))
         return result
 
 

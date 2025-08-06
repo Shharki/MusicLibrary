@@ -6,24 +6,26 @@
 {% endblock %}
 
 {% block content %}
-    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 py-5">
-        {% for album in albums %}
-            <div class="col">
-                <a href="{% url 'album' album.pk %}" class="text-decoration-none">
-                    <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg"
-                         style="background-image: url('{{ album.image_url }}'); background-size: cover; background-position: center;">
-                        <div class="d-flex flex-column h-100 p-4 text-white text-shadow-1">
-                            <h3 class="mt-auto mb-2 display-6 lh-1 fw-bold card-title-custom">{{ album.title }}</h3>
-                            <div class="d-flex justify-content-between small">
+    <div class="container my-5">
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 py-5">
+            {% for album in albums %}
+                <div class="col">
+                    <a href="{% url 'album' album.pk %}" class="text-decoration-none">
+                        <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg"
+                             style="background-image: url('{{ album.image_url }}'); background-size: cover; background-position: center;">
+                            <div class="d-flex flex-column h-100 p-4 text-white text-shadow-1">
+                                <h3 class="mt-auto mb-2 display-6 lh-1 fw-bold card-title-custom">{{ album.title }}</h3>
+                                <div class="d-flex justify-content-between small">
                                 <span>{% with artists=album.artist.all %}
                                     {{ artists|join:", " }}
                                 {% endwith %}</span>
-                                <span class="fw-bold text-light card-year-custom">{{ album.released|date:"Y" }}</span>
+                                    <span class="fw-bold text-light card-year-custom">{{ album.released|date:"Y" }}</span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </a>
-            </div>
-        {% endfor %}
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
     </div>
 {% endblock %}

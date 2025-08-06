@@ -5,217 +5,221 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container my-5 col-md-8">
-        {# Main header with contributor name, centered and large font #}
-        <h1 class="display-3 text-primary text-center mb-4">{{ contributor }}</h1>
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-9 col-lg-8 col-xl-7 col-xxl-6">
 
-        {# Show stage name if available, styled and centered #}
-        {% if contributor.stage_name %}
-            <p class="fs-5 text-center mb-4 text-muted">
-                Stage name: <span class="fw-semibold">{{ contributor.stage_name }}</span>
-            </p>
-        {% endif %}
-
-        {# Contributor info card with full name and optional details #}
-        <div class="card mb-4">
-            <div class="card-body">
-                <p>
-                    <span class="header-custom">Full name:</span>
-                    {{ contributor.first_name }}
-                    {% if contributor.middle_name %} {{ contributor.middle_name }}{% endif %}
-                    {{ contributor.last_name }}
-                </p>
-
-                {# Previous names list if exists, separated by commas #}
-                {% if contributor.previous_names.exists %}
-                    <p>
-                        <span class="header-custom">Previous names:</span>
-                        {% for name in contributor.previous_names.all %}
-                            {{ name }}{% if not forloop.last %}, {% endif %}
-                        {% endfor %}
-                    </p>
-                {% endif %}
-
-                {# Display birth date if provided #}
-                {% if contributor.date_of_birth %}
-                    <p><span class="header-custom">Born:</span> {{ contributor.date_of_birth }}</p>
-                {% endif %}
-
-                {# Display death date if provided #}
-                {% if contributor.date_of_death %}
-                    <p><span class="header-custom">Died:</span> {{ contributor.date_of_death }}</p>
-                {% endif %}
-
-                {# Display country if provided #}
-                {% if contributor.country %}
-                    <p><span class="header-custom">Country:</span> {{ contributor.country }}</p>
+            <!-- Nadpis s jménem přispěvatele -->
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h1 class="display-3 text-primary text-center mb-0">{{ contributor }}</h1>
+                {% if user.is_authenticated %}
+                <div class="btn-group">
+                    <a href="{% url 'contributor_update' contributor.pk %}" class="btn btn-outline-warning btn-sm" title="Edit contributor">✏️</a>
+                    <a href="{% url 'contributor_delete' contributor.pk %}" class="btn btn-outline-danger btn-sm" title="Delete contributor">❌</a>
+                </div>
                 {% endif %}
             </div>
-        </div>
-    </div>
 
-    <div class="container my-5">
-        <div class="row">
+            <!-- Stage name, pokud existuje -->
+            {% if contributor.stage_name %}
+                <p class="fs-5 text-center mb-4 text-muted">
+                    Stage name: <span class="fw-semibold">{{ contributor.stage_name }}</span>
+                </p>
+            {% endif %}
 
-            {# Left column: Featured accordion card with songs, albums, and memberships #}
-            <div class="col-md-6 mb-4">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <h5 class="card-title fw-semibold pb-1">Featured</h5>
-                        <div class="accordion" id="featuredAccordion">
+            <!-- Info karta -->
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <p><strong>Full name:</strong>
+                        {{ contributor.first_name }}
+                        {% if contributor.middle_name %} {{ contributor.middle_name }}{% endif %}
+                        {{ contributor.last_name }}
+                    </p>
 
-                            {# Accordion item for songs if any #}
-                            {% if songs %}
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="heading-featured-songs">
-                                        <button class="accordion-button collapsed fw-semibold" type="button"
-                                                data-bs-toggle="collapse"
-                                                data-bs-target="#collapse-featured-songs" aria-expanded="false"
-                                                aria-controls="collapse-featured-songs">
-                                            Songs
-                                        </button>
-                                    </h2>
-                                    <div id="collapse-featured-songs" class="accordion-collapse collapse"
-                                         aria-labelledby="heading-featured-songs" data-bs-parent="#featuredAccordion">
-                                        <div class="accordion-body p-0">
-                                            <div class="list-group list-group-flush">
-                                                {% for song in songs %}
-                                                    <a href="{% url 'song' song.pk %}"
-                                                       class="list-group-item list-group-item-action text-decoration-none hover-item">
-                                                        {{ song }}
-                                                    </a>
-                                                {% endfor %}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            {% endif %}
+                    {% if contributor.previous_names.exists %}
+                        <p><strong>Previous names:</strong>
+                            {% for name in contributor.previous_names.all %}
+                                {{ name }}{% if not forloop.last %}, {% endif %}
+                            {% endfor %}
+                        </p>
+                    {% endif %}
 
-                            {# Accordion item for albums if any #}
-                            {% if albums %}
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="heading-featured-albums">
-                                        <button class="accordion-button collapsed fw-semibold" type="button"
-                                                data-bs-toggle="collapse"
-                                                data-bs-target="#collapse-featured-albums" aria-expanded="false"
-                                                aria-controls="collapse-featured-albums">
-                                            Albums
-                                        </button>
-                                    </h2>
-                                    <div id="collapse-featured-albums" class="accordion-collapse collapse"
-                                         aria-labelledby="heading-featured-albums" data-bs-parent="#featuredAccordion">
-                                        <div class="accordion-body p-0">
-                                            <div class="list-group list-group-flush">
-                                                {% for album in albums %}
-                                                    <a href="{% url 'album' album.pk %}"
-                                                       class="list-group-item list-group-item-action text-decoration-none hover-item">
-                                                        {{ album }}
-                                                    </a>
-                                                {% endfor %}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            {% endif %}
+                    {% if contributor.date_of_birth %}
+                        <p><strong>Born:</strong> {{ contributor.date_of_birth|date:"j. M Y" }}</p>
+                    {% endif %}
 
-                            {# Accordion item for music group memberships if any #}
-                            {% if memberships %}
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="heading-featured-groups">
-                                        <button class="accordion-button collapsed fw-semibold" type="button"
-                                                data-bs-toggle="collapse"
-                                                data-bs-target="#collapse-featured-groups" aria-expanded="false"
-                                                aria-controls="collapse-featured-groups">
-                                            Member of music groups
-                                        </button>
-                                    </h2>
-                                    <div id="collapse-featured-groups" class="accordion-collapse collapse"
-                                         aria-labelledby="heading-featured-groups" data-bs-parent="#featuredAccordion">
-                                        <div class="accordion-body p-0">
-                                            <div class="list-group list-group-flush">
-                                                {% for membership in memberships %}
-                                                    <a href="{% url 'music-group' membership.music_group.pk %}"
-                                                       class="list-group-item list-group-item-action text-decoration-none hover-item">
-                                                        {{ membership.music_group.name }}
-                                                    </a>
-                                                {% endfor %}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            {% endif %}
-                        </div>
-                    </div>
+                    {% if contributor.date_of_death %}
+                        <p><strong>Died:</strong> {{ contributor.date_of_death|date:"j. M Y" }}</p>
+                    {% endif %}
+
+                    {% if contributor.country %}
+                        <p><strong>Country:</strong> {{ contributor.country }}</p>
+                    {% endif %}
                 </div>
             </div>
 
-            {# Right column: Accordion for contributions by role category #}
-            <div class="col-md-6 mb-4">
-                {% if songs_by_category %}
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h5 class="card-title fw-semibold pb-1">Contributions</h5>
-                            <div class="accordion" id="contributorRolesAccordion">
+        </div>
+    </div>
 
-                                {# Loop over categories and their songs #}
-                                {% for category, songs in songs_by_category.items %}
-                                    <div class="accordion-item">
-                                        <h2 class="accordion-header" id="heading-{{ category }}">
-                                            <button class="accordion-button collapsed fw-semibold" type="button"
-                                                    data-bs-toggle="collapse"
-                                                    data-bs-target="#collapse-{{ category }}" aria-expanded="false"
-                                                    aria-controls="collapse-{{ category }}">
-                                                {# Map category to user-friendly labels #}
-                                                {% if category == 'performer' %}
-                                                    Performing in
-                                                {% elif category == 'writer' %}
-                                                    Writing in
-                                                {% elif category == 'producer' %}
-                                                    Producing in
-                                                {% elif category == 'publisher' %}
-                                                    Publishing in
-                                                {% else %}
-                                                    Other contributions in
-                                                {% endif %}
-                                            </button>
-                                        </h2>
-                                        <div id="collapse-{{ category }}" class="accordion-collapse collapse"
-                                             aria-labelledby="heading-{{ category }}"
-                                             data-bs-parent="#contributorRolesAccordion">
-                                            <div class="accordion-body p-0">
-                                                <div class="list-group list-group-flush ms-3">
+    <div class="row g-4">
 
-                                                    {# List songs with roles on the right side #}
-                                                    {% for song, role in songs %}
-                                                        <div class="list-group-item d-flex justify-content-between align-items-center">
-                                                            <a href="{% url 'song' song.pk %}"
-                                                               class="text-decoration-none hover-item">
-                                                                {{ song.title }}
-                                                            </a>
-                                                            <small class="text-muted ms-2">({{ role }})</small>
-                                                        </div>
-                                                    {% endfor %}
+        <!-- Levý sloupec: Featured (písně, alba, členství) -->
+        <div class="col-12 col-md-6">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title fw-semibold pb-3 d-flex justify-content-between align-items-center">
+                      Featured
+                      {% if user.is_authenticated %}
+                      <a href="{% url 'music-group-membership_create' contributor.pk %}" class="btn btn-sm btn-outline-primary">
+                        + Add music group membership
+                      </a>
+                      {% endif %}
+                    </h5>
+                    <div class="accordion" id="featuredAccordion">
 
-                                                </div>
-                                            </div>
-                                        </div>
+                        {% if songs %}
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingSongs">
+                                <button class="accordion-button collapsed fw-semibold" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseSongs" aria-expanded="false" aria-controls="collapseSongs">
+                                    Songs
+                                </button>
+                            </h2>
+                            <div id="collapseSongs" class="accordion-collapse collapse" aria-labelledby="headingSongs" data-bs-parent="#featuredAccordion">
+                                <div class="accordion-body p-0">
+                                    <div class="list-group list-group-flush">
+                                        {% for song in songs %}
+                                        <a href="{% url 'song' song.pk %}" class="list-group-item list-group-item-action text-decoration-none hover-item">
+                                            {{ song }}
+                                        </a>
+                                        {% endfor %}
                                     </div>
-                                {% endfor %}
+                                </div>
                             </div>
                         </div>
+                        {% endif %}
+
+                        {% if albums %}
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingAlbums">
+                                <button class="accordion-button collapsed fw-semibold" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseAlbums" aria-expanded="false" aria-controls="collapseAlbums">
+                                    Albums
+                                </button>
+                            </h2>
+                            <div id="collapseAlbums" class="accordion-collapse collapse" aria-labelledby="headingAlbums" data-bs-parent="#featuredAccordion">
+                                <div class="accordion-body p-0">
+                                    <div class="list-group list-group-flush">
+                                        {% for album in albums %}
+                                        <a href="{% url 'album' album.pk %}" class="list-group-item list-group-item-action text-decoration-none hover-item">
+                                            {{ album }}
+                                        </a>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        {% if memberships %}
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingGroups">
+                                <button class="accordion-button collapsed fw-semibold" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseGroups" aria-expanded="false" aria-controls="collapseGroups">
+                                    Member of music groups
+                                </button>
+                            </h2>
+                            <div id="collapseGroups" class="accordion-collapse collapse" aria-labelledby="headingGroups" data-bs-parent="#featuredAccordion">
+                                <div class="accordion-body p-0">
+                                    <div class="list-group list-group-flush">
+                                        {% for membership in memberships %}
+                                        <div class="d-flex justify-content-between align-items-center list-group-item">
+                                            <a href="{% url 'music-group' membership.music_group.pk %}" class="text-decoration-none hover-item">
+                                                {{ membership.music_group.name }}
+                                            </a>
+                                            {% if user.is_authenticated %}
+                                            <div class="btn-group btn-group-sm">
+                                                <a href="{% url 'music-group-membership_update' membership.pk %}" class="btn btn-outline-warning" title="Edit membership">✏️</a>
+                                                <a href="{% url 'music-group-membership_delete' membership.pk %}" class="btn btn-outline-danger" title="Delete membership">❌</a>
+                                            </div>
+                                            {% endif %}
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+
                     </div>
-                {% endif %}
+                </div>
             </div>
         </div>
 
-        {# Biography section full width if biography exists #}
-        {% if contributor.bio %}
-            <div class="card mb-4">
+        <!-- Pravý sloupec: Contributions podle kategorií -->
+        <div class="col-12 col-md-6">
+            {% if songs_by_category %}
+            <div class="card h-100 shadow-sm">
                 <div class="card-body">
-                    <h5 class="card-title text-center header-custom">Biography</h5>
-                    <p class="card-text">{{ contributor.bio|linebreaks }}</p>
+                    <h5 class="card-title fw-semibold pb-3 d-flex justify-content-between align-items-center">
+                      Contributions
+                      {% if user.is_authenticated %}
+                      <a href="{% url 'contributor-song-performance_create' contributor.pk %}" class="btn btn-sm btn-outline-primary">
+                        + Add song contribution
+                      </a>
+                      {% endif %}
+                    </h5>
+                    <div class="accordion" id="contributorRolesAccordion">
+
+                        {% for category, performances in songs_by_category.items %}
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="heading-{{ category }}">
+                                <button class="accordion-button collapsed fw-semibold" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapse-{{ category }}" aria-expanded="false" aria-controls="collapse-{{ category }}">
+                                    {% if category == 'performer' %}Performing in
+                                    {% elif category == 'writer' %}Writing in
+                                    {% elif category == 'producer' %}Producing in
+                                    {% elif category == 'publisher' %}Publishing in
+                                    {% else %}Other contributions in
+                                    {% endif %}
+                                </button>
+                            </h2>
+                            <div id="collapse-{{ category }}" class="accordion-collapse collapse" aria-labelledby="heading-{{ category }}" data-bs-parent="#contributorRolesAccordion">
+                                <div class="accordion-body p-0">
+                                    <div class="list-group list-group-flush ms-3">
+                                        {% for perf in performances %}
+                                        <div class="list-group-item d-flex justify-content-between align-items-center">
+                                            <a href="{% url 'song' perf.song.pk %}" class="text-decoration-none hover-item">{{ perf.song.title }}</a>
+                                            <small class="text-muted ms-2">({{ perf.contributor_role.name }})</small>
+
+                                            {% if user.is_authenticated %}
+                                            <div class="btn-group btn-group-sm ms-3">
+                                                <a href="{% url 'contributor-song-performance_update' perf.pk %}" class="btn btn-outline-warning" title="Edit performance">✏️</a>
+                                                <a href="{% url 'contributor-song-performance_delete' perf.pk %}" class="btn btn-outline-danger" title="Delete performance">❌</a>
+                                            </div>
+                                            {% endif %}
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+
+                    </div>
                 </div>
             </div>
-        {% endif %}
+            {% endif %}
+        </div>
     </div>
+
+    {% if contributor.bio %}
+    <div class="card mb-4 shadow-sm mt-5">
+        <div class="card-body">
+            <h5 class="card-title text-center fw-semibold">Biography</h5>
+            <p class="card-text">{{ contributor.bio|linebreaks }}</p>
+        </div>
+    </div>
+    {% endif %}
+</div>
 {% endblock %}

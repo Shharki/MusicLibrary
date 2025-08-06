@@ -2,11 +2,12 @@ import re
 from datetime import date
 
 from django.core.exceptions import ValidationError
-from django.forms import ModelForm, TextInput, CharField, DateInput, DateField
+from django.forms import ModelForm, TextInput, CharField, DateInput, DateField, ModelMultipleChoiceField, CheckboxSelectMultiple
 from django.forms.widgets import Select, Textarea, SelectMultiple, ClearableFileInput, FileInput, NumberInput
 from django.utils.timezone import now
 
-from viewer.models import Genre, Country, Contributor, MusicGroup, Album, Song, Language
+from viewer.models import Genre, Country, Contributor, MusicGroup, Album, Song, Language, MusicGroupMembership, \
+    ContributorRole, SongPerformance
 
 
 class GenreModelForm(ModelForm):
@@ -420,3 +421,54 @@ class SongModelForm(ModelForm):
                 "You must select at least one artist or one music group."
             )
         return cleaned_data
+
+
+class MusicGroupMembershipForm(ModelForm):
+    # member_role je M2M, tak použijeme widget s možností výběru více položek
+    member_role = ModelMultipleChoiceField(
+        queryset=ContributorRole.objects.all(),
+        required=False,
+        widget=CheckboxSelectMultiple,
+        label="Roles"
+    )
+
+    class Meta:
+        model = MusicGroupMembership
+        fields = ['member', 'music_group', 'member_role', 'from_date', 'to_date']
+        widgets = {
+            'from_date': DateInput(attrs={'type': 'date'}),
+            'to_date': DateInput(attrs={'type': 'date'}),
+        }
+
+
+class ContributorRoleForm(ModelForm):
+    class Meta:
+        model = ContributorRole
+        fields = '__all__'
+
+
+class ContributorSongPerformanceForm(ModelForm):
+    class Meta:
+        model = SongPerformance
+        fields = ['song', 'contributor', 'contributor_role']  # pouze tyto 3 pole
+
+    def clean(self):
+        cleaned_data = super().clean()
+        # Přidat validaci, že music_group a music_group_role jsou prázdné
+        if cleaned_data.get('music_group') or cleaned_data.get('music_group_role'):
+            raise ValidationError("Music group fields must be empty when creating contributor performance.")
+        return cleaned_data
+
+
+class MusicGroupPerformanceForm(ModelForm):
+    class Meta:
+        model = SongPerformance
+        fields = ['song', 'music_group', 'music_group_role']  # pouze tyto 3 pole
+
+    def clean(self):
+        cleaned_data = super().clean()
+        # Přidat validaci, že contributor a contributor_role jsou prázdné
+        if cleaned_data.get('contributor') or cleaned_data.get('contributor_role'):
+            raise ValidationError("Contributor fields must be empty when creating music group performance.")
+        return cleaned_data
+
