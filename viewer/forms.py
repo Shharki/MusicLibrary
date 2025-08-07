@@ -174,6 +174,11 @@ class MusicGroupModelForm(ModelForm):
                 raise ValidationError("Biography must be at least 10 characters long.")
         return bio
 
+    def clean_bio2(self):
+        initial = self.cleaned_data['bio']
+        sentences = re.sub(f'\s*\.\s*', '.', initial).split('.')
+        return '.'.join(sentence.capitalize() for sentence in sentences)
+
     def clean(self):
         cleaned_data = super().clean()
         founded = cleaned_data.get('founded')
@@ -223,7 +228,7 @@ class AlbumModelForm(ModelForm):
             'cover_image': FileInput(attrs={'class': 'form-control'}),
         }
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs):    # Can change the fields visibility of all via widgets.
         super().__init__(*args, **kwargs)
         for visible in self.visible_fields():
             if not isinstance(visible.field.widget, FileInput):

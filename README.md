@@ -102,7 +102,18 @@ Development & CI    Git, GitHub Actions (lint + tests), PyCharm
 - [ ] 10. Authorization
     - [ ] Permissions for CRUD operations
     - [ ] Protection of specific views (e.g. admin only)
-
+- [ ] 11. Global Search (Search bar in navbar)
+    - [ ] Input field in top navbar (between logo and menu items)
+    - [ ] Searches across:
+        - [ ] Song titles
+        - [ ] Album titles
+        - [ ] Contributors (names)
+        - [ ] Genres
+        - [ ] Countries
+        - [ ] Languages
+        - [ ] Release years
+    - [ ] Matching results shown in dropdown or redirected filtered list 
+  
 #### Databáze
 ![ER diagram](./files/ER_diagram_v2.png)
 - [x] Genre  
@@ -159,5 +170,4 @@ Development & CI    Git, GitHub Actions (lint + tests), PyCharm
   - [x] songs (n:m -> Song)  
   - [x] released_year (Integer)  
   - [x] summary (Text)  
-
 
