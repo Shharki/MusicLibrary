@@ -19,6 +19,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 
+from viewer import views
 from viewer.views import (
     HomeView,
     # Songs
@@ -85,6 +86,9 @@ urlpatterns = [
     path('genre/create/', GenreCreateView.as_view(), name='genre_create'),
     path('genre/update/<int:pk>/', GenreUpdateView.as_view(), name='genre_update'),
     path('genre/delete/<int:pk>/', GenreDeleteView.as_view(), name='genre_delete'),
+
+    # Search field
+    path("search-suggestions/", views.search_suggestions, name="search_suggestions"),
 
 path('contributor-role/<int:pk>/edit/', ContributorRoleUpdateView.as_view(), name='contributor-role_update'),
 path('contributor-role/<int:pk>/delete/', ContributorRoleDeleteView.as_view(), name='contributor-role_delete'),

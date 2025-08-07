@@ -103,7 +103,7 @@ Development & CI    Git, GitHub Actions (lint + tests), PyCharm
     - [ ] Permissions for CRUD operations
     - [ ] Protection of specific views (e.g. admin only)
 - [ ] 11. Global Search (Search bar in navbar)
-    - [ ] Input field in top navbar (between logo and menu items)
+    - [x] Input field in top navbar (between MusicLibrary name and menu items)
     - [ ] Searches across:
         - [ ] Song titles
         - [ ] Album titles

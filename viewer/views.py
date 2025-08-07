@@ -5,7 +5,9 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db import transaction
 from django.db.models import Q
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
+from django.template.loader import render_to_string
 from django.urls import reverse, reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views import View
@@ -677,5 +679,25 @@ class ContributorSongPerformanceDeleteView(DeleteView):
     model = ContributorRole
     template_name = 'confirm_delete.html'
     success_url = reverse_lazy('contributors')
+
+# Search suggestions
+def search_suggestions(request):
+    query = request.GET.get('q', '').strip()
+    context = {'query': query}
+
+    if query:
+        songs = Song.objects.filter(title__icontains=query)[:5]
+        albums = Album.objects.filter(title__icontains=query)[:3]
+        contributors = Contributor.objects.filter(
+            Q(stage_name__icontains=query) |
+            Q(first_name__icontains=query) |
+            Q(last_name__icontains=query)
+        )[:3]
+    else:
+        songs = albums = contributors = []
+
+    context.update({'songs': songs, 'albums': albums, 'contributors': contributors})
+    html = render_to_string("partials/search_dropdown.html", context)
+    return HttpResponse(html)
 
 

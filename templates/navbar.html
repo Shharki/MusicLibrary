@@ -3,13 +3,13 @@
 
         <!-- Hamburger button for toggling navbar on small screens -->
         <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
         >
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -18,9 +18,25 @@
         <div class="collapse navbar-collapse d-lg-flex" id="navbarSupportedContent">
 
             <!-- Brand/logo on the left, clickable, links to home -->
-            <a class="navbar-brand col-lg-3 me-0 hover-link" href="{% url 'home' %}">
-                MusicLibrary
-            </a>
+            <a class="navbar-brand col-lg-1 me-0 hover-link" href="{% url 'home' %}">MusicLibrary</a>
+
+            <!-- Search bar -->
+            <form
+                class="d-flex position-relative col-lg-2 me-1"
+                hx-get="{% url 'search_suggestions' %}"
+                hx-target="#search-results"
+                hx-trigger="keyup changed delay:300ms"
+                hx-swap="innerHTML"
+                autocomplete="off"
+                style="min-width: 250px;"
+            >
+                <input type="text" name="q" placeholder="Search..." class="form-control"/>
+                <div
+                    id="search-results"
+                    class="dropdown-menu"
+                    style="position: absolute; top: 100%; left: 0; width: 100%; z-index: 1000;"
+                ></div>
+            </form>
 
             <!-- Navigation menu centered horizontally -->
             <ul class="navbar-nav col-lg-6 justify-content-lg-center">
@@ -49,18 +65,18 @@
                     </a>
                 </li>
                 {% if user.is_authenticated %}
-                <li class="nav-item">
-                    <a href="{% url 'countries' %}"
-                       class="nav-link {% if request.resolver_match.view_name == 'countries' %}active-custom{% endif %}">
-                        Countries
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{% url 'genres' %}"
-                       class="nav-link {% if request.resolver_match.view_name == 'genres' %}active-custom{% endif %}">
-                        Genres
-                    </a>
-                </li>
+                    <li class="nav-item">
+                        <a href="{% url 'countries' %}"
+                           class="nav-link {% if request.resolver_match.view_name == 'countries' %}active-custom{% endif %}">
+                            Countries
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'genres' %}"
+                           class="nav-link {% if request.resolver_match.view_name == 'genres' %}active-custom{% endif %}">
+                            Genres
+                        </a>
+                    </li>
                 {% endif %}
             </ul>
 
@@ -87,7 +103,8 @@
                             Not signed in
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="guestDropdown">
-                            <li><a href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#loginModal">Log in</a></li>
+                            <li><a href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#loginModal">Log
+                                in</a></li>
                             <li><a class="dropdown-item" href="{% url 'signup' %}">Sign up</a></li>
                             <li><a class="dropdown-item" href="{% url 'password_reset' %}">Password reset</a></li>
                         </ul>
