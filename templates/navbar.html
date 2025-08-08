@@ -1,0 +1,100 @@
+{% load static %}
+<nav class="navbar navbar-expand-lg bg-body-secondary rounded mb-1" aria-label="Main navigation">
+    <div class="container-fluid">
+
+        <!-- Toggler -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Navbar content -->
+        <div class="collapse navbar-collapse d-lg-flex flex-nowrap" id="navbarSupportedContent">
+
+            <!-- Logo -->
+            <a class="navbar-brand flex-shrink-0 me-3 hover-link" href="{% url 'home' %}">
+                <img src="{% static 'images/musiclibrary_logo.svg' %}" alt="MusicLibrary logo" height="40" />
+                MusicLibrary
+            </a>
+
+            <!-- Search bar -->
+            <form
+                class="d-flex position-relative col-lg-2 me-1"
+                hx-get="{% url 'search_suggestions' %}"
+                hx-target="#search-results"
+                hx-trigger="keyup changed delay:300ms"
+                hx-swap="innerHTML"
+                autocomplete="off"
+                style="min-width: 250px;"
+            >
+                <input type="text" name="q" placeholder="Search..." class="form-control"/>
+                <div
+                    id="search-results"
+                    class="dropdown-menu"
+                    style="position: absolute; top: 100%; left: 0; width: 100%; z-index: 1000;"
+                ></div>
+            </form>
+
+            <!-- Nav center -->
+<ul class="navbar-nav position-absolute start-50 translate-middle-x text-nowrap gap-1">
+    <li class="nav-item">
+        <a href="{% url 'songs' %}" class="nav-link {% if request.resolver_match.view_name == 'songs' %}active-custom{% endif %}">Songs</a>
+    </li>
+    <li class="nav-item">
+        <a href="{% url 'albums' %}" class="nav-link {% if request.resolver_match.view_name == 'albums' %}active-custom{% endif %}">Albums</a>
+    </li>
+    <li class="nav-item">
+        <a href="{% url 'contributors' %}" class="nav-link {% if request.resolver_match.view_name == 'contributors' %}active-custom{% endif %}">Contributors</a>
+    </li>
+    <li class="nav-item">
+        <a href="{% url 'music-groups' %}" class="nav-link {% if request.resolver_match.view_name == 'music-groups' %}active-custom{% endif %}">Music groups</a>
+    </li>
+</ul>
+
+            <!-- User menu -->
+            <ul class="navbar-nav flex-shrink-0 ms-auto text-primary">
+                <li class="nav-item dropdown">
+                    {% if user.is_authenticated %}
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            {{ user.username }}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                            <li><a class="dropdown-item" href="{% url 'password_change' %}">Password change</a></li>
+                            <li>
+                                <form method="post" action="{% url 'logout' %}" class="d-inline">
+                                    {% csrf_token %}
+                                    <button type="submit" class="dropdown-item">Log out</button>
+                                </form>
+                            </li>
+                        </ul>
+                    {% else %}
+                        <a class="nav-link dropdown-toggle" href="#" id="guestDropdown" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            Not signed in
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="guestDropdown">
+                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Log in</a></li>
+                            <li><a class="dropdown-item" href="{% url 'signup' %}">Sign up</a></li>
+                            <li><a class="dropdown-item" href="{% url 'password_reset' %}">Password reset</a></li>
+                        </ul>
+                    {% endif %}
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</nav>
+
+{% if user.is_authenticated %}
+    <div class="bg-light rounded py-0 mb-2">
+        <div class="container d-flex flex-wrap justify-content-center align-items-center gap-1">
+            <a href="{% url 'countries' %}" class="btn btn-sm text-secondary hover-item {% if request.resolver_match.view_name == 'countries' %}active-custom{% endif %}">Countries</a>
+            <a href="{% url 'languages' %}" class="btn btn-sm text-secondary hover-item {% if request.resolver_match.view_name == 'languages' %}active-custom{% endif %}">Languages</a>
+            <a href="{% url 'genres' %}" class="btn btn-sm text-secondary hover-item {% if request.resolver_match.view_name == 'genres' %}active-custom{% endif %}">Genres</a>
+            <a href="{% url 'contributor_roles' %}" class="btn btn-sm text-secondary hover-item {% if request.resolver_match.view_name == 'contributor_roles' %}active-custom{% endif %}">Contributor roles</a>
+            <a href="{% url 'music_group_roles' %}" class="btn btn-sm text-secondary hover-item {% if request.resolver_match.view_name == 'music_group_roles' %}active-custom{% endif %}">Music group roles</a>
+        </div>
+    </div>
+{% endif %}

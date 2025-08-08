@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Countries{% endblock %}
+{% block title %}Music Group Roles{% endblock %}
 
 {% block content %}
 <div class="container-fluid my-5">
@@ -8,10 +8,10 @@
         <div class="col-12 col-md-9 col-lg-7 col-xl-6">
 
             <!-- Heading -->
-            {% include "includes/page_heading.html" with title="Artists in countries" %}
+            {% include "includes/page_heading.html" with title="Music Group Roles" %}
 
             <!-- Top controls -->
-            {% include "includes/top_controls.html" with create_url='country_create' create_label="country" %}
+            {% include "includes/top_controls.html" with create_url='music_group_role_create' create_label="role" %}
 
             <!-- Alphabet filter -->
             {% include "includes/alphabet_filter.html" %}
@@ -19,10 +19,10 @@
             <!-- List -->
             <div class="bg-body-secondary rounded p-1 shadow-sm">
                 <div class="list-group">
-                    {% for country in countries %}
-                        {% include "includes/shared/list_item.html" with object=country object_url_name="country" update_url_name="country_update" delete_url_name="country_delete" badge_count=country.all_artists_and_music_groups_count %}
+                    {% for role in page_obj %}
+                        {% include "includes/shared/list_item.html" with object=role object_url_name="music_group_role" update_url_name="music_group_role_update" delete_url_name="music_group_role_delete" badge_count=role.groups_count extra_info_line2=role.get_category_display %}
                     {% empty %}
-                        <div class="list-group-item text-center text-muted">There are no countries.</div>
+                        <div class="list-group-item text-center text-muted">There are no music group roles.</div>
                     {% endfor %}
                 </div>
             </div>

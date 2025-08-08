@@ -76,13 +76,28 @@ html[data-bs-theme="light"] body {
 
 /* Additional styling for active elements (custom use) */
 .active-custom {
-    color: var(--bs-primary);
-    font-weight: 500;
+    color: var(--bs-primary) !important;
+    font-weight: 600;
 }
 
 /* Header styling for emphasized headings */
 .header-custom {
     font-weight: 600
+}
+
+/* Smaller grey alternative nav-link */
+.nav-link-sm-active {
+    font-size: 0.875rem;          /* same as btn-sm */
+    color: var(--bs-primary); /* grey text */
+    padding: 0.25rem 0.5rem;
+    text-decoration: none;/* lesser padding */
+}
+
+/* Hover effect */
+.nav-link-sm:not(.active):hover {
+    color: var(--bs-primary); /* same hover as nav-link */
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
 }
 
 /* Justify long text blocks */
@@ -119,4 +134,11 @@ html[data-bs-theme="light"] body {
 /* Break long words in list-items to next line */
 .list-group-item a {
   word-break: break-word;
+}
+
+/* Custom nav-linkfont size small */
+.nav-link-sm {
+  font-size: 0.875rem;
+    color: var(--bs-secondary);
+    font-weight: 400;
 }

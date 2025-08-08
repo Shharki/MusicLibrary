@@ -20,11 +20,14 @@ Development & CI    Git, GitHub Actions (lint + tests), PyCharm
     - [X] Home screen with albums
     - [X] Missing album images in home replaced with placeholder
     - [X] Hover effects on navbar, links
+    - [X] User only navbar
+    - [X] Logo
 - [ ] 1. Songs – listing
     - [x] Alphabetical list
     - [X] Alphabetical sorting
     - [X] Paginate listing
     - [ ] Filtering by: genre, country, language, year, album, performer, ratings
+    - 1.1. Song performances implemented
 - [ ] 2. Songs – song detail
     - [X] Title
     - [X] Genres (n:m -> Genre)
@@ -81,7 +84,7 @@ Development & CI    Git, GitHub Actions (lint + tests), PyCharm
 - [ ] 6. Countries – listing and detail
     - [x] 6.1. Alphabetical list
     - [x] 6.2. Detail (list of contributors from the given country)
-    - [ ] List of music groups
+    - [X] List of music groups
 - [ ] 7. Genres – listing and detail
     - [x] 7.1. Alphabetical list
     - [x] 7.2. Detail (list of songs of the given genre)

@@ -31,6 +31,12 @@ class Country(Model):
     def __str__(self):
         return self.name
 
+    @property
+    def all_artists_and_music_groups_count(self):
+        artists_count = self.contributors.count()
+        music_groups_count = self.music_groups.count()
+        return artists_count + music_groups_count
+
 
 class Language(Model):
     name = CharField(max_length=64, unique=True)
@@ -287,6 +293,23 @@ class Song(Model):
 
     def music_groups(self):
         return self.music_group.all()
+
+    @property
+    def artists_list(self):
+        return ", ".join(str(artist) for artist in self.artist.all())
+
+    @property
+    def music_groups_list(self):
+        return ", ".join(group.name for group in self.music_group.all())
+
+    @property
+    def album_label(self):
+        count = self.albums.count()
+        return "Album" if count == 1 else "Albums"
+
+    @property
+    def albums_list(self):
+        return ", ".join(album.title for album in self.albums.all())
 
     @property
     def format_seconds(self):

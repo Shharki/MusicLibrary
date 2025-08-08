@@ -1,16 +1,30 @@
 {% extends 'base.html' %}
 
-{% block title %}
-    {{ genre }}
-{% endblock %}
+{% block title %}Songs in {{ genre.name }}{% endblock %}
 
 {% block content %}
-    <h1 class="display-4">{{ genre }}</h1>
-    <ul>
-        {% for song in genre.song_set.all %}
-            <li><a href="{% url 'song' song.id %}">{{ song }}</a></li>
-        {% empty %}
-            <li>No songs in this genre.</li>
-        {% endfor %}
-    </ul>
+<div class="container-fluid my-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+
+            <!-- Heading -->
+            {% with "Songs in "|add:genre.name as full_title %}
+                {% include "includes/page_heading.html" with title=full_title %}
+            {% endwith %}
+
+            <!-- Top controls -->
+            {% include "includes/top_controls.html" with create_url='song_create' create_label="song" %}
+
+            <!-- Alphabet filter -->
+            {% include "includes/alphabet_filter.html" %}
+
+            <!-- Songs list -->
+            {% include "includes/song_list_group.html" %}
+
+            <!-- Pagination controls -->
+            {% include "includes/pagination_controls.html" %}
+
+        </div>
+    </div>
+</div>
 {% endblock %}

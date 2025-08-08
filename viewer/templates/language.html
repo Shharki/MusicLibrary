@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Songs{% endblock %}
+{% block title %}Songs in {{ language.name }}{% endblock %}
 
 {% block content %}
 <div class="container-fluid my-5">
@@ -8,7 +8,9 @@
         <div class="col-12 col-md-9 col-lg-7 col-xl-6">
 
             <!-- Heading -->
-            {% include "includes/page_heading.html" with title="Songs" %}
+            {% with "Song in languages: "|add:language.name as full_title %}
+                {% include "includes/page_heading.html" with title=full_title %}
+            {% endwith %}
 
             <!-- Top controls -->
             {% include "includes/top_controls.html" with create_url='song_create' create_label="song" %}
@@ -19,7 +21,7 @@
             <!-- Songs list -->
             {% include "includes/song_list_group.html" %}
 
-            <!-- Pagination -->
+            <!-- Pagination controls -->
             {% include "includes/pagination_controls.html" %}
 
         </div>

@@ -1,0 +1,12 @@
+<div class="d-flex flex-wrap justify-content-center gap-1 mb-4">
+    {% for letter in alphabet %}
+        <a href="?letter={{ letter }}{% if request.GET.order %}&order={{ request.GET.order }}{% endif %}{% if request.GET.paginate_by %}&paginate_by={{ request.GET.paginate_by }}{% endif %}"
+           class="btn btn-sm {% if request.GET.letter == letter %}btn-primary{% else %}btn-outline-primary{% endif %}">
+            {{ letter }}
+        </a>
+    {% endfor %}
+    <a href="?{% if request.GET.order %}order={{ request.GET.order }}&{% endif %}{% if request.GET.paginate_by %}paginate_by={{ request.GET.paginate_by }}&{% endif %}"
+       class="btn btn-sm {% if not request.GET.letter %}btn-primary{% else %}btn-outline-secondary{% endif %}">
+        All
+    </a>
+</div>

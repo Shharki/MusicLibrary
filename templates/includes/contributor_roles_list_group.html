@@ -1,0 +1,29 @@
+{# includes/contributor_role_list_group.html #}
+<div class="bg-body-secondary rounded p-1 shadow-sm">
+    <div class="list-group">
+        {% for role in roles %}
+            <div class="list-group-item list-group-item-action d-flex flex-column position-relative hover-item px-3 py-2">
+
+                <!-- Horní řádek: název vlevo, tlačítka vpravo -->
+                <div class="d-flex justify-content-between align-items-center">
+                    <a href="{% url 'contributor_role' role.pk %}" 
+                       class="stretched-link text-decoration-none text-dark fw-medium hover-item mb-0">
+                        {{ role.name }} ({{ role.get_category_display }})
+                    </a>
+
+                    {% if user.is_authenticated %}
+                        <div class="btn-group ms-2 z-1">
+                            <a href="{% url 'contributor_role_update' role.pk %}" class="btn btn-outline-warning btn-sm" onclick="event.stopPropagation();">✏️</a>
+                            <a href="{% url 'contributor_role_delete' role.pk %}" class="btn btn-outline-danger btn-sm" onclick="event.stopPropagation();">❌</a>
+                        </div>
+                    {% endif %}
+                </div>
+
+            </div>
+        {% empty %}
+            <div class="list-group-item text-muted text-center">
+                There are no contributor roles in the database.
+            </div>
+        {% endfor %}
+    </div>
+</div>
