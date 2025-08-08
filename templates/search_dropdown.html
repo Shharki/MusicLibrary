@@ -1,21 +1,40 @@
-{% if not songs and not albums and not contributors and query %}
-    <div class="dropdown-item disabled">No results found</div>
+{% if songs or albums or contributors or genres or countries or languages %}
+    <div id="search-results" class="dropdown-menu show w-100"
+         style="display: block; position: absolute; top: 100%; left: 0; z-index: 1000;">
+
+        {% for song in songs %}
+            <a href="{% url 'song_detail' song.pk %}" class="dropdown-item">🎵 {{ song.title }}</a>
+        {% endfor %}
+
+        {% for album in albums %}
+            <a href="{% url 'album_detail' album.pk %}" class="dropdown-item">💿 {{ album.title }}</a>
+        {% endfor %}
+
+        {% for contributor in contributors %}
+            <a href="{% url 'contributor_detail' contributor.pk %}" class="dropdown-item">
+                👤 {{ contributor.stage_name|default:contributor.first_name }}
+            </a>
+        {% endfor %}
+
+        {% for genre in genres %}
+            <a href="{% url 'genre_detail' genre.pk %}" class="dropdown-item">🏷️ {{ genre.name }}</a>
+        {% endfor %}
+
+        {% for country in countries %}
+            <a href="{% url 'country_detail' country.pk %}" class="dropdown-item">🌍 {{ country.name }}</a>
+        {% endfor %}
+
+        {# Pokud někdy přidáš i jazykové URL, můžeš odkomentovat #}
+        {#
+        {% for language in languages %}
+            <a href="{% url 'language_detail' language.pk %}" class="dropdown-item">🗣️ {{ language.name }}</a>
+        {% endfor %}
+        #}
+
+    </div>
+{% elif query %}
+    <div id="search-results" class="dropdown-menu show w-100 disabled"
+         style="display: block; position: absolute; top: 100%; left: 0; z-index: 1000;">
+        <div class="dropdown-item disabled">No results found</div>
+    </div>
 {% endif %}
-
-{% for song in songs %}
-    <a href="{% url 'song_detail' song.pk %}" class="dropdown-item">
-        🎵 {{ song.title }}
-    </a>
-{% endfor %}
-
-{% for album in albums %}
-    <a href="{% url 'album_detail' album.pk %}" class="dropdown-item">
-        💿 {{ album.title }}
-    </a>
-{% endfor %}
-
-{% for contributor in contributors %}
-    <a href="{% url 'contributor_detail' contributor.pk %}" class="dropdown-item">
-        👤 {{ contributor.stage_name|default:contributor.first_name }}
-    </a>
-{% endfor %}

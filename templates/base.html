@@ -41,31 +41,42 @@
 </head>
 
 <body>
-    {# Include SVG sprites for reusable icons or inline SVGs to improve performance #}
-    {% include 'sprites.html' %}
+{# Include SVG sprites for reusable icons or inline SVGs to improve performance #}
+{% include 'sprites.html' %}
 
-    {# Include site-wide navigation bar for consistent header across pages #}
-    {% include 'navbar.html' %}
+{# Include site-wide navigation bar for consistent header across pages #}
+{% include 'navbar.html' %}
 
-    {# Main container for page content with vertical margin using Bootstrap spacing #}
-    <main>
-        {% block content %}{% endblock %}
-    </main>
+{# Main container for page content with vertical margin using Bootstrap spacing #}
+<main>
+    {% block content %}{% endblock %}
+</main>
 
-    {# Include site footer to appear on every page #}
-    {% include 'footer.html' %}
+{# Include site footer to appear on every page #}
+{% include 'footer.html' %}
 
-    {% comment %}
+{% comment %}
     Using local Bootstrap JS bundle including Popper.js for tooltips, popovers, etc.
     Uncomment CDN version if online loading is preferred.
     {% endcomment %}
 
-    <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-    {# <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script> #}
-    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+<script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+{# <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script> #}
+<script src="https://unpkg.com/htmx.org@1.9.10"></script>
 
-    {# Include login modal so it's available on all pages #}
-    {% include 'includes/login_modal.html' %}
+{# Include login modal so it's available on all pages #}
+{% include 'includes/login_modal.html' %}
+
+<script>
+    // Zavře dropdown při kliknutí mimo
+    document.addEventListener('click', function (event) {
+        const searchForm = document.querySelector('form[autocomplete="off"]');
+        const dropdown = document.getElementById('search-results');
+        if (!searchForm.contains(event.target)) {
+            dropdown.innerHTML = '';
+        }
+    });
+</script>
 </body>
 
 </html>
