@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}Contributor Role: {{ contributor_role.name }}{% endblock %}
+
+{% block content %}
+<div class="container-fluid my-5">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+
+      <!-- Heading -->
+      {% with contributor_role.name|add:"s" as full_title %}
+          {% include "includes/page_heading.html" with title=full_title %}
+      {% endwith %}
+
+      <!-- Alphabet filter for contributors -->
+      {% include "includes/alphabet_filter.html" %}
+
+      <!-- Contributors list -->
+      <div class="bg-body-secondary rounded p-1 shadow-sm">
+        <div class="list-group">
+          {% for contributor in page_obj %}
+            <div class="list-group-item d-flex justify-content-between align-items-center">
+              <a href="{% url 'contributor' contributor.id %}" class="text-decoration-none text-dark">
+                {{ contributor.display_more }}
+              </a>
+            </div>
+          {% empty %}
+            <div class="list-group-item text-center text-muted">No contributors with this role.</div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- Pagination controls -->
+      {% include "includes/pagination_controls.html" %}
+
+    </div>
+  </div>
+</div>
+{% endblock %}

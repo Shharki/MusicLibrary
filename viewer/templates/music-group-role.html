@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}Role: {{ music_group_role.name }}{% endblock %}
+
+{% block content %}
+<div class="container-fluid my-5">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+
+      <!-- Heading -->
+      {% include "includes/page_heading.html" with title=music_group_role.name %}
+
+      <!-- Top controls (edit, delete) -->
+      <div class="mb-3 d-flex justify-content-end gap-2">
+        <a href="{% url 'music_group_role_update' music_group_role.pk %}" class="btn btn-outline-primary btn-sm">Edit role</a>
+        <a href="{% url 'music_group_role_delete' music_group_role.pk %}" class="btn btn-outline-danger btn-sm">Delete role</a>
+      </div>
+
+      <!-- Music groups that have this role -->
+      <h2>Music Groups with this Role</h2>
+      {% if music_groups %}
+        <div class="list-group mb-3">
+          {% for group in music_groups %}
+            <a href="{% url 'music-group' group.pk %}" class="list-group-item list-group-item-action">
+              {{ group.name }}
+            </a>
+          {% endfor %}
+        </div>
+      {% else %}
+        <p class="text-muted">No music groups found with this role.</p>
+      {% endif %}
+
+    </div>
+  </div>
+</div>
+{% endblock %}

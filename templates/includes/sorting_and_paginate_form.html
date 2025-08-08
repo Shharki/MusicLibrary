@@ -1,0 +1,22 @@
+<form method="get" class="d-flex gap-2">
+    <div>
+        <label for="order" class="form-label mb-0 small">Sort:</label>
+        <select name="order" id="order" class="form-select form-select-sm" onchange="this.form.submit()">
+            <option value="asc" {% if request.GET.order == "asc" %}selected{% endif %}>Title A–Z</option>
+            <option value="desc" {% if request.GET.order == "desc" %}selected{% endif %}>Title Z–A</option>
+        </select>
+    </div>
+    <div>
+        <label for="paginate_by" class="form-label mb-0 small">Per page:</label>
+        <select name="paginate_by" id="paginate_by" class="form-select form-select-sm" onchange="this.form.submit()">
+            {% for option in paginate_options %}
+                <option value="{{ option }}" {% if request.GET.paginate_by == option|stringformat:"s" %}selected{% endif %}>
+                    {{ option }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+    {% if request.GET.letter %}
+        <input type="hidden" name="letter" value="{{ request.GET.letter }}">
+    {% endif %}
+</form>

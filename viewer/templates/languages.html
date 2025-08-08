@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}Languages{% endblock %}
+
+{% block content %}
+    <div class="container-fluid my-5">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+
+                {% include "includes/page_heading.html" with title="Songs in languages" %}
+
+                {% include "includes/top_controls.html" with create_url='language_create' create_label="language" %}
+
+                {% include "includes/alphabet_filter.html" %}
+
+                <!-- Languages list -->
+                <div class="bg-body-secondary rounded p-1 shadow-sm">
+                    <div class="list-group">
+                        {% for language in languages %}
+                            {% include "includes/shared/list_item.html" with object=language object_url_name="language" update_url_name="language_update" delete_url_name="language_delete" badge_count=language.songs.count %}
+                        {% empty %}
+                            <div class="list-group-item text-center text-muted">There are no languages.</div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                {% include "includes/pagination_controls.html" %}
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

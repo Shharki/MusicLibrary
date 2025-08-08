@@ -477,3 +477,37 @@ class MusicGroupPerformanceForm(ModelForm):
             raise ValidationError("Contributor fields must be empty when creating music group performance.")
         return cleaned_data
 
+
+from django import forms
+from django.core.exceptions import ValidationError
+from .models import Language
+
+class LanguageModelForm(forms.ModelForm):
+    class Meta:
+        model = Language
+        fields = '__all__'
+        labels = {
+            'name': 'Language',
+        }
+        error_messages = {
+            'name': {
+                'required': 'This field is required.'
+            }
+        }
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'bg-info'})
+        }
+
+    def clean_name(self):
+        name = self.cleaned_data['name'].strip()
+        name = ' '.join(word.capitalize() for word in name.split())
+
+        qs = Language.objects.filter(name__iexact=name)
+        if self.instance.pk:
+            qs = qs.exclude(pk=self.instance.pk)
+
+        if qs.exists():
+            raise ValidationError("This language already exists.")
+        return name
+
+

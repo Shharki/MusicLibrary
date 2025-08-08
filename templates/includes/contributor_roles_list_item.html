@@ -1,0 +1,35 @@
+<div class="list-group-item list-group-item-action d-flex flex-column position-relative hover-item px-3 py-2">
+
+    <!-- Horní řádek: název vlevo, badge a tlačítka vpravo -->
+    <div class="d-flex justify-content-between align-items-center w-100">
+        <a href="{% url object_url_name object.id %}"
+           class="stretched-link text-decoration-none text-dark fw-medium hover-item mb-0 text-capitalize">
+            {{ object.name }}
+            {% if extra_info_line1 %}
+                ({{ extra_info_line1 }})
+            {% endif %}
+        </a>
+
+        {% if badge_count is not None %}
+            <span class="badge rounded-pill ms-auto bg-secondary">
+                {{ badge_count }}
+            </span>
+        {% endif %}
+
+        {% if user.is_authenticated and update_url_name and delete_url_name %}
+            <div class="btn-group ms-2 z-1">
+                <a href="{% url update_url_name object.id %}" class="btn btn-outline-warning btn-sm" onclick="event.stopPropagation();">✏️</a>
+                <a href="{% url delete_url_name object.id %}" class="btn btn-outline-danger btn-sm" onclick="event.stopPropagation();">❌</a>
+            </div>
+        {% endif %}
+    </div>
+
+
+    <!-- Druhý řádek: další info, menší a jemný text -->
+    {% if extra_info_line2 %}
+        <div class="small text-muted mt-2 text-capitalize">
+            {{ extra_info_line2 }}
+        </div>
+    {% endif %}
+
+</div>

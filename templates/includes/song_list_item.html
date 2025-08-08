@@ -1,0 +1,14 @@
+<div class="list-group-item d-flex align-items-center position-relative px-3 py-2">
+    <a href="{% url 'song' song.id %}"
+       class="stretched-link text-decoration-none text-dark text-capitalize">
+        {{ song.title }}
+    </a>
+    {% if user.is_authenticated %}
+        <div class="btn-group ms-auto z-1">
+            <a href="{% url 'song_update' song.id %}" class="btn btn-outline-warning btn-sm"
+               onclick="event.stopPropagation();">✏️</a>
+            <a href="{% url 'song_delete' song.id %}" class="btn btn-outline-danger btn-sm"
+               onclick="event.stopPropagation();">❌</a>
+        </div>
+    {% endif %}
+</div>

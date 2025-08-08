@@ -1,0 +1,38 @@
+<div class="bg-body-secondary rounded p-1 shadow-sm">
+    <div class="list-group">
+        {% for song in songs %}
+            <div class="list-group-item list-group-item-action d-flex flex-column position-relative hover-item px-3 py-2">
+
+                <!-- Horní řádek: název vlevo, tlačítka vpravo -->
+                <div class="d-flex justify-content-between align-items-center">
+                    <a href="{% url 'song' song.pk %}" class="stretched-link text-decoration-none text-dark fw-medium hover-item mb-0">
+                        {{ song.title }}
+                            ({{ song.artists_list }}{% if song.artists_list and song.music_groups_list %}, {% endif %}{{ song.music_groups_list }})
+                    </a>
+                    {% if user.is_authenticated %}
+                        <div class="btn-group ms-2 z-1">
+                            <a href="{% url 'song_update' song.id %}" class="btn btn-outline-warning btn-sm" onclick="event.stopPropagation();">✏️</a>
+                            <a href="{% url 'song_delete' song.id %}" class="btn btn-outline-danger btn-sm" onclick="event.stopPropagation();">❌</a>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- Druhý řádek: detaily písně -->
+                <div class="small text-muted mt-2">
+                    {% if song.released %}
+                        Released: {{ song.released|date:"Y" }} |
+                    {% endif %}
+
+                    {{ song.album_label }}: {{ song.albums_list }}
+
+
+                </div>
+
+            </div>
+        {% empty %}
+            <div class="list-group-item text-muted text-center">
+                There is no song in the database.
+            </div>
+        {% endfor %}
+    </div>
+</div>

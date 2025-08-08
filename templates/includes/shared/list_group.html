@@ -1,0 +1,40 @@
+{# includes/shared_list_group.html #}
+<div class="bg-body-secondary rounded p-1 shadow-sm">
+    <div class="list-group">
+        {% for item in items %}
+            <div class="list-group-item list-group-item-action d-flex flex-column position-relative hover-item px-3 py-2">
+
+                <!-- Horní řádek: název vlevo, tlačítka vpravo -->
+                <div class="d-flex justify-content-between align-items-center">
+                    <a href="{% url detail_url item.pk %}" class="stretched-link text-decoration-none text-dark fw-medium hover-item mb-0">
+                        {{ item.name|default:item.title }}
+                        {% if item.artists_list or item.music_groups_list %}
+                            ({{ item.artists_list }}{% if item.artists_list and item.music_groups_list %}, {% endif %}{{ item.music_groups_list }})
+                        {% endif %}
+                    </a>
+
+                    {% if user.is_authenticated and update_url and delete_url %}
+                        <div class="btn-group ms-2 z-1">
+                            <a href="{% url update_url item.pk %}" class="btn btn-outline-warning btn-sm" onclick="event.stopPropagation();">✏️</a>
+                            <a href="{% url delete_url item.pk %}" class="btn btn-outline-danger btn-sm" onclick="event.stopPropagation();">❌</a>
+                        </div>
+                    {% endif %}
+                </div>
+
+                {% if item.released or item.albums_list %}
+                    <div class="small text-muted mt-2">
+                        {% if item.released %}
+                            Released: {{ item.released|date:"Y" }} |
+                        {% endif %}
+                        {{ item.album_label|default:"" }}: {{ item.albums_list|default:"" }}
+                    </div>
+                {% endif %}
+
+            </div>
+        {% empty %}
+            <div class="list-group-item text-muted text-center">
+                No items found.
+            </div>
+        {% endfor %}
+    </div>
+</div>

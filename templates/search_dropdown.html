@@ -1,0 +1,21 @@
+{% if not songs and not albums and not contributors and query %}
+    <div class="dropdown-item disabled">No results found</div>
+{% endif %}
+
+{% for song in songs %}
+    <a href="{% url 'song_detail' song.pk %}" class="dropdown-item">
+        🎵 {{ song.title }}
+    </a>
+{% endfor %}
+
+{% for album in albums %}
+    <a href="{% url 'album_detail' album.pk %}" class="dropdown-item">
+        💿 {{ album.title }}
+    </a>
+{% endfor %}
+
+{% for contributor in contributors %}
+    <a href="{% url 'contributor_detail' contributor.pk %}" class="dropdown-item">
+        👤 {{ contributor.stage_name|default:contributor.first_name }}
+    </a>
+{% endfor %}

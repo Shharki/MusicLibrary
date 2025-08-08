@@ -1,0 +1,19 @@
+<div class="list-group-item d-flex align-items-center position-relative px-3 py-2">
+    <a href="{% url 'language' language.id %}"
+       class="stretched-link text-decoration-none text-dark text-capitalize">
+        {{ language.name }}
+    </a>
+    <span class="badge bg-secondary rounded-pill ms-auto position-relative z-3">
+    {{ language.songs.count }}
+</span>
+    {% if user.is_authenticated %}
+        <div class="btn-group ms-2 z-1">
+            <a href="{% url 'language_update' language.id %}"
+               class="btn btn-outline-warning btn-sm"
+               onclick="event.stopPropagation();">✏️</a>
+            <a href="{% url 'language_delete' language.id %}"
+               class="btn btn-outline-danger btn-sm"
+               onclick="event.stopPropagation();">❌</a>
+        </div>
+    {% endif %}
+</div>

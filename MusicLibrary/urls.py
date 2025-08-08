@@ -20,28 +20,47 @@ from django.contrib import admin
 from django.urls import path, include
 
 from viewer.views import (
-    HomeView,
+    # Home, search
+    HomeView, search_suggestions,
+
     # Songs
     SongsListView, SongDetailView, SongCreateView, SongUpdateView, SongDeleteView,
-    # Contributors
-    ContributorsListView, ContributorDetailView, ContributorCreateView, ContributorUpdateView, ContributorDeleteView,
     # Albums
     AlbumsListView, AlbumDetailView, AlbumCreateView, AlbumUpdateView, AlbumDeleteView, AlbumSongOrderUpdateView,
-    # Music Groups
+
+    # Contributors
+    ContributorsListView, ContributorDetailView, ContributorCreateView, ContributorUpdateView, ContributorDeleteView,
+    # Contributor role
+    ContributorRolesListView, ContributorRoleDetailView, ContributorRoleCreateView, ContributorRoleUpdateView, ContributorRoleDeleteView,
+    # Contributor song performance
+    ContributorSongPerformanceCreateView, ContributorSongPerformanceUpdateView, ContributorSongPerformanceDeleteView,
+
+    # Music groups
     MusicGroupsListView, MusicGroupDetailView, MusicGroupCreateView, MusicGroupUpdateView, MusicGroupDeleteView,
+    # Music group role
+    MusicGroupRolesListView, MusicGroupRoleDetailView,
+    MusicGroupRoleCreateView, MusicGroupRoleUpdateView, MusicGroupRoleDeleteView,
+    # Music group membership
+    MusicGroupMembershipCreateView, MusicGroupMembershipUpdateView,  MusicGroupMembershipDeleteView,
+
     # Countries
     CountriesListView, CountryDetailView, CountryCreateView, CountryUpdateView, CountryDeleteView,
+    # Languages
+    LanguagesListView, LanguageDetailView, LanguageCreateView, LanguageUpdateView, LanguageDeleteView,
     # Genres
-    GenresListView, GenreDetailView, GenreCreateView, GenreUpdateView, GenreDeleteView, ContributorRoleUpdateView,
-    MusicGroupMembershipUpdateView, ContributorRoleDeleteView, MusicGroupMembershipDeleteView,
-    ContributorSongPerformanceUpdateView,
-    ContributorSongPerformanceDeleteView, MusicGroupMembershipCreateView, ContributorSongPerformanceCreateView,
+    GenresListView, GenreDetailView, GenreCreateView, GenreUpdateView, GenreDeleteView,
 )
 
 urlpatterns = [
+    # Admin panel and accounts
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
+
+    # Home
     path('', HomeView.as_view(), name='home'),
+
+    # Search field
+    path("c/", search_suggestions, name="search_suggestions"),
 
     # Songs
     path('songs/', SongsListView.as_view(), name='songs'),
@@ -49,13 +68,6 @@ urlpatterns = [
     path('song/create/', SongCreateView.as_view(), name='song_create'),
     path('song/update/<int:pk>/', SongUpdateView.as_view(), name='song_update'),
     path('song/delete/<int:pk>/', SongDeleteView.as_view(), name='song_delete'),
-
-    # Contributors
-    path('contributors/', ContributorsListView.as_view(), name='contributors'),
-    path('contributor/<int:pk>/', ContributorDetailView.as_view(), name='contributor'),
-    path('contributor/create/', ContributorCreateView.as_view(), name='contributor_create'),
-    path('contributor/update/<int:pk>/', ContributorUpdateView.as_view(), name='contributor_update'),
-    path('contributor/delete/<int:pk>/', ContributorDeleteView.as_view(), name='contributor_delete'),
 
     # Albums
     path('albums/', AlbumsListView.as_view(), name='albums'),
@@ -65,12 +77,53 @@ urlpatterns = [
     path('album/delete/<int:pk>/', AlbumDeleteView.as_view(), name='album_delete'),
     path('album/<int:album_pk>/song-order-update/', AlbumSongOrderUpdateView.as_view(), name='album_song_order_update'),
 
-    # Music Groups
+    # Contributors
+    path('contributors/', ContributorsListView.as_view(), name='contributors'),
+    path('contributor/<int:pk>/', ContributorDetailView.as_view(), name='contributor'),
+    path('contributor/create/', ContributorCreateView.as_view(), name='contributor_create'),
+    path('contributor/update/<int:pk>/', ContributorUpdateView.as_view(), name='contributor_update'),
+    path('contributor/delete/<int:pk>/', ContributorDeleteView.as_view(), name='contributor_delete'),
+
+    # Contributor role
+    path('contributor-roles/', ContributorRolesListView.as_view(), name='contributor_roles'),
+    path('contributor-role/<int:pk>/', ContributorRoleDetailView.as_view(), name='contributor_role'),
+    path('contributor-role/create/', ContributorRoleCreateView.as_view(), name='contributor_role_create'),
+    path('contributor-role/<int:pk>/edit/', ContributorRoleUpdateView.as_view(), name='contributor_role_update'),
+    path('contributor-role/<int:pk>/delete/', ContributorRoleDeleteView.as_view(), name='contributor_role_delete'),
+
+    # Contributor song performance
+    path(
+        'contributor-song-performance/<int:contributor_pk>/create/',
+        ContributorSongPerformanceCreateView.as_view(),
+        name='contributor-song-performance_create'),
+    path(
+        'contributor-song-performance/<int:pk>/edit/',
+        ContributorSongPerformanceUpdateView.as_view(),
+        name='contributor-song-performance_update'),
+    path(
+        'contributor-song-performance/<int:pk>/delete/',
+        ContributorSongPerformanceDeleteView.as_view(),
+        name='contributor-song-performance_delete'),
+
+    # Music groups
     path('music-groups/', MusicGroupsListView.as_view(), name='music-groups'),
     path('music-group/<int:pk>/', MusicGroupDetailView.as_view(), name='music-group'),
     path('music-group/create/', MusicGroupCreateView.as_view(), name='music-group_create'),
     path('music-group/update/<int:pk>/', MusicGroupUpdateView.as_view(), name='music-group_update'),
     path('music-group/delete/<int:pk>/', MusicGroupDeleteView.as_view(), name='music-group_delete'),
+
+
+    # Music group role
+    path('music-group-roles/', MusicGroupRolesListView.as_view(), name='music_group_roles'),
+    path('music-group-role/<int:pk>/', MusicGroupRoleDetailView.as_view(), name='music_group_role'),
+    path('music-group-role/create/', MusicGroupRoleCreateView.as_view(), name='music_group_role_create'),
+    path('music-group-role/<int:pk>/edit/', MusicGroupRoleUpdateView.as_view(), name='music_group_role_update'),
+    path('music-group-role/<int:pk>/delete/', MusicGroupRoleDeleteView.as_view(), name='music_group_role_delete'),
+
+    # Music group membership
+    path('music-group-membership/<int:contributor_pk>/create/', MusicGroupMembershipCreateView.as_view(), name='music-group-membership_create'),
+    path('music-group-membership/<int:pk>/edit/', MusicGroupMembershipUpdateView.as_view(), name='music-group-membership_update'),
+    path('music-group-membership/<int:pk>/delete/', MusicGroupMembershipDeleteView.as_view(), name='music-group-membership_delete'),
 
     # Countries
     path('countries/', CountriesListView.as_view(), name='countries'),
@@ -79,24 +132,19 @@ urlpatterns = [
     path('country/update/<int:pk>/', CountryUpdateView.as_view(), name='country_update'),
     path('country/delete/<int:pk>/', CountryDeleteView.as_view(), name='country_delete'),
 
+    # Languages
+    path('languages/', LanguagesListView.as_view(), name='languages'),
+    path('language/<int:pk>', LanguageDetailView.as_view(), name='language'),
+    path('language/create/', LanguageCreateView.as_view(), name='language_create'),
+    path('language/update/<int:pk>/', LanguageUpdateView.as_view(), name='language_update'),
+    path('language/delete/<int:pk>/', LanguageDeleteView.as_view(), name='language_delete'),
+
     # Genres
     path('genres/', GenresListView.as_view(), name='genres'),
     path('genre/<int:pk>', GenreDetailView.as_view(), name='genre'),
     path('genre/create/', GenreCreateView.as_view(), name='genre_create'),
     path('genre/update/<int:pk>/', GenreUpdateView.as_view(), name='genre_update'),
     path('genre/delete/<int:pk>/', GenreDeleteView.as_view(), name='genre_delete'),
-
-path('contributor-role/<int:pk>/edit/', ContributorRoleUpdateView.as_view(), name='contributor-role_update'),
-path('contributor-role/<int:pk>/delete/', ContributorRoleDeleteView.as_view(), name='contributor-role_delete'),
-
-path('music-group-membership/<int:contributor_pk>/create/', MusicGroupMembershipCreateView.as_view(), name='music-group-membership_create'),
-path('music-group-membership/<int:pk>/edit/', MusicGroupMembershipUpdateView.as_view(), name='music-group-membership_update'),
-path('music-group-membership/<int:pk>/delete/', MusicGroupMembershipDeleteView.as_view(), name='music-group-membership_delete'),
-path('contributor-song-performance/<int:contributor_pk>/create/',
-     ContributorSongPerformanceCreateView.as_view(),
-     name='contributor-song-performance_create'),
-path('contributor-song-performance/<int:pk>/edit/', ContributorSongPerformanceUpdateView.as_view(), name='contributor-song-performance_update'),
-    path('contributor-song-performance/<int:pk>/delete/', ContributorSongPerformanceDeleteView.as_view(), name='contributor-song-performance_delete'),
 ]
 
 if settings.DEBUG:
