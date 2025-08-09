@@ -14,7 +14,7 @@
 
             <!-- Logo -->
             <a class="navbar-brand flex-shrink-0 me-3 hover-link" href="{% url 'home' %}">
-                <img src="{% static 'images/musiclibrary_logo.svg' %}" alt="MusicLibrary logo" height="40" />
+                <img src="{% static 'images/music_library_logo.svg' %}" alt="MusicLibrary logo" height="40">
                 MusicLibrary
             </a>
 
@@ -47,16 +47,16 @@
             <!-- Nav center -->
 <ul class="navbar-nav mx-auto text-nowrap gap-1">
     <li class="nav-item">
-        <a href="{% url 'songs' %}" class="nav-link {% if request.resolver_match.view_name == 'songs' %}active-custom{% endif %}">Songs</a>
+        <a href="{% url 'songs' %}" class="nav-link navbar-item-lg {% if request.resolver_match.view_name == 'songs' %}active-custom{% endif %}">Songs</a>
     </li>
     <li class="nav-item">
-        <a href="{% url 'albums' %}" class="nav-link {% if request.resolver_match.view_name == 'albums' %}active-custom{% endif %}">Albums</a>
+        <a href="{% url 'albums' %}" class="nav-link navbar-item-lg {% if request.resolver_match.view_name == 'albums' %}active-custom{% endif %}">Albums</a>
     </li>
     <li class="nav-item">
-        <a href="{% url 'contributors' %}" class="nav-link {% if request.resolver_match.view_name == 'contributors' %}active-custom{% endif %}">Contributors</a>
+        <a href="{% url 'contributors' %}" class="nav-link navbar-item-lg {% if request.resolver_match.view_name == 'contributors' %}active-custom{% endif %}">Contributors</a>
     </li>
     <li class="nav-item">
-        <a href="{% url 'music-groups' %}" class="nav-link {% if request.resolver_match.view_name == 'music-groups' %}active-custom{% endif %}">Music groups</a>
+        <a href="{% url 'music_groups' %}" class="nav-link navbar-item-lg {% if request.resolver_match.view_name == 'music_groups' %}active-custom{% endif %}">Music groups</a>
     </li>
 </ul>
 
@@ -95,7 +95,6 @@
     </div>
 </nav>
 
-{% if user.is_authenticated %}
     <div class="bg-light rounded py-0 mb-2">
         <div class="container d-flex flex-wrap justify-content-center align-items-center gap-1">
             <a href="{% url 'countries' %}" class="btn btn-sm text-secondary hover-item {% if request.resolver_match.view_name == 'countries' %}active-custom{% endif %}">Countries</a>
@@ -105,4 +104,3 @@
             <a href="{% url 'music_group_roles' %}" class="btn btn-sm text-secondary hover-item {% if request.resolver_match.view_name == 'music_group_roles' %}active-custom{% endif %}">Music group roles</a>
         </div>
     </div>
-{% endif %}

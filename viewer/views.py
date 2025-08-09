@@ -6,7 +6,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
 from django.db import transaction
 from django.db.models import Q, Count
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.shortcuts import get_object_or_404, redirect, render
 from django.template.loader import render_to_string
 from django.urls import reverse, reverse_lazy
@@ -15,10 +15,12 @@ from django.views import View
 from django.views.decorators.http import require_POST
 from django.views.generic import ListView, DetailView, TemplateView, CreateView, UpdateView, DeleteView
 
-from mixins import AlphabetOrderPaginationMixin, AlphabetOrderPaginationRelatedMixin
+from mixins import AlphabetOrderPaginationMixin, AlphabetOrderPaginationRelatedMixin, ContributorsByCategoryMixin, \
+    SongPerformanceBaseMixin
 from viewer.forms import (
     GenreModelForm, CountryModelForm, ContributorModelForm, MusicGroupModelForm, SongModelForm, AlbumModelForm,
-    ContributorSongPerformanceForm, MusicGroupMembershipForm, LanguageModelForm
+    ContributorSongPerformanceForm, MusicGroupMembershipForm, LanguageModelForm, MusicGroupPerformanceForm,
+    SongPerformanceContributorForm, SongPerformanceMusicGroupForm
 )
 from viewer.models import (
     Song, Contributor, Album, Genre, Country, AlbumSong, MusicGroup, ContributorRole, MusicGroupMembership,
@@ -56,23 +58,55 @@ class SongsListView(AlphabetOrderPaginationMixin, ListView):
     default_paginate_by = 10
     default_order_field = 'title'
 
+from collections import defaultdict, OrderedDict
+
+
+from collections import OrderedDict
+from django.views.generic import DetailView
+
+from viewer.models import SongPerformance, Song
+
+from collections import OrderedDict
+from django.views.generic import DetailView
+from viewer.models import SongPerformance, Song  # uprav podle skutečné cesty
+
 class SongDetailView(DetailView):
-    template_name = 'song.html'
     model = Song
-    context_object_name = 'song'
+    template_name = 'song.html'  # uprav podle potřeby
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         song = self.object
 
-        context.update({
-            'contributors_by_category': song.contributors_by_category(),
-            'groups_by_role': song.groups_by_role(),
-            'album': song.first_album(),
-            'song_artists': song.artists(),
-            'song_music_groups': song.music_groups(),
-        })
+        # Contributor performances (rozdělené podle contributor_role.category)
+        contributor_performances = SongPerformance.objects.filter(
+            song=song,
+            contributor__isnull=False
+        ).select_related('contributor', 'contributor_role')
+
+        performances_by_category = OrderedDict()
+        for perf in contributor_performances:
+            category = perf.contributor_role.category if perf.contributor_role else 'other'
+            if category not in performances_by_category:
+                performances_by_category[category] = []
+            performances_by_category[category].append(perf)
+
+        # Music group performances (všechny do jednoho klíče "Music Groups")
+        music_group_performances = SongPerformance.objects.filter(
+            song=song,
+            music_group__isnull=False
+        ).select_related('music_group', 'music_group_role')
+
+        # Všechny music group performances seskupíme pod jediný klíč
+        performances_by_role = OrderedDict()
+        performances_by_role['music_groups'] = list(music_group_performances)
+
+        context['performances_by_category'] = performances_by_category
+        context['music_group_performances_by_role'] = performances_by_role
+
         return context
+
+
 
 
 class SongCreateView(LoginRequiredMixin, CreateView):
@@ -96,6 +130,57 @@ class SongDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'confirm_delete.html'
     model = Song
     success_url = reverse_lazy('songs')
+
+
+class SongPerformanceContributorCreateView(SongPerformanceBaseMixin, CreateView):
+    form_class = SongPerformanceContributorForm
+
+
+class SongPerformanceContributorUpdateView(UpdateView):
+    model = SongPerformance
+    form_class = SongPerformanceContributorForm
+    template_name = "form.html"
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        # Předáme song do formuláře
+        kwargs['song'] = self.object.song
+        return kwargs
+
+    def get_success_url(self):
+        return reverse('song', kwargs={'pk': self.object.song.pk})
+
+
+class SongPerformanceContributorDeleteView(DeleteView):
+    model = SongPerformance
+    template_name = "confirm_delete.html"
+
+    def get_success_url(self):
+        song = self.object.song
+        return reverse('song', kwargs={'pk': song.pk})
+
+
+class SongPerformanceMusicGroupCreateView(SongPerformanceBaseMixin, CreateView):
+    form_class = SongPerformanceMusicGroupForm
+
+
+class SongPerformanceMusicGroupUpdateView(UpdateView):
+    model = SongPerformance
+    form_class = SongPerformanceMusicGroupForm
+    template_name = "form.html"
+
+    def get_success_url(self):
+        song = self.object.song
+        return reverse('song', kwargs={'pk': song.pk})
+
+
+class SongPerformanceMusicGroupDeleteView(DeleteView):
+    model = SongPerformance
+    template_name = "confirm_delete.html"
+
+    def get_success_url(self):
+        song = self.object.song
+        return reverse('song', kwargs={'pk': song.pk})
 
 
 # Album Views
@@ -371,6 +456,7 @@ class ContributorsListView(TemplateView):
         return context
 
 
+
 class ContributorDetailView(DetailView):
     template_name = 'contributor.html'
     model = Contributor
@@ -547,6 +633,9 @@ class MusicGroupsListView(ListView):
         letter = self.request.GET.get('letter')
 
         if letter:
+            letter = letter.strip()
+
+        if letter:
             queryset = queryset.filter(name__istartswith=letter)
 
         return queryset.order_by(self.get_ordering())
@@ -567,14 +656,14 @@ class MusicGroupDetailView(DetailView):
 class MusicGroupCreateView(LoginRequiredMixin, CreateView):
     template_name = 'form.html'
     form_class = MusicGroupModelForm
-    success_url = reverse_lazy('music-groups')
+    success_url = reverse_lazy('music_groups')
 
 
 class MusicGroupUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'form.html'
     form_class = MusicGroupModelForm
     model = MusicGroup
-    success_url = reverse_lazy('music-groups')
+    success_url = reverse_lazy('music_groups')
 
     def form_invalid(self, form):
         print('Form invalid')
@@ -584,7 +673,7 @@ class MusicGroupUpdateView(LoginRequiredMixin, UpdateView):
 class MusicGroupDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'confirm_delete.html'
     model = MusicGroup
-    success_url = reverse_lazy('music-groups')
+    success_url = reverse_lazy('music_groups')
 
 
 # Music group membership

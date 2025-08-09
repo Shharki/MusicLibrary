@@ -7,9 +7,9 @@
         <div class="row justify-content-center">
             <div class="col-12 col-md-9 col-lg-7 col-xl-6">
 
-                {% include "includes/page_heading.html" with title="Songs in genres" %}
+                {% include "includes/headers/page_heading_with_buttons.html" with title="Songs in genres" create_url='genre_create' %}
 
-                {% include "includes/top_controls.html" with create_url='genre_create' create_label="genre" %}
+                {% include "includes/top_controls.html" %}
 
                 {% include "includes/alphabet_filter.html" %}
 

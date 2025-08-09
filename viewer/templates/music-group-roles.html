@@ -8,10 +8,10 @@
         <div class="col-12 col-md-9 col-lg-7 col-xl-6">
 
             <!-- Heading -->
-            {% include "includes/page_heading.html" with title="Music Group Roles" %}
+            {% include "includes/headers/page_heading_with_buttons.html" with title="Music Group Roles" create_url='music_group_role_create' %}
 
             <!-- Top controls -->
-            {% include "includes/top_controls.html" with create_url='music_group_role_create' create_label="role" %}
+            {% include "includes/top_controls.html" %}
 
             <!-- Alphabet filter -->
             {% include "includes/alphabet_filter.html" %}

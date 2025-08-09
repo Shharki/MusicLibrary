@@ -1,0 +1,111 @@
+<div class="mb-4 d-flex justify-content-center gap-3">
+    <a href="{% url 'song_performance_contributor_create' %}?song={{ song.pk }}" class="btn btn-primary">
+        Add Contributor Performance
+    </a>
+    <a href="{% url 'song_performance_music_group_create' %}?song={{ song.pk }}" class="btn btn-secondary">
+        Add Music Group Performance
+    </a>
+</div>
+
+<div class="accordion" id="performancesAccordion">
+
+    <!-- Contributor Performances by Category -->
+    {% for category, performances in performances_by_category.items %}
+        {% if performances %}
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading-contrib-{{ forloop.counter }}">
+                    <button class="accordion-button collapsed fw-semibold"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#collapse-contrib-{{ forloop.counter }}"
+                            aria-expanded="false"
+                            aria-controls="collapse-contrib-{{ forloop.counter }}">
+                        {{ category|title }}
+                    </button>
+                </h2>
+                <div id="collapse-contrib-{{ forloop.counter }}"
+                     class="accordion-collapse collapse"
+                     aria-labelledby="heading-contrib-{{ forloop.counter }}"
+                     data-bs-parent="#performancesAccordion">
+                    <div class="accordion-body p-0">
+                        <div class="list-group list-group-flush">
+                            {% for perf in performances %}
+                                <div class="list-group-item px-3 py-2 d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <a href="{% url 'contributor' perf.contributor.pk %}" class="hover-link">
+                                            {{ perf.contributor }}
+                                        </a>
+                                    </div>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <a href="{% url 'contributor_role' perf.contributor_role.pk %}"
+                                           class="badge me-3 text-decoration-none hover-badge"
+                                           style="white-space: nowrap;">
+                                            {{ perf.contributor_role.name }}
+                                        </a>
+                                        {% if user.is_authenticated %}
+                                            <div class="btn-group btn-group-sm" role="group" aria-label="Contributor performance actions">
+                                                {% include "includes/buttons/edit_button_item.html" with url_name='contributor_song_performance_update' url_pk=perf.pk label=perf.contributor only %}
+                                                {% include "includes/buttons/delete_button_item.html" with url_name='contributor_song_performance_delete' url_pk=perf.pk label=perf.contributor only %}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %}
+
+    <!-- Music Group Performances -->
+{% for role, performances in music_group_performances_by_role.items %}
+    {% if performances %}
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="heading-mg-{{ forloop.counter }}">
+                <button class="accordion-button collapsed fw-semibold"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#collapse-mg-{{ forloop.counter }}"
+                        aria-expanded="false"
+                        aria-controls="collapse-mg-{{ forloop.counter }}">
+                    Music Groups
+                </button>
+            </h2>
+            <div id="collapse-mg-{{ forloop.counter }}"
+                 class="accordion-collapse collapse"
+                 aria-labelledby="heading-mg-{{ forloop.counter }}"
+                 data-bs-parent="#performancesAccordion">
+                <div class="accordion-body p-0">
+                    <div class="list-group list-group-flush">
+                        {% for perf in performances %}
+                            <div class="list-group-item px-3 py-2 d-flex justify-content-between align-items-center">
+                                <div>
+                                    <a href="{% url 'music_group' perf.music_group.pk %}" class="hover-link">
+                                        {{ perf.music_group }}
+                                    </a>
+                                </div>
+                                <div class="d-flex align-items-center gap-2">
+                                    <a href="{% url 'music_group_role' perf.music_group_role.pk %}"
+                                       class="badge me-3 text-decoration-none hover-badge"
+                                       style="white-space: nowrap;">
+                                        {{ perf.music_group_role.name }}
+                                    </a>
+                                    {% if user.is_authenticated %}
+                                        <div class="btn-group btn-group-sm" role="group" aria-label="Music group performance actions">
+                                            {% include "includes/buttons/edit_button_item.html" with url_name='music_group_performance_update' url_pk=perf.pk label=perf.music_group only %}
+                                            {% include "includes/buttons/delete_button_item.html" with url_name='music_group_performance_delete' url_pk=perf.pk label=perf.music_group only %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endfor %}
+
+
+</div>

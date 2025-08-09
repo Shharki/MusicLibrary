@@ -70,7 +70,7 @@
                     <h5 class="card-title fw-semibold pb-3 d-flex justify-content-between align-items-center">
                       Featured
                       {% if user.is_authenticated %}
-                      <a href="{% url 'music-group-membership_create' contributor.pk %}" class="btn btn-sm btn-outline-primary">
+                      <a href="{% url 'music_group_membership_create' contributor.pk %}" class="btn btn-sm btn-outline-primary">
                         + Add music group membership
                       </a>
                       {% endif %}
@@ -134,13 +134,13 @@
                                     <div class="list-group list-group-flush">
                                         {% for membership in memberships %}
                                         <div class="d-flex justify-content-between align-items-center list-group-item">
-                                            <a href="{% url 'music-group' membership.music_group.pk %}" class="text-decoration-none hover-item">
+                                            <a href="{% url 'music_group' membership.music_group.pk %}" class="text-decoration-none hover-item">
                                                 {{ membership.music_group.name }}
                                             </a>
                                             {% if user.is_authenticated %}
                                             <div class="btn-group btn-group-sm">
-                                                <a href="{% url 'music-group-membership_update' membership.pk %}" class="btn btn-outline-warning" title="Edit membership">✏️</a>
-                                                <a href="{% url 'music-group-membership_delete' membership.pk %}" class="btn btn-outline-danger" title="Delete membership">❌</a>
+                                                <a href="{% url 'music_group_membership_update' membership.pk %}" class="btn btn-outline-warning" title="Edit membership">✏️</a>
+                                                <a href="{% url 'music_group_membership_delete' membership.pk %}" class="btn btn-outline-danger" title="Delete membership">❌</a>
                                             </div>
                                             {% endif %}
                                         </div>
@@ -164,7 +164,7 @@
                     <h5 class="card-title fw-semibold pb-3 d-flex justify-content-between align-items-center">
                       Contributions
                       {% if user.is_authenticated %}
-                      <a href="{% url 'contributor-song-performance_create' contributor.pk %}" class="btn btn-sm btn-outline-primary">
+                      <a href="{% url 'contributor_song_performance_create' contributor.pk %}" class="btn btn-sm btn-outline-primary">
                         + Add song contribution
                       </a>
                       {% endif %}
@@ -194,8 +194,8 @@
 
                                             {% if user.is_authenticated %}
                                             <div class="btn-group btn-group-sm ms-3">
-                                                <a href="{% url 'contributor-song-performance_update' perf.pk %}" class="btn btn-outline-warning" title="Edit performance">✏️</a>
-                                                <a href="{% url 'contributor-song-performance_delete' perf.pk %}" class="btn btn-outline-danger" title="Delete performance">❌</a>
+                                                <a href="{% url 'contributor_song_performance_update' perf.pk %}" class="btn btn-outline-warning" title="Edit performance">✏️</a>
+                                                <a href="{% url 'contributor_song_performance_delete' perf.pk %}" class="btn btn-outline-danger" title="Delete performance">❌</a>
                                             </div>
                                             {% endif %}
                                         </div>

@@ -1,7 +1,7 @@
 <ul class="list-group">
   {% for role in roles %}
     <li class="list-group-item d-flex justify-content-between align-items-center">
-      <a href="{% url 'music-group_role_detail' pk=role.pk %}">{{ role.name }}</a>
+      <a href="{% url 'music_group_role_detail' pk=role.pk %}">{{ role.name }}</a>
       {% if role.category %}
         <span class="badge bg-primary">{{ role.category }}</span>
       {% endif %}

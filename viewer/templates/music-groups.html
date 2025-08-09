@@ -8,16 +8,16 @@
         <div class="col-md-10">
 
             <!-- Heading -->
-            {% include "includes/page_heading.html" with title="Music Groups" %}
+            {% include "includes/headers/page_heading_with_buttons.html" with title="Music Groups" create_url='music_group_create' %}
 
             <!-- Top controls -->
-            {% include "includes/top_controls.html" with create_url='music-group_create' create_label="Music group" %}
+            {% include "includes/top_controls.html" %}
 
             <!-- Alphabet filter -->
             {% include "includes/alphabet_filter.html" %}
 
             <!-- Music Groups list -->
-            {% include "includes/musicgroup_list_group.html" %}
+            {% include "includes/music_group_list_group.html" %}
 
             <!-- Pagination controls -->
             {% include "includes/pagination_controls.html" %}

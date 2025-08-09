@@ -80,7 +80,7 @@ html[data-bs-theme="light"] body {
     font-weight: 600;
 }
 
-/* Header styling for emphasized headings */
+/* Header styling for emphasized headers */
 .header-custom {
     font-weight: 600
 }
@@ -141,4 +141,18 @@ html[data-bs-theme="light"] body {
   font-size: 0.875rem;
     color: var(--bs-secondary);
     font-weight: 400;
+}
+
+.navbar-nav .nav-link.navbar-item-lg {
+    font-size: 1.12rem;  /* nebo jak chceš větší */
+    font-weight: 500;    /* polotučné */
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.navbar-nav .nav-link.navbar-item-lg {
+    font-size: 1.12rem;  /* nebo jak chceš větší */
+    font-weight: 500;    /* polotučné */
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
 }

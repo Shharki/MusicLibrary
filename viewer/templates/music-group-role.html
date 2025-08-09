@@ -8,7 +8,7 @@
     <div class="col-12 col-md-9 col-lg-7 col-xl-6">
 
       <!-- Heading -->
-      {% include "includes/page_heading.html" with title=music_group_role.name %}
+      {% include "includes/headers/page_heading.html" with title=music_group_role.name %}
 
       <!-- Top controls (edit, delete) -->
       <div class="mb-3 d-flex justify-content-end gap-2">
@@ -21,7 +21,7 @@
       {% if music_groups %}
         <div class="list-group mb-3">
           {% for group in music_groups %}
-            <a href="{% url 'music-group' group.pk %}" class="list-group-item list-group-item-action">
+            <a href="{% url 'music_group' group.pk %}" class="list-group-item list-group-item-action">
               {{ group.name }}
             </a>
           {% endfor %}

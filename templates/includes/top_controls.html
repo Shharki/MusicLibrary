@@ -2,9 +2,4 @@
     <div class="col-md-auto mb-2">
         {% include "includes/sorting_and_paginate_form.html" %}
     </div>
-    <div class="col text-end mb-2">
-        {% if user.is_authenticated %}
-            <a href="{% url create_url %}" class="btn btn-primary">Create {{ create_label }}</a>
-        {% endif %}
-    </div>
 </div>

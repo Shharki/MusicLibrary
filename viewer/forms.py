@@ -5,6 +5,7 @@ from django.core.exceptions import ValidationError
 from django.forms import ModelForm, TextInput, CharField, DateInput, DateField, ModelMultipleChoiceField, CheckboxSelectMultiple
 from django.forms.widgets import Select, Textarea, SelectMultiple, ClearableFileInput, FileInput, NumberInput
 from django.utils.timezone import now
+from django.utils.safestring import mark_safe
 
 from viewer.models import Genre, Country, Contributor, MusicGroup, Album, Song, Language, MusicGroupMembership, \
     ContributorRole, SongPerformance
@@ -198,6 +199,19 @@ class MusicGroupModelForm(ModelForm):
                 raise ValidationError("Founded date cannot be after disbanded date.")
 
 
+class MusicGroupPerformanceForm(ModelForm):
+    class Meta:
+        model = SongPerformance
+        fields = ['song', 'music_group', 'music_group_role']  # pouze tyto 3 pole
+
+    def clean(self):
+        cleaned_data = super().clean()
+        # Přidat validaci, že contributor a contributor_role jsou prázdné
+        if cleaned_data.get('contributor') or cleaned_data.get('contributor_role'):
+            raise ValidationError("Contributor fields must be empty when creating music group performance.")
+        return cleaned_data
+
+
 class AlbumModelForm(ModelForm):
     released = DateField(
         required=False,
@@ -336,9 +350,14 @@ class SongModelForm(ModelForm):
         help_texts = {
             'duration': 'Duration of the song in seconds',
             'released': 'Release date of the song (optional)',
-            'artist': 'Select one or more artists',
+            'artist': mark_safe("Select one or more artists. "
+                                '<strong>Do not add music group members as artists!</strong>'),
             'music_group': 'Select music groups',
             'genre': 'Select genres',
+        }
+
+        warnings = {
+            'artist': 'If the song is by Music group, do not add the band members here!',
         }
 
     def clean_title(self):
@@ -465,24 +484,81 @@ class ContributorSongPerformanceForm(ModelForm):
         return cleaned_data
 
 
-class MusicGroupPerformanceForm(ModelForm):
+class SongPerformanceContributorForm(ModelForm):
     class Meta:
         model = SongPerformance
-        fields = ['song', 'music_group', 'music_group_role']  # pouze tyto 3 pole
+        fields = ['contributor', 'contributor_role']  # song se nastavuje mimo form
 
     def clean(self):
         cleaned_data = super().clean()
-        # Přidat validaci, že contributor a contributor_role jsou prázdné
-        if cleaned_data.get('contributor') or cleaned_data.get('contributor_role'):
-            raise ValidationError("Contributor fields must be empty when creating music group performance.")
+
+        music_group = cleaned_data.get('music_group')
+        music_group_role = cleaned_data.get('music_group_role')
+        if music_group or music_group_role:
+            raise ValidationError("Music group fields must be empty for contributor performance.")
+
+        contributor = cleaned_data.get('contributor')
+        contributor_role = cleaned_data.get('contributor_role')
+
+        song = self.initial.get('song') or getattr(self.instance, 'song', None)
+        if not song:
+            raise ValidationError("Song must be set before validation.")
+
+        if contributor and contributor_role:
+            qs = SongPerformance.objects.filter(
+                song=song,
+                contributor=contributor,
+                contributor_role=contributor_role,
+            )
+            if self.instance.pk:
+                qs = qs.exclude(pk=self.instance.pk)
+
+            print(f"Checking duplicates for contributor={contributor} role={contributor_role} song={song}")
+            print(f"Instance PK: {self.instance.pk}")
+            print(f"Duplicate count: {qs.count()}")
+
+            if qs.exists():
+                raise ValidationError("Tento contributor s touto rolí již existuje u této písně.")
+
         return cleaned_data
 
 
-from django import forms
-from django.core.exceptions import ValidationError
-from .models import Language
+class SongPerformanceMusicGroupForm(ModelForm):
+    class Meta:
+        model = SongPerformance
+        fields = ['music_group', 'music_group_role']  # bez 'song'
 
-class LanguageModelForm(forms.ModelForm):
+    def clean(self):
+        cleaned_data = super().clean()
+
+        # Contributor pole musí být prázdná
+        if cleaned_data.get('contributor') or cleaned_data.get('contributor_role'):
+            raise ValidationError("Contributor fields must be empty for music group performance.")
+
+        music_group = cleaned_data.get('music_group')
+        music_group_role = cleaned_data.get('music_group_role')
+        song = self.initial.get('song') or getattr(self.instance, 'song', None)
+        if not song:
+            raise ValidationError("Song must be set before validation.")
+
+        # ověření duplicity
+        if music_group and music_group_role:
+            qs = SongPerformance.objects.filter(
+                song=song,
+                music_group=music_group,
+                music_group_role=music_group_role,
+            )
+            if self.instance.pk:
+                qs = qs.exclude(pk=self.instance.pk)
+            if qs.exists():
+                raise ValidationError(
+                    "Tato music group s touto rolí už je v této písni zaznamenána."
+                )
+
+        return cleaned_data
+
+
+class LanguageModelForm(ModelForm):
     class Meta:
         model = Language
         fields = '__all__'
@@ -495,7 +571,7 @@ class LanguageModelForm(forms.ModelForm):
             }
         }
         widgets = {
-            'name': forms.TextInput(attrs={'class': 'bg-info'})
+            'name': TextInput(attrs={'class': 'bg-info'})
         }
 
     def clean_name(self):
@@ -509,5 +585,4 @@ class LanguageModelForm(forms.ModelForm):
         if qs.exists():
             raise ValidationError("This language already exists.")
         return name
-
 

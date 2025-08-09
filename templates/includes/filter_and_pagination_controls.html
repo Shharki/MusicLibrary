@@ -1,0 +1,18 @@
+<form method="get" class="d-flex align-items-center mb-3">
+    <label for="paginate_per_column" class="me-2">Show per column:</label>
+    <select name="paginate_per_column" id="paginate_per_column"
+            class="form-select form-select-sm w-auto me-3"
+            onchange="this.form.submit()">
+        {% for option in pagination_options %}
+            <option value="{{ option }}" {% if option == paginate_per_column %}selected{% endif %}>{{ option }}</option>
+        {% endfor %}
+    </select>
+
+    {% for key, value in request.GET.items %}
+        {% if key != 'paginate_per_column' %}
+            <input type="hidden" name="{{ key }}" value="{{ value }}">
+        {% endif %}
+    {% endfor %}
+</form>
+
+{% include "includes/alphabet_filter.html" with alphabet=alphabet current_letter=request.GET.letter %}
