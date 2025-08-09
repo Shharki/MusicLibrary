@@ -112,7 +112,7 @@ Development & CI    Git, GitHub Actions (lint + tests), PyCharm
         - [ ] Album titles
         - [ ] Contributors (names)
         - [ ] Music group titles
-    - [ ] Matching results shown in dropdown or redirected filtered list 
+    - [x] Matching results shown in dropdown or redirected filtered list 
   
 #### Databáze
 ![ER diagram](./files/ER_diagram_v3.png)
