@@ -2,7 +2,7 @@ import os
 
 from django.conf import settings
 from django.contrib import messages
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.core.paginator import Paginator
 from django.db import transaction
 from django.db.models import Q, Count
@@ -58,6 +58,12 @@ class SongsListView(AlphabetOrderPaginationMixin, ListView):
     default_paginate_by = 10
     default_order_field = 'title'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["model_name"] = self.model._meta.model_name
+        context["app_label"] = self.model._meta.app_label
+        return context
+
 from collections import defaultdict, OrderedDict
 
 
@@ -109,37 +115,42 @@ class SongDetailView(DetailView):
 
 
 
-class SongCreateView(LoginRequiredMixin, CreateView):
+class SongCreateView(PermissionRequiredMixin, CreateView):
     template_name = 'form.html'
     form_class = SongModelForm
     success_url = reverse_lazy('songs')
+    permission_required = 'viewer.add_song'
 
 
-class SongUpdateView(LoginRequiredMixin, UpdateView):
+class SongUpdateView(PermissionRequiredMixin, UpdateView):
     template_name = 'form.html'
     form_class = SongModelForm
     model = Song
     success_url = reverse_lazy('songs')
+    permission_required = 'viewer.change_song'
 
     def form_invalid(self, form):
         print('Form invalid')
         return super().form_invalid(form)
 
 
-class SongDeleteView(LoginRequiredMixin, DeleteView):
+class SongDeleteView(PermissionRequiredMixin, DeleteView):
     template_name = 'confirm_delete.html'
     model = Song
     success_url = reverse_lazy('songs')
+    permission_required = 'viewer.delete_song'
 
 
-class SongPerformanceContributorCreateView(SongPerformanceBaseMixin, CreateView):
+class SongPerformanceContributorCreateView(PermissionRequiredMixin, SongPerformanceBaseMixin, CreateView):
     form_class = SongPerformanceContributorForm
+    permission_required = 'viewer.add_songperformance'
 
 
-class SongPerformanceContributorUpdateView(UpdateView):
+class SongPerformanceContributorUpdateView(PermissionRequiredMixin, UpdateView):
     model = SongPerformance
     form_class = SongPerformanceContributorForm
     template_name = "form.html"
+    permission_required = 'viewer.change_songperformance'
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
@@ -151,32 +162,36 @@ class SongPerformanceContributorUpdateView(UpdateView):
         return reverse('song', kwargs={'pk': self.object.song.pk})
 
 
-class SongPerformanceContributorDeleteView(DeleteView):
+class SongPerformanceContributorDeleteView(PermissionRequiredMixin, DeleteView):
     model = SongPerformance
     template_name = "confirm_delete.html"
+    permission_required = 'viewer.delete_songperformance'
 
     def get_success_url(self):
         song = self.object.song
         return reverse('song', kwargs={'pk': song.pk})
 
 
-class SongPerformanceMusicGroupCreateView(SongPerformanceBaseMixin, CreateView):
+class SongPerformanceMusicGroupCreateView(PermissionRequiredMixin, SongPerformanceBaseMixin, CreateView):
     form_class = SongPerformanceMusicGroupForm
+    permission_required = 'viewer.add_songperformance'
 
 
-class SongPerformanceMusicGroupUpdateView(UpdateView):
+class SongPerformanceMusicGroupUpdateView(PermissionRequiredMixin, UpdateView):
     model = SongPerformance
     form_class = SongPerformanceMusicGroupForm
     template_name = "form.html"
+    permission_required = 'viewer.change_songperformance'
 
     def get_success_url(self):
         song = self.object.song
         return reverse('song', kwargs={'pk': song.pk})
 
 
-class SongPerformanceMusicGroupDeleteView(DeleteView):
+class SongPerformanceMusicGroupDeleteView(PermissionRequiredMixin, DeleteView):
     model = SongPerformance
     template_name = "confirm_delete.html"
+    permission_required = 'viewer.delete_songperformance'
 
     def get_success_url(self):
         song = self.object.song
@@ -184,6 +199,9 @@ class SongPerformanceMusicGroupDeleteView(DeleteView):
 
 
 # Album Views
+from django.views.generic import ListView
+from viewer.models import Album  # podle tvého importu
+
 class AlbumsListView(ListView):
     model = Album
     template_name = 'albums.html'
@@ -203,17 +221,18 @@ class AlbumsListView(ListView):
     def get_queryset(self):
         queryset = super().get_queryset()
         letter = self.request.GET.get("letter")
-
         if letter:
             queryset = queryset.filter(title__istartswith=letter)
-
         return queryset.order_by(self.get_ordering())
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['paginate_options'] = [10, 20, 50, 100]
         context['alphabet'] = list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+        context['model_name'] = 'album'     # důležité pro šablony
+        context['app_label'] = 'viewer'     # uprav podle názvu své appky
         return context
+
 
 
 class AlbumDetailView(DetailView):
@@ -251,11 +270,12 @@ class AlbumDetailView(DetailView):
         return context
 
 
-class AlbumCreateView(LoginRequiredMixin, CreateView):
+class AlbumCreateView(PermissionRequiredMixin, LoginRequiredMixin, CreateView):
     model = Album
     form_class = AlbumModelForm
     template_name = 'form.html'
     success_url = reverse_lazy('albums')
+    permission_required = 'viewer.add_album'
 
     def form_valid(self, form):
         self.object = form.save(commit=False)
@@ -286,11 +306,12 @@ class AlbumCreateView(LoginRequiredMixin, CreateView):
         return redirect(self.get_success_url())
 
 
-class AlbumUpdateView(LoginRequiredMixin, UpdateView):
+class AlbumUpdateView(PermissionRequiredMixin, UpdateView):
     model = Album
     form_class = AlbumModelForm
     template_name = 'form.html'
     success_url = reverse_lazy('albums')
+    permission_required = 'viewer.change_album'
 
     def form_valid(self, form):
         self.object = form.save(commit=False)
@@ -318,13 +339,15 @@ class AlbumUpdateView(LoginRequiredMixin, UpdateView):
         return redirect(self.get_success_url())
 
 
-class AlbumDeleteView(LoginRequiredMixin, DeleteView):
+class AlbumDeleteView(PermissionRequiredMixin, DeleteView):
     model = Album
     template_name = 'confirm_delete.html'
     success_url = reverse_lazy('albums')
+    permission_required = 'viewer.delete_album'
 
 
-class AlbumSongOrderUpdateView(LoginRequiredMixin, View):
+class AlbumSongOrderUpdateView(PermissionRequiredMixin, View):
+    permission_required = 'viewer.change_albumsong'
 
     @method_decorator(require_POST)
     def post(self, request, album_pk):
@@ -491,27 +514,30 @@ class ContributorDetailView(DetailView):
         return context
 
 
-class ContributorCreateView(LoginRequiredMixin, CreateView):
+class ContributorCreateView(PermissionRequiredMixin, LoginRequiredMixin, CreateView):
     template_name = 'form.html'
     form_class = ContributorModelForm
     success_url = reverse_lazy('contributors')
+    permission_required = 'viewer.add_contributor'
 
 
-class ContributorUpdateView(LoginRequiredMixin, UpdateView):
+class ContributorUpdateView(PermissionRequiredMixin, UpdateView):
     template_name = 'form.html'
     form_class = ContributorModelForm
     model = Contributor
     success_url = reverse_lazy('contributors')
+    permission_required = 'viewer.change_contributor'
 
     def form_invalid(self, form):
         print('Form invalid')
         return super().form_invalid(form)
 
 
-class ContributorDeleteView(LoginRequiredMixin, DeleteView):
+class ContributorDeleteView(PermissionRequiredMixin, DeleteView):
     template_name = 'confirm_delete.html'
     model = Contributor
     success_url = reverse_lazy('contributors')
+    permission_required = 'viewer.delete_contributor'
 
 
 # Contributor role
@@ -554,31 +580,35 @@ class ContributorRoleDetailView(AlphabetOrderPaginationRelatedMixin, DetailView)
         return context
 
 
-class ContributorRoleCreateView(CreateView):
+class ContributorRoleCreateView(PermissionRequiredMixin, CreateView):
     model = ContributorRole
     fields = ['name', 'category']
     success_url = reverse_lazy('contributor_roles')
     template_name = 'form.html'
+    permission_required = 'viewer.add_contributorrole'
 
 
-class ContributorRoleUpdateView(UpdateView):
+class ContributorRoleUpdateView(PermissionRequiredMixin, UpdateView):
     model = ContributorRole
     fields = ['name', 'category']
     success_url = reverse_lazy('roles')
     template_name = 'form.html'
+    permission_required = 'viewer.change_contributorrole'
 
 
-class ContributorRoleDeleteView(DeleteView):
+class ContributorRoleDeleteView(PermissionRequiredMixin, DeleteView):
     model = ContributorRole
     success_url = reverse_lazy('roles')
     template_name = 'confirm_delete.html'
+    permission_required = 'viewer.delete_contributorrole'
 
 
 # Contributor song performance
-class ContributorSongPerformanceCreateView(CreateView):
+class ContributorSongPerformanceCreateView(PermissionRequiredMixin, CreateView):
     model = SongPerformance
     form_class = ContributorSongPerformanceForm
     template_name = 'form.html'
+    permission_required = 'viewer.add_songperformance'
 
     def get_initial(self):
         # Předvyplníme contributor do formuláře (např. hidden field nebo readonly)
@@ -598,17 +628,19 @@ class ContributorSongPerformanceCreateView(CreateView):
         return super().form_valid(form)
 
 
-class ContributorSongPerformanceUpdateView(UpdateView):
+class ContributorSongPerformanceUpdateView(PermissionRequiredMixin, UpdateView):
     model = SongPerformance
     form_class = ContributorSongPerformanceForm
     template_name = 'form.html'
     success_url = reverse_lazy('contributors')
+    permission_required = 'viewer.change_songperformance'
 
 
-class ContributorSongPerformanceDeleteView(DeleteView):
+class ContributorSongPerformanceDeleteView(PermissionRequiredMixin, DeleteView):
     model = SongPerformance
     template_name = 'confirm_delete.html'
     success_url = reverse_lazy('contributors')
+    permission_required = 'viewer.delete_songperformance'
 
 
 # Music groups
@@ -653,34 +685,38 @@ class MusicGroupDetailView(DetailView):
     context_object_name = 'music_group'
 
 
-class MusicGroupCreateView(LoginRequiredMixin, CreateView):
+class MusicGroupCreateView(PermissionRequiredMixin, LoginRequiredMixin, CreateView):
     template_name = 'form.html'
     form_class = MusicGroupModelForm
     success_url = reverse_lazy('music_groups')
+    permission_required = 'viewer.add_musicgroup'
 
 
-class MusicGroupUpdateView(LoginRequiredMixin, UpdateView):
+class MusicGroupUpdateView(PermissionRequiredMixin, UpdateView):
     template_name = 'form.html'
     form_class = MusicGroupModelForm
     model = MusicGroup
     success_url = reverse_lazy('music_groups')
+    permission_required = 'viewer.change_musicgroup'
 
     def form_invalid(self, form):
         print('Form invalid')
         return super().form_invalid(form)
 
 
-class MusicGroupDeleteView(LoginRequiredMixin, DeleteView):
+class MusicGroupDeleteView(PermissionRequiredMixin, DeleteView):
     template_name = 'confirm_delete.html'
     model = MusicGroup
     success_url = reverse_lazy('music_groups')
+    permission_required = 'viewer.delete_musicgroup'
 
 
 # Music group membership
-class MusicGroupMembershipCreateView(CreateView):
+class MusicGroupMembershipCreateView(PermissionRequiredMixin, CreateView):
     model = MusicGroupMembership
     form_class = MusicGroupMembershipForm
     template_name = 'form.html'
+    permission_required = 'viewer.add_musicgroupmembership'
 
     def get_success_url(self):
         return reverse_lazy('contributor', kwargs={'pk': self.object.member.pk})
@@ -692,18 +728,20 @@ class MusicGroupMembershipCreateView(CreateView):
         return super().form_valid(form)
 
 
-class MusicGroupMembershipUpdateView(UpdateView):
+class MusicGroupMembershipUpdateView(PermissionRequiredMixin, UpdateView):
     model = MusicGroupMembership
     form_class = MusicGroupMembershipForm
     template_name = 'form.html'
+    permission_required = 'viewer.change_musicgroupmembership'
 
     def get_success_url(self):
         return reverse_lazy('contributor', kwargs={'pk': self.object.member.pk})
 
 
-class MusicGroupMembershipDeleteView(DeleteView):
+class MusicGroupMembershipDeleteView(PermissionRequiredMixin, DeleteView):
     model = MusicGroupMembership
     template_name = 'confirm_delete.html'
+    permission_required = 'viewer.delete_musicgroupmembership'
 
     def get_success_url(self):
         return reverse_lazy('contributor', kwargs={'pk': self.object.member.pk})
@@ -743,22 +781,25 @@ class MusicGroupRoleDetailView(DetailView):
         return context
 
 
-class MusicGroupRoleCreateView(CreateView):
+class MusicGroupRoleCreateView(PermissionRequiredMixin, CreateView):
     model = MusicGroupRole
     fields = ['name']
     success_url = reverse_lazy('music_group_roles')
     template_name = 'form.html'
+    permission_required = 'viewer.add_musicgrouprole'
 
-class MusicGroupRoleUpdateView(UpdateView):
+class MusicGroupRoleUpdateView(PermissionRequiredMixin, UpdateView):
     model = MusicGroupRole
     fields = ['name']
     success_url = reverse_lazy('music_group_roles')
     template_name = 'form.html'
+    permission_required = 'viewer.change_musicgrouprole'
 
-class MusicGroupRoleDeleteView(DeleteView):
+class MusicGroupRoleDeleteView(PermissionRequiredMixin, DeleteView):
     model = MusicGroupRole
     success_url = reverse_lazy('music_group_roles')
     template_name = 'confirm_delete.html'
+    permission_required = 'viewer.delete_musicgrouprole'
 
 
 # Country Views
@@ -776,27 +817,30 @@ class CountryDetailView(LoginRequiredMixin, DetailView):
     context_object_name = 'country'
 
 
-class CountryCreateView(LoginRequiredMixin, CreateView):
+class CountryCreateView(PermissionRequiredMixin, CreateView):
     template_name = 'form.html'
     form_class = CountryModelForm
     success_url = reverse_lazy('countries')
+    permission_required = 'viewer.add_country'
 
 
-class CountryUpdateView(LoginRequiredMixin, UpdateView):
+class CountryUpdateView(PermissionRequiredMixin, UpdateView):
     template_name = 'form.html'
     form_class = CountryModelForm
     model = Country
     success_url = reverse_lazy('countries')
+    permission_required = 'viewer.change_country'
 
     def form_invalid(self, form):
         print('Form invalid')
         return super().form_invalid(form)
 
 
-class CountryDeleteView(LoginRequiredMixin, DeleteView):
+class CountryDeleteView(PermissionRequiredMixin, DeleteView):
     template_name = 'confirm_delete.html'
     model = Country
     success_url = reverse_lazy('countries')
+    permission_required = 'viewer.delete_country'
 
 
 #Language
@@ -831,29 +875,32 @@ class LanguageDetailView(AlphabetOrderPaginationRelatedMixin, DetailView):
         return context
 
 
-class LanguageCreateView(LoginRequiredMixin, CreateView):
+class LanguageCreateView(PermissionRequiredMixin, CreateView):
     template_name = 'form.html'  # Reusable form template
     form_class = LanguageModelForm     # Use custom form with validation
     success_url = reverse_lazy('languages')  # Redirect after success
+    permission_required = 'viewer.add_language'
 
     # form_valid is not needed --> CreateView handles saving
 
 
-class LanguageUpdateView(LoginRequiredMixin, UpdateView):
+class LanguageUpdateView(PermissionRequiredMixin, UpdateView):
     template_name = 'form.html'
     form_class = LanguageModelForm
     model = Language
     success_url = reverse_lazy('languages')
+    permission_required = 'viewer.change_language'
 
     def form_invalid(self, form):
         print('Form invalid')
         return super().form_invalid(form)
 
 
-class LanguageDeleteView(LoginRequiredMixin, DeleteView):
+class LanguageDeleteView(PermissionRequiredMixin, DeleteView):
     template_name = 'confirm_delete.html'
     model = Language
     success_url = reverse_lazy('language')
+    permission_required = 'viewer.delete_language'
 
 
 # Genre Views
@@ -887,28 +934,31 @@ class GenreDetailView(AlphabetOrderPaginationRelatedMixin, DetailView):
         return context
 
 
-class GenreCreateView(LoginRequiredMixin, CreateView):
+class GenreCreateView(PermissionRequiredMixin, CreateView):
     template_name = 'form.html'  # Reusable form template
     form_class = GenreModelForm     # Use custom form with validation
     success_url = reverse_lazy('genres')  # Redirect after success
+    permission_required = 'viewer.add_genre'
     # form_valid is not needed --> CreateView handles saving
 
 
-class GenreUpdateView(LoginRequiredMixin, UpdateView):
+class GenreUpdateView(PermissionRequiredMixin, UpdateView):
     template_name = 'form.html'
     form_class = GenreModelForm
     model = Genre
     success_url = reverse_lazy('genres')
+    permission_required = 'viewer.change_genre'
 
     def form_invalid(self, form):
         print('Form invalid')
         return super().form_invalid(form)
 
 
-class GenreDeleteView(LoginRequiredMixin, DeleteView):
+class GenreDeleteView(PermissionRequiredMixin, DeleteView):
     template_name = 'confirm_delete.html'
     model = Genre
     success_url = reverse_lazy('genres')
+    permission_required = 'viewer.delete_genre'
 
 # SEARCH Views
 def search_view(request):

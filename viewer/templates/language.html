@@ -9,7 +9,7 @@
 
             <!-- Heading -->
             {% with "Song in languages: "|add:language.name as full_title %}
-                {% include "includes/headers/page_heading.html" with title=full_title %}
+                {% include "includes/language_heading_with_buttons.html" with title=full_title update_kwargs=language.pk update_url="language_update" update_label="language" delete_url="language_delete" delete_kwargs=language.pk delete_label="language" create_url="song_create"%}
             {% endwith %}
 
             <!-- Top controls -->

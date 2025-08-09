@@ -6,14 +6,20 @@
     <span class="badge bg-secondary rounded-pill ms-auto position-relative z-3">
     {{ language.songs.count }}
 </span>
-    {% if user.is_authenticated %}
+    {% if perms.viewer.change_language %}
         <div class="btn-group ms-2 z-1">
             <a href="{% url 'language_update' language.id %}"
                class="btn btn-outline-warning btn-sm"
                onclick="event.stopPropagation();">✏️</a>
+        </div>
+    {% endif %}
+
+    {% if perms.viewer.delete_language %}
+        <div class="btn-group ms-2 z-1">
             <a href="{% url 'language_delete' language.id %}"
                class="btn btn-outline-danger btn-sm"
                onclick="event.stopPropagation();">❌</a>
         </div>
     {% endif %}
+
 </div>

@@ -8,7 +8,7 @@
         <div class="col-12 col-md-9 col-lg-7 col-xl-6">
 
             <!-- Heading -->
-            {% include "includes/headers/page_heading_with_buttons.html" with title="Albums" create_url='album_create' create_label="album" %}
+            {% include "includes/album_heading_with_buttons.html" with title="Albums" create_url="album_create" model_name="album" app_label="viewer" %}
 
             <!-- Top controls -->
             {% include "includes/top_controls.html" %}

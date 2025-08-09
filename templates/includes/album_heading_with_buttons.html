@@ -1,0 +1,30 @@
+<div class="d-flex justify-content-center align-items-center flex-wrap gap-2"
+     style="width: fit-content; margin-left: auto; margin-right: auto;">
+    {% include "includes/headers/page_heading.html" with title=title only %}
+
+    <div class="btn-group ms-3 mt-2" role="group">
+        {% if create_url and perms.viewer.add_album %}
+            <a href="{% url create_url %}"
+               class="btn btn-outline-info hover-item btn-sm"
+               title="Create {{ create_label|default:model_name|default:'item' }}">
+                ➕
+            </a>
+        {% endif %}
+
+        {% if update_url and perms.viewer.change_album %}
+            <a href="{% url update_url %}"
+               class="btn btn-outline-primary hover-item btn-sm"
+               title="Edit {{ update_label|default:model_name|default:'item' }}">
+                ✏️
+            </a>
+        {% endif %}
+
+        {% if delete_url and perms.viewer.delete_album %}
+            <a href="{% url delete_url %}"
+               class="btn btn-outline-danger hover-item btn-sm"
+               title="Delete {{ delete_label|default:model_name|default:'item' }}">
+                ❌
+            </a>
+        {% endif %}
+    </div>
+</div>
