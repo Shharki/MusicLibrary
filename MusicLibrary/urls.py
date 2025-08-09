@@ -31,7 +31,8 @@ from viewer.views import (
     # Contributors
     ContributorsListView, ContributorDetailView, ContributorCreateView, ContributorUpdateView, ContributorDeleteView,
     # Contributor role
-    ContributorRolesListView, ContributorRoleDetailView, ContributorRoleCreateView, ContributorRoleUpdateView, ContributorRoleDeleteView,
+    ContributorRolesListView, ContributorRoleDetailView, ContributorRoleCreateView, ContributorRoleUpdateView,
+    ContributorRoleDeleteView,
     # Contributor song performance
     ContributorSongPerformanceCreateView, ContributorSongPerformanceUpdateView, ContributorSongPerformanceDeleteView,
 
@@ -41,14 +42,14 @@ from viewer.views import (
     MusicGroupRolesListView, MusicGroupRoleDetailView,
     MusicGroupRoleCreateView, MusicGroupRoleUpdateView, MusicGroupRoleDeleteView,
     # Music group membership
-    MusicGroupMembershipCreateView, MusicGroupMembershipUpdateView,  MusicGroupMembershipDeleteView,
+    MusicGroupMembershipCreateView, MusicGroupMembershipUpdateView, MusicGroupMembershipDeleteView,
 
     # Countries
     CountriesListView, CountryDetailView, CountryCreateView, CountryUpdateView, CountryDeleteView,
     # Languages
     LanguagesListView, LanguageDetailView, LanguageCreateView, LanguageUpdateView, LanguageDeleteView,
     # Genres
-    GenresListView, GenreDetailView, GenreCreateView, GenreUpdateView, GenreDeleteView,
+    GenresListView, GenreDetailView, GenreCreateView, GenreUpdateView, GenreDeleteView, search_view,
 )
 
 urlpatterns = [
@@ -145,6 +146,7 @@ urlpatterns = [
     path('genre/create/', GenreCreateView.as_view(), name='genre_create'),
     path('genre/update/<int:pk>/', GenreUpdateView.as_view(), name='genre_update'),
     path('genre/delete/<int:pk>/', GenreDeleteView.as_view(), name='genre_delete'),
+    path('search/', search_view, name='search'),
 ]
 
 if settings.DEBUG:

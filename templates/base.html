@@ -27,6 +27,10 @@
     {# Custom CSS overrides for project specific styles #}
     <link rel="stylesheet" href="{% static 'css/custom-overrides.css' %}">
 
+    {# Global link for spinning search under the magnifier button #}
+    <link rel="stylesheet" href="{% static 'css/spinning-search-button.css' %}">
+
+
     <style>
         /* Reset margin and padding on html and body */
         html, body {
@@ -38,6 +42,9 @@
 
     {# Block for additional head elements that can be extended in child templates #}
     {% block extra_head %}{% endblock %}
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
 </head>
 
 <body>
@@ -67,16 +74,46 @@
 {# Include login modal so it's available on all pages #}
 {% include 'includes/login_modal.html' %}
 
+{#<script>#}
+{# Closes dropdown when clicked outside #}
+{#document.addEventListener('click', function (event) {#}
+{#    const searchForm = document.querySelector('form[autocomplete="off"]');#}
+{#    const dropdown = document.getElementById('search-results');#}
+{#    if (!searchForm.contains(event.target)) {#}
+{#        dropdown.innerHTML = '';#}
+{#    }#}
+{#});#}
+{#</script>#}
+
 <script>
-    // Zavře dropdown při kliknutí mimo
-    document.addEventListener('click', function (event) {
-        const searchForm = document.querySelector('form[autocomplete="off"]');
-        const dropdown = document.getElementById('search-results');
-        if (!searchForm.contains(event.target)) {
-            dropdown.innerHTML = '';
-        }
-    });
+{# Start rotating wheel animation + also by clicking pc enter btn #}
+function spinIcon() {
+    const icon = document.getElementById('search-icon');
+    icon.classList.add('spin');
+    setTimeout(() => icon.classList.remove('spin'), 1500);
+}
+
+document.getElementById('search-btn').addEventListener('click', function(e) {
+    e.preventDefault(); // Zabráníme okamžitému odeslání
+    spinIcon();
+    setTimeout(() => {
+        this.form.submit();
+    }, 500); // čekáme 1.5s, aby animace doběhla
+});
+
+
+document.querySelector('input[name="q"]').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') {
+        e.preventDefault();  // Zabráníme okamžitému odeslání
+        spinIcon();
+        // Počkej 1.5 s (doba animace) a pak odešli formulář
+        setTimeout(() => {
+            this.form.submit();
+        }, 500);
+    }
+});
 </script>
+
 </body>
 
 </html>

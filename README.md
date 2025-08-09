@@ -108,13 +108,10 @@ Development & CI    Git, GitHub Actions (lint + tests), PyCharm
 - [ ] 11. Global Search (Search bar in navbar)
     - [x] Input field in top navbar (between MusicLibrary name and menu items)
     - [ ] Searches across:
-        - [ ] Song titles
+        - [x] Song titles
         - [ ] Album titles
         - [ ] Contributors (names)
-        - [ ] Genres
-        - [ ] Countries
-        - [ ] Languages
-        - [ ] Release years
+        - [ ] Music group titles
     - [ ] Matching results shown in dropdown or redirected filtered list 
   
 #### Databáze

@@ -821,6 +821,19 @@ class GenreDeleteView(LoginRequiredMixin, DeleteView):
     model = Genre
     success_url = reverse_lazy('genres')
 
+# SEARCH Views
+def search_view(request):
+    query = request.GET.get('q', '').strip()
+    songs = []
+
+    if query:
+        songs = Song.objects.filter(title__icontains=query)
+
+    context = {
+        'query': query,
+        'songs': songs,
+    }
+    return render(request, 'search_results.html', context)
 
 def search_suggestions(request):
     query = request.GET.get('q', '').strip()

@@ -19,21 +19,29 @@
             </a>
 
             <!-- Search bar -->
-            <form
-                class="d-flex position-relative col-lg-2 me-1"
-                hx-get="{% url 'search_suggestions' %}"
-                hx-target="#search-results"
-                hx-trigger="keyup changed delay:300ms"
-                hx-swap="innerHTML"
-                autocomplete="off"
-                style="min-width: 250px;"
-            >
-                <input type="text" name="q" placeholder="Search..." class="form-control"/>
-                <div
-                    id="search-results"
-                    class="dropdown-menu"
-                    style="position: absolute; top: 100%; left: 0; width: 100%; z-index: 1000;"
-                ></div>
+{#            <form#}
+{#                class="d-flex position-relative col-lg-2 me-1"#}
+{#                hx-get="{% url 'search_suggestions' %}"#}
+{#                hx-target="#search-results"#}
+{#                hx-trigger="keyup changed delay:300ms"#}
+{#                hx-swap="innerHTML"#}
+{#                autocomplete="off"#}
+{#                style="min-width: 250px;"#}
+{#            >#}
+{#                <input type="text" name="q" placeholder="Search ...." class="form-control"/>#}
+{#                <div#}
+{#                    id="search-results"#}
+{#                    class="dropdown-menu"#}
+{#                    style="position: absolute; top: 100%; left: 0; width: 100%; z-index: 1000;"#}
+{#                ></div>#}
+{#            </form>#}
+
+            <!-- Full-page search -->
+            <form class="d-flex me-2" method="get" action="{% url 'search' %}">
+                <input type="text" name="q" placeholder="🎵 Find your song 🎵" class="form-control" />
+                <button class="btn btn-outline-primary d-flex align-items-center gap-2" type="submit" id="search-btn">
+                    <i class="bi bi-search" id="search-icon"></i>
+                </button>
             </form>
 
             <!-- Nav center -->
