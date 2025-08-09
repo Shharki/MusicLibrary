@@ -281,20 +281,20 @@ class MusicGroupsListViewTest(TestCase):
         )
 
     def test_music_groups_view_status_code(self):
-        response = self.client.get(reverse('music-groups'))
+        response = self.client.get(reverse('music_groups'))
         self.assertEqual(response.status_code, 200)
 
     def test_music_groups_view_template_used(self):
-        response = self.client.get(reverse('music-groups'))
+        response = self.client.get(reverse('music_groups'))
         self.assertTemplateUsed(response, 'music-groups.html')
 
     def test_music_groups_context(self):
-        response = self.client.get(reverse('music-groups'))
+        response = self.client.get(reverse('music_groups'))
         self.assertIn('music_groups', response.context)
         self.assertEqual(len(response.context['music_groups']), 2)
 
     def test_music_groups_displayed_in_html(self):
-        response = self.client.get(reverse('music-groups'))
+        response = self.client.get(reverse('music_groups'))
         self.assertContains(response, 'The Rolling Codes')
         self.assertContains(response, 'Debuggers United')
 
@@ -334,21 +334,21 @@ class MusicGroupDetailViewTest(TestCase):
         self.album.music_group.add(self.group)
 
     def test_group_detail_view_status_code(self):
-        url = reverse('music-group', args=[self.group.pk])
+        url = reverse('music_group', args=[self.group.pk])
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
 
     def test_group_name_displayed(self):
-        url = reverse('music-group', args=[self.group.pk])
+        url = reverse('music_group', args=[self.group.pk])
         response = self.client.get(url)
         self.assertContains(response, self.group.name)
 
     def test_group_members_displayed(self):
-        url = reverse('music-group', args=[self.group.pk])
+        url = reverse('music_group', args=[self.group.pk])
         response = self.client.get(url)
         self.assertContains(response, self.member.stage_name)
 
     def test_group_albums_displayed(self):
-        url = reverse('music-group', args=[self.group.pk])
+        url = reverse('music_group', args=[self.group.pk])
         response = self.client.get(url)
         self.assertContains(response, self.album.title)

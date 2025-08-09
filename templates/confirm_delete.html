@@ -1,14 +1,23 @@
 {% extends 'base.html' %}
 
-{% block title %}
-    Delete confirmation
-{% endblock %}
+{% block title %}Delete confirmation{% endblock %}
 
 {% block content %}
-    <form method="post">
-        {% csrf_token %}
-        <p>Are you sure you want to delete "{{ object }}" from database?</p>
-        <input type="submit" value="Delete" class="btn btn-danger">
-        <input type="button" value="Return" class="btn btn-primary" onclick="history.back()">
-    </form>
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-6 col-lg-4">
+      <div class="card shadow-sm p-4">
+        <h3 class="mb-4 text-center">Confirm Delete</h3>
+        <form method="post" novalidate>
+          {% csrf_token %}
+          <p class="mb-4 text-center">Are you sure you want to delete<br><strong>{{ object }}</strong> from database?</p>
+          <div class="d-flex justify-content-between">
+            <button type="submit" class="btn btn-danger">Delete</button>
+            <button type="button" class="btn btn-secondary" onclick="history.back()">Return</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}

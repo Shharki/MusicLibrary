@@ -24,9 +24,6 @@ class GenreModelForm(ModelForm):
                 'required': 'This field is required.'
             }
         }
-        widgets = {
-            'name': TextInput(attrs={'class': 'bg-info'})
-        }
 
     def clean_name(self):
         # Capitalize and check for duplicates
@@ -47,9 +44,6 @@ class CountryModelForm(ModelForm):
             'name': {
                 'required': 'This field is required.'
             }
-        }
-        widgets = {
-            'name': TextInput(attrs={'class': 'bg-info'})
         }
 
     def clean_name(self):
@@ -144,7 +138,7 @@ class MusicGroupModelForm(ModelForm):
         model = MusicGroup
         fields = '__all__'
         labels = {
-            'name': 'Group name',
+            'name': 'Music group name',
             'bio': 'Biography',
             'founded': 'Founded date',
             'disbanded': 'Disbanded date',
@@ -569,9 +563,6 @@ class LanguageModelForm(ModelForm):
             'name': {
                 'required': 'This field is required.'
             }
-        }
-        widgets = {
-            'name': TextInput(attrs={'class': 'bg-info'})
         }
 
     def clean_name(self):

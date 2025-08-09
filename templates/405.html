@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}405 Method Not Allowed{% endblock %}
+
+{% block content %}
+<div class="container-fluid my-5">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+
+      {% include "includes/headers/page_heading_with_buttons.html" with title="405 Method Not Allowed" create_url=None %}
+
+      <div class="alert alert-warning text-center mt-4" role="alert">
+        The method is not allowed for the requested URL.
+      </div>
+
+      <div class="text-center mt-3">
+        <a href="{% url 'home' %}" class="btn btn-primary">Return to Home</a>
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endblock %}
