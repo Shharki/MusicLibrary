@@ -115,7 +115,7 @@ Development & CI    Git, GitHub Actions (lint + tests), PyCharm
     - [ ] Matching results shown in dropdown or redirected filtered list 
   
 #### Databáze
-![ER diagram](./files/ER_diagram_v2.png)
+![ER diagram](./files/ER_diagram_v3.png)
 - [x] Genre  
   - [x] name (String)
 - [x] Country  
