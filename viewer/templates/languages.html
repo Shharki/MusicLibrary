@@ -7,9 +7,9 @@
         <div class="row justify-content-center">
             <div class="col-12 col-md-9 col-lg-7 col-xl-6">
 
-                {% include "includes/page_heading.html" with title="Songs in languages" %}
+                {% include "includes/headers/page_heading_with_buttons.html" with title="Songs in languages" create_url='language_create' %}
 
-                {% include "includes/top_controls.html" with create_url='language_create' create_label="language" %}
+                {% include "includes/top_controls.html" %}
 
                 {% include "includes/alphabet_filter.html" %}
 

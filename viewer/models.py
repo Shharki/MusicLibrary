@@ -383,7 +383,8 @@ class AlbumSong(Model):
         db_table = 'viewer_album_song'
         constraints = [
             UniqueConstraint(fields=['album', 'song'], name='unique_album_song'),
-            UniqueConstraint(fields=['album', 'order'], name='unique_album_order'),
+            # Causing errors when changing AlbumSong Order in ContributorDetailView!
+            # UniqueConstraint(fields=['album', 'order'], name='unique_album_order'),
             CheckConstraint(check=Q(order__gte=1), name='order_gte_1'),
          ]
 

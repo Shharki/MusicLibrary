@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 {% load static %}
 
-<html {% if LANGUAGE_CODE %}lang="{{ LANGUAGE_CODE }}"{% endif %} data-bs-theme="light">
+<html lang="{{ LANGUAGE_CODE|default:'en-us' }}" data-bs-theme="light">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
+    <link rel="icon" href="{% static 'images/favicon.svg' %}" type="image/svg+xml">
+
 
     <title>
         {% block title %}
@@ -13,58 +17,35 @@
         {% endblock %}
     </title>
 
-    {% comment %}
-    Using local Bootstrap CSS from static files.
-    This improves offline availability and loading speed.
-    Uncomment the CDN link below if you prefer online loading.
-    {% endcomment %}
-
-    {# Bootstrap CSS from CDN for online use #}
-    {# <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"> #}
-
+{% block extra_head %}
+    {# Bootstrap CSS v5.3.7. #}
     <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
-
+    {# Custom CSS overrides for margin, padding and overflow #}
+    <link rel="stylesheet" href="{% static 'css/reset-and-overrides.css' %}">
     {# Custom CSS overrides for project specific styles #}
     <link rel="stylesheet" href="{% static 'css/custom-overrides.css' %}">
+{% endblock %}
 
-    <style>
-        /* Reset margin and padding on html and body */
-        html, body {
-            margin: 0; /* Remove default margin */
-            padding: 0; /* Remove default padding */
-            overflow-x: hidden; /* Prevent horizontal scrollbars caused by overflow */
-        }
-    </style>
-
-    {# Block for additional head elements that can be extended in child templates #}
-    {% block extra_head %}{% endblock %}
 </head>
 
 <body>
-    {# Include SVG sprites for reusable icons or inline SVGs to improve performance #}
+    {# Include SVG sprites for reusable icons or inline SVGs #}
     {% include 'sprites.html' %}
 
-    {# Include site-wide navigation bar for consistent header across pages #}
     {% include 'navbar.html' %}
 
-    {# Main container for page content with vertical margin using Bootstrap spacing #}
     <main>
         {% block content %}{% endblock %}
     </main>
 
-    {# Include site footer to appear on every page #}
     {% include 'footer.html' %}
 
-    {% comment %}
-    Using local Bootstrap JS bundle including Popper.js for tooltips, popovers, etc.
-    Uncomment CDN version if online loading is preferred.
-    {% endcomment %}
-
+    {# Local Bootstrap JS bundle v5.3.7. #}
     <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-    {# <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script> #}
+    {# Search button #}
     <script src="https://unpkg.com/htmx.org@1.9.10"></script>
 
-    {# Include login modal so it's available on all pages #}
+    {# Include login modal, available on all pages #}
     {% include 'includes/login_modal.html' %}
 </body>
 

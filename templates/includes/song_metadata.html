@@ -1,0 +1,39 @@
+{% comment %} Metadata písně, detaily jako album, žánry, délka, rok, jazyk, shrnutí {% endcomment %}
+
+{% if album %}
+    <p class="header-custom">
+        Album:
+        <a href="{% url 'album' album.pk %}" class="hover-link">
+            {{ album.title }}
+        </a>
+    </p>
+{% endif %}
+
+<p>
+    <span class="header-custom">Genres:</span>
+    {% for genre in song.genre.all %}
+        <a href="{% url 'genre' genre.pk %}" class="badge hover-badge me-1">
+            {{ genre }}
+        </a>
+    {% empty %}
+        No genres yet
+    {% endfor %}
+</p>
+
+{% if song.duration %}
+    <p><span class="header-custom">Duration: </span>{{ song.format_seconds }}</p>
+{% endif %}
+{% if song.released %}
+    <p><span class="header-custom">Released year: </span>{{ song.released.year }}</p>
+{% endif %}
+{% if song.language %}
+<p>
+    <span class="header-custom">Language: </span>
+    <a href="{% url 'language' song.language.pk %}" class="hover-link">
+        {{ song.language }}
+    </a>
+</p>
+{% endif %}
+{% if song.summary %}
+    <p><span class="header-custom">Summary: </span>{{ song.summary }}</p>
+{% endif %}

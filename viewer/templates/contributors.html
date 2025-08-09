@@ -1,421 +1,50 @@
 {% extends 'base.html' %}
 
-{% block title %}
-    Contributors  {# Set the page title #}
-{% endblock %}
+{% block title %}Contributors{% endblock %}
 
 {% block content %}
+<div class="container-fluid my-5">
+    <div class="row justify-content-center">
+        <div class="col-11 col-md-11 col-lg-9 col-xl-8 col-xxl-8">
 
-    <div class="container-fluid my-5">  {# Main container with margin #}
-        <div class="row justify-content-center">  {# Center the row horizontally #}
-            <div class="col-11 col-md-11 col-lg-9 col-xl-8 col-xxl-8 ">  {# Full width column on medium+ screens #}
+            <!-- Heading -->
+            {% include "includes/headers/page_heading_with_buttons.html" with title="Contributors" create_url="contributor_create" create_label="contributor" %}
 
-                {# Page heading #}
-                <h1 class="display-3 text-primary text-center mb-4">Contributors</h1>
-                {# Large primary colored centered title with bottom margin #}
-
-                <div class="d-flex justify-content-between align-items-center flex-wrap mb-3">
-
-                    {# Dropdown pro výběr počtu položek na stránku #}
-                    <form method="get" class="d-flex align-items-center mb-3">
-                        <label for="paginate_per_column" class="me-2">Show per column:</label>
-                        <select name="paginate_per_column" id="paginate_per_column"
-                                class="form-select form-select-sm w-auto me-3"
-                                onchange="this.form.submit()">
-                            {% for option in pagination_options %}
-                                <option value="{{ option }}"
-                                        {% if option == paginate_per_column %}selected{% endif %}>{{ option }}</option>
-                            {% endfor %}
-                        </select>
-
-                        {# Zachovej ostatní GET parametry (např. letter) #}
-                        {% for key, value in request.GET.items %}
-                            {% if key != 'paginate_per_column' %}
-                                <input type="hidden" name="{{ key }}" value="{{ value }}">
-                            {% endif %}
+            <!-- Paginate per column selector form -->
+            <div class="d-flex justify-content-between align-items-center flex-wrap mb-3">
+                <form method="get" class="d-flex align-items-center mb-3">
+                    <label for="paginate_per_column" class="me-2">Show per column:</label>
+                    <select name="paginate_per_column" id="paginate_per_column" class="form-select form-select-sm w-auto me-3" onchange="this.form.submit()">
+                        {% for option in pagination_options %}
+                            <option value="{{ option }}" {% if option == paginate_per_column %}selected{% endif %}>{{ option }}</option>
                         {% endfor %}
-                    </form>
-
-                    {# Tlačítko create contributor doprava #}
-                    {% if user.is_authenticated %}
-                        <a href="{% url 'contributor_create' %}" class="btn btn-sm btn-primary ms-auto">Add contributor</a>
-                    {% endif %}
-                </div>
-
-                {# Alphabet filter buttons container #}
-                <div class="d-flex flex-wrap justify-content-center gap-1 mb-4">
-                    {% for letter in alphabet %}
-                        {# Link for each letter filter preserving other GET params #}
-                        <a href="?letter=
-                                {{ letter }}{% for key, val in request.GET.items %}{% if key != 'letter' %}&{{ key }}={{ val }}{% endif %}{% endfor %}"
-                           class="btn btn-sm {% if request.GET.letter == letter %}btn-primary{% else %}btn-outline-primary{% endif %}">
-                            {{ letter }} {# Display the letter #}
-                        </a>
+                    </select>
+                    {% for key, value in request.GET.items %}
+                        {% if key != 'paginate_per_column' %}
+                            <input type="hidden" name="{{ key }}" value="{{ value }}">
+                        {% endif %}
                     {% endfor %}
-                    {# Link to show all contributors, removing letter filter #}
-                    <a href="?
-                            {% for key, val in request.GET.items %}{% if key != 'letter' %}{{ key }}={{ val }}&{% endif %}{% endfor %}"
-                       class="btn btn-sm {% if not request.GET.letter %}btn-primary{% else %}btn-outline-secondary{% endif %}">
-                        All
-                    </a>
-                </div>
-
-
-                {# Main grid container with background, padding and shadow #}
-                <div class="bg-body-secondary rounded p-3 shadow-sm">
-
-                    {# Responsive row with 3 columns on extra large screens #}
-                    <div class="row row-cols-1 row-cols-md-2 row-cols-l-2 row-cols-xl-2 row-cols-xxl-3 g-3">
-
-                        {# Performers role column #}
-                        <div class="col">
-                            <h5 class="text-dark text-center">Performers</h5> {# Column header #}
-                            <div class="list-group mb-2">
-                                {% for contributor in performers %}
-                                    {# Each contributor as clickable list-group item #}
-                                    <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center position-relative hover-item px-3 py-2">
-                                        {# Link to contributor detail page #}
-                                        <a href="{% url 'contributor' contributor.pk %}"
-                                           class="stretched-link text-decoration-none text-dark hover-item">
-                                            <div>
-                                                {{ contributor }}
-                                                <small class="text-muted d-block">{{ contributor.role_names }}</small>
-                                            </div>
-                                        </a>
-                                        {% if user.is_authenticated %}
-                                            {# Edit and delete buttons for authenticated users #}
-                                            <div class="btn-group z-1">
-                                                <a href="{% url 'contributor_update' contributor.pk %}"
-                                                   class="btn btn-outline-warning btn-sm" title="Edit contributor"
-                                                   onclick="event.stopPropagation();">✏️</a>
-                                                <a href="{% url 'contributor_delete' contributor.pk %}"
-                                                   class="btn btn-outline-danger btn-sm" title="Delete contributor"
-                                                   onclick="event.stopPropagation();">❌</a>
-                                            </div>
-                                        {% endif %}
-                                    </div>
-                                {% empty %}
-                                    {# Message if no performers available #}
-                                    <div class="list-group-item text-muted">No performers</div>
-                                {% endfor %}
-                            </div>
-
-                            {# Pagination for performers if more than one page #}
-                            {% if performers_paginator.num_pages > 1 %}
-                                <nav aria-label="Performers page navigation">
-                                    <ul class="pagination justify-content-center pagination-sm mb-0">
-                                        {% if performers_page_obj.has_previous %}
-                                            <li class="page-item">
-                                                <a class="page-link"
-                                                   href="?page_performer={{ performers_page_obj.previous_page_number }}{% if letter %}&letter={{ letter }}{% endif %}">‹</a>
-                                            </li>
-                                        {% else %}
-                                            <li class="page-item disabled"><span class="page-link">‹</span></li>
-                                        {% endif %}
-                                        <li class="page-item"><span
-                                                class="page-link">{{ performers_page_obj.number }}</span></li>
-                                        {% if performers_page_obj.has_next %}
-                                            <li class="page-item">
-                                                <a class="page-link"
-                                                   href="?page_performer={{ performers_page_obj.next_page_number }}{% if letter %}&letter={{ letter }}{% endif %}">›</a>
-                                            </li>
-                                        {% else %}
-                                            <li class="page-item disabled"><span class="page-link">›</span></li>
-                                        {% endif %}
-                                    </ul>
-                                </nav>
-                            {% endif %}
-                        </div>
-
-                        {# Producers role column, similar structure to performers #}
-                        <div class="col">
-                            <h5 class="text-dark text-center">Producers</h5>
-                            <div class="list-group mb-2">
-                                {% for contributor in producers %}
-                                    <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center position-relative hover-item px-3 py-2">
-                                        <a href="{% url 'contributor' contributor.pk %}"
-                                           class="stretched-link text-decoration-none text-dark hover-item">
-                                            <div>
-                                                {{ contributor }}
-                                                <small class="text-muted d-block">{{ contributor.role_names }}</small>
-                                            </div>
-                                        </a>
-                                        {% if user.is_authenticated %}
-                                            <div class="btn-group z-1">
-                                                <a href="{% url 'contributor_update' contributor.pk %}"
-                                                   class="btn btn-outline-warning btn-sm" title="Edit contributor"
-                                                   onclick="event.stopPropagation();">✏️</a>
-                                                <a href="{% url 'contributor_delete' contributor.pk %}"
-                                                   class="btn btn-outline-danger btn-sm" title="Delete contributor"
-                                                   onclick="event.stopPropagation();">❌</a>
-                                            </div>
-                                        {% endif %}
-                                    </div>
-                                {% empty %}
-                                    <div class="list-group-item text-muted">No producers</div>
-                                {% endfor %}
-                            </div>
-
-                            {# Pagination for producers #}
-                            {% if producers_paginator.num_pages > 1 %}
-                                <nav aria-label="Producers page navigation">
-                                    <ul class="pagination justify-content-center pagination-sm mb-0">
-                                        {% if producers_page_obj.has_previous %}
-                                            <li class="page-item">
-                                                <a class="page-link"
-                                                   href="?page_producer={{ producers_page_obj.previous_page_number }}{% if letter %}&letter={{ letter }}{% endif %}">‹</a>
-                                            </li>
-                                        {% else %}
-                                            <li class="page-item disabled"><span class="page-link">‹</span></li>
-                                        {% endif %}
-                                        <li class="page-item"><span
-                                                class="page-link">{{ producers_page_obj.number }}</span></li>
-                                        {% if producers_page_obj.has_next %}
-                                            <li class="page-item">
-                                                <a class="page-link"
-                                                   href="?page_producer={{ producers_page_obj.next_page_number }}{% if letter %}&letter={{ letter }}{% endif %}">›</a>
-                                            </li>
-                                        {% else %}
-                                            <li class="page-item disabled"><span class="page-link">›</span></li>
-                                        {% endif %}
-                                    </ul>
-                                </nav>
-                            {% endif %}
-                        </div>
-
-                        {# Writers role column #}
-                        <div class="col">
-                            <h5 class="text-dark text-center">Writers</h5>
-                            <div class="list-group mb-2">
-                                {% for contributor in writers %}
-                                    <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center position-relative hover-item px-3 py-2">
-                                        <a href="{% url 'contributor' contributor.pk %}"
-                                           class="stretched-link text-decoration-none text-dark hover-item">
-                                            <div>
-                                                {{ contributor }}
-                                                <small class="text-muted d-block">{{ contributor.role_names }}</small>
-                                            </div>
-                                        </a>
-                                        {% if user.is_authenticated %}
-                                            <div class="btn-group z-1">
-                                                <a href="{% url 'contributor_update' contributor.pk %}"
-                                                   class="btn btn-outline-warning btn-sm" title="Edit contributor"
-                                                   onclick="event.stopPropagation();">✏️</a>
-                                                <a href="{% url 'contributor_delete' contributor.pk %}"
-                                                   class="btn btn-outline-danger btn-sm" title="Delete contributor"
-                                                   onclick="event.stopPropagation();">❌</a>
-                                            </div>
-                                        {% endif %}
-                                    </div>
-                                {% empty %}
-                                    <div class="list-group-item text-muted">No writers</div>
-                                {% endfor %}
-                            </div>
-
-                            {# Pagination for writers #}
-                            {% if writers_paginator.num_pages > 1 %}
-                                <nav aria-label="Writers page navigation">
-                                    <ul class="pagination justify-content-center pagination-sm mb-0">
-                                        {% if writers_page_obj.has_previous %}
-                                            <li class="page-item">
-                                                <a class="page-link"
-                                                   href="?page_writer={{ writers_page_obj.previous_page_number }}{% if letter %}&letter={{ letter }}{% endif %}">‹</a>
-                                            </li>
-                                        {% else %}
-                                            <li class="page-item disabled"><span class="page-link">‹</span></li>
-                                        {% endif %}
-                                        <li class="page-item"><span
-                                                class="page-link">{{ writers_page_obj.number }}</span></li>
-                                        {% if writers_page_obj.has_next %}
-                                            <li class="page-item">
-                                                <a class="page-link"
-                                                   href="?page_writer={{ writers_page_obj.next_page_number }}{% if letter %}&letter={{ letter }}{% endif %}">›</a>
-                                            </li>
-                                        {% else %}
-                                            <li class="page-item disabled"><span class="page-link">›</span></li>
-                                        {% endif %}
-                                    </ul>
-                                </nav>
-                            {% endif %}
-                        </div>
-
-                        {# Publishers role column #}
-                        <div class="col">
-                            <h5 class="text-dark text-center">Publishers</h5>
-                            <div class="list-group mb-2">
-                                {% for contributor in publishers %}
-                                    <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center position-relative hover-item px-3 py-2">
-                                        <a href="{% url 'contributor' contributor.pk %}"
-                                           class="stretched-link text-decoration-none text-dark hover-item">
-                                            <div>
-                                                {{ contributor }}
-                                                <small class="text-muted d-block">{{ contributor.role_names }}</small>
-                                            </div>
-                                        </a>
-                                        {% if user.is_authenticated %}
-                                            <div class="btn-group z-1">
-                                                <a href="{% url 'contributor_update' contributor.pk %}"
-                                                   class="btn btn-outline-warning btn-sm" title="Edit contributor"
-                                                   onclick="event.stopPropagation();">✏️</a>
-                                                <a href="{% url 'contributor_delete' contributor.pk %}"
-                                                   class="btn btn-outline-danger btn-sm" title="Delete contributor"
-                                                   onclick="event.stopPropagation();">❌</a>
-                                            </div>
-                                        {% endif %}
-                                    </div>
-                                {% empty %}
-                                    <div class="list-group-item text-muted">No publishers</div>
-                                {% endfor %}
-                            </div>
-
-                            {# Pagination for publishers #}
-                            {% if publishers_paginator.num_pages > 1 %}
-                                <nav aria-label="Publishers page navigation">
-                                    <ul class="pagination justify-content-center pagination-sm mb-0">
-                                        {% if publishers_page_obj.has_previous %}
-                                            <li class="page-item">
-                                                <a class="page-link"
-                                                   href="?page_publisher={{ publishers_page_obj.previous_page_number }}{% if letter %}&letter={{ letter }}{% endif %}">‹</a>
-                                            </li>
-                                        {% else %}
-                                            <li class="page-item disabled"><span class="page-link">‹</span></li>
-                                        {% endif %}
-                                        <li class="page-item"><span
-                                                class="page-link">{{ publishers_page_obj.number }}</span></li>
-                                        {% if publishers_page_obj.has_next %}
-                                            <li class="page-item">
-                                                <a class="page-link"
-                                                   href="?page_publisher={{ publishers_page_obj.next_page_number }}{% if letter %}&letter={{ letter }}{% endif %}">›</a>
-                                            </li>
-                                        {% else %}
-                                            <li class="page-item disabled"><span class="page-link">›</span></li>
-                                        {% endif %}
-                                    </ul>
-                                </nav>
-                            {% endif %}
-                        </div>
-
-                        {# Others role column #}
-                        <div class="col">
-                            <h5 class="text-dark text-center">Others</h5>
-                            <div class="list-group mb-2">
-                                {% for contributor in others %}
-                                    <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center position-relative hover-item px-3 py-2">
-                                        <a href="{% url 'contributor' contributor.pk %}"
-                                           class="stretched-link text-decoration-none text-dark hover-item">
-                                            <div>
-                                                {{ contributor }}
-                                                <small class="text-muted d-block">{{ contributor.role_names }}</small>
-                                            </div>
-                                        </a>
-                                        {% if user.is_authenticated %}
-                                            <div class="btn-group z-1">
-                                                <a href="{% url 'contributor_update' contributor.pk %}"
-                                                   class="btn btn-outline-warning btn-sm" title="Edit contributor"
-                                                   onclick="event.stopPropagation();">✏️</a>
-                                                <a href="{% url 'contributor_delete' contributor.pk %}"
-                                                   class="btn btn-outline-danger btn-sm" title="Delete contributor"
-                                                   onclick="event.stopPropagation();">❌</a>
-                                            </div>
-                                        {% endif %}
-                                    </div>
-                                {% empty %}
-                                    <div class="list-group-item text-muted">No others</div>
-                                {% endfor %}
-                            </div>
-
-                            {# Pagination for others #}
-                            {% if others_paginator.num_pages > 1 %}
-                                <nav aria-label="Others page navigation">
-                                    <ul class="pagination justify-content-center pagination-sm mb-0">
-                                        {% if others_page_obj.has_previous %}
-                                            <li class="page-item">
-                                                <a class="page-link"
-                                                   href="?page_other={{ others_page_obj.previous_page_number }}{% if letter %}&letter={{ letter }}{% endif %}">‹</a>
-                                            </li>
-                                        {% else %}
-                                            <li class="page-item disabled"><span class="page-link">‹</span></li>
-                                        {% endif %}
-                                        <li class="page-item"><span
-                                                class="page-link">{{ others_page_obj.number }}</span></li>
-                                        {% if others_page_obj.has_next %}
-                                            <li class="page-item">
-                                                <a class="page-link"
-                                                   href="?page_other={{ others_page_obj.next_page_number }}{% if letter %}&letter={{ letter }}{% endif %}">›</a>
-                                            </li>
-                                        {% else %}
-                                            <li class="page-item disabled"><span class="page-link">›</span></li>
-                                        {% endif %}
-                                    </ul>
-                                </nav>
-                            {% endif %}
-                        </div>
-
-                        {# Contributors without specific role column #}
-                        <div class="col">
-                            <h5 class="text-dark text-center">Without Role</h5>
-                            <div class="list-group mb-2">
-                                {% for contributor in without_role %}
-                                    <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center position-relative hover-item px-3 py-2">
-                                        <a href="{% url 'contributor' contributor.pk %}"
-                                           class="stretched-link text-decoration-none text-dark hover-item">
-                                            <div>
-                                                {{ contributor }}
-                                                <small class="text-muted d-block">{{ contributor.role_names }}</small>
-                                            </div>
-                                        </a>
-                                        {% if user.is_authenticated %}
-                                            <div class="btn-group z-1">
-                                                <a href="{% url 'contributor_update' contributor.pk %}"
-                                                   class="btn btn-outline-warning btn-sm" title="Edit contributor"
-                                                   onclick="event.stopPropagation();">✏️</a>
-                                                <a href="{% url 'contributor_delete' contributor.pk %}"
-                                                   class="btn btn-outline-danger btn-sm" title="Delete contributor"
-                                                   onclick="event.stopPropagation();">❌</a>
-                                            </div>
-                                        {% endif %}
-                                    </div>
-                                {% empty %}
-                                    <div class="list-group-item text-muted">No contributors without a role</div>
-                                {% endfor %}
-                            </div>
-
-                            {# Pagination for contributors without a role #}
-                            {% if without_role_paginator.num_pages > 1 %}
-                                <nav aria-label="Without role page navigation">
-                                    <ul class="pagination justify-content-center pagination-sm mb-0">
-                                        {% if without_role_page_obj.has_previous %}
-                                            <li class="page-item">
-                                                <a class="page-link"
-                                                   href="?page_without_role={{ without_role_page_obj.previous_page_number }}{% if letter %}&letter={{ letter }}{% endif %}">‹</a>
-                                            </li>
-                                        {% else %}
-                                            <li class="page-item disabled"><span class="page-link">‹</span></li>
-                                        {% endif %}
-                                        <li class="page-item"><span
-                                                class="page-link">{{ without_role_page_obj.number }}</span></li>
-                                        {% if without_role_page_obj.has_next %}
-                                            <li class="page-item">
-                                                <a class="page-link"
-                                                   href="?page_without_role={{ without_role_page_obj.next_page_number }}{% if letter %}&letter={{ letter }}{% endif %}">›</a>
-                                            </li>
-                                        {% else %}
-                                            <li class="page-item disabled"><span class="page-link">›</span></li>
-                                        {% endif %}
-                                    </ul>
-                                </nav>
-                            {% endif %}
-                        </div>
-
-                    </div>
-                    {# End of contributors grid row #}
-
-                </div>
-                {# End of main grid container #}
-
+                </form>
             </div>
-            {# End of column #}
+
+            <!-- Alphabet filter -->
+            {% include "includes/alphabet_filter.html" with alphabet=alphabet current_letter=request.GET.letter request_get=request.GET %}
+
+            <!-- Contributors categories grid -->
+            <div class="bg-body-secondary rounded p-3 shadow-sm">
+                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-2 row-cols-xl-2 row-cols-xxl-3 g-3">
+
+                    {% include "includes/contributor_category_column.html" with title="Performers" contributors=performers page_obj=performers_page_obj page_param="page_performer" letter=request.GET.letter %}
+                    {% include "includes/contributor_category_column.html" with title="Producers" contributors=producers page_obj=producers_page_obj page_param="page_producer" letter=request.GET.letter %}
+                    {% include "includes/contributor_category_column.html" with title="Writers" contributors=writers page_obj=writers_page_obj page_param="page_writer" letter=request.GET.letter %}
+                    {% include "includes/contributor_category_column.html" with title="Publishers" contributors=publishers page_obj=publishers_page_obj page_param="page_publisher" letter=request.GET.letter %}
+                    {% include "includes/contributor_category_column.html" with title="Others" contributors=others page_obj=others_page_obj page_param="page_other" letter=request.GET.letter %}
+                    {% include "includes/contributor_category_column.html" with title="Without role" contributors=without_role page_obj=without_role_page_obj page_param="page_without_role" letter=request.GET.letter %}
+
+                </div>
+            </div>
+
         </div>
-        {# End of row #}
-    </div>  {# End of container #}
+    </div>
+</div>
 {% endblock %}

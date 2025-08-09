@@ -31,7 +31,8 @@ from viewer.views import (
     # Contributors
     ContributorsListView, ContributorDetailView, ContributorCreateView, ContributorUpdateView, ContributorDeleteView,
     # Contributor role
-    ContributorRolesListView, ContributorRoleDetailView, ContributorRoleCreateView, ContributorRoleUpdateView, ContributorRoleDeleteView,
+    ContributorRolesListView, ContributorRoleDetailView, ContributorRoleCreateView, ContributorRoleUpdateView,
+    ContributorRoleDeleteView,
     # Contributor song performance
     ContributorSongPerformanceCreateView, ContributorSongPerformanceUpdateView, ContributorSongPerformanceDeleteView,
 
@@ -41,7 +42,7 @@ from viewer.views import (
     MusicGroupRolesListView, MusicGroupRoleDetailView,
     MusicGroupRoleCreateView, MusicGroupRoleUpdateView, MusicGroupRoleDeleteView,
     # Music group membership
-    MusicGroupMembershipCreateView, MusicGroupMembershipUpdateView,  MusicGroupMembershipDeleteView,
+    MusicGroupMembershipCreateView, MusicGroupMembershipUpdateView, MusicGroupMembershipDeleteView,
 
     # Countries
     CountriesListView, CountryDetailView, CountryCreateView, CountryUpdateView, CountryDeleteView,
@@ -49,6 +50,8 @@ from viewer.views import (
     LanguagesListView, LanguageDetailView, LanguageCreateView, LanguageUpdateView, LanguageDeleteView,
     # Genres
     GenresListView, GenreDetailView, GenreCreateView, GenreUpdateView, GenreDeleteView,
+    SongPerformanceContributorCreateView, SongPerformanceMusicGroupCreateView, SongPerformanceMusicGroupUpdateView,
+    SongPerformanceMusicGroupDeleteView, SongPerformanceContributorDeleteView, SongPerformanceContributorUpdateView,
 )
 
 urlpatterns = [
@@ -68,6 +71,16 @@ urlpatterns = [
     path('song/create/', SongCreateView.as_view(), name='song_create'),
     path('song/update/<int:pk>/', SongUpdateView.as_view(), name='song_update'),
     path('song/delete/<int:pk>/', SongDeleteView.as_view(), name='song_delete'),
+    # Contributor performance URLs
+    path('song-performance-contributor/create/', SongPerformanceContributorCreateView.as_view(), name='song_performance_contributor_create'),
+    path('song-performance-contributor/<int:pk>/update/', SongPerformanceContributorUpdateView.as_view(), name='contributor_song_performance_update'),
+    path('song-performance-contributor/<int:pk>/delete/', SongPerformanceContributorDeleteView.as_view(), name='contributor_song_performance_delete'),
+
+    # Music group performance URLs
+    path('song-performance-music-group/create/', SongPerformanceMusicGroupCreateView.as_view(), name='song_performance_music_group_create'),
+    path('song-performance-music-group/<int:pk>/update/', SongPerformanceMusicGroupUpdateView.as_view(), name='music_group_performance_update'),
+    path('song-performance-music-group/<int:pk>/delete/', SongPerformanceMusicGroupDeleteView.as_view(), name='music_group_performance_delete'),
+
 
     # Albums
     path('albums/', AlbumsListView.as_view(), name='albums'),
@@ -95,22 +108,22 @@ urlpatterns = [
     path(
         'contributor-song-performance/<int:contributor_pk>/create/',
         ContributorSongPerformanceCreateView.as_view(),
-        name='contributor-song-performance_create'),
+        name='contributor_song_performance_create'),
     path(
         'contributor-song-performance/<int:pk>/edit/',
         ContributorSongPerformanceUpdateView.as_view(),
-        name='contributor-song-performance_update'),
+        name='contributor_song_performance_update'),
     path(
         'contributor-song-performance/<int:pk>/delete/',
         ContributorSongPerformanceDeleteView.as_view(),
-        name='contributor-song-performance_delete'),
+        name='contributor_song_performance_delete'),
 
     # Music groups
-    path('music-groups/', MusicGroupsListView.as_view(), name='music-groups'),
-    path('music-group/<int:pk>/', MusicGroupDetailView.as_view(), name='music-group'),
-    path('music-group/create/', MusicGroupCreateView.as_view(), name='music-group_create'),
-    path('music-group/update/<int:pk>/', MusicGroupUpdateView.as_view(), name='music-group_update'),
-    path('music-group/delete/<int:pk>/', MusicGroupDeleteView.as_view(), name='music-group_delete'),
+    path('music-groups/', MusicGroupsListView.as_view(), name='music_groups'),
+    path('music-group/<int:pk>/', MusicGroupDetailView.as_view(), name='music_group'),
+    path('music-group/create/', MusicGroupCreateView.as_view(), name='music_group_create'),
+    path('music-group/update/<int:pk>/', MusicGroupUpdateView.as_view(), name='music_group_update'),
+    path('music-group/delete/<int:pk>/', MusicGroupDeleteView.as_view(), name='music_group_delete'),
 
 
     # Music group role
@@ -121,9 +134,9 @@ urlpatterns = [
     path('music-group-role/<int:pk>/delete/', MusicGroupRoleDeleteView.as_view(), name='music_group_role_delete'),
 
     # Music group membership
-    path('music-group-membership/<int:contributor_pk>/create/', MusicGroupMembershipCreateView.as_view(), name='music-group-membership_create'),
-    path('music-group-membership/<int:pk>/edit/', MusicGroupMembershipUpdateView.as_view(), name='music-group-membership_update'),
-    path('music-group-membership/<int:pk>/delete/', MusicGroupMembershipDeleteView.as_view(), name='music-group-membership_delete'),
+    path('music-group-membership/<int:contributor_pk>/create/', MusicGroupMembershipCreateView.as_view(), name='music_group_membership_create'),
+    path('music-group-membership/<int:pk>/edit/', MusicGroupMembershipUpdateView.as_view(), name='music_group_membership_update'),
+    path('music-group-membership/<int:pk>/delete/', MusicGroupMembershipDeleteView.as_view(), name='music_group_membership_delete'),
 
     # Countries
     path('countries/', CountriesListView.as_view(), name='countries'),

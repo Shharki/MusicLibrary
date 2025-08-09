@@ -1,4 +1,8 @@
 from django.core.paginator import Paginator
+from django.shortcuts import get_object_or_404
+from django.urls import reverse
+
+from viewer.models import SongPerformance, Song
 
 
 class AlphabetOrderPaginationMixin:
@@ -71,4 +75,75 @@ class AlphabetOrderPaginationRelatedMixin:
         return list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
 
 
+class ContributorsByCategoryMixin:
+    """
+    Přidá do contextu 'contributors_by_category', seskupené podle role (category)
+    ve formátu:
+    {
+        "Zpěv": [
+            (performance, contributor, [role1, role2]),
+            ...
+        ],
+        ...
+    }
+    """
+    performance_related_fields = ("contributor", "contributor_role")
 
+    def get_contributors_by_category(self, song):
+        performances = song.performances.select_related(*self.performance_related_fields)
+
+        contributors_by_category = {}
+
+        for performance in performances:
+            category = performance.contributor_role.name
+            if category not in contributors_by_category:
+                contributors_by_category[category] = []
+
+            contributors_by_category[category].append(
+                (
+                    performance,
+                    performance.contributor,
+                    [performance.contributor_role],
+                )
+            )
+
+        return contributors_by_category
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["contributors_by_category"] = self.get_contributors_by_category(self.get_object())
+        return context
+
+
+class SongPerformanceBaseMixin:
+    model = SongPerformance
+    template_name = "form.html"
+
+    def get_song(self):
+        # Nejprve z GET parametru, pokud není, z instance (pro update)
+        song_pk = self.request.GET.get('song')
+        if song_pk:
+            return get_object_or_404(Song, pk=song_pk)
+        # Pokud je instance (např. update), vrať song z ní
+        if hasattr(self, 'object') and self.object:
+            return self.object.song
+        return None
+
+    def get_initial(self):
+        initial = super().get_initial()
+        song = self.get_song()
+        if song:
+            initial['song'] = song
+        return initial
+
+    def form_valid(self, form):
+        song = self.get_song()
+        if song:
+            form.instance.song = song
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        song = self.get_song()
+        if song:
+            return reverse('song', kwargs={'pk': song.pk})
+        return super().get_success_url()

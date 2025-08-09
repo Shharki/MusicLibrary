@@ -10,22 +10,12 @@
             <div class="col-md-12">
 
                 <!-- Main page heading displaying the country name -->
-                <h1 class="display-3 text-primary text-center mb-4">
-                    {{ country }}
-                    <div class="btn-group btn-group-sm" role="group">
-                        <a href="{% url 'country_update' country.pk %}" class="btn btn-outline-warning"
-                           title="Edit Country">
-                            ✏️
-                        </a>
-                        <a href="{% url 'country_delete' country.pk %}" class="btn btn-outline-danger"
-                           title="Delete Country">
-                            ❌
-                        </a>
-                    </div>
-                </h1>
+                {% include "includes/headers/page_heading_with_buttons.html" with title=country.name update_url="country_update" update_kwargs=country.pk update_label="country" delete_url="country_delete" delete_kwargs=country.pk delete_label="country" %}
+
+
 
                 <!-- Responsive layout: two cards side-by-side on md+, stacked on small screens -->
-                <div class="row row-cols-1 row-cols-md-2 g-4">
+                <div class="row row-cols-1 row-cols-md-2 g-4 mt-4">
 
                     <!-- Contributors section -->
                     <div class="col">
@@ -67,16 +57,16 @@
                             <div class="list-group list-group-item-action">
                                 {% for group in country.music_groups.all %}
                                     <div class="list-group-item d-flex justify-content-between align-items-center">
-                                        <a href="{% url 'music-group' group.pk %}"
+                                        <a href="{% url 'music_group' group.pk %}"
                                            class="text-decoration-none text-body fw-semibold">
                                             {{ group }}
                                         </a>
                                         <div class="btn-group btn-group-sm" role="group">
-                                            <a href="{% url 'music-group_update' group.pk %}"
+                                            <a href="{% url 'music_group_update' group.pk %}"
                                                class="btn btn-outline-warning" title="Edit">
                                                 ✏️
                                             </a>
-                                            <a href="{% url 'music-group_delete' group.pk %}"
+                                            <a href="{% url 'music_group_delete' group.pk %}"
                                                class="btn btn-outline-danger" title="Delete">
                                                 ❌
                                             </a>

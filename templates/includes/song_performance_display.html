@@ -1,0 +1,13 @@
+{% if song_artists or song_music_groups %}
+    <p class="fs-5 text-center mb-4">by
+        {% for artist in song_artists %}
+            <a href="{% url 'contributor' artist.pk %}" class="hover-link">{{ artist }}</a>{% if not forloop.last %},{% endif %}
+        {% endfor %}
+
+        {% if song_artists and song_music_groups %},{% elif song_artists %} {% endif %}
+
+        {% for group in song_music_groups %}
+            <a href="{% url 'music_group' group.pk %}" class="hover-link">{{ group }}</a>{% if not forloop.last %},{% endif %}
+        {% endfor %}
+    </p>
+{% endif %}
