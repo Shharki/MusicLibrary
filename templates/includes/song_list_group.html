@@ -9,12 +9,14 @@
                         {{ song.title }}
                             ({{ song.artists_list }}{% if song.artists_list and song.music_groups_list %}, {% endif %}{{ song.music_groups_list }})
                     </a>
-                    {% if user.is_authenticated %}
-                        <div class="btn-group ms-2 z-1">
+                    <div class="btn-group ms-2 z-1">
+                        {% if perms.viewer.change_song %}
                             <a href="{% url 'song_update' song.id %}" class="btn btn-outline-warning btn-sm" onclick="event.stopPropagation();">✏️</a>
+                        {% endif %}
+                        {% if perms.viewer.delete_song %}
                             <a href="{% url 'song_delete' song.id %}" class="btn btn-outline-danger btn-sm" onclick="event.stopPropagation();">❌</a>
-                        </div>
-                    {% endif %}
+                        {% endif %}
+                    </div>
                 </div>
 
                 <!-- Druhý řádek: detaily písně -->
@@ -24,8 +26,6 @@
                     {% endif %}
 
                     {{ song.album_label }}: {{ song.albums_list }}
-
-
                 </div>
 
             </div>

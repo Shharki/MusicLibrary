@@ -9,10 +9,14 @@
                         <small class="text-muted d-block">{{ contributor.role_names }}</small>
                     </div>
                 </a>
-                {% if user.is_authenticated %}
+                {% if perms.viewer.change_contributor or perms.viewer.delete_contributor %}
                     <div class="btn-group z-1">
-                        <a href="{% url 'contributor_update' contributor.pk %}" class="btn btn-outline-warning btn-sm" title="Edit contributor" onclick="event.stopPropagation();">✏️</a>
-                        <a href="{% url 'contributor_delete' contributor.pk %}" class="btn btn-outline-danger btn-sm" title="Delete contributor" onclick="event.stopPropagation();">❌</a>
+                        {% if perms.viewer.change_contributor %}
+                            <a href="{% url 'contributor_update' contributor.pk %}" class="btn btn-outline-warning btn-sm" title="Edit contributor" onclick="event.stopPropagation();">✏️</a>
+                        {% endif %}
+                        {% if perms.viewer.delete_contributor %}
+                            <a href="{% url 'contributor_delete' contributor.pk %}" class="btn btn-outline-danger btn-sm" title="Delete contributor" onclick="event.stopPropagation();">❌</a>
+                        {% endif %}
                     </div>
                 {% endif %}
             </div>

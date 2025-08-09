@@ -5,12 +5,14 @@
                 <a href="{% url 'album' album.pk %}" class="stretched-link text-decoration-none text-dark hover-item">
                     {{ album.title }}
                 </a>
-                {% if user.is_authenticated %}
-                    <div class="btn-group z-1">
+                <div class="btn-group z-1">
+                    {% if perms.viewer.change_album %}
                         <a href="{% url 'album_update' album.id %}" class="btn btn-outline-warning btn-sm" onclick="event.stopPropagation();">✏️</a>
+                    {% endif %}
+                    {% if perms.viewer.delete_album %}
                         <a href="{% url 'album_delete' album.id %}" class="btn btn-outline-danger btn-sm" onclick="event.stopPropagation();">❌</a>
-                    </div>
-                {% endif %}
+                    {% endif %}
+                </div>
             </div>
         {% empty %}
             <div class="list-group-item text-muted text-center">
