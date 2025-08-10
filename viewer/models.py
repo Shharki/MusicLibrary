@@ -386,7 +386,7 @@ class AlbumSong(Model):
             # Causing errors when changing AlbumSong Order in ContributorDetailView!
             # UniqueConstraint(fields=['album', 'order'], name='unique_album_order'),
             CheckConstraint(check=Q(order__gte=1), name='order_gte_1'),
-         ]
+        ]
 
     def __str__(self):
         return f"{self.album.title} - {self.order}. {self.song.title}"
@@ -483,7 +483,6 @@ class Album(Model):
             creators = artist_names or group_names or "Unknown"
 
         return f"{creators}"
-
 
     def __str__(self):
         return self.title

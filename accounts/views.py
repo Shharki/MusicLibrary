@@ -26,7 +26,6 @@ class SignUpView(CreateView):
 class MyLogoutView(LogoutView):
     def post(self, request, *args, **kwargs):
         logout(request)
-        # Bezpečně použij referer nebo fallback "/"
         next_page = request.META.get('HTTP_REFERER') or '/'
         return redirect(next_page)
 

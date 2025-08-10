@@ -2,7 +2,8 @@ import re
 from datetime import date
 
 from django.core.exceptions import ValidationError
-from django.forms import ModelForm, TextInput, CharField, DateInput, DateField, ModelMultipleChoiceField, CheckboxSelectMultiple
+from django.forms import ModelForm, TextInput, CharField, DateInput, DateField, ModelMultipleChoiceField, \
+    CheckboxSelectMultiple
 from django.forms.widgets import Select, Textarea, SelectMultiple, ClearableFileInput, FileInput, NumberInput
 from django.utils.timezone import now
 from django.utils.safestring import mark_safe
@@ -26,7 +27,7 @@ class GenreModelForm(ModelForm):
         }
 
     def clean_name(self):
-        # Capitalize and check for duplicates
+        # Capitalize and check for duplicates ignoring case
         name = self.cleaned_data['name'].strip().capitalize()
         if Genre.objects.filter(name__iexact=name).exists():
             raise ValidationError("This genre already exists.")
@@ -47,6 +48,7 @@ class CountryModelForm(ModelForm):
         }
 
     def clean_name(self):
+        # Title case and check for duplicates ignoring case
         name = self.cleaned_data['name'].strip().title()
         if Country.objects.filter(name__iexact=name).exists():
             raise ValidationError("This country already exists.")
@@ -82,7 +84,8 @@ class ContributorModelForm(ModelForm):
         if not field_value:
             return field_value
         field_value = field_value.strip().title()
-        if not re.fullmatch(r'^[\w\d]+$', field_value): # Musí to být jedno slovo (bez mezer) a může obsahovat čísla
+        # Validate field is single word with letters/digits only (no spaces)
+        if not re.fullmatch(r'^[\w\d]+$', field_value):
             raise ValidationError(f"{field_label} must be a single word and can include letters and digits only.")
         return field_value
 
@@ -100,7 +103,7 @@ class ContributorModelForm(ModelForm):
         if name:
             name = name.strip().title()
             qs = Contributor.objects.filter(stage_name__iexact=name)
-            # Pokud upravujeme existujícího přispěvatele, nepočítáme ho jako duplicitu
+            # Exclude current instance from duplicate check when editing
             if self.instance.pk:
                 qs = qs.exclude(pk=self.instance.pk)
             if qs.exists():
@@ -109,6 +112,7 @@ class ContributorModelForm(ModelForm):
 
     def clean_bio(self):
         bio = self.cleaned_data.get('bio', '')
+        # Require bio at least 10 characters if present
         if bio and len(bio.strip()) < 10:
             raise ValidationError("Biography must be at least 10 characters long.")
         return bio.strip()
@@ -119,14 +123,15 @@ class ContributorModelForm(ModelForm):
         date_of_death = cleaned_data.get('date_of_death')
         today = now().date()
 
-        # Kontrola budoucích dat
+        # Validate date_of_birth is not in the future
         if date_of_birth and date_of_birth > today:
             self.add_error('date_of_birth', "Date of birth cannot be in the future.")
 
+        # Validate date_of_death is not in the future
         if date_of_death and date_of_death > today:
             self.add_error('date_of_death', "Date of death cannot be in the future.")
 
-        # Vzájemná kontrola data narození a úmrtí
+        # Validate date_of_birth is before date_of_death
         if date_of_birth and date_of_death:
             if date_of_birth > date_of_death:
                 self.add_error('date_of_birth', "Date of birth cannot be after date of death.")
@@ -155,8 +160,9 @@ class MusicGroupModelForm(ModelForm):
     def clean_name(self):
         name = self.cleaned_data['name'].strip().title()
         qs = MusicGroup.objects.filter(name__iexact=name)
-        if self.instance.pk:  # pokud existuje pk, tedy jde o editaci
-            qs = qs.exclude(pk=self.instance.pk)  # vyřad ho z kontroly
+        # Exclude current instance when editing to avoid false duplicate error
+        if self.instance.pk:
+            qs = qs.exclude(pk=self.instance.pk)
         if qs.exists():
             raise ValidationError("This group already exists.")
         return name
@@ -170,6 +176,7 @@ class MusicGroupModelForm(ModelForm):
         return bio
 
     def clean_bio2(self):
+        # Capitalize first letter of each sentence in bio
         initial = self.cleaned_data['bio']
         sentences = re.sub(f'\s*\.\s*', '.', initial).split('.')
         return '.'.join(sentence.capitalize() for sentence in sentences)
@@ -180,14 +187,17 @@ class MusicGroupModelForm(ModelForm):
         disbanded = cleaned_data.get('disbanded')
         today = now().date()
 
+        # Founded date cannot be in the future
         if founded:
             if founded > today:
                 self.add_error('founded', "Founded date cannot be in the future.")
 
+        # Disbanded date cannot be in the future
         if disbanded:
             if disbanded > today:
                 self.add_error('disbanded', "Disbanded date cannot be in the future.")
 
+        # Founded date must be before disbanded date
         if founded and disbanded:
             if founded > disbanded:
                 raise ValidationError("Founded date cannot be after disbanded date.")
@@ -202,11 +212,11 @@ class MusicGroupMembershipForm(ModelForm):
 class MusicGroupPerformanceForm(ModelForm):
     class Meta:
         model = SongPerformance
-        fields = ['song', 'music_group', 'music_group_role']  # pouze tyto 3 pole
+        fields = ['song', 'music_group', 'music_group_role']  # Only these 3 fields
 
     def clean(self):
         cleaned_data = super().clean()
-        # Přidat validaci, že contributor a contributor_role jsou prázdné
+        # Ensure contributor fields are empty for music group performance entries
         if cleaned_data.get('contributor') or cleaned_data.get('contributor_role'):
             raise ValidationError("Contributor fields must be empty when creating music group performance.")
         return cleaned_data
@@ -242,7 +252,8 @@ class AlbumModelForm(ModelForm):
             'cover_image': FileInput(attrs={'class': 'form-control'}),
         }
 
-    def __init__(self, *args, **kwargs):    # Can change the fields visibility of all via widgets.
+    def __init__(self, *args, **kwargs):
+        # Add Bootstrap class 'form-control' to all visible fields except file inputs
         super().__init__(*args, **kwargs)
         for visible in self.visible_fields():
             if not isinstance(visible.field.widget, FileInput):
@@ -258,15 +269,17 @@ class AlbumModelForm(ModelForm):
         if title.isupper():
             title = title.capitalize()
         else:
-            # Capitalize each sentence
+            # Capitalize each word properly
             title = re.sub(' +', ' ', title).strip().title()
         return title
 
     def clean_released(self):
         released = self.cleaned_data.get('released')
         if released:
+            # Validate release date not in future
             if released > date.today():
                 raise ValidationError("Release date cannot be in the future.")
+            # Reject dates before first recorded albums
             if released.year < 1880:
                 raise ValidationError("Albums before 1880 are not supported.")
         return released
@@ -277,14 +290,17 @@ class AlbumModelForm(ModelForm):
             summary = summary.strip()
             if len(summary) < 10:
                 raise ValidationError("Summary must be at least 10 characters long.")
+            # Capitalize first letter of each sentence in summary
             summary = '. '.join(s.strip().capitalize() for s in re.split(r'[.!?]', summary) if s.strip())
         return summary
 
     def clean_cover_image(self):
         image = self.cleaned_data.get('cover_image')
         if image:
+            # Limit max file size to 2MB
             if image.size > 2 * 1024 * 1024:
                 raise ValidationError("Image file size must be under 2MB.")
+            # Allow only JPEG and PNG formats
             if hasattr(image, 'content_type'):
                 if image.content_type not in ['image/jpeg', 'image/png']:
                     raise ValidationError("Only JPEG and PNG formats are supported.")
@@ -300,15 +316,19 @@ class AlbumModelForm(ModelForm):
 
         errors = []
 
+        # Require at least one artist or music group
         if not artists and not groups:
             errors.append(ValidationError("At least one artist or music group must be selected."))
 
+        # Require at least one song in album
         if not songs or len(songs) == 0:
             errors.append(ValidationError("At least one song must be added to the album."))
 
+        # Disallow album title 'Untitled'
         if title and (title.lower() == "untitled"):
             errors.append(ValidationError("Album title cannot be 'Untitled'."))
 
+        # Validate release year not in the future
         if released and released.year > date.today().year:
             errors.append(ValidationError("Release year is invalid."))
 
@@ -351,7 +371,7 @@ class SongModelForm(ModelForm):
             'duration': 'Duration of the song in seconds',
             'released': 'Release date of the song (optional)',
             'artist': mark_safe("Select one or more artists. "
-                                '<strong>Do not add music group members as artists!</strong>'),
+                                '<strong>Do not add music group members as artists!</strong>'),  # Allow safe HTML in help text
             'music_group': 'Select music groups',
             'genre': 'Select genres',
         }
@@ -369,9 +389,9 @@ class SongModelForm(ModelForm):
         if len(title) > 100:
             raise ValidationError("Title is too long (max 100 characters).")
         if title.isupper():
-            title = title.capitalize()
+            title = title.capitalize()  # Capitalize if all uppercase
         else:
-            # Capitalize each sentence
+            # Capitalize each sentence word properly
             title = re.sub(' +', ' ', title).strip().title()
         return title
 
@@ -380,7 +400,7 @@ class SongModelForm(ModelForm):
         if duration is not None:
             if duration <= 0:
                 raise ValidationError("Duration must be a positive number.")
-            if duration > 60 * 60 * 10:  # e.g. max 10 hours (36000 seconds)
+            if duration > 60 * 60 * 10:  # Max 10 hours in seconds
                 raise ValidationError("Song duration is too long.")
         return duration
 
@@ -406,7 +426,8 @@ class SongModelForm(ModelForm):
             if len(lyrics) < 10:
                 raise ValidationError("Lyrics must be at least 10 characters long if provided.")
 
-            if not re.search(r'[a-zA-Zá-žÁ-Ž]', lyrics):    # Regulární výraz: hledá aspoň jedno písmeno (a–z nebo A–Z, včetně českých znaků)
+            # Regex to check at least one letter including Czech letters
+            if not re.search(r'[a-zA-Zá-žÁ-Ž]', lyrics):
                 raise ValidationError("Lyrics must contain at least one letter.")
 
         return lyrics
@@ -439,7 +460,7 @@ class SongModelForm(ModelForm):
         cleaned_data = super().clean()
         artist = cleaned_data.get('artist')
         music_group = cleaned_data.get('music_group')
-        # Validation: at least one artist or one music group must be selected
+        # Ensure at least one artist or music group selected
         if not artist and not music_group:
             raise ValidationError(
                 "You must select at least one artist or one music group."
@@ -457,7 +478,7 @@ class ContributorMusicGroupMembershipForm(ModelForm):
 
     class Meta:
         model = MusicGroupMembership
-        # NEZAHRNUJ 'member' do fields, protože ji budeš nastavovat automaticky ve view
+        # Exclude 'member' from fields because it is set automatically in the view
         fields = ['music_group', 'member_role', 'from_date', 'to_date']
         widgets = {
             'from_date': DateInput(attrs={'type': 'date'}),
@@ -482,11 +503,11 @@ class ContributorRoleForm(ModelForm):
 class ContributorSongPerformanceForm(ModelForm):
     class Meta:
         model = SongPerformance
-        fields = ['song', 'contributor', 'contributor_role']  # pouze tyto 3 pole
+        fields = ['song', 'contributor', 'contributor_role']  # Only these 3 fields
 
     def clean(self):
         cleaned_data = super().clean()
-        # Přidat validaci, že music_group a music_group_role jsou prázdné
+        # Validate that music group fields are empty for contributor performance
         if cleaned_data.get('music_group') or cleaned_data.get('music_group_role'):
             raise ValidationError("Music group fields must be empty when creating contributor performance.")
         return cleaned_data
@@ -495,23 +516,26 @@ class ContributorSongPerformanceForm(ModelForm):
 class SongPerformanceContributorForm(ModelForm):
     class Meta:
         model = SongPerformance
-        fields = ['contributor', 'contributor_role']  # song se nastavuje mimo form
+        fields = ['contributor', 'contributor_role']  # Song is set outside the form
 
     def clean(self):
         cleaned_data = super().clean()
 
         music_group = cleaned_data.get('music_group')
         music_group_role = cleaned_data.get('music_group_role')
+        # Music group fields must be empty for contributor performance
         if music_group or music_group_role:
             raise ValidationError("Music group fields must be empty for contributor performance.")
 
         contributor = cleaned_data.get('contributor')
         contributor_role = cleaned_data.get('contributor_role')
 
+        # Song instance must be set in form's initial data or instance
         song = self.initial.get('song') or getattr(self.instance, 'song', None)
         if not song:
             raise ValidationError("Song must be set before validation.")
 
+        # Check duplicate contributor-role in this song, excluding current instance when editing
         if contributor and contributor_role:
             qs = SongPerformance.objects.filter(
                 song=song,
@@ -521,6 +545,7 @@ class SongPerformanceContributorForm(ModelForm):
             if self.instance.pk:
                 qs = qs.exclude(pk=self.instance.pk)
 
+            # Debug prints for duplicate check
             print(f"Checking duplicates for contributor={contributor} role={contributor_role} song={song}")
             print(f"Instance PK: {self.instance.pk}")
             print(f"Duplicate count: {qs.count()}")
@@ -534,22 +559,23 @@ class SongPerformanceContributorForm(ModelForm):
 class SongPerformanceMusicGroupForm(ModelForm):
     class Meta:
         model = SongPerformance
-        fields = ['music_group', 'music_group_role']  # bez 'song'
+        fields = ['music_group', 'music_group_role']  # No 'song' field here
 
     def clean(self):
         cleaned_data = super().clean()
 
-        # Contributor pole musí být prázdná
+        # Contributor fields must be empty for music group performance
         if cleaned_data.get('contributor') or cleaned_data.get('contributor_role'):
             raise ValidationError("Contributor fields must be empty for music group performance.")
 
         music_group = cleaned_data.get('music_group')
         music_group_role = cleaned_data.get('music_group_role')
+        # Song instance must be set before validation
         song = self.initial.get('song') or getattr(self.instance, 'song', None)
         if not song:
             raise ValidationError("Song must be set before validation.")
 
-        # ověření duplicity
+        # Check duplicate music group-role in this song, excluding current instance
         if music_group and music_group_role:
             qs = SongPerformance.objects.filter(
                 song=song,
@@ -581,6 +607,7 @@ class LanguageModelForm(ModelForm):
 
     def clean_name(self):
         name = self.cleaned_data['name'].strip()
+        # Capitalize each word in name
         name = ' '.join(word.capitalize() for word in name.split())
 
         qs = Language.objects.filter(name__iexact=name)

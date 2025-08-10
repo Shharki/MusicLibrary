@@ -53,17 +53,7 @@
 {# Include login modal so it's available on all pages #}
 {% include 'includes/login_modal.html' %}
 
-{#<script>#}
-{# Closes dropdown when clicked outside #}
-{#document.addEventListener('click', function (event) {#}
-{#    const searchForm = document.querySelector('form[autocomplete="off"]');#}
-{#    const dropdown = document.getElementById('search-results');#}
-{#    if (!searchForm.contains(event.target)) {#}
-{#        dropdown.innerHTML = '';#}
-{#    }#}
-{#});#}
-{#</script>#}
-
+{# Search button script #}
 <script>
 {# Start rotating wheel animation + also by clicking pc enter btn #}
 function spinIcon() {
@@ -73,19 +63,19 @@ function spinIcon() {
 }
 
 document.getElementById('search-btn').addEventListener('click', function(e) {
-    e.preventDefault(); // Zabráníme okamžitému odeslání
+    e.preventDefault(); // Prevent immediate send
     spinIcon();
     setTimeout(() => {
         this.form.submit();
-    }, 500); // čekáme 1.5s, aby animace doběhla
+    }, 500); // wait for 1.5s, to finish animation
 });
 
 
 document.querySelector('input[name="q"]').addEventListener('keydown', function(e) {
     if (e.key === 'Enter') {
-        e.preventDefault();  // Zabráníme okamžitému odeslání
+        e.preventDefault();  // prevent immediate send
         spinIcon();
-        // Počkej 1.5 s (doba animace) a pak odešli formulář
+        // wait 1.5 s (animation duration) and then send
         setTimeout(() => {
             this.form.submit();
         }, 500);

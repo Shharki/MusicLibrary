@@ -10,7 +10,7 @@ from accounts.models import Profile
 
 class SignUpForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
-        #fields = '__all__'
+        # fields = '__all__'
         fields = ['username', 'first_name', 'last_name',
                   'email', 'password1', 'password2']
 

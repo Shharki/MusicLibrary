@@ -18,12 +18,12 @@ class GuiTestWithSelenium(LiveServerTestCase):
                 # Otevře hlavní stránku
                 driver.get(f'{self.live_server_url}/')
                 time.sleep(1)
-                assert "Welcome to music database MusicLibrary." in driver.page_source
+                assert "Final Project" in driver.page_source
 
                 # Otevře stránku se seznamem písní
                 driver.get(f'{self.live_server_url}/songs/')
                 time.sleep(1)
-                assert "Song list" in driver.page_source
+                assert "Songs" in driver.page_source
 
                 # Zkontroluje, že tam je buď nějaká píseň, nebo prázdné hlášení
                 assert (

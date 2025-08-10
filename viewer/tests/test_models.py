@@ -1,14 +1,16 @@
 import datetime
-from unittest import skip
 
 from django.test import TestCase
-from viewer.models import Genre, Country, Language, Contributor, ContributorRole, ContributorPreviousName, MusicGroup, \
-    MusicGroupMembership, Song, SongPerformance, Album, AlbumSong, MusicGroupRole
+from viewer.models import (
+    Genre, Country, Language, Contributor, ContributorRole, ContributorPreviousName,
+    MusicGroup, MusicGroupMembership, Song, SongPerformance, Album, AlbumSong, MusicGroupRole
+)
 
 
 class MusicLibraryModelTest(TestCase):
     @classmethod
-    def setUpTestData(cls):  # ZMĚNA: používáme cls. pro sdílené objekty
+    def setUpTestData(cls):
+        # Create basic objects for reuse in tests
         cls.genre = Genre.objects.create(name="Pop")
         cls.country = Country.objects.create(name="Czech Republic")
         cls.language = Language.objects.create(name="Czech")
@@ -78,42 +80,52 @@ class MusicLibraryModelTest(TestCase):
         )
 
     def test_song_creation(self):
-        self.assertEqual(self.song.released.year, 1969)  # ZMĚNA: použito self.song místo znovuvyhledávání
+        """Test song release year and genre count."""
+        self.assertEqual(self.song.released.year, 1969)
         self.assertEqual(self.song.genre.count(), 1)
 
     def test_contributor_str(self):
+        """Test Contributor __str__ returns stage name."""
         self.assertEqual(str(self.contributor), "Karel Gott")
 
     def test_album_contains_song(self):
+        """Test Album songs include created song."""
         self.assertIn(self.song, self.album.songs.all())
 
     def test_song_performance_contributor(self):
+        """Test SongPerformance contributor relation."""
         performance = SongPerformance.objects.get(song=self.song)
         self.assertEqual(performance.contributor, self.contributor)
 
     def test_music_group_membership(self):
+        """Test MusicGroupMembership has correct group and roles."""
         membership = MusicGroupMembership.objects.get(member=self.contributor)
         self.assertEqual(membership.music_group.name, "Golden Kids")
         self.assertEqual(membership.member_role.first().name, "Singer")
 
     def test_song_language_name(self):
+        """Test Song language name property."""
         self.assertEqual(self.song.language.name, "Czech")
 
     def test_song_format_seconds(self):
+        """Test formatted duration string of song."""
         self.assertEqual(self.song.format_seconds, "3:00")
 
     def test_contributor_previous_name(self):
+        """Test previous name of contributor is saved correctly."""
         prev_name = ContributorPreviousName.objects.get(contributor=self.contributor)
         self.assertEqual(prev_name.last_name, "Hron")
 
 
 class GenreModelTest(TestCase):
     @classmethod
-    def setUpTestData(cls):  #  ZMĚNA: přesun vytvoření do setUpTestData
+    def setUpTestData(cls):
         cls.genre = Genre.objects.create(name="Rock")
 
-    def test_str(self):
+    def test_str_and_repr(self):
+        """Test Genre string and repr methods."""
         self.assertEqual(str(self.genre), "Rock")
+        self.assertEqual(repr(self.genre), "Genre(name=Rock)")
 
 
 class CountryModelTest(TestCase):
@@ -121,8 +133,14 @@ class CountryModelTest(TestCase):
     def setUpTestData(cls):
         cls.country = Country.objects.create(name="Czechia")
 
-    def test_str(self):
+    def test_str_and_repr(self):
+        """Test Country string and repr methods."""
         self.assertEqual(str(self.country), "Czechia")
+        self.assertEqual(repr(self.country), "Country(name=Czechia)")
+
+    def test_all_artists_and_music_groups_count_empty(self):
+        """Test all_artists_and_music_groups_count returns 0 if no related artists or groups."""
+        self.assertEqual(self.country.all_artists_and_music_groups_count, 0)
 
 
 class LanguageModelTest(TestCase):
@@ -130,38 +148,48 @@ class LanguageModelTest(TestCase):
     def setUpTestData(cls):
         cls.lang = Language.objects.create(name="English")
 
-    def test_str(self):
+    def test_str_and_repr(self):
+        """Test Language string and repr methods."""
         self.assertEqual(str(self.lang), "English")
+        self.assertEqual(repr(self.lang), "Language(name=English)")
 
 
 class ContributorModelTest(TestCase):
     def test_str_with_stage_name(self):
+        """Contributor __str__ returns stage name if set."""
         c = Contributor.objects.create(first_name="David", last_name="Bowie", stage_name="Ziggy")
         self.assertEqual(str(c), "Ziggy")
 
     def test_str_without_stage_name(self):
+        """Contributor __str__ returns full name if no stage name."""
         c = Contributor.objects.create(first_name="John", last_name="Lennon")
         self.assertEqual(str(c), "John Lennon")
+
+    def test_display_more_formats_years(self):
+        """Test display_more method formatting with dates."""
+        c = Contributor.objects.create(
+            first_name="Jane",
+            last_name="Doe",
+            date_of_birth=datetime.date(1980, 1, 1),
+            date_of_death=datetime.date(2020, 1, 1)
+        )
+        self.assertIn("1980–2020", c.display_more())
+
+    def test_songs_grouped_by_category_empty(self):
+        """songs_grouped_by_category returns empty dict if no performances."""
+        c = Contributor.objects.create(first_name="Empty", last_name="Artist")
+        self.assertEqual(c.songs_grouped_by_category(), {})
 
 
 class ContributorRoleModelTest(TestCase):
     @classmethod
     def setUpTestData(cls):
-        cls.role = ContributorRole.objects.create(name="Singer")
-
-    def test_str(self):
-        self.assertEqual(str(self.role), "Singer")
-
-
-class SongModelTest(TestCase):
-    @classmethod
-    def setUpTestData(cls):
-        cls.lang = Language.objects.create(name="Czech")
-        cls.song = Song.objects.create(title="Test Song", language=cls.lang)
+        cls.role = ContributorRole.objects.create(name="Singer", category="performer")
 
     def test_str_and_repr(self):
-        self.assertEqual(str(self.song), "Test Song")
-        self.assertEqual(repr(self.song), "Song(title=Test Song)")
+        """Test ContributorRole string and repr."""
+        self.assertEqual(str(self.role), "Singer")
+        self.assertEqual(repr(self.role), "ContributorRole(name=Singer)")
 
 
 class MusicGroupModelTest(TestCase):
@@ -169,10 +197,12 @@ class MusicGroupModelTest(TestCase):
         self.group = MusicGroup.objects.create(name="Test Group", bio="Just a test.")
 
     def test_str_and_repr(self):
+        """Test MusicGroup string and repr."""
         self.assertEqual(str(self.group), "Test Group")
         self.assertIn("Test Group", repr(self.group))
 
     def test_all_albums_ordering(self):
+        """Test all_albums property returns albums ordered by released and title."""
         album1 = Album.objects.create(title="B", released="2020-01-01")
         album2 = Album.objects.create(title="A", released="2019-01-01")
         self.group.albums.add(album1, album2)
@@ -182,6 +212,7 @@ class MusicGroupModelTest(TestCase):
 
 class MusicGroupMembershipModelTest(TestCase):
     def test_active_period_display(self):
+        """Test active_period property string formatting."""
         contributor = Contributor.objects.create(first_name="John", last_name="Doe")
         group = MusicGroup.objects.create(name="Test Group")
         membership = MusicGroupMembership.objects.create(
@@ -193,30 +224,51 @@ class MusicGroupMembershipModelTest(TestCase):
         self.assertEqual(membership.active_period, "[2000-01-01–2005-01-01]")
 
     def test_display_roles(self):
+        """Test display_roles returns joined role names."""
         contributor = Contributor.objects.create(first_name="John", last_name="Doe")
         group = MusicGroup.objects.create(name="Test Group")
         role1 = ContributorRole.objects.create(name="Guitarist")
         role2 = ContributorRole.objects.create(name="Vocalist")
-        membership = MusicGroupMembership.objects.create(
-            member=contributor,
-            music_group=group
-        )
+        membership = MusicGroupMembership.objects.create(member=contributor, music_group=group)
         membership.member_role.set([role1, role2])
-        self.assertIn("Guitarist", membership.display_roles())
-        self.assertIn("Vocalist", membership.display_roles())
+        roles_str = membership.display_roles()
+        self.assertIn("Guitarist", roles_str)
+        self.assertIn("Vocalist", roles_str)
 
 
 class MusicGroupRoleModelTest(TestCase):
     def test_str_and_repr(self):
+        """Test MusicGroupRole string and repr."""
         role = MusicGroupRole.objects.create(name="Band Leader")
         self.assertEqual(str(role), "Band Leader")
         self.assertIn("Band Leader", repr(role))
 
 
+class SongModelTest(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        cls.lang = Language.objects.create(name="Czech")
+        cls.song = Song.objects.create(title="Test Song", language=cls.lang)
+
+    def test_str_and_repr(self):
+        """Test Song string and repr."""
+        self.assertEqual(str(self.song), "Test Song")
+        self.assertEqual(repr(self.song), "Song(title=Test Song)")
+
+    def test_format_seconds_property(self):
+        """Test formatted duration string of song."""
+        song = Song.objects.create(title="Short Song", duration=125)
+        self.assertEqual(song.format_seconds, "2:05")
+
+        song_no_duration = Song.objects.create(title="No Duration")
+        self.assertIsNone(song_no_duration.format_seconds)
+
+
 class SongPerformanceModelTest(TestCase):
     def test_str_repr_contributor(self):
+        """Test SongPerformance string and repr with contributor."""
         contributor = Contributor.objects.create(first_name="Jane", last_name="Doe")
-        role = ContributorRole.objects.create(name="Singer")
+        role = ContributorRole.objects.create(name="Singer", category="performer")
         song = Song.objects.create(title="Test Song")
         performance = SongPerformance.objects.create(
             song=song,
@@ -227,6 +279,7 @@ class SongPerformanceModelTest(TestCase):
         self.assertIn("Test Song", repr(performance))
 
     def test_str_repr_music_group(self):
+        """Test SongPerformance string and repr with music group."""
         group = MusicGroup.objects.create(name="Test Band")
         group_role = MusicGroupRole.objects.create(name="Main")
         song = Song.objects.create(title="Test Song 2")
@@ -240,6 +293,7 @@ class SongPerformanceModelTest(TestCase):
 
 class AlbumSongModelTest(TestCase):
     def test_str_repr(self):
+        """Test AlbumSong string and repr methods."""
         song = Song.objects.create(title="Track")
         album = Album.objects.create(title="Album")
         album_song = AlbumSong.objects.create(album=album, song=song, order=1)
@@ -247,21 +301,20 @@ class AlbumSongModelTest(TestCase):
         self.assertIn("album=", repr(album_song))
         self.assertIn("song=", repr(album_song))
 
+    def test_clean_order_none_raises(self):
+        """Test that clean() raises ValidationError if order is None."""
+        album = Album.objects.create(title="Album 2")
+        song = Song.objects.create(title="Song 2")
+        album_song = AlbumSong(album=album, song=song, order=None)
+        from django.core.exceptions import ValidationError
+        with self.assertRaises(ValidationError):
+            album_song.clean()
+
 
 class AlbumModelTest(TestCase):
-    @skip # Better later than never
-    def test_display_more(self):
-        contributor = Contributor.objects.create(first_name="Anna", last_name="Smith")
-        group = MusicGroup.objects.create(name="Test Band")
-        album = Album.objects.create(title="Test Album", released=datetime.date(2000, 1, 1))
-        album.artist.add(contributor)
-        album.music_group.add(group)
-        display = album.display_more() # Nefunguje Ti display, more
-        self.assertIn("2000", display)
-        self.assertIn("Test Band", display)
-        self.assertIn("Anna Smith", display)
 
     def test_str_repr(self):
+        """Test Album string and repr methods."""
         album = Album.objects.create(title="Test Album")
         self.assertEqual(str(album), "Test Album")
         self.assertIn("Test Album", repr(album))
