@@ -12,6 +12,172 @@ Use this file to:
 Feel free to update, edit, and expand this file as the project evolves.
 -->
 
+10.08.2025
+## PROJECT Functionality
+
+- [X] Bootstrap
+    - [X] Home screen with albums
+    - [X] Missing album images in home replaced with placeholder
+    - [X] Hover effects on navbar, links
+    - [X] User only navbar
+    - [X] Logo
+- [X] 1. Songs – listing
+    - [x] Alphabetical list
+    - [X] Alphabetical sorting
+    - [X] Paginate listing
+    - [X] Filtering by: genre, country, language, album, performer
+    - 1.1. Song performances implemented
+- [X] 2. Songs – song detail
+    - [X] Title
+    - [X] Genres (n:m -> Genre)
+    - [X] Duration (in seconds)
+    - [X] Release year
+    - [X] Language
+    - [X] Lyrics
+    - [X] Summary / note
+    - [X] Performers: individuals or groups (from SongPerformance)
+    - [X] Performer roles (singer, composer, lyricist, etc.)
+- [ ] 2.1. Songs – other
+    - [ ] Rating (user-based)
+    - [ ] Audio sample / streaming link
+- [X] 3. Albums – listing and detail
+    - [X] 3.1 Alphabetical album list
+        - [X] Alphabetical sorting
+        - [X] Paginate listing
+    - [X] 3.2 Album details (derived from songs)
+        - [X] Title
+        - [X] Ordered list of songs
+        - [X] Genres
+        - [X] Released year
+        - [X] Total duration
+        - [X] Languages
+        - [X] Contributors list (performers, writers, producers)
+        - [X] Summary
+        - [X] Cover image
+- [X] 4. Contributors – listing and detail
+    - [X] 4.1. Alphabetical list
+    - [X] 4.2. Contributor detail
+        - [X] First name, last name, stage name
+        - [X] Date of birth and death
+        - [X] Country of origin
+        - [X] Biography
+        - [X] Previous names
+        - [X] Featured songs and albums
+        - [X] Membership in music groups
+        - [X] Contributions in songs with roles
+        - [ ] Picture 
+- [X] 5. Music Groups – listing and detail
+    - [X] 5.1. Alphabetical list
+        - [X] Alphabetical sorting
+        - [X] Paginate listing
+    - [ ] 5.2. Group detail
+        - [X] Name
+        - [X] Bio
+        - [X] Founded / disbanded year
+        - [X] Members, roles
+        - [ ] Genres
+        - [X] Country
+        - [ ] Members -> Active members
+        - [ ] Former members and period
+        - [X] Albums they performed in
+- [X] 6. Countries – listing and detail
+    - [X] 6.1. Alphabetical list
+    - [X] 6.2. Detail (list of contributors from the given country)
+    - [X] List of music groups
+- [X] 7. Genres – listing and detail
+    - [X] 7.1. Alphabetical list
+    - [X] 7.2. Detail (list of songs of the given genre)
+- [X] 8. CRUD operations (via admin or views): 
+    - [X] 8.1. Create
+        - [X] Genres, Countries, Contributors, Music Groups, Songs, Albums
+    - [X] 8.2 Update
+        - [X] Genres, Countries, Contributors, Music Groups, Songs, Albums
+    - [X] 8.3. Delete
+        - [X] Genres, Countries, Contributors, Music Groups, Songs, Albums
+- [X] 9. Authentication and Users
+    - [X] Display of logged-in user
+    - [X] Access restrictions by user type (regular vs. admin)
+    - [X] Login / Logout
+    - 9.1. [X] Password reset
+    - 9.2. [X] Registration, user profile
+    - 9.3. [X] Login in modal
+- [X] 10. Authorization
+    - [X] Permissions for CRUD operations
+    - [X] Protection of specific views (e.g. admin only)
+- [X] 11. Global Search (Search bar in navbar)
+    - [X] Input field in top navbar (between MusicLibrary name and menu items)
+    - [ ] Searches across:
+        - [X] Song titles
+        - [ ] Album titles
+        - [ ] Contributors (names)
+        - [ ] Music group titles
+    - [x] Matching results shown in dropdown or redirected filtered list 
+- [X] 12. Templates
+    - [X] 12.1. Shared mixins for duplicity reduction
+    - [X] 12.2. Include templates for better readability
+    - [X] 12.3. Shared includes templates for duplicity reduction
+    - [X] 12.4. Favicon svg and ico
+    - [X] 12.5. Error templates
+- [X] 13. API search function
+  
+#### Databáze
+![ER diagram](./files/ER_diagram_v3.png)
+- [x] Genre  
+  - [x] name (String)
+- [x] Country  
+  - [x] name (String)
+- [x] Language  
+  - [x] name (String)
+- [x] Contributor  
+  - [x] first_name (String)  
+  - [x] middle_name (String)  
+  - [x] last_name (String)  
+  - [x] stage_name (String)  
+  - [x] date_of_birth (Date)  
+  - [x] date_of_death (Date)  
+  - [x] country (FK -> Country)  
+  - [x] bio (Text)
+- [x] ContributorPreviousName  
+  - [x] contributor (FK -> Contributor)  
+  - [x] first_name (String)  
+  - [x] middle_name (String)  
+  - [x] last_name (String)
+- [x] ContributorRole  
+  - [x] name (String)
+- [x] MusicGroupRole  
+  - [x] name (String)
+- [x] MusicGroup  
+  - [x] name (String)  
+  - [x] bio (Text)  
+  - [x] founded (Date)  
+  - [x] disbanded (Date)
+- [x] MusicGroupMembership  
+  - [x] contributor (FK -> Contributor)  
+  - [x] music_group (FK -> MusicGroup)  
+  - [x] contributor_role (n:m -> ContributorRole)  
+  - [x] from_date (Date)  
+  - [x] to_date (Date)
+- [x] Song  
+  - [x] title (String)  
+  - [x] genres (n:m -> Genre)  
+  - [x] duration (Integer, in seconds)  
+  - [x] released_year (Integer)  
+  - [x] summary (Text)  
+  - [x] lyrics (Text)  
+  - [x] language (FK -> Language)
+- [x] SongPerformance  
+  - [x] song (FK -> Song)  
+  - [x] contributor (FK -> Contributor)  
+  - [x] contributor_role (FK -> ContributorRole)  
+  - [x] music_group (FK -> MusicGroup) 
+  - [x] music_group_role (FK -> MusicGroupRole)
+- [x] Album  
+  - [x] title (String)  
+  - [x] songs (n:m -> Song)  
+  - [x] released_year (Integer)  
+  - [x] summary (Text) 
+
+
 15.07.2025
 Functionality
 

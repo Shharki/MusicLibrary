@@ -1054,5 +1054,5 @@ def search_suggestions(request):
         songs = albums = contributors = []
 
     context.update({'songs': songs, 'albums': albums, 'contributors': contributors})
-    html = render_to_string("partials/search_dropdown.html", context)
+    html = render_to_string("search_dropdown.html", context)
     return HttpResponse(html)
