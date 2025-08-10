@@ -10,7 +10,7 @@
         <div class="col-12 col-md-11 col-lg-10 col-xl-9 col-xxl-8">
 
             <!-- Heading with edit/delete buttons -->
-            {% include "includes/headers/page_heading_with_buttons.html" with title=song.title update_url="song_update" update_kwargs=song.pk update_label="song" delete_url="song_delete" delete_kwargs=song.pk delete_label="song" %}
+            {% include "includes/songs_heading_with_buttons.html" with title=song.title update_url='song_update' update_id=song.pk delete_url='song_delete' delete_id=song.pk %}
 
             {% include "includes/song_performance_display.html" with song_artists=song_artists song_music_groups=song_music_groups edit_url_name_artist="contributor_update" delete_url_name_artist="contributor_delete" edit_url_name_group="music_group_update" delete_url_name_group="music_group_delete" %}
 

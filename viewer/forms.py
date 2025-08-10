@@ -193,6 +193,12 @@ class MusicGroupModelForm(ModelForm):
                 raise ValidationError("Founded date cannot be after disbanded date.")
 
 
+class MusicGroupMembershipForm(ModelForm):
+    class Meta:
+        model = MusicGroupMembership
+        fields = ['music_group', 'member', 'member_role']
+
+
 class MusicGroupPerformanceForm(ModelForm):
     class Meta:
         model = SongPerformance
@@ -441,14 +447,22 @@ class SongModelForm(ModelForm):
         return cleaned_data
 
 
-class MusicGroupMembershipForm(ModelForm):
-    # member_role je M2M, tak použijeme widget s možností výběru více položek
+class ContributorMusicGroupMembershipForm(ModelForm):
     member_role = ModelMultipleChoiceField(
         queryset=ContributorRole.objects.all(),
         required=False,
         widget=CheckboxSelectMultiple,
         label="Roles"
     )
+
+    class Meta:
+        model = MusicGroupMembership
+        # NEZAHRNUJ 'member' do fields, protože ji budeš nastavovat automaticky ve view
+        fields = ['music_group', 'member_role', 'from_date', 'to_date']
+        widgets = {
+            'from_date': DateInput(attrs={'type': 'date'}),
+            'to_date': DateInput(attrs={'type': 'date'}),
+        }
 
     class Meta:
         model = MusicGroupMembership

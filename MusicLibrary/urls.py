@@ -53,6 +53,8 @@ from viewer.views import (
     LanguagesListView, LanguageDetailView, LanguageCreateView, LanguageUpdateView, LanguageDeleteView,
     # Genres
     GenresListView, GenreDetailView, GenreCreateView, GenreUpdateView, GenreDeleteView,
+    ContributorMusicGroupMembershipUpdateView, ContributorMusicGroupMembershipCreateView,
+    ContributorMusicGroupMembershipDeleteView,
 )
 
 urlpatterns = [
@@ -126,7 +128,6 @@ urlpatterns = [
     path('music-group/update/<int:pk>/', MusicGroupUpdateView.as_view(), name='music_group_update'),
     path('music-group/delete/<int:pk>/', MusicGroupDeleteView.as_view(), name='music_group_delete'),
 
-
     # Music group role
     path('music-group-roles/', MusicGroupRolesListView.as_view(), name='music_group_roles'),
     path('music-group-role/<int:pk>/', MusicGroupRoleDetailView.as_view(), name='music_group_role'),
@@ -135,9 +136,38 @@ urlpatterns = [
     path('music-group-role/<int:pk>/delete/', MusicGroupRoleDeleteView.as_view(), name='music_group_role_delete'),
 
     # Music group membership
-    path('music-group-membership/<int:contributor_pk>/create/', MusicGroupMembershipCreateView.as_view(), name='music_group_membership_create'),
-    path('music-group-membership/<int:pk>/edit/', MusicGroupMembershipUpdateView.as_view(), name='music_group_membership_update'),
-    path('music-group-membership/<int:pk>/delete/', MusicGroupMembershipDeleteView.as_view(), name='music_group_membership_delete'),
+    path(
+        'music-group-membership/create/',
+        MusicGroupMembershipCreateView.as_view(),
+        name='music_group_membership_create',
+    ),
+    path(
+        'music-group-membership/<int:pk>/edit/',
+        MusicGroupMembershipUpdateView.as_view(),
+        name='music_group_membership_update',
+    ),
+    path(
+        'music-group-membership/<int:pk>/delete/',
+        MusicGroupMembershipDeleteView.as_view(),
+        name='music_group_membership_delete',
+    ),
+
+    # Contributor music group membership
+    path(
+        'music-group-membership/contributor/<int:contributor_pk>/create/',
+        ContributorMusicGroupMembershipCreateView.as_view(),
+        name='contributor_music_group_membership_create',
+    ),
+    path(
+        'contributor-music-group-membership/<int:pk>/edit/',
+        ContributorMusicGroupMembershipUpdateView.as_view(),
+        name='contributor_music_group_membership_update'
+    ),
+    path(
+        'contributor-music-group-membership/<int:pk>/delete/',
+        ContributorMusicGroupMembershipDeleteView.as_view(),
+        name='contributor_music_group_membership_delete'
+    ),
 
     # Countries
     path('countries/', CountriesListView.as_view(), name='countries'),

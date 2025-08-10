@@ -4,14 +4,18 @@
         {{ genre.name }}
     </a>
     <span class="badge bg-secondary rounded-pill ms-auto z-1">{{ genre.song_set.count }}</span>
-    {% if user.is_authenticated %}
-        <div class="btn-group ms-2 z-1">
+    {% if perms.viewer.change_genre or perms.viewer.delete_genre %}
+    <div class="btn-group ms-2 z-1">
+        {% if perms.viewer.change_genre %}
             <a href="{% url 'genre_update' genre.id %}"
                class="btn btn-outline-warning btn-sm"
                onclick="event.stopPropagation();">✏️</a>
+        {% endif %}
+        {% if perms.viewer.delete_genre %}
             <a href="{% url 'genre_delete' genre.id %}"
                class="btn btn-outline-danger btn-sm"
                onclick="event.stopPropagation();">❌</a>
-        </div>
-    {% endif %}
+        {% endif %}
+    </div>
+{% endif %}
 </div>

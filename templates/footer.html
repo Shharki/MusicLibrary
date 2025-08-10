@@ -1,22 +1,24 @@
 <div class="b-example-divider"></div>
 <div class="container">
   <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-    <div class="col-md-4 d-flex align-items-center">
-      <span class="mb-3 mb-md-0 text-body-secondary footer-no-wrap">
-        &copy; 2025 SDA - Final Project, by Andrej Daniel & Jakub Kročil
+    <div class="col-md-10 d-flex align-items-center">
+      <span class="mb-3 mb-md-0 text-body-secondary small">
+        &copy; 2025 SDA &ndash; Final Project by
+        <strong>Andrej Daniel</strong> <em>(a.k.a. the ER Diagram Magician)</em> &amp;
+        <strong>Jakub Kročil</strong> (author of the bestseller <q>Not the Navbar Again!</q>)
       </span>
     </div>
-    <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+    <ul class="nav col-md-2 justify-content-end list-unstyled d-flex mb-0">
       <li class="ms-3">
-        <a class="text-body-secondary" href="#" aria-label="Instagram">
-          <svg class="bi" width="24" height="24" aria-hidden="true">
+        <a class="text-body-secondary" href="#" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+          <svg class="bi" width="24" height="24" aria-hidden="true" focusable="false">
             <use xlink:href="#instagram"></use>
           </svg>
         </a>
       </li>
       <li class="ms-3">
-        <a class="text-body-secondary" href="#" aria-label="Facebook">
-          <svg class="bi" width="24" height="24">
+        <a class="text-body-secondary" href="#" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+          <svg class="bi" width="24" height="24" aria-hidden="true" focusable="false">
             <use xlink:href="#facebook"></use>
           </svg>
         </a>
@@ -24,3 +26,10 @@
     </ul>
   </footer>
 </div>
+
+<style>
+  /* Aby se text v menších obrazovkách nezlomil do nového řádku, pokud nechceš: */
+  .footer-no-wrap {
+    white-space: nowrap;
+  }
+</style>

@@ -6,102 +6,159 @@
 
 {% block content %}
     <div class="container my-5">
-        <div class="row justify-content-center">
-            <div class="col-lg-10">
+    <div class="row justify-content-center">
+    <div class="col-lg-10">
 
-                <!-- Group name as main heading -->
-                <h1 class="display-3 text-primary text-center mb-4">
-                    {{ music_group.name }}
-                </h1>
+    <!-- Group name as main heading -->
 
-                <!-- Section: Albums and Members in two columns -->
-                <div class="bg-body-secondary rounded p-1 shadow-sm mb-4">
-                    <div class="bg-white rounded p-4 shadow-sm">
-                        <div class="row">
+    <!-- Album title and edit/delete buttons for authenticated users -->
+    <h1 class="display-4 text-primary text-center">
+        {{ music_group.name }}
 
-                            <!-- Left column: Albums accordion -->
-                            <div class="col-md-6">
-                                {% if music_group.all_albums %}
-                                    <div class="accordion mb-4" id="groupAccordion">
-                                        <div class="accordion-item">
-                                            <h2 class="accordion-header" id="heading-albums">
-                                                <button class="accordion-button collapsed fw-semibold"
-                                                        type="button"
-                                                        data-bs-toggle="collapse"
-                                                        data-bs-target="#collapse-albums"
-                                                        aria-expanded="false"
-                                                        aria-controls="collapse-albums">
-                                                    Albums
-                                                </button>
-                                            </h2>
-                                            <div id="collapse-albums"
-                                                 class="accordion-collapse collapse"
-                                                 aria-labelledby="heading-albums"
-                                                 data-bs-parent="#groupAccordion">
-                                                <div class="accordion-body p-0">
-                                                    <div class="list-group list-group-flush">
-                                                        {% for album in music_group.all_albums %}
-                                                            <a href="{% url 'album' album.pk %}"
-                                                               class="list-group-item list-group-item-action
-                                                                  text-decoration-none hover-item">
-                                                                {{ album.title }}
-                                                                <small class="text-muted">
-                                                                    ({{ album.released|date:"Y" }})
-                                                                </small>
-                                                            </a>
-                                                        {% endfor %}
+        {% if perms.viewer.change_musicgroup %}
+            <a href="{% url 'music_group_update' music_group.pk %}"
+               class="btn btn-outline-warning btn-sm">✏️</a>
+        {% endif %}
+
+        {% if perms.viewer.delete_musicgroup %}
+            <a href="{% url 'music_group_delete' music_group.pk %}"
+               class="btn btn-outline-danger btn-sm">❌</a>
+        {% endif %}
+    </h1>
+
+    <!-- Section: Albums and Members in two columns -->
+    <div class="bg-body-secondary rounded p-1 shadow-sm mb-4 mt-5">
+        <div class="bg-white rounded p-4 shadow-sm">
+            <div class="row">
+
+                <!-- Left column: Albums accordion -->
+                <!-- Left column: Albums accordion -->
+                <div class="col-md-6">
+                    {% if music_group.all_albums or perms.viewer.add_album %}
+                        <div class="accordion mb-4" id="groupAccordion">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header d-flex justify-content-between align-items-center"
+                                    id="heading-albums">
+                                    <button class="accordion-button collapsed fw-semibold flex-grow-1"
+                                            type="button"
+                                            data-bs-toggle="collapse"
+                                            data-bs-target="#collapse-albums"
+                                            aria-expanded="false"
+                                            aria-controls="collapse-albums">
+                                        Albums
+                                    </button>
+                                    {% if perms.viewer.add_album %}
+                                        <a href="{% url 'album_create' %}?music_group={{ music_group.pk }}"
+                                           class="btn btn-sm btn-outline-primary me-3 ms-0 ps-2">
+                                            ➕
+                                        </a>
+                                    {% endif %}
+                                </h2>
+                                <div id="collapse-albums"
+                                     class="accordion-collapse collapse"
+                                     aria-labelledby="heading-albums"
+                                     data-bs-parent="#groupAccordion">
+                                    <div class="accordion-body p-0">
+                                        <div class="list-group list-group-flush">
+                                            {% for album in music_group.all_albums %}
+                                                <div class="list-group-item d-flex justify-content-between align-items-center">
+                                                    <a href="{% url 'album' album.pk %}"
+                                                       class="text-decoration-none hover-item">
+                                                        {{ album.title }}
+                                                        <small class="text-muted">
+                                                            ({{ album.released|date:"Y" }})
+                                                        </small>
+                                                    </a>
+                                                    <div class="d-flex gap-2">
+                                                        {% if perms.viewer.change_album %}
+                                                            <a href="{% url 'album_update' album.pk %}"
+                                                               class="btn btn-sm btn-outline-warning">✏️</a>
+                                                        {% endif %}
+                                                        {% if perms.viewer.delete_album %}
+                                                            <a href="{% url 'album_delete' album.pk %}"
+                                                               class="btn btn-sm btn-outline-danger">❌</a>
+                                                        {% endif %}
                                                     </div>
                                                 </div>
-                                            </div>
+                                            {% endfor %}
                                         </div>
                                     </div>
-                                {% endif %}
+                                </div>
                             </div>
-
-                            <!-- Right column: Members accordion -->
-                            <div class="col-md-6">
-                                {% if music_group.all_members_with_roles %}
-                                    <div class="accordion mb-4" id="groupAccordion">
-                                        <div class="accordion-item">
-                                            <h2 class="accordion-header" id="heading-members">
-                                                <button class="accordion-button collapsed fw-semibold"
-                                                        type="button"
-                                                        data-bs-toggle="collapse"
-                                                        data-bs-target="#collapse-members"
-                                                        aria-expanded="false"
-                                                        aria-controls="collapse-members">
-                                                    Members
-                                                </button>
-                                            </h2>
-                                            <div id="collapse-members"
-                                                 class="accordion-collapse collapse"
-                                                 aria-labelledby="heading-members"
-                                                 data-bs-parent="#groupAccordion">
-                                                <div class="accordion-body p-0">
-                                                    <div class="list-group list-group-flush">
-                                                        {% for member in music_group.all_members_with_roles %}
-                                                            <a href="{% url 'contributor' member.member.pk %}"
-                                                               class="list-group-item list-group-item-action
-                                                                  text-decoration-none hover-item">
-                                                                {{ member.member }}
-                                                                {% if member.member_role.exists %}
-                                                                    <small class="text-muted">
-                                                                        ({{ member.display_roles }})
-                                                                    </small>
-                                                                {% endif %}
-                                                            </a>
-                                                        {% endfor %}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                {% endif %}
-                            </div>
-
                         </div>
-                    </div>
+                    {% endif %}
                 </div>
+
+
+                <!-- Right column: Members accordion -->
+                <div class="col-md-6">
+                    {% if music_group.all_members_with_roles %}
+                        <div class="accordion mb-4" id="groupAccordion">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="heading-members">
+                                    <div class="d-flex align-items-center">
+                                        <button class="accordion-button collapsed fw-semibold flex-grow-1"
+                                                type="button"
+                                                data-bs-toggle="collapse"
+                                                data-bs-target="#collapse-members"
+                                                aria-expanded="false"
+                                                aria-controls="collapse-members">
+                                            Members
+                                        </button>
+                                        {% if perms.viewer.add_musicgroupmembership %}
+                                            <a href="{% url 'music_group_membership_create' %}?music_group={{ music_group.pk }}"
+                                               class="btn btn-sm btn-outline-primary me-3 ms-0 ps-2">
+                                                ➕
+                                            </a>
+                                        {% endif %}
+                                    </div>
+                                </h2>
+                                <div id="collapse-members"
+                                     class="accordion-collapse collapse"
+                                     aria-labelledby="heading-members"
+                                     data-bs-parent="#groupAccordion">
+                                    <div class="accordion-body p-0">
+                                        <div class="list-group list-group-flush">
+                                            {% for member in music_group.all_members_with_roles %}
+                                                <div class="list-group-item d-flex justify-content-between align-items-center">
+                                                    <div>
+                                                        <a href="{% url 'contributor' member.member.pk %}"
+                                                           class="text-decoration-none hover-item">
+                                                            {{ member.member }}
+                                                        </a>
+                                                        {% if member.member_role %}
+                                                            <small class="text-muted">
+                                                                ({{ member.display_roles }})
+                                                            </small>
+                                                        {% endif %}
+                                                    </div>
+                                                    <div class="d-flex gap-2">
+                                                        {% if perms.viewer.change_musicgroupmembership %}
+                                                            <a href="{% url 'music_group_membership_update' member.pk %}"
+                                                               class="btn btn-sm btn-outline-warning">
+                                                                ✏️
+                                                            </a>
+                                                        {% endif %}
+                                                        {% if perms.viewer.delete_musicgroupmembership %}
+                                                            <a href="{% url 'music_group_membership_delete' member.pk %}"
+                                                               class="btn btn-sm btn-outline-danger">
+                                                                ❌
+                                                            </a>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
 
                 <!-- Section: Founded, Disbanded and Biography -->
                 <div class="bg-body-secondary rounded p-1 shadow-sm mb-4">

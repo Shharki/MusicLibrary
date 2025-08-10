@@ -20,8 +20,9 @@ from mixins import AlphabetOrderPaginationMixin, AlphabetOrderPaginationRelatedM
     SongPerformanceBaseMixin
 from viewer.forms import (
     GenreModelForm, CountryModelForm, ContributorModelForm, MusicGroupModelForm, SongModelForm, AlbumModelForm,
-    ContributorSongPerformanceForm, MusicGroupMembershipForm, LanguageModelForm, MusicGroupPerformanceForm,
-    SongPerformanceContributorForm, SongPerformanceMusicGroupForm
+    ContributorSongPerformanceForm, LanguageModelForm, MusicGroupPerformanceForm,
+    SongPerformanceContributorForm, SongPerformanceMusicGroupForm, ContributorMusicGroupMembershipForm,
+    MusicGroupMembershipForm
 )
 from viewer.models import (
     Song, Contributor, Album, Genre, Country, AlbumSong, MusicGroup, ContributorRole, MusicGroupMembership,
@@ -716,6 +717,43 @@ class MusicGroupDeleteView(PermissionRequiredMixin, DeleteView):
 class MusicGroupMembershipCreateView(PermissionRequiredMixin, CreateView):
     model = MusicGroupMembership
     form_class = MusicGroupMembershipForm
+    permission_required = 'viewer.add_musicgroupmembership'
+    template_name = 'form.html'
+
+    def get_initial(self):
+        initial = super().get_initial()
+        music_group_id = self.request.GET.get('music_group')
+        if music_group_id:
+            initial['music_group'] = music_group_id
+        return initial
+
+    def get_success_url(self):
+        return reverse_lazy('music_group', kwargs={'pk': self.object.music_group.pk})
+
+
+class MusicGroupMembershipUpdateView(PermissionRequiredMixin, UpdateView):
+    model = MusicGroupMembership
+    form_class = MusicGroupMembershipForm
+    permission_required = 'viewer.change_musicgroupmembership'
+    template_name = 'form.html'
+
+    def get_success_url(self):
+        return reverse_lazy('music_group', kwargs={'pk': self.object.music_group.pk})
+
+
+class MusicGroupMembershipDeleteView(PermissionRequiredMixin, DeleteView):
+    model = MusicGroupMembership
+    permission_required = 'viewer.delete_musicgroupmembership'
+    template_name = 'confirm_delete.html'
+
+    def get_success_url(self):
+        return reverse_lazy('music_group', kwargs={'pk': self.object.music_group.pk})
+
+
+# Music group membership
+class ContributorMusicGroupMembershipCreateView(PermissionRequiredMixin, CreateView):
+    model = MusicGroupMembership
+    form_class = ContributorMusicGroupMembershipForm
     template_name = 'form.html'
     permission_required = 'viewer.add_musicgroupmembership'
 
@@ -725,13 +763,13 @@ class MusicGroupMembershipCreateView(PermissionRequiredMixin, CreateView):
     def form_valid(self, form):
         contributor_pk = self.kwargs['contributor_pk']
         contributor = Contributor.objects.get(pk=contributor_pk)
-        form.instance.member = contributor  # nastavím member přímo
+        form.instance.member = contributor  # pevně nastavíme člena
         return super().form_valid(form)
 
 
-class MusicGroupMembershipUpdateView(PermissionRequiredMixin, UpdateView):
+class ContributorMusicGroupMembershipUpdateView(PermissionRequiredMixin, UpdateView):
     model = MusicGroupMembership
-    form_class = MusicGroupMembershipForm
+    form_class = ContributorMusicGroupMembershipForm
     template_name = 'form.html'
     permission_required = 'viewer.change_musicgroupmembership'
 
@@ -739,7 +777,7 @@ class MusicGroupMembershipUpdateView(PermissionRequiredMixin, UpdateView):
         return reverse_lazy('contributor', kwargs={'pk': self.object.member.pk})
 
 
-class MusicGroupMembershipDeleteView(PermissionRequiredMixin, DeleteView):
+class ContributorMusicGroupMembershipDeleteView(PermissionRequiredMixin, DeleteView):
     model = MusicGroupMembership
     template_name = 'confirm_delete.html'
     permission_required = 'viewer.delete_musicgroupmembership'

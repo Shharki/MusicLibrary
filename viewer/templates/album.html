@@ -12,17 +12,20 @@
                 <!-- Album title and edit/delete buttons for authenticated users -->
                 <h1 class="display-4 text-primary text-center">
                     {{ album.title }}
-                    {% if user.is_authenticated %}
-                        <!-- Link to edit album -->
+
+                    {% if perms.viewer.change_album %}
                         <a href="{% url 'album_update' album.id %}"
                            class="btn btn-outline-warning hover-item btn-sm ms-2"
                            title="Edit album">✏️</a>
-                        <!-- Link to delete album -->
+                    {% endif %}
+
+                    {% if perms.viewer.delete_album %}
                         <a href="{% url 'album_delete' album.id %}"
                            class="btn btn-outline-danger hover-item btn-sm ms-2"
                            title="Delete album">❌</a>
                     {% endif %}
                 </h1>
+
 
                 <!-- Display album artists and music groups if available -->
                 {% if album_artists or album_music_groups %}
@@ -70,9 +73,12 @@
                                 <!-- Genres badges or fallback text -->
                                 <p><span class="header-custom">Genres: </span>
                                     {% for genre in genres %}
-                                        <span class="badge hover-badge me-1">{{ genre }}</span>
+                                        <a href="{% url 'genre' genre.pk %}" class="badge hover-badge me-1">
+                                            {{ genre }}
+                                        </a>
                                     {% empty %} No genres {% endfor %}
                                 </p>
+
 
                                 <!-- Optional album details -->
                                 {% if album.released %}
@@ -83,8 +89,10 @@
                                 {% endif %}
                                 {% if languages %}
                                     <p><span class="header-custom">Languages: </span>
-                                        {% for l in languages %}{{ l.name }}{% if not forloop.last %},
-                                        {% endif %}{% endfor %}
+                                        {% for l in languages %}
+                                            <a href="{% url 'language' l.id %}" class="hover-link">{{ l.name }}</a>
+                                            {% if not forloop.last %},
+                                            {% endif %}{% endfor %}
                                     </p>
                                 {% endif %}
                             </div>
@@ -94,10 +102,11 @@
                                 {% if album_songs %}
                                     <div class="card shadow-sm border-0">
                                         <div class="card-header bg-primary text-white fw-semibold text-center">
-                                            Songs{% if user.is_authenticated %} – Edit Order{% endif %}
+                                            Songs
+                                            {% if perms.viewer.change_albumsong %} – Edit Order{% endif %}
                                         </div>
                                         <div class="card-body p-0">
-                                            {% if user.is_authenticated %}
+                                            {% if perms.viewer.change_albumsong or perms.viewer.change_song or perms.viewer.delete_song %}
                                                 <form method="post"
                                                       action="{% url 'album_song_order_update' album.pk %}"
                                                       id="album-order-form">
@@ -109,30 +118,43 @@
                                                                    class="flex-grow-1 text-decoration-none text-dark hover-item">
                                                                     {{ album_song.song.title }}
                                                                 </a>
-                                                                <input type="number"
-                                                                       name="order_{{ album_song.song.pk }}"
-                                                                       value="{{ album_song.order }}"
-                                                                       min="1"
-                                                                       max="{{ album_songs|length }}"
-                                                                       class="form-control form-control-sm me-2"
-                                                                       style="width: 60px;"/>
-                                                                <div class="btn-group ms-2">
-                                                                    <a href="{% url 'song_update' album_song.song.pk %}"
-                                                                       class="btn btn-outline-warning btn-sm"
-                                                                       title="Edit song">✏️</a>
-                                                                    <a href="{% url 'song_delete' album_song.song.pk %}"
-                                                                       class="btn btn-outline-danger btn-sm"
-                                                                       title="Delete song">❌</a>
-                                                                </div>
+
+                                                                {% if perms.viewer.change_albumsong %}
+                                                                    {% if forloop.last %}
+                                                                        <button type="submit"
+                                                                                class="btn btn-outline-info btn-sm me-2"
+                                                                                title="Save order">💾
+                                                                        </button>
+                                                                    {% endif %}
+                                                                    <input type="number"
+                                                                           name="order_{{ album_song.song.pk }}"
+                                                                           value="{{ album_song.order }}"
+                                                                           min="1"
+                                                                           max="{{ album_songs|length }}"
+                                                                           class="form-control form-control-sm me-2"
+                                                                           style="width: 60px;"/>
+                                                                {% endif %}
+
+                                                                {% if perms.viewer.change_song or perms.viewer.delete_song %}
+                                                                    <div class="btn-group ms-2">
+                                                                        {% if perms.viewer.change_song %}
+                                                                            <a href="{% url 'song_update' album_song.song.pk %}"
+                                                                               class="btn btn-outline-warning btn-sm"
+                                                                               title="Edit song">✏️</a>
+                                                                        {% endif %}
+                                                                        {% if perms.viewer.delete_song %}
+                                                                            <a href="{% url 'song_delete' album_song.song.pk %}"
+                                                                               class="btn btn-outline-danger btn-sm"
+                                                                               title="Delete song">❌</a>
+                                                                        {% endif %}
+                                                                    </div>
+                                                                {% endif %}
                                                             </li>
                                                         {% endfor %}
                                                     </ul>
-                                                    <div class="text-end p-3">
-                                                        <button type="submit" class="btn btn-sm btn-primary">💾 Save
-                                                            order
-                                                        </button>
-                                                    </div>
                                                 </form>
+
+
                                             {% else %}
                                                 <ul class="list-group list-group-flush">
                                                     {% for album_song in album_songs %}
