@@ -1,100 +1,61 @@
 {% load static %}
-<nav class="navbar navbar-expand-lg bg-body-secondary rounded mb-1 position-relative" aria-label="Main navigation" style="min-height: 60px;">
-
+<nav class="navbar navbar-expand-xl bg-body-secondary rounded mb-1 position-relative" aria-label="Main navigation" style="min-height: 60px;">
   <div class="container-fluid d-flex align-items-center position-relative">
 
-    <!-- Levá část: logo + search bar -->
-    <div class="d-flex align-items-center flex-shrink-1 my-3 me-3" style="min-width: 250px; gap: 0.75rem; z-index: 1050;">
-      <a class="navbar-brand d-flex align-items-center hover-link" href="{% url 'home' %}">
-        <img src="{% static 'images/music_library_logo.svg' %}" alt="MusicLibrary logo" height="40" class="me-2">
-        MusicLibrary
+    <!-- Levá část: logo + offcanvas button -->
+    <div class="d-flex align-items-center me-3">
+      <a class="navbar-brand d-flex align-items-center hover-link me-3" href="{% url 'home' %}">
+        <img src="{% static 'images/music_library_logo.svg' %}" alt="MusicLibrary logo" height="40" class="d-none d-xxl-inline-block me-2">
+        <span class="d-none d-xxxl-inline">MusicLibrary</span>
       </a>
 
-      <form class="d-flex" method="get" action="{% url 'search' %}" style="min-width: 180px; max-width: 300px;">
-        <input type="text" name="q" placeholder="  🎵 Find your song 🎵  " class="form-control" />
-        <button class="btn btn-outline-primary d-flex align-items-center gap-2 ms-1" type="submit" id="search-btn">
-          <i class="bi bi-search" id="search-icon"></i>
-        </button>
-      </form>
+      <!-- Offcanvas toggle button pro mobil (menší než xl) -->
+      <button class="btn btn-outline-primary d-xl-none ms-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu" aria-controls="mobileMenu" aria-label="Toggle menu">
+        ☰
+      </button>
     </div>
 
-    <!-- Absolutně vystředěná prostřední část s menu -->
-    <div class="d-none d-xxl-flex flex-column position-absolute top-50 start-50 translate-middle text-center" style="min-width: 300px; max-width: 600px; z-index: 1040;">
+    <!-- Klasické menu pro xl+ -->
+    <div class="d-none d-xl-flex flex-column position-absolute top-50 start-50 translate-middle text-center" style="min-width: 300px; max-width: 600px; z-index: 1040;">
 
       <!-- Horní řádek -->
-      <div class="d-flex align-items-center justify-content-center " style="gap: 1rem; flex-wrap: nowrap; text-overflow: ellipsis; overflow-x: auto;">
+      <div class="d-flex align-items-center justify-content-center" style="gap: 1rem; flex-wrap: nowrap; text-overflow: ellipsis; overflow-x: auto;">
         <ul class="navbar-nav d-flex flex-row gap-1 mb-0 flex-nowrap" style="white-space: nowrap;">
           <li class="nav-item">
-            <a href="{% url 'songs' %}" class="nav-link {% if request.resolver_match.view_name == 'songs' %}active-custom{% endif %}">Songs</a>
+            <a href="{% url 'songs' %}" class="nav-link navbar-item-lg {% if request.resolver_match.view_name == 'songs' %}active-custom{% endif %}">Songs</a>
           </li>
           <li class="nav-item">
-            <a href="{% url 'albums' %}" class="nav-link {% if request.resolver_match.view_name == 'albums' %}active-custom{% endif %}">Albums</a>
+            <a href="{% url 'albums' %}" class="nav-link navbar-item-lg {% if request.resolver_match.view_name == 'albums' %}active-custom{% endif %}">Albums</a>
           </li>
           <li class="nav-item">
-            <a href="{% url 'contributors' %}" class="nav-link {% if request.resolver_match.view_name == 'contributors' %}active-custom{% endif %}">Contributors</a>
+            <a href="{% url 'contributors' %}" class="nav-link navbar-item-lg {% if request.resolver_match.view_name == 'contributors' %}active-custom{% endif %}">Contributors</a>
           </li>
           <li class="nav-item">
-            <a href="{% url 'music_groups' %}" class="nav-link {% if request.resolver_match.view_name == 'music_groups' %}active-custom{% endif %}">Music groups</a>
+            <a href="{% url 'music_groups' %}" class="nav-link navbar-item-lg {% if request.resolver_match.view_name == 'music_groups' %}active-custom{% endif %}">Music groups</a>
           </li>
         </ul>
       </div>
 
       <!-- Spodní řádek -->
-      <div class="d-flex justify-content-center gap-1 flex-nowrap" style="font-size: 1.3rem;">
-        <a href="{% url 'countries' %}" class="btn btn-sm text-secondary hover-item {% if request.resolver_match.view_name == 'countries' %}active-custom{% endif %}">Countries</a>
-        <a href="{% url 'languages' %}" class="btn btn-sm text-secondary hover-item {% if request.resolver_match.view_name == 'languages' %}active-custom{% endif %}">Languages</a>
-        <a href="{% url 'genres' %}" class="btn btn-sm text-secondary hover-item {% if request.resolver_match.view_name == 'genres' %}active-custom{% endif %}">Genres</a>
-        <a href="{% url 'contributor_roles' %}" class="btn btn-sm text-secondary hover-item {% if request.resolver_match.view_name == 'contributor_roles' %}active-custom{% endif %}">Contributor roles</a>
-        <a href="{% url 'music_group_roles' %}" class="btn btn-sm text-secondary hover-item {% if request.resolver_match.view_name == 'music_group_roles' %}active-custom{% endif %}">Music group roles</a>
+      <div class="d-flex justify-content-center gap-1 flex-nowrap">
+        <a href="{% url 'countries' %}" class="nav-link-sm-active text-secondary  hover-item {% if request.resolver_match.view_name == 'countries' %}active-custom{% endif %}">Countries</a>
+        <a href="{% url 'languages' %}" class="nav-link-sm-active text-secondary hover-item {% if request.resolver_match.view_name == 'languages' %}active-custom{% endif %}">Languages</a>
+        <a href="{% url 'genres' %}" class="nav-link-sm-active text-secondary hover-item {% if request.resolver_match.view_name == 'genres' %}active-custom{% endif %}">Genres</a>
+        <a href="{% url 'contributor_roles' %}" class="nav-link-sm-active text-secondary hover-item {% if request.resolver_match.view_name == 'contributor_roles' %}active-custom{% endif %}">Contributor roles</a>
+        <a href="{% url 'music_group_roles' %}" class="nav-link-sm-active text-secondary hover-item {% if request.resolver_match.view_name == 'music_group_roles' %}active-custom{% endif %}">Music group roles</a>
       </div>
     </div>
 
+    <!-- Search bar (vlevo, vždy viditelný) -->
+    <form class="d-flex flex-grow-1 my-4 me-3" method="get" action="{% url 'search' %}" style="min-width: 180px; max-width: 270px;">
+      <input type="text" name="q" placeholder="    🎵 Find your song 🎵" class="form-control" />
+      <button class="btn btn-outline-primary d-flex align-items-center gap-2 ms-1" type="submit" id="search-btn">
+        <i class="bi bi-search" id="search-icon"></i>
+      </button>
+    </form>
 
-    <!-- Sendvič dropdown uprostřed pro všechny obrazovky (zobrazí se hlavně na menších) -->
-    <div class="d-xxl-none flex-grow-1 mx-3 text-center position-relative" style="z-index: 1060;">
-      <div class="dropdown w-100">
-        <button class="btn btn-outline-primary w-100 dropdown-toggle" type="button" id="menuDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-          ☰
-        </button>
-        <ul class="dropdown-menu dropdown-menu-center" aria-labelledby="menuDropdown">
-
-          <!-- Horní menu -->
-          <li><a class="dropdown-item" href="{% url 'songs' %}">Songs</a></li>
-          <li><a class="dropdown-item" href="{% url 'albums' %}">Albums</a></li>
-          <li><a class="dropdown-item" href="{% url 'contributors' %}">Contributors</a></li>
-          <li><a class="dropdown-item" href="{% url 'music_groups' %}">Music groups</a></li>
-
-          <li><hr class="dropdown-divider"></li>
-
-          <!-- Spodní menu -->
-          <li><a class="dropdown-item" href="{% url 'countries' %}">Countries</a></li>
-          <li><a class="dropdown-item" href="{% url 'languages' %}">Languages</a></li>
-          <li><a class="dropdown-item" href="{% url 'genres' %}">Genres</a></li>
-          <li><a class="dropdown-item" href="{% url 'contributor_roles' %}">Contributor roles</a></li>
-          <li><a class="dropdown-item" href="{% url 'music_group_roles' %}">Music group roles</a></li>
-
-          <li><hr class="dropdown-divider"></li>
-
-          <!-- Uživatelské položky v dropdownu (základní přihlášení / odhlášení) -->
-          {% if user.is_authenticated %}
-            <li><a class="dropdown-item" href="{% url 'password_change' %}">Password change</a></li>
-            <li>
-              <form method="post" action="{% url 'logout' %}" class="d-inline m-0 p-0">
-                {% csrf_token %}
-                <button type="submit" class="dropdown-item">Log out</button>
-              </form>
-            </li>
-          {% else %}
-            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Log in</a></li>
-            <li><a class="dropdown-item" href="{% url 'signup' %}">Sign up</a></li>
-            <li><a class="dropdown-item" href="{% url 'password_reset' %}">Password reset</a></li>
-          {% endif %}
-        </ul>
-      </div>
-    </div>
-
-    <!-- Uživatelské menu vpravo (na desktopu) -->
-    <ul class="navbar-nav flex-shrink-0 ms-auto text-primary d-none d-lg-flex">
+    <!-- Uživatelské menu vpravo (desktop) -->
+    <ul class="navbar-nav flex-shrink-0 ms-auto text-primary d-none d-xl-flex">
       <li class="nav-item dropdown">
         {% if user.is_authenticated %}
           <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
@@ -126,3 +87,39 @@
 
   </div>
 </nav>
+
+<!-- Offcanvas menu pro mobil -->
+<div class="offcanvas offcanvas-start" tabindex="-1" id="mobileMenu" aria-labelledby="mobileMenuLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="mobileMenuLabel">Menu</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <ul class="navbar-nav">
+      <li><a class="nav-link" href="{% url 'songs' %}">Songs</a></li>
+      <li><a class="nav-link" href="{% url 'albums' %}">Albums</a></li>
+      <li><a class="nav-link" href="{% url 'contributors' %}">Contributors</a></li>
+      <li><a class="nav-link" href="{% url 'music_groups' %}">Music groups</a></li>
+      <li><hr></li>
+      <li><a class="nav-link" href="{% url 'countries' %}">Countries</a></li>
+      <li><a class="nav-link" href="{% url 'languages' %}">Languages</a></li>
+      <li><a class="nav-link" href="{% url 'genres' %}">Genres</a></li>
+      <li><a class="nav-link" href="{% url 'contributor_roles' %}">Contributor roles</a></li>
+      <li><a class="nav-link" href="{% url 'music_group_roles' %}">Music group roles</a></li>
+      <li><hr></li>
+      {% if user.is_authenticated %}
+        <li><a class="nav-link" href="{% url 'password_change' %}">Password change</a></li>
+        <li>
+          <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-link nav-link p-0">Log out</button>
+          </form>
+        </li>
+      {% else %}
+        <li><a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Log in</a></li>
+        <li><a class="nav-link" href="{% url 'signup' %}">Sign up</a></li>
+        <li><a class="nav-link" href="{% url 'password_reset' %}">Password reset</a></li>
+      {% endif %}
+    </ul>
+  </div>
+</div>

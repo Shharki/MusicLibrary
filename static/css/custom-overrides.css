@@ -86,9 +86,9 @@ html[data-bs-theme="light"] body {
 }
 
 /* Smaller grey alternative nav-link */
+
 .nav-link-sm-active {
     font-size: 0.875rem;          /* same as btn-sm */
-    color: var(--bs-primary); /* grey text */
     padding: 0.25rem 0.5rem;
     text-decoration: none;/* lesser padding */
 }
@@ -144,8 +144,8 @@ html[data-bs-theme="light"] body {
 }
 
 .navbar-nav .nav-link.navbar-item-lg {
-    font-size: 1.12rem;  /* nebo jak chceš větší */
-    font-weight: 500;    /* polotučné */
+    font-size: 1.2rem;  /* větší písmo */
+    font-weight: 600;   /* polotučné */
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
 }
@@ -155,4 +155,15 @@ html[data-bs-theme="light"] body {
     font-weight: 500;    /* polotučné */
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
+}
+
+@media (min-width: 1500px) {
+  .d-xxxl-inline {
+    display: inline !important;
+  }
+}
+@media (max-width: 1499.98px) {
+  .d-xxxl-inline {
+    display: none !important;
+  }
 }
