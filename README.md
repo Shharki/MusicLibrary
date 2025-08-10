@@ -99,7 +99,7 @@ The ER diagram image is located in the docs directory. You can update or
 regenerate it using your favorite diagram tool.
 
 #### Database (ER Diagram)  
-![ER diagram](./files/ER_diagram_v3.png)
+![ER diagram](./files/ER_diagram.png)
 
 ## Contribution Guidelines
 Contributions are welcome! Please follow these steps:
