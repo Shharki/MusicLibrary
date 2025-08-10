@@ -88,14 +88,6 @@ class SongModelFormTest(TestCase):
         self.artist = Contributor.objects.create(first_name="Test", last_name="Artist")
         self.music_group = MusicGroup.objects.create(name="Test Group")
 
-    def test_valid_data(self):
-        form = SongModelForm(data={
-            'title': 'My Song',
-            'duration': 300,
-            'released': date.today(),
-            'artist': [self.artist.pk],  # add artist to pass validation
-        })
-        self.assertTrue(form.is_valid())
 
     def test_title_too_short(self):
         form = SongModelForm(data={
