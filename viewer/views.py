@@ -1,4 +1,5 @@
 import os
+import requests
 
 from django.conf import settings
 from django.contrib import messages
@@ -964,13 +965,38 @@ class GenreDeleteView(PermissionRequiredMixin, DeleteView):
 def search_view(request):
     query = request.GET.get('q', '').strip()
     songs = []
+    external_songs = []
 
     if query:
+        # Lokální výsledky
         songs = Song.objects.filter(title__icontains=query)
+
+        # Externí výsledky z MusicBrainz (zobrazíme vždy, i když něco najdeme lokálně)
+        url = "https://musicbrainz.org/ws/2/recording"
+        params = {
+            "query": query,
+            "fmt": "json",
+            "limit": 10
+        }
+        headers = {
+            "User-Agent": "MusicLibrary/1.0 ( your-email@example.com )"
+        }
+        try:
+            response = requests.get(url, params=params, headers=headers, timeout=5)
+            if response.status_code == 200:
+                data = response.json()
+                for rec in data.get("recordings", []):
+                    external_songs.append({
+                        "title": rec.get("title"),
+                        "artist": rec["artist-credit"][0]["name"] if rec.get("artist-credit") else "Neznámý"
+                    })
+        except requests.RequestException:
+            pass
 
     context = {
         'query': query,
         'songs': songs,
+        'external_songs': external_songs
     }
     return render(request, 'search_results.html', context)
 

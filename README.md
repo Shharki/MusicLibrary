@@ -26,7 +26,7 @@ Development & CI    Git, GitHub Actions (lint + tests), PyCharm
     - [x] Alphabetical list
     - [X] Alphabetical sorting
     - [X] Paginate listing
-    - [ ] Filtering by: genre, country, language, year, album, performer, ratings
+    - [X] Filtering by: genre, country, language, album, performer
     - 1.1. Song performances implemented
 - [ ] 2. Songs – song detail
     - [X] Title
@@ -113,6 +113,8 @@ Development & CI    Git, GitHub Actions (lint + tests), PyCharm
         - [ ] Contributors (names)
         - [ ] Music group titles
     - [x] Matching results shown in dropdown or redirected filtered list 
+- [ ] 12. Templates - update
+- [ ] 13. API
   
 #### Databáze
 ![ER diagram](./files/ER_diagram_v3.png)
